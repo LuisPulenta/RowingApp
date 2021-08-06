@@ -21,8 +21,8 @@ namespace GenericApp.Prism.ViewModels
         }
 
 
-        private UserResponse _user;
-        public UserResponse User
+        private UsuarioAppResponse _user;
+        public UsuarioAppResponse User
         {
             get => _user;
             set => SetProperty(ref _user, value);
@@ -43,8 +43,7 @@ namespace GenericApp.Prism.ViewModels
         {
             if (Settings.IsLogin)
             {
-                TokenResponse token = JsonConvert.DeserializeObject<TokenResponse>(Settings.Token);
-                User = token.User;
+                User = JsonConvert.DeserializeObject<UsuarioAppResponse>(Settings.UsuarioLogueado);
             }
         }
 
@@ -64,8 +63,8 @@ namespace GenericApp.Prism.ViewModels
                 new Menu
             {
                 Icon = "ic_card_giftcard",
-                PageName = $"{nameof(ProductsPage)}",
-                Title = "Productos"
+                PageName = $"{nameof(ObrasPage)}",
+                Title = "Obras"
             },
                        
                 new Menu

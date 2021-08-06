@@ -8,6 +8,7 @@ namespace GenericApp.Common.Helpers
         private const string _token = "token";
         private const string _isLogin = "isLogin";
         private const string _product = "product";
+        private const string _obra = "obra";
         private const string _usuarioLogueado = "usuarioLogueado";
         private static readonly string _stringDefault = string.Empty;
         private static readonly bool _boolDefault = false;
@@ -36,6 +37,12 @@ namespace GenericApp.Common.Helpers
         {
             get => AppSettings.GetValueOrDefault(_product, _usuarioLogueado);
             set => AppSettings.AddOrUpdateValue(_product, value);
+        }
+
+        public static string Obra
+        {
+            get => AppSettings.GetValueOrDefault(_obra, _stringDefault);
+            set => AppSettings.AddOrUpdateValue(_obra, value);
         }
     }
 }

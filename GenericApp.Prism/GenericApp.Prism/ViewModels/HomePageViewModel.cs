@@ -31,7 +31,6 @@ namespace GenericApp.Prism.ViewModels
             if (Settings.IsLogin)
             {
                 User = JsonConvert.DeserializeObject<UsuarioAppResponse>(Settings.UsuarioLogueado);
-                
             }
         }
     }

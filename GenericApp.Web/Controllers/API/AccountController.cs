@@ -3,6 +3,7 @@ using GenericApp.Common.Responses;
 using GenericApp.Web.Data;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace GenericApp.Web.Controllers.API
@@ -46,6 +47,48 @@ namespace GenericApp.Web.Controllers.API
             };
 
             return Ok(response);
+        }
+
+
+        [HttpGet]
+        [Route("GetObras")]
+        public async Task<IActionResult> GetObras()
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest();
+            }
+
+            var obras = await _dataContext.Obras
+               
+           .Where(o => (o.Finalizada == 0) 
+           && (o.Modulo == "Rowing") 
+           && (o.GrupoAlmacen!="") 
+           && (o.GrupoCausante != "") 
+           && (o.SUPERVISORE != "Sin Asignar") 
+           && (o.CodigoEstado != "TE"))
+           .OrderBy(o => o.NroObra)
+           .GroupBy(r => new
+           {
+               r.NroObra,
+               r.NombreObra,
+               r.ELEMPEP
+           })
+           .Select(g => new
+           {
+               NroObra = g.Key.NroObra,
+               NombreObra = g.Key.NombreObra,
+               ELEMPEP = g.Key.ELEMPEP,
+               CantObras = g.Count(),
+           }).ToListAsync();
+
+
+            if (obras == null)
+            {
+                return BadRequest("No hay Obras.");
+            }
+
+            return Ok(obras);
         }
     }
 }

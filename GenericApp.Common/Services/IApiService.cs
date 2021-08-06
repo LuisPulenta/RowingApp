@@ -14,6 +14,12 @@ namespace GenericApp.Common.Services
            string email,
            string password);
 
+        Task<ResponseT<object>> GetObras(
+          string urlBase,
+          string servicePrefix,
+          string controller);
+
+
         Task<Response> GetListAsync<T>(string urlBase, string servicePrefix, string controller);
 
         Task<Response> GetTokenAsync(string urlBase, string servicePrefix, string controller, TokenRequest request);
