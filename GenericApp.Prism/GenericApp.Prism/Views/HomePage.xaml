@@ -26,45 +26,22 @@
     <BoxView
       HeightRequest="5"
       MinimumHeightRequest="1"
-      BackgroundColor="Blue">
+      BackgroundColor="White">
     </BoxView> 
       
     <Label
         Text="BIENVENIDO/A"
         FontAttributes="Bold"
         FontSize="Large"
+        TextColor="White"
         HorizontalOptions="CenterAndExpand">
     </Label>
 
     <Label FontAttributes="Bold"
         FontSize="Large"
+        TextColor="White"
         Text="{Binding User.FullName}"
         HorizontalOptions="CenterAndExpand"/>
-    <ffimageloading:CachedImage x:Name="Picture" 
-                                                Aspect="AspectFit"
-                                                Source="{Binding User.PictureFullPath}" 
-                                                CacheDuration= "50"
-                                                HeightRequest="250"
-                                                Margin="5"
-                                                RetryCount= "3"
-                                                RetryDelay= "600">
-      <ffimageloading:CachedImage.Transformations>
-        <fftransformations:CircleTransformation />
-      </ffimageloading:CachedImage.Transformations>
-    </ffimageloading:CachedImage>
-    <RelativeLayout>
-      <ffimageloading:CachedImage x:Name="Team" 
-                                                RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, ElementName=Picture,Property=X,Factor=1,Constant=250}"
-                                                RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, ElementName=Picture,Property=Y,Factor=1,Constant=-650}"
-                                               
-                                                Aspect="AspectFit"
-                                                Source="{Binding User.FavoriteTeam.LogoImageFullPath}" 
-                                                CacheDuration= "100"
-                                                HeightRequest="100"
-                                                Margin="5"
-                                                RetryCount= "3"
-                                                RetryDelay= "600"/>
-
-    </RelativeLayout>
+    
   </StackLayout>
 </ContentPage>

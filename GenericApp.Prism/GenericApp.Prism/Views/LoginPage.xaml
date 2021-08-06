@@ -46,7 +46,7 @@
                         </inputLayout:SfTextInputLayout>
                     </StackLayout>
 
-                   
+
 
                 </StackLayout>
             </ScrollView>
@@ -55,7 +55,7 @@
                         IsEnabled="{Binding IsEnabled}"
                         Style="{StaticResource DangerButton}"
                         Text="Iniciar sesion"/>
-                
+
             </StackLayout>
         </StackLayout>
         <busyindicator:SfBusyIndicator AnimationType="Gear" 
@@ -63,9 +63,9 @@
                 	                   AbsoluteLayout.LayoutFlags="All"
                 	                   BackgroundColor="Transparent"
                 	                   HorizontalOptions="Center"
-                	                   TextColor="Blue"
+                	                   TextColor="#dc2221"
                 	                   IsBusy="{Binding IsRunning}"
-                	                   Title="Loading..."
+                	                   Title="Cargando..."
                 	                   VerticalOptions="Center"
                 	                   ViewBoxWidth="80"
                 	                   ViewBoxHeight="80" />

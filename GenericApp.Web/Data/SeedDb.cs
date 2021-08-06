@@ -20,11 +20,11 @@ namespace GenericApp.Web.Data
 
         public async Task SeedAsync()
         {
-            await _context.Database.EnsureCreatedAsync();
-            await CheckCountriesAsync();
-            await CheckRolesAsync();
-            await CheckStatesAsync();
-            await CheckUserAsync("17157729", "Luis", "Núñez", "luisalbertonu@gmail.com", "156 814 963", "Espora 2052", UserType.Admin);
+            //await _context.Database.EnsureCreatedAsync();
+            //await CheckCountriesAsync();
+            //await CheckRolesAsync();
+            //await CheckStatesAsync();
+            //await CheckUserAsync("17157729", "Luis", "Núñez", "luisalbertonu@gmail.com", "156 814 963", "Espora 2052", UserType.Admin);
 
         }
 

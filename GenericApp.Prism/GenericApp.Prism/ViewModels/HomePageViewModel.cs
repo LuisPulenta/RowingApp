@@ -10,8 +10,8 @@ namespace GenericApp.Prism.ViewModels
     public class HomePageViewModel : ViewModelBase
     {
         private readonly INavigationService _navigationService;
-        private UserResponse _user;
-        public UserResponse User
+        private UsuarioAppResponse _user;
+        public UsuarioAppResponse User
         {
             get => _user;
             set => SetProperty(ref _user, value);
@@ -30,8 +30,8 @@ namespace GenericApp.Prism.ViewModels
         {
             if (Settings.IsLogin)
             {
-                TokenResponse token = JsonConvert.DeserializeObject<TokenResponse>(Settings.Token);
-                User = token.User;
+                User = JsonConvert.DeserializeObject<UsuarioAppResponse>(Settings.UsuarioLogueado);
+                
             }
         }
     }

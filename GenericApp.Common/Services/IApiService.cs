@@ -7,6 +7,13 @@ namespace GenericApp.Common.Services
 {
     public interface IApiService
     {
+        Task<ResponseT<UsuarioAppResponse>> GetUserByEmailAsync(
+           string urlBase,
+           string servicePrefix,
+           string controller,
+           string email,
+           string password);
+
         Task<Response> GetListAsync<T>(string urlBase, string servicePrefix, string controller);
 
         Task<Response> GetTokenAsync(string urlBase, string servicePrefix, string controller, TokenRequest request);

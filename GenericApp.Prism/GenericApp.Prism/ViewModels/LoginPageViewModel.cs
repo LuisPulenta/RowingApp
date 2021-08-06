@@ -7,6 +7,7 @@ using Prism.Commands;
 using Prism.Navigation;
 using Xamarin.Essentials;
 using GenericApp.Common.Helpers;
+using System;
 
 namespace GenericApp.Prism.ViewModels
 {
@@ -29,6 +30,8 @@ namespace GenericApp.Prism.ViewModels
             _apiService = apiService;
             Title = "Login";
             IsEnabled = true;
+            Email = "AVASILE";
+            Password = "AVA123";
         }
 
         public DelegateCommand LoginCommand => _loginCommand ?? (_loginCommand = new DelegateCommand(LoginAsync));
@@ -75,7 +78,7 @@ namespace GenericApp.Prism.ViewModels
             {
                 await App.Current.MainPage.DisplayAlert(
                     "Error",
-                    "Debe ingresar un EMail",
+                    "Debe ingresar un Usuario",
                     "Aceptar");
                 return;
             }
@@ -84,7 +87,7 @@ namespace GenericApp.Prism.ViewModels
             {
                 await App.Current.MainPage.DisplayAlert(
                     "Error",
-                    "Debe ingresar unPassword",
+                    "Debe ingresar una Clave",
                     "Aceptar");
                 return;
             }
@@ -104,45 +107,92 @@ namespace GenericApp.Prism.ViewModels
             }
 
             string url = App.Current.Resources["UrlAPI"].ToString();
-            TokenRequest request = new TokenRequest
-            {
-                Password = Password,
-                Username = Email
-            };
 
-            Response response = await _apiService.GetTokenAsync(url, "api", "/Account/CreateToken", request);
-            IsRunning = false;
-            IsEnabled = true;
+            //*******************************************************************************
 
-            if (!response.IsSuccess)
-            {
-                await App.Current.MainPage.DisplayAlert(
-                     "Error",
-                    "Usuario o Password incorrectos",
-                    "Aceptar");
-                Password = string.Empty;
-                return;
-            }
 
-            TokenResponse token = (TokenResponse)response.Result;
+            TokenResponse token = new TokenResponse();
+            token.Token = "123";
+            token.Expiration = DateTime.Now;
+            token.User = new UserResponse();
+            token.User.Address = "";
+            token.User.City = new CityResponse();
+            token.User.Document = "";
+            token.User.Email = "";
+            token.User.FavoriteTeam = new TeamResponse();
+            token.User.FirstName = "Luis";
+            token.User.Id = "1";
+            token.User.LastName = "Nuñez";
+            token.User.PhoneNumber = "123";
+            token.User.PicturePath = null;
+            token.User.UserType = Common.Enums.UserType.Admin;
+
+
+
+
+
             Settings.Token = JsonConvert.SerializeObject(token);
             Settings.IsLogin = true;
 
-            IsRunning = false;
-            IsEnabled = true;
+
+
+            //*******************************************************************************
+
+
+
+
+            var response = await _apiService.GetUserByEmailAsync(url, "api", "/Account/GetUserByEmail", Email, Password);
+
+            if (!response.IsSuccess)
+            {
+                IsEnabled = true;
+                IsRunning = false;
+                await App.Current.MainPage.DisplayAlert("Error", "Usuario o password incorrecto.", "Aceptar");
+                //Password = string.Empty;
+                return;
+            }
+
+            //Verificar Password
+            if (!(response.Result.Contrasena.ToLower() == Password.ToLower()))
+            {
+                IsRunning = false;
+                IsEnabled = true;
+                await App.Current.MainPage.DisplayAlert("Error", "Usuario o clave incorrecta.", "Aceptar");
+                return;
+            }
+            //Verificar Usuario Habilitado
+            if (response.Result.AutorWOM != 1)
+            {
+                IsRunning = false;
+                IsEnabled = true;
+                await App.Current.MainPage.DisplayAlert("Error", "Usuario no habilitado.", "Aceptar");
+                return;
+            }
+
+            if (response.Result.Estado != 1)
+            {
+                IsRunning = false;
+                IsEnabled = true;
+                await App.Current.MainPage.DisplayAlert("Error", "Usuario no habilitado.", "Aceptar");
+                return;
+            }
+
+            Settings.UsuarioLogueado = JsonConvert.SerializeObject(response.Result);
+
+            await _navigationService.NavigateAsync("/GenericAppMasterDetailPage/NavigationPage/HomePage");
 
 
             //await _navigationService.NavigateAsync($"/{nameof(OnSaleMasterDetailPage)}/NavigationPage/{nameof(ProductsPage)}");
 
-            if (string.IsNullOrEmpty(_pageReturn))
-            {
-                await _navigationService.NavigateAsync($"/{nameof(GenericAppMasterDetailPage)}/NavigationPage/{nameof(HomePage)}");
-            }
-            else
-            {
-                await _navigationService.NavigateAsync($"/{nameof(GenericAppMasterDetailPage)}/NavigationPage/{_pageReturn}");
-            }
-            Password = string.Empty;
+            //if (string.IsNullOrEmpty(_pageReturn))
+            //{
+            //    await _navigationService.NavigateAsync($"/{nameof(GenericAppMasterDetailPage)}/NavigationPage/{nameof(HomePage)}");
+            //}
+            //else
+            //{
+            //    await _navigationService.NavigateAsync($"/{nameof(GenericAppMasterDetailPage)}/NavigationPage/{_pageReturn}");
+            //}
+            //Password = string.Empty;
         }
 
         private async void ForgotPasswordAsync()
