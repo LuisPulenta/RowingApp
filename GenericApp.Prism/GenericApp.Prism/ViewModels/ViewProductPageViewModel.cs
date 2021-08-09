@@ -31,8 +31,6 @@ namespace GenericApp.Prism.ViewModels
         private bool _isEnabled;
         public bool IsEnabled { get => _isEnabled; set => SetProperty(ref _isEnabled, value); }
 
-        private Position _position;
-
         private int _idPhoto;
         public int IdPhoto { get => _idPhoto; set => SetProperty(ref _idPhoto, value); }
 

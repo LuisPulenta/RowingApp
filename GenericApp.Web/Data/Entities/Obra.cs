@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace GenericApp.Web.Data.Entities
 {
@@ -14,5 +15,6 @@ namespace GenericApp.Web.Data.Entities
         public string Modulo { get; set; }
         public string GrupoAlmacen { get; set; }
         public string GrupoCausante { get; set; }
+        public ICollection<ObrasDocumento> ObrasDocumentos { get; set; }
     }
 }

@@ -22,7 +22,7 @@ namespace GenericApp.Prism.ViewModels
             get => _user;
             set => SetProperty(ref _user, value);
         }
-        private ObraResponse _obra;
+        
         private bool _isRunning;
         private bool _isEnabled;
         private bool _isRefreshing;
@@ -128,6 +128,8 @@ namespace GenericApp.Prism.ViewModels
                     NombreObra=a.NombreObra,
                     NroObra=a.NroObra,
                     CantObras=a.CantObras,
+                    ObrasDocumentos=a.ObrasDocumentos
+                    
                 });
                 Obras = new ObservableCollection<ObraItemViewModel>(myObraItemViewModel
                     .OrderBy(o => o.NombreObra));
@@ -142,6 +144,7 @@ namespace GenericApp.Prism.ViewModels
                     NombreObra = a.NombreObra,
                     NroObra = a.NroObra,
                     CantObras = a.CantObras,
+                    ObrasDocumentos = a.ObrasDocumentos
                 });
                 Obras = new ObservableCollection<ObraItemViewModel>(myObraItemViewModel
                     .OrderBy(o => o.NombreObra)

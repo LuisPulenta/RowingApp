@@ -37,6 +37,19 @@ namespace GenericApp.Prism.ViewModels
             set => SetProperty(ref _isEnabled, value);
         }
 
+        private int _idPhoto;
+        public int IdPhoto { get => _idPhoto; set => SetProperty(ref _idPhoto, value); }
+
+        private int _idPhotoNro;
+        public int IdPhotoNro { get => _idPhotoNro; set => SetProperty(ref _idPhotoNro, value); }
+
+        private ObservableCollection<ObrasDocumentoResponse> _images;
+        public ObservableCollection<ObrasDocumentoResponse> Images
+        {
+            get => _images;
+            set => SetProperty(ref _images, value);
+        }
+
         private bool _isRefreshing;
         public bool IsRefreshing
         {
@@ -72,25 +85,73 @@ namespace GenericApp.Prism.ViewModels
             set => SetProperty(ref _observaciones, value);
         }
 
-        private DelegateCommand _takePhotoCommand;
-        public DelegateCommand TakePhotoCommand => _takePhotoCommand ?? (_takePhotoCommand = new DelegateCommand(TakePhoto));
+        private string _nroObra;
+        public string NroObra
+        {
+            get => _nroObra;
+            set => SetProperty(ref _nroObra, value);
+        }
+
+        private string _nombreObra;
+        public string NombreObra
+        {
+            get => _nombreObra;
+            set => SetProperty(ref _nombreObra, value);
+        }
+
+        private string _eLEMPEP;
+        public string ELEMPEP
+        {
+            get => _eLEMPEP;
+            set => SetProperty(ref _eLEMPEP, value);
+        }
+
         private DelegateCommand _cancelCommand;
         public DelegateCommand CancelCommand => _cancelCommand ?? (_cancelCommand = new DelegateCommand(Cancel));
+        
+        private DelegateCommand _deletePhotoCommand;
+        public DelegateCommand DeletePhotoCommand => _deletePhotoCommand ?? (_deletePhotoCommand = new DelegateCommand(DeletePhotoAsync));
+        
+        private DelegateCommand _newPhotoCommand;
+        public DelegateCommand NewPhotoCommand => _newPhotoCommand ?? (_newPhotoCommand = new DelegateCommand(TakePhoto));
+        
         private DelegateCommand _saveCommand;
         public DelegateCommand SaveCommand => _saveCommand ?? (_saveCommand = new DelegateCommand(Save));
-        private DelegateCommand _getAddressCommand;
-
+        
+        
         public ObraPageViewModel(INavigationService navigationService, IApiService apiService, IFilesHelper filesHelper) : base(navigationService)
         {
             _navigationService = navigationService;
             _apiService = apiService;
             _filesHelper = filesHelper;
-            Obra = JsonConvert.DeserializeObject<ObraResponse>(Settings.Obra);
+            //Obra = JsonConvert.DeserializeObject<ObraResponse>(Settings.Obra);
+            //Images = new ObservableCollection<ObrasDocumentoResponse>(Obra.ObrasDocumentos);
             IsEnabled = true;
-            Title = "Obra: "+Obra.NombreObra;
+            //Title = "Obra: "+Obra.NombreObra;
             instance = this;
             ImageSource = "noimage.png";
+            
 
+        }
+
+        public override void OnNavigatedTo(INavigationParameters parameters)
+        {
+            base.OnNavigatedTo(parameters);
+
+            if (parameters.ContainsKey("obra"))
+            {
+                Obra = parameters.GetValue<ObraResponse>("obra");
+                Title = Obra.NombreObra;
+                Images = new ObservableCollection<ObrasDocumentoResponse>(Obra.ObrasDocumentos);
+                IdPhoto = 0;
+                if (Images.Count > 0)
+                {
+                    IdPhoto = Images[0].NROREGISTRO;
+                };
+                NroObra = Obra.NroObra.ToString();
+                NombreObra = Obra.NombreObra;
+                ELEMPEP = Obra.ELEMPEP;
+            }
         }
 
         #region Singleton
@@ -210,6 +271,117 @@ namespace GenericApp.Prism.ViewModels
                 });
             }
             IsRunning = false;
+        }
+
+        private async void DeletePhotoAsync()
+        {
+
+
+            if (IdPhoto == 0)
+            {
+                IsRunning = false;
+                IsEnabled = true;
+                await App.Current.MainPage.DisplayAlert(
+                    "Error",
+                    "Desplace las fotos hasta la foto que desea borrar",
+                    "Aceptar");
+                return;
+            }
+
+            if (Images.Count == 1)
+            {
+                IdPhoto = Images[0].NROREGISTRO;
+            };
+
+
+            var answer = await App.Current.MainPage.DisplayAlert(
+                "Confirmar",
+                "Está seguro de borrar esta foto?",
+                "Si",
+                "No");
+
+            if (!answer)
+            {
+                return;
+            }
+
+            IsRunning = true;
+            IsEnabled = false;
+
+
+            TokenResponse token = JsonConvert.DeserializeObject<TokenResponse>(Settings.Token);
+            string url = App.Current.Resources["UrlAPI"].ToString();
+            if (Connectivity.NetworkAccess != NetworkAccess.Internet)
+            {
+                IsRunning = false;
+                IsEnabled = true;
+                await App.Current.MainPage.DisplayAlert(
+                    "Error",
+                    "Revise su conexión a Internet",
+                    "Aceptar");
+                return;
+            }
+
+            var response = await _apiService.DeleteAsync(
+            url,
+            "api",
+            "/ProductImages",
+            IdPhoto,
+            "bearer",
+            token.Token);
+
+
+
+            if (!response.IsSuccess)
+            {
+                IsRunning = false;
+                IsEnabled = true;
+
+                await App.Current.MainPage.DisplayAlert(
+                    "Error",
+                    response.Message,
+                    "Aceptar");
+                return;
+            }
+
+            IsRunning = false;
+            IsEnabled = true;
+            IdPhoto = 0;
+            await App.Current.MainPage.DisplayAlert(
+                "Ok",
+                "Foto eliminada con éxito!!",
+                "Aceptar");
+
+            Images.Remove(Images[IdPhotoNro]);
+
+
+            ProductsPageViewModel productsPageViewModel = ProductsPageViewModel.GetInstance();
+            productsPageViewModel.LoadProductsAsync();
+            productsPageViewModel.RefreshList();
+
+
+            if (IdPhotoNro == Images.Count)
+            {
+                IdPhotoNro = 0;
+            }
+
+
+
+            if (Images.Count == 0)
+            {
+                IdPhoto = 0;
+                return;
+            }
+
+            if (Images.Count == 1)
+            {
+                IdPhotoNro = 0;
+                IdPhoto = Images[0].NROREGISTRO;
+            }
+            else
+            {
+                IdPhoto = Images[IdPhotoNro].NROREGISTRO;
+            };
         }
     }
 }
