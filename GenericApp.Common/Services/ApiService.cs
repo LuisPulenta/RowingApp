@@ -421,9 +421,7 @@ namespace GenericApp.Common.Services
             string urlBase,
             string servicePrefix,
             string controller,
-            T model,
-            string tokenType,
-            string accessToken)
+            T model)
         {
             try
             {
@@ -434,7 +432,6 @@ namespace GenericApp.Common.Services
                     BaseAddress = new Uri(urlBase)
                 };
 
-                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(tokenType, accessToken);
                 var url = $"{servicePrefix}{controller}";
                 var response = await client.PostAsync(url, content);
                 var answer = await response.Content.ReadAsStringAsync();

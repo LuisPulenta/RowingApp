@@ -489,9 +489,7 @@ namespace GenericApp.Prism.ViewModels
             url,
             "api",
             "/ProductImages",
-            myproductImage,
-            "bearer",
-            token.Token);
+            myproductImage);
 
             if (!response.IsSuccess)
             {

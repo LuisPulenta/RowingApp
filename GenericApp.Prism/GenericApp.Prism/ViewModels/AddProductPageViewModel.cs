@@ -333,9 +333,7 @@ namespace GenericApp.Prism.ViewModels
             url,
             "api",
             "/Products",
-            myproduct,
-            "bearer",
-            token.Token);
+            myproduct);
 
 
 

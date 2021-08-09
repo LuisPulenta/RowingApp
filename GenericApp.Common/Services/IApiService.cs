@@ -44,9 +44,7 @@ namespace GenericApp.Common.Services
           string urlBase,
           string servicePrefix,
           string controller,
-          T model,
-          string tokenType,
-          string accessToken);
+          T model);
 
         Task<ResponseT<object>> PutAsync<T>(
            string urlBase,
