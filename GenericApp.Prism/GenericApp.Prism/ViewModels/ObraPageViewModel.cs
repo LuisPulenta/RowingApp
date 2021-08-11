@@ -209,13 +209,13 @@ namespace GenericApp.Prism.ViewModels
                 GeneradoPor=User.FullName,
                 NroLote="App",
                 Sector="App",
-                PhotoArray = ImageArray,
+                ImageArray = ImageArray,
             };
 
             ResponseT<object> response = await _apiService.PostAsync(
             url,
             "api",
-            "/ObrasDocumentos",
+            "/ObrasDocuments",
             obrasDocumento);
 
 
@@ -269,8 +269,105 @@ namespace GenericApp.Prism.ViewModels
                     var stream = _file.GetStream();
                     return stream;
                 });
+                File = _file;
+            }
+            else
+            {
+                return;
+            }
+            IsRunning = true;
+            IsEnabled = false;
+
+            string url = App.Current.Resources["UrlAPI"].ToString();
+            if (Connectivity.NetworkAccess != NetworkAccess.Internet)
+            {
+                IsRunning = true;
+                IsEnabled = false;
+                await App.Current.MainPage.DisplayAlert(
+                    "Error",
+                    "Revise su conexión a Internet",
+                    "Aceptar");
+                return;
+            }
+
+            byte[] ImageArray = null;
+            if (File != null)
+            {
+                ImageArray = _filesHelper.ReadFully(File.GetStream());
+                File.Dispose();
+            }
+
+
+            ObraResponse obra = JsonConvert.DeserializeObject<ObraResponse>(Settings.Obra);
+            UsuarioAppResponse User = JsonConvert.DeserializeObject<UsuarioAppResponse>(Settings.UsuarioLogueado);
+
+            ObrasDocumentoRequest myobraDocument = new ObrasDocumentoRequest
+            {
+                ImageArray = ImageArray,
+                FECHA = DateTime.Now,
+                NROOBRA = obra.NroObra,
+                OBSERVACION = Observaciones,
+                Estante = "App",
+                GeneradoPor = User.FullName,
+                MODULO = "App",
+                NroLote = "App",
+                Sector = "App",
+                Obra = obra,
+            };
+
+            var response = await _apiService.PostAsync(
+            url,
+            "api",
+            "/ObrasDocuments",
+            myobraDocument);
+
+            if (!response.IsSuccess)
+            {
+                IsRunning = false;
+                IsEnabled = true;
+
+                await App.Current.MainPage.DisplayAlert(
+                    "Error",
+                    response.Message,
+                    "Aceptar");
+                return;
             }
             IsRunning = false;
+            IsEnabled = true;
+
+            await App.Current.MainPage.DisplayAlert(
+                "Ok",
+                "Guardado con éxito!!",
+                "Aceptar");
+
+            ObrasPageViewModel obrasPageViewModel = ObrasPageViewModel.GetInstance();
+            obrasPageViewModel.LoadUser();
+            obrasPageViewModel.RefreshList();
+
+            ObrasDocumentoRequest obraDocumentoRequest = (ObrasDocumentoRequest)response.Result;
+
+
+            ObrasDocumentoResponse obrasDocumentoResponse2 = new ObrasDocumentoResponse
+            {
+                NROREGISTRO = obraDocumentoRequest.NROREGISTRO,
+                LINK = obraDocumentoRequest.LINK,
+            };
+
+
+            ObraPageViewModel obraPageViewModel = ObraPageViewModel.GetInstance();
+            obraPageViewModel.Images.Add(new ObrasDocumentoResponse
+            {
+                NROREGISTRO = obrasDocumentoResponse2.NROREGISTRO,
+                LINK = obrasDocumentoResponse2.LINK,
+                NROOBRA = obra.NroObra,
+            }
+                ); ;
+
+
+            IdPhoto = Images[Images.Count - 1].NROREGISTRO;
+
+            //await _navigationService.GoBackAsync();
+
         }
 
         private async void DeletePhotoAsync()
@@ -309,7 +406,6 @@ namespace GenericApp.Prism.ViewModels
             IsEnabled = false;
 
 
-            TokenResponse token = JsonConvert.DeserializeObject<TokenResponse>(Settings.Token);
             string url = App.Current.Resources["UrlAPI"].ToString();
             if (Connectivity.NetworkAccess != NetworkAccess.Internet)
             {
@@ -325,10 +421,8 @@ namespace GenericApp.Prism.ViewModels
             var response = await _apiService.DeleteAsync(
             url,
             "api",
-            "/ProductImages",
-            IdPhoto,
-            "bearer",
-            token.Token);
+            "/ObrasDocuments",
+            IdPhoto);
 
 
 
@@ -355,9 +449,9 @@ namespace GenericApp.Prism.ViewModels
             Images.Remove(Images[IdPhotoNro]);
 
 
-            ProductsPageViewModel productsPageViewModel = ProductsPageViewModel.GetInstance();
-            productsPageViewModel.LoadProductsAsync();
-            productsPageViewModel.RefreshList();
+            ObrasPageViewModel obrasPageViewModel = ObrasPageViewModel.GetInstance();
+            obrasPageViewModel.LoadUser();
+            obrasPageViewModel.RefreshList();
 
 
             if (IdPhotoNro == Images.Count)

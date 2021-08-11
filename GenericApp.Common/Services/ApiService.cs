@@ -511,6 +511,45 @@ namespace GenericApp.Common.Services
            string urlBase,
            string servicePrefix,
            string controller,
+           int id)
+        {
+            try
+            {
+                var client = new HttpClient
+                {
+                    BaseAddress = new Uri(urlBase)
+                };
+                var url = $"{servicePrefix}{controller}/{id}";
+                var response = await client.DeleteAsync(url);
+                var answer = await response.Content.ReadAsStringAsync();
+                if (!response.IsSuccessStatusCode)
+                {
+                    return new Response
+                    {
+                        IsSuccess = false,
+                        Message = answer,
+                    };
+                }
+
+                return new Response
+                {
+                    IsSuccess = true
+                };
+            }
+            catch (Exception ex)
+            {
+                return new Response
+                {
+                    IsSuccess = false,
+                    Message = ex.Message,
+                };
+            }
+        }
+
+        public async Task<Response> DeleteAsync(
+           string urlBase,
+           string servicePrefix,
+           string controller,
            int id,
            string tokenType,
            string accessToken)

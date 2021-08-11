@@ -35,7 +35,7 @@
                             Grid.Row="0"
                             Grid.Column="0"
                             Text="Nº Obra:"
-                            TextColor="White"
+                            TextColor="LightBlue"
                             FontSize="Small"
                             VerticalOptions="Center"
                             FontAttributes="Bold"></Label>
@@ -51,7 +51,7 @@
                             Grid.Row="1"
                             Grid.Column="0"
                             Text="Nombre Obra:"
-                            TextColor="White"
+                            TextColor="LightBlue"
                             FontSize="Small"
                             VerticalOptions="Center"
                             FontAttributes="Bold"></Label>
@@ -67,7 +67,7 @@
                             Grid.Row="2"
                             Grid.Column="0"
                             Text="ELEMPEP:"
-                            TextColor="White"
+                            TextColor="LightBlue"
                             FontSize="Small"
                             VerticalOptions="Center"
                             FontAttributes="Bold"></Label>
@@ -117,22 +117,7 @@
                         <Grid.RowDefinitions>
                             <RowDefinition Height="Auto" />
                         </Grid.RowDefinitions>
-                        <Label 
-                            Grid.Row="0"
-                            Grid.Column="0"
-                            Text="Observaciones:"
-                            TextColor="White"
-                            FontSize="Small"
-                            VerticalOptions="Center"
-                            FontAttributes="Bold"></Label>
-                        <Entry 
-                            Grid.Row="0"
-                            Grid.Column="1"
-                            Text="{Binding Observaciones}"
-                            TextColor="White"
-                            FontSize="Small"
-                            VerticalOptions="Center">
-                         </Entry>
+                        
                     </Grid>
 
                     <!--***** TOMAR FOTOS *****-->
@@ -149,7 +134,6 @@
                     <ColumnDefinition Width="*" />
                     <ColumnDefinition Width="*" />
                     <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
 
                 <Grid.RowDefinitions>
@@ -163,11 +147,11 @@
           Grid.Row="0"
           Grid.Column="0"
         Text="cancelar"
-        BackgroundColor="Red"
+        BackgroundColor="Violet"
         IsEnabled="{Binding IsEnabled}"
          CornerRadius="30"
         HeightRequest="60"
-        FontSize="Micro"
+        FontSize="Small"
         TextColor="White"
         FontAttributes="Bold"
         VerticalOptions="EndAndExpand"
@@ -178,11 +162,11 @@
           Grid.Row="0"
           Grid.Column="1"
         Text="BORRAR FOTO"
-        BackgroundColor="DarkViolet"
+        BackgroundColor="Red"
         IsEnabled="{Binding IsEnabled}"
         CornerRadius="30"
         HeightRequest="60"
-        FontSize="Micro"
+        FontSize="Small"
         TextColor="White"
         FontAttributes="Bold"
         VerticalOptions="EndAndExpand"
@@ -193,30 +177,18 @@
           Grid.Row="0"
           Grid.Column="2"
         Text="NUEVA FOTO"
-        BackgroundColor="Violet"
+        BackgroundColor="Blue"
         IsEnabled="{Binding IsEnabled}"
          CornerRadius="30"
         HeightRequest="60"
-        FontSize="Micro"
+        FontSize="Small"
         TextColor="White"
         FontAttributes="Bold"
         VerticalOptions="EndAndExpand"
         Command="{Binding NewPhotoCommand}">
                 </Button>
 
-                <Button 
-           Grid.Row="0"
-          Grid.Column="3"
-        Text="grabar"
-        BackgroundColor="Blue"
-        IsEnabled="{Binding IsEnabled}"
-         CornerRadius="30"
-        HeightRequest="60"
-        FontSize="Micro"
-        TextColor="White"
-        FontAttributes="Bold"
-        VerticalOptions="End"
-        Command="{Binding SaveCommand}"></Button>
+               
             </Grid>
         </StackLayout>
         <busyindicator:SfBusyIndicator AnimationType="Gear" 

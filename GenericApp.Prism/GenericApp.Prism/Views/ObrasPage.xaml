@@ -17,7 +17,7 @@
                  WidthRequest="200"
                  Text="{Binding Filter}"
                  TextChanged="SearchBar_TextChanged"
-                 HeightRequest="40">
+                 HeightRequest="45">
             <!--  TextChanged="SearchBar_TextChanged" -->
         </SearchBar>
         <StackLayout Orientation="Horizontal"
@@ -44,6 +44,7 @@
                 <DataTemplate>
                     <ViewCell>
                         <Frame CornerRadius="10"
+                               HeightRequest="65"
                      HasShadow="True"
                      BackgroundColor="White"
                      Margin="3"
@@ -57,6 +58,8 @@
                                         <TapGestureRecognizer Command="{Binding SelectObraCommand}" />
                                     </Grid.GestureRecognizers>
                                     <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto" />
+                                        <ColumnDefinition Width="1.5*" />
                                         <ColumnDefinition Width="Auto" />
                                         <ColumnDefinition Width="*" />
                                         <ColumnDefinition Width="48" />
@@ -84,6 +87,7 @@
                                     
                                     <Label Grid.Row="0"
                                         Grid.Column="1"
+                                        Grid.ColumnSpan="3"
                                         FontSize="Micro"
                                         FontAttributes="None"
                                         TextColor="Black"
@@ -99,6 +103,7 @@
                                     
                                     <Label Grid.Row="1"
                                         Grid.Column="1"
+                                        Grid.ColumnSpan="3"
                                         FontSize="Micro"
                                         FontAttributes="None"
                                         TextColor="Black"
@@ -119,9 +124,24 @@
                                         TextColor="Black"
                                         HorizontalOptions="Start"
                                         Text="{Binding ELEMPEP}"></Label>
-                                    
-                                    <Image Grid.Row="0"
+
+                                    <Label Grid.Row="2"
                                         Grid.Column="2"
+                                        FontSize="Micro"
+                                        FontAttributes="Bold"
+                                        TextColor="Blue"
+                                        Text="Fotos:"></Label>
+
+                                    <Label Grid.Row="2"
+                                        Grid.Column="3"
+                                        FontSize="Micro"
+                                        FontAttributes="None"
+                                        TextColor="Black"
+                                        HorizontalOptions="Start"
+                                        Text="{Binding ObrasDocumentos.Count}"></Label>
+
+                                    <Image Grid.Row="0"
+                                        Grid.Column="5"
                                         Grid.RowSpan="3"
                                         VerticalOptions="Center"
                                         Source="ic_chevron_right">

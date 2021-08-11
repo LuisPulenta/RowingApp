@@ -12,6 +12,7 @@ namespace GenericApp.Common.Responses
         public string MODULO { get; set; }
         public string NroLote { get; set; }
         public string Sector { get; set; }
+        public string Estante { get; set; }
         public string GeneradoPor { get; set; }
         public string ImageFullPath => string.IsNullOrEmpty(LINK)
           ? $"http://keypress.serveftp.net:88/RowingAppApi/images/Obras/noimage.png"

@@ -59,6 +59,12 @@ namespace GenericApp.Common.Services
            string urlBase,
            string servicePrefix,
            string controller,
+           int id);
+
+        Task<Response> DeleteAsync(
+           string urlBase,
+           string servicePrefix,
+           string controller,
            int id,
            string tokenType,
            string accessToken);

@@ -60,9 +60,7 @@ namespace GenericApp.Prism.ItemViewModels
                url,
                "api",
                "/Products",
-               this.Id,
-               "bearer",
-               token.Token);
+               this.Id);
 
             if (!response.IsSuccess)
             {
