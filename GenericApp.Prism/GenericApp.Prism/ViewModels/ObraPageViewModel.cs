@@ -1,4 +1,5 @@
 ﻿using GenericApp.Common.Helpers;
+using GenericApp.Common.Models;
 using GenericApp.Common.Requests;
 using GenericApp.Common.Responses;
 using GenericApp.Common.Services;
@@ -36,6 +37,8 @@ namespace GenericApp.Prism.ViewModels
             get => _isEnabled;
             set => SetProperty(ref _isEnabled, value);
         }
+
+       
 
         private int _idPhoto;
         public int IdPhoto { get => _idPhoto; set => SetProperty(ref _idPhoto, value); }
@@ -78,6 +81,13 @@ namespace GenericApp.Prism.ViewModels
             set => SetProperty(ref _obra, value);
         }
 
+        private string _modulo;
+        public string Modulo
+        {
+            get => _modulo;
+            set => SetProperty(ref _modulo, value);
+        }
+
         private string _observaciones;
         public string Observaciones
         {
@@ -106,6 +116,8 @@ namespace GenericApp.Prism.ViewModels
             set => SetProperty(ref _eLEMPEP, value);
         }
 
+       
+
         private DelegateCommand _cancelCommand;
         public DelegateCommand CancelCommand => _cancelCommand ?? (_cancelCommand = new DelegateCommand(Cancel));
         
@@ -113,11 +125,7 @@ namespace GenericApp.Prism.ViewModels
         public DelegateCommand DeletePhotoCommand => _deletePhotoCommand ?? (_deletePhotoCommand = new DelegateCommand(DeletePhotoAsync));
         
         private DelegateCommand _newPhotoCommand;
-        public DelegateCommand NewPhotoCommand => _newPhotoCommand ?? (_newPhotoCommand = new DelegateCommand(TakePhoto));
-        
-        private DelegateCommand _saveCommand;
-        public DelegateCommand SaveCommand => _saveCommand ?? (_saveCommand = new DelegateCommand(Save));
-        
+        public DelegateCommand NewPhotoCommand => _newPhotoCommand ?? (_newPhotoCommand = new DelegateCommand(NewPhotoAsync));
         
         public ObraPageViewModel(INavigationService navigationService, IApiService apiService, IFilesHelper filesHelper) : base(navigationService)
         {
@@ -132,6 +140,17 @@ namespace GenericApp.Prism.ViewModels
             ImageSource = "noimage.png";
             
 
+        }
+
+        private async void NewPhotoAsync()
+        {
+            NavigationParameters parameters = new NavigationParameters
+            {
+                { "obra", this }
+            };
+            Settings.Obra = JsonConvert.SerializeObject(this);
+
+            await _navigationService.NavigateAsync("TakePhotoPage", parameters);
         }
 
         public override void OnNavigatedTo(INavigationParameters parameters)
@@ -151,6 +170,8 @@ namespace GenericApp.Prism.ViewModels
                 NroObra = Obra.NroObra.ToString();
                 NombreObra = Obra.NombreObra;
                 ELEMPEP = Obra.ELEMPEP;
+                Modulo = Obra.Modulo;
+                Observaciones = Obra.OBSERVACIONES;
             }
         }
 
@@ -163,89 +184,6 @@ namespace GenericApp.Prism.ViewModels
         }
         #endregion
 
-        private async void Save()
-        {
-            if (_file == null)
-            {
-                await App.Current.MainPage.DisplayAlert("Error", "Debe cargar la foto de la Obra.", "Aceptar");
-                return;
-            }
-
-
-            IsRunning = true;
-            IsEnabled = false;
-
-            string url = App.Current.Resources["UrlAPI"].ToString();
-            if (Connectivity.NetworkAccess != NetworkAccess.Internet)
-            {
-                IsRunning = true;
-                IsEnabled = false;
-                await App.Current.MainPage.DisplayAlert(
-                    "Error",
-                    "Revise su conexión a Internet",
-                    "Aceptar");
-                return;
-            }
-
-
-            byte[] ImageArray = null;
-            if (File != null)
-            {
-                ImageArray = _filesHelper.ReadFully(File.GetStream());
-                File.Dispose();
-            }
-
-
-            UsuarioAppResponse User = JsonConvert.DeserializeObject<UsuarioAppResponse>(Settings.UsuarioLogueado);
-            
-
-            ObrasDocumentoRequest obrasDocumento = new ObrasDocumentoRequest
-            {
-                FECHA = DateTime.Now,
-                NROOBRA=Obra.NroObra,
-                OBSERVACION=Observaciones,
-                MODULO="App",
-                Estante="App",
-                GeneradoPor=User.FullName,
-                NroLote="App",
-                Sector="App",
-                ImageArray = ImageArray,
-            };
-
-            ResponseT<object> response = await _apiService.PostAsync(
-            url,
-            "api",
-            "/ObrasDocuments",
-            obrasDocumento);
-
-
-
-            if (!response.IsSuccess)
-            {
-                IsRunning = false;
-                IsEnabled = true;
-
-                await App.Current.MainPage.DisplayAlert(
-                    "Error",
-                    response.Message,
-                    "Aceptar");
-                return;
-            }
-
-            IsRunning = false;
-            IsEnabled = true;
-
-            await App.Current.MainPage.DisplayAlert(
-                "Ok",
-                "Guardado con éxito!!",
-                "Aceptar");
-
-            ObrasPageViewModel obrasPageViewModel = ObrasPageViewModel.GetInstance();
-            obrasPageViewModel.RefreshList();
-
-            await _navigationService.GoBackAsync();
-        }
-
         private async void Cancel()
         {
             await _navigationService.GoBackAsync();
@@ -253,120 +191,7 @@ namespace GenericApp.Prism.ViewModels
 
         private async void TakePhoto()
         {
-            await CrossMedia.Current.Initialize();
-            _file = await CrossMedia.Current.TakePhotoAsync(
-                new StoreCameraMediaOptions
-                {
-                    Directory = "Sample",
-                    Name = "test.jpg",
-                    PhotoSize = PhotoSize.Small,
-                }
-            );
-            if (_file != null)
-            {
-                ImageSource = ImageSource.FromStream(() =>
-                {
-                    var stream = _file.GetStream();
-                    return stream;
-                });
-                File = _file;
-            }
-            else
-            {
-                return;
-            }
-            IsRunning = true;
-            IsEnabled = false;
-
-            string url = App.Current.Resources["UrlAPI"].ToString();
-            if (Connectivity.NetworkAccess != NetworkAccess.Internet)
-            {
-                IsRunning = true;
-                IsEnabled = false;
-                await App.Current.MainPage.DisplayAlert(
-                    "Error",
-                    "Revise su conexión a Internet",
-                    "Aceptar");
-                return;
-            }
-
-            byte[] ImageArray = null;
-            if (File != null)
-            {
-                ImageArray = _filesHelper.ReadFully(File.GetStream());
-                File.Dispose();
-            }
-
-
-            ObraResponse obra = JsonConvert.DeserializeObject<ObraResponse>(Settings.Obra);
-            UsuarioAppResponse User = JsonConvert.DeserializeObject<UsuarioAppResponse>(Settings.UsuarioLogueado);
-
-            ObrasDocumentoRequest myobraDocument = new ObrasDocumentoRequest
-            {
-                ImageArray = ImageArray,
-                FECHA = DateTime.Now,
-                NROOBRA = obra.NroObra,
-                OBSERVACION = Observaciones,
-                Estante = "App",
-                GeneradoPor = User.FullName,
-                MODULO = "App",
-                NroLote = "App",
-                Sector = "App",
-                Obra = obra,
-            };
-
-            var response = await _apiService.PostAsync(
-            url,
-            "api",
-            "/ObrasDocuments",
-            myobraDocument);
-
-            if (!response.IsSuccess)
-            {
-                IsRunning = false;
-                IsEnabled = true;
-
-                await App.Current.MainPage.DisplayAlert(
-                    "Error",
-                    response.Message,
-                    "Aceptar");
-                return;
-            }
-            IsRunning = false;
-            IsEnabled = true;
-
-            await App.Current.MainPage.DisplayAlert(
-                "Ok",
-                "Guardado con éxito!!",
-                "Aceptar");
-
-            ObrasPageViewModel obrasPageViewModel = ObrasPageViewModel.GetInstance();
-            obrasPageViewModel.LoadUser();
-            obrasPageViewModel.RefreshList();
-
-            ObrasDocumentoRequest obraDocumentoRequest = (ObrasDocumentoRequest)response.Result;
-
-
-            ObrasDocumentoResponse obrasDocumentoResponse2 = new ObrasDocumentoResponse
-            {
-                NROREGISTRO = obraDocumentoRequest.NROREGISTRO,
-                LINK = obraDocumentoRequest.LINK,
-            };
-
-
-            ObraPageViewModel obraPageViewModel = ObraPageViewModel.GetInstance();
-            obraPageViewModel.Images.Add(new ObrasDocumentoResponse
-            {
-                NROREGISTRO = obrasDocumentoResponse2.NROREGISTRO,
-                LINK = obrasDocumentoResponse2.LINK,
-                NROOBRA = obra.NroObra,
-            }
-                ); ;
-
-
-            IdPhoto = Images[Images.Count - 1].NROREGISTRO;
-
-            //await _navigationService.GoBackAsync();
+            
 
         }
 
@@ -424,8 +249,6 @@ namespace GenericApp.Prism.ViewModels
             "/ObrasDocuments",
             IdPhoto);
 
-
-
             if (!response.IsSuccess)
             {
                 IsRunning = false;
@@ -448,11 +271,9 @@ namespace GenericApp.Prism.ViewModels
 
             Images.Remove(Images[IdPhotoNro]);
 
-
             ObrasPageViewModel obrasPageViewModel = ObrasPageViewModel.GetInstance();
             obrasPageViewModel.LoadUser();
             obrasPageViewModel.RefreshList();
-
 
             if (IdPhotoNro == Images.Count)
             {

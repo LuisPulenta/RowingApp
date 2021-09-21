@@ -56,22 +56,24 @@ namespace GenericApp.Prism.ViewModels
             {
                 Icon = "ic_home",
                 PageName = $"{nameof(HomePage)}",
-                Title = "Inicio"
+                Title = "Inicio",
+                IsLoginRequired = true
             },
 
 
                 new Menu
             {
-                Icon = "ic_card_giftcard",
+                Icon = "ic_construction",
                 PageName = $"{nameof(ObrasPage)}",
-                Title = "Obras"
+                Title = "Obras",
+                IsLoginRequired = true
             },
                        
                 new Menu
             {
-                Icon = "ic_person",
-                PageName = $"{nameof(ModifyUserPage)}",
-                Title = "Modificar Usuario",
+                Icon = "ic_watch_later",
+                PageName = $"{nameof(ObrasWOMPage)}",
+                Title = "Obras WOM",
                 IsLoginRequired = true
             },
            

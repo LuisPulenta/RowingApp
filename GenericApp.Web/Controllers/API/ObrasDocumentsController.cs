@@ -66,7 +66,12 @@ namespace GenericApp.Web.Controllers.API
                 MODULO=request.MODULO,
                 NroLote=request.NroLote,
                 Sector=request.Sector,
-            };
+                Latitud = request.Latitud,
+                Longitud = request.Longitud,
+                FechaHsFoto = request.FechaHsFoto,
+                TipoDeFoto = request.TipoDeFoto,
+                DireccionFoto = request.DireccionFoto
+    };
 
             _context.ObrasDocumentos.Add(obraDocumento);
             await _context.SaveChangesAsync();

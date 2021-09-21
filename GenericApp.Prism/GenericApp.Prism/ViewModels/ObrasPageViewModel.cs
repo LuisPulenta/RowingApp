@@ -128,6 +128,8 @@ namespace GenericApp.Prism.ViewModels
                     NombreObra=a.NombreObra,
                     NroObra=a.NroObra,
                     CantObras=a.CantObras,
+                    OBSERVACIONES=a.OBSERVACIONES,
+                    Modulo=a.Modulo,
                     ObrasDocumentos=a.ObrasDocumentos
                     
                 });
@@ -144,6 +146,8 @@ namespace GenericApp.Prism.ViewModels
                     NombreObra = a.NombreObra,
                     NroObra = a.NroObra,
                     CantObras = a.CantObras,
+                    OBSERVACIONES = a.OBSERVACIONES,
+                    Modulo = a.Modulo,
                     ObrasDocumentos = a.ObrasDocumentos
                 });
                 Obras = new ObservableCollection<ObraItemViewModel>(myObraItemViewModel

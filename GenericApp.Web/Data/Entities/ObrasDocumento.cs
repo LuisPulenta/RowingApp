@@ -16,5 +16,10 @@ namespace GenericApp.Web.Data.Entities
         public string Sector { get; set; }
         public string Estante { get; set; }
         public string GeneradoPor { get; set; }
+        public double? Latitud { get; set; }
+        public double? Longitud { get; set; }
+        public DateTime? FechaHsFoto { get; set; }
+        public int? TipoDeFoto { get; set; }
+        public string DireccionFoto { get; set; }
     }
 }

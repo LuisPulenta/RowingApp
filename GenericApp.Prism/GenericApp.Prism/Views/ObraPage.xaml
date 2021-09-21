@@ -66,7 +66,7 @@
                         <Label 
                             Grid.Row="2"
                             Grid.Column="0"
-                            Text="ELEMPEP:"
+                            Text="OP/N°Fuga:"
                             TextColor="LightBlue"
                             FontSize="Small"
                             VerticalOptions="Center"
@@ -86,7 +86,7 @@
                               x:Name="rotator" 
                               SelectedIndexChanged="Rotator_SelectedIndexChanged"
                               BackgroundColor="White"
-                              EnableAutoPlay="True"
+                              EnableAutoPlay="False"
                               EnableLooping="True"
                               HeightRequest="300"
                               ItemsSource="{Binding Images}"
@@ -145,7 +145,7 @@
 
                 <Button 
           Grid.Row="0"
-          Grid.Column="0"
+          Grid.Column="2"
         Text="cancelar"
         BackgroundColor="Violet"
         IsEnabled="{Binding IsEnabled}"
@@ -175,7 +175,7 @@
 
                 <Button 
           Grid.Row="0"
-          Grid.Column="2"
+          Grid.Column="0"
         Text="NUEVA FOTO"
         BackgroundColor="Blue"
         IsEnabled="{Binding IsEnabled}"

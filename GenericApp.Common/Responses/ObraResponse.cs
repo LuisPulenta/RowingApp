@@ -8,6 +8,8 @@ namespace GenericApp.Common.Responses
         public int NroObra { get; set; }
         public string NombreObra { get; set; }
         public string ELEMPEP { get; set; }
+        public string OBSERVACIONES { get; set; }
+        public string Modulo { get; set; }
         public int CantObras { get; set; }
         public ICollection<ObrasDocumentoResponse> ObrasDocumentos { get; set; }
         public int ObrasDocumentsNumber => ObrasDocumentos == null ? 0 : ObrasDocumentos.Count;

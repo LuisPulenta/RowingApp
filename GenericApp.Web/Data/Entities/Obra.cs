@@ -9,6 +9,7 @@ namespace GenericApp.Web.Data.Entities
         public int NroObra { get; set; }
         public string NombreObra { get; set; }
         public string ELEMPEP { get; set; }
+        public string OBSERVACIONES { get; set; }
         public int Finalizada { get; set; }
         public string SUPERVISORE { get; set; }
         public string CodigoEstado { get; set; }
