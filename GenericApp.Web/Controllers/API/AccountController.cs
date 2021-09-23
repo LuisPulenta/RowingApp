@@ -62,7 +62,7 @@ namespace GenericApp.Web.Controllers.API
             var obras = await _dataContext.Obras
             .Include(p => p.ObrasDocumentos)
            .Where(o => (o.Finalizada == 0) 
-           && (o.Modulo == "Rowing") 
+           && (o.Modulo == "Energia") 
            && (o.GrupoAlmacen!="") 
            && (o.GrupoCausante != "") 
            && (o.SUPERVISORE != "Sin Asignar") 

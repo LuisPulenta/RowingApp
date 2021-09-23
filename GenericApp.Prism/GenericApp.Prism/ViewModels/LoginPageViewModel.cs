@@ -30,8 +30,8 @@ namespace GenericApp.Prism.ViewModels
             _apiService = apiService;
             Title = "Login";
             IsEnabled = true;
-            Email = "AVASILE";
-            Password = "AVA123";
+            //Email = "AVASILE";
+            //Password = "AVA123";
         }
 
         public DelegateCommand LoginCommand => _loginCommand ?? (_loginCommand = new DelegateCommand(LoginAsync));
