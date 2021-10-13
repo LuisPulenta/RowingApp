@@ -178,7 +178,6 @@ namespace GenericApp.Prism.ViewModels
             ImageSource = "noimage";
             LoadTiposFoto();
             Obra = JsonConvert.DeserializeObject<ObraResponse>(Settings.Obra);
-            var b = 1;
         }
 
         private void LoadTiposFoto()
@@ -200,7 +199,6 @@ namespace GenericApp.Prism.ViewModels
                 NroObra = Obra.NroObra.ToString();
                 NombreObra = Obra.NombreObra;
                 ELEMPEP = Obra.ELEMPEP;
-                var a = 1;
             }
 
             SourcePage = parameters.GetValue<string>("sourcePage");

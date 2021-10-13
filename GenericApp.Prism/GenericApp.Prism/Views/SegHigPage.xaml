@@ -1,0 +1,81 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:prism="http://prismlibrary.com"
+             prism:ViewModelLocator.AutowireViewModel="True"
+             xmlns:ffimageloading="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
+             xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core"
+             ios:Page.UseSafeArea="true"
+             xmlns:busyindicator="clr-namespace:Syncfusion.SfBusyIndicator.XForms;assembly=Syncfusion.SfBusyIndicator.XForms"
+             xmlns:inputLayout="clr-namespace:Syncfusion.XForms.TextInputLayout;assembly=Syncfusion.Core.XForms"
+             x:Class="GenericApp.Prism.Views.SegHigPage"
+             BackgroundColor="{StaticResource ColorBackground}"
+             Title="{Binding Title}">
+    <StackLayout Padding="5">
+        <StackLayout Orientation="Horizontal">
+            <Image HeightRequest="60"
+                           Margin="5"
+                           Source="SegHig4"/>
+            <Image HeightRequest="50"
+                           Margin="5"
+                           Source="logo2"/>
+            <Image HeightRequest="60"
+                           Margin="5"
+                           Source="SegHig5"/>
+        </StackLayout>
+
+
+        <BoxView HeightRequest="50"/>
+
+        <inputLayout:SfTextInputLayout Hint="Ingrese el Legajo del empleado:" 
+                                                       ContainerType="Outlined"
+                                                       BackgroundColor="{StaticResource ColorBackground}"
+                                                       ContainerBackgroundColor="White"
+                                                       FocusedColor="White"
+                                                       UnfocusedColor="#dc2221">
+            <Entry Placeholder="Ingrese Legajo..."
+                                   Keyboard="Numeric"
+                                   Text="{Binding Legajo}" />
+        </inputLayout:SfTextInputLayout>
+
+        <BoxView HeightRequest="10"/>
+
+        <Button Command="{Binding ConsultarCommand}" 
+                        IsEnabled="{Binding IsEnabled}"
+                        Style="{StaticResource DangerButton}"
+                        Text="Consultar"/>
+
+        <BoxView HeightRequest="10"/>
+
+        <Label Text="Nombre:"
+               TextColor="White"/>
+        <Label Text="Documento:"
+               TextColor="White"/>
+
+
+
+
+        <StackLayout Orientation="Horizontal" VerticalOptions="EndAndExpand">
+
+            <Button Command="{Binding ConsultarCommand}" 
+                        IsEnabled="{Binding IsEnabled}"
+                        BackgroundColor="#781f1e"
+                        HorizontalOptions="FillAndExpand"
+                        TextColor="#D9D9D9"
+                        Text="Entregas"/>
+
+
+            <Button Command="{Binding ConsultarCommand}" 
+                        IsEnabled="{Binding IsEnabled}"
+                        BackgroundColor="#8C8C8C"
+                        HorizontalOptions="FillAndExpand"
+                        TextColor="#D9D9D9"
+                        Text="Informes"/>
+
+        </StackLayout>
+        
+        
+
+
+    </StackLayout>
+</ContentPage>

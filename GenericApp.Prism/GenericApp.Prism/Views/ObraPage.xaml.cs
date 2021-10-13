@@ -22,7 +22,6 @@ namespace GenericApp.Prism.Views
             int foto = rotator.SelectedIndex;
             obraPageViewModel.IdPhotoNro = foto;
             obraPageViewModel.IdPhoto = obraPageViewModel.Images[foto].NROREGISTRO;
-            var bb = 1;
             //DisplayAlert("Notification", "Selected Index is Changed", "Ok");
 
         }

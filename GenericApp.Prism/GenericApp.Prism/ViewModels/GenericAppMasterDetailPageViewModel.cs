@@ -76,7 +76,14 @@ namespace GenericApp.Prism.ViewModels
                 Title = "Obras WOM",
                 IsLoginRequired = true
             },
-           
+                 new Menu
+            {
+                Icon = "ic_warning",
+                PageName = $"{nameof(SegHigPage)}",
+                Title = "Seguridad e Higiene",
+                IsLoginRequired = true
+            },
+
             new Menu
             {
                 Icon = "ic_exit_to_app",

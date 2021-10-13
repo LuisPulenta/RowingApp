@@ -20,7 +20,7 @@ namespace GenericApp.Prism.ViewModels
         public HomePageViewModel(INavigationService navigationService) : base(navigationService)
         {
             _navigationService = navigationService;
-            Title = "Generic App";
+            Title = "RowingApp";
             LoadUser();
         }
         public ObservableCollection<MenuItemViewModel> Menus { get; set; }
