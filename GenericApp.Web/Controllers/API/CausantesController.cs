@@ -27,7 +27,7 @@ namespace GenericApp.Web.Controllers.API
                 return BadRequest();
             }
 
-            Data.Entities.Causante user = await _dataContext.Causantes.FirstOrDefaultAsync(o => o.codigo.ToLower() == codigo.Codigo.ToLower());
+            Data.Entities.Causante user = await _dataContext.Causantes.FirstOrDefaultAsync(o => (o.codigo.ToLower() == codigo.Codigo.ToLower()) && (o.grupo == "PPR"));
 
             if (user == null)
             {

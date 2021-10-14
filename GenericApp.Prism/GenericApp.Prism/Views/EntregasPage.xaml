@@ -1,0 +1,95 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:prism="http://prismlibrary.com"
+             prism:ViewModelLocator.AutowireViewModel="True"
+             xmlns:ffimageloading="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
+             xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core"
+             ios:Page.UseSafeArea="true"
+             xmlns:busyindicator="clr-namespace:Syncfusion.SfBusyIndicator.XForms;assembly=Syncfusion.SfBusyIndicator.XForms"
+             xmlns:inputLayout="clr-namespace:Syncfusion.XForms.TextInputLayout;assembly=Syncfusion.Core.XForms"
+             x:Class="GenericApp.Prism.Views.EntregasPage"
+             BackgroundColor="{StaticResource ColorBackground}"
+             Title="{Binding Title}">
+
+    <StackLayout>
+        <StackLayout Orientation="Horizontal">
+            <Label Text="FECHA"
+                    FontSize="Medium"
+                           FontAttributes="None"
+                           TextColor="White"
+                           HorizontalOptions="CenterAndExpand"
+                           VerticalOptions="Center"/>
+            <Label Text="ITEMS" FontSize="Medium"
+                           FontAttributes="None"
+                           TextColor="White"
+                           HorizontalOptions="StartAndExpand"
+                           VerticalOptions="Center"/>
+
+
+        </StackLayout>
+    <ListView ItemsSource="{Binding Entregas}"
+                HasUnevenRows="True"
+                IsPullToRefreshEnabled="True"
+                RefreshCommand="{Binding RefreshCommand}"
+                IsRefreshing="{Binding IsRefreshing, Mode=TwoWay}"
+                SeparatorVisibility="None">
+
+        <ListView.ItemTemplate>
+            <DataTemplate>
+                <ViewCell>
+                    <Frame CornerRadius="10"
+                     HasShadow="True"
+                     BackgroundColor="{StaticResource ColorSecondary}"
+                     Margin="3"
+                     Padding="5"
+                     >
+                        <StackLayout 
+                  >
+                            <Grid 
+                        RowSpacing="-0">
+                                <Grid.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding SelectEntregaCommand}" />
+                                </Grid.GestureRecognizers>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="3*" />
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="Auto" />
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto" />
+                                </Grid.RowDefinitions>
+
+                           <Label Grid.Row="0"
+                           Grid.Column="0"
+                           FontSize="Medium"
+                           FontAttributes="None"
+                           TextColor="White"
+                           HorizontalOptions="Start"
+                           VerticalOptions="Center"
+                           Text="{Binding fecha, StringFormat='{0:dd/MM/yyyy/ HH:mm}'}"></Label>
+
+                           <Label Grid.Row="0"
+                           Grid.Column="1"
+                           FontSize="Medium"
+                           FontAttributes="None"
+                           TextColor="White"
+                           HorizontalOptions="Start"
+                           VerticalOptions="Center"
+                           Text="{Binding CantItems}"></Label>
+
+                           <Image Grid.Row="0"
+                           Grid.Column="2"
+                                  HeightRequest="30"
+                           VerticalOptions="Center"
+                           Source="ic_chevron_right">
+                                </Image>
+                            </Grid>
+                        </StackLayout>
+                    </Frame>
+                </ViewCell>
+            </DataTemplate>
+        </ListView.ItemTemplate>
+    </ListView>
+    </StackLayout>
+</ContentPage>

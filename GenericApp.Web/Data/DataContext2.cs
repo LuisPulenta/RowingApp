@@ -10,5 +10,6 @@ namespace GenericApp.Web.Data
         {
         }
         public DbSet<Causante> Causantes { get; set; }
+        public DbSet<Entrega> ProductosStock { get; set; }
     }
 }

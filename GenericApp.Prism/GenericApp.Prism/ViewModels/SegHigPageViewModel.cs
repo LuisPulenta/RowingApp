@@ -1,6 +1,7 @@
 ﻿using GenericApp.Common.Helpers;
 using GenericApp.Common.Responses;
 using GenericApp.Common.Services;
+using GenericApp.Prism.Views;
 using Newtonsoft.Json;
 using Prism.Commands;
 using Prism.Navigation;
@@ -52,6 +53,12 @@ namespace GenericApp.Prism.ViewModels
 
         private DelegateCommand _consultarCommand;
         public DelegateCommand ConsultarCommand => _consultarCommand ?? (_consultarCommand = new DelegateCommand(ConsultarAsync));
+
+        private DelegateCommand _entregasCommand;
+        public DelegateCommand EntregasCommand => _entregasCommand ?? (_entregasCommand = new DelegateCommand(EntregasAsync));
+
+        private DelegateCommand _informesCommand;
+        public DelegateCommand InformesCommand => _informesCommand ?? (_informesCommand = new DelegateCommand(InformesAsync));
 
         public SegHigPageViewModel(INavigationService navigationService, IApiService apiService) : base(navigationService)
         {
@@ -106,5 +113,14 @@ namespace GenericApp.Prism.ViewModels
             Causante = response.Result;
         }
 
+        private async void EntregasAsync()
+        {
+            await _navigationService.NavigateAsync(nameof(EntregasPage));
+        }
+
+        private async void InformesAsync()
+        {
+            await _navigationService.NavigateAsync(nameof(InformesPage));
+        }
     }
 }

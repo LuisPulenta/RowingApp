@@ -11,6 +11,8 @@
         public string encargado { get; set; }
 
         public string telefono { get; set; }
-        
+
+        public string grupo { get; set; }
+
     }
 }

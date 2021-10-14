@@ -61,6 +61,8 @@ namespace GenericApp.Prism
             containerRegistry.RegisterForNavigation<ObrasWOMPage, ObrasWOMPageViewModel>();
             containerRegistry.RegisterForNavigation<TakePhotoPage, TakePhotoPageViewModel>();
             containerRegistry.RegisterForNavigation<SegHigPage, SegHigPageViewModel>();
+            containerRegistry.RegisterForNavigation<EntregasPage, EntregasPageViewModel>();
+            containerRegistry.RegisterForNavigation<InformesPage, InformesPageViewModel>();
         }
     }
 }

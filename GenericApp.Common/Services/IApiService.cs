@@ -25,6 +25,12 @@ namespace GenericApp.Common.Services
            string controller,
            string codigo);
 
+        Task<ResponseT<object>> GetEntregasForCodigo(
+           string urlBase,
+           string servicePrefix,
+           string controller,
+           string codigo);
+
 
         Task<Response> GetListAsync<T>(string urlBase, string servicePrefix, string controller);
 

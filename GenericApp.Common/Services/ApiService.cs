@@ -675,5 +675,50 @@ namespace GenericApp.Common.Services
                 };
             }
         }
+
+        public async Task<ResponseT<object>> GetEntregasForCodigo(
+            string urlBase,
+            string servicePrefix,
+            string controller,
+            string codigo)
+        {
+            try
+            {
+                var model = codigo ;
+                var request = JsonConvert.SerializeObject(model);
+                var content = new StringContent(request, Encoding.UTF8, "application/json");
+                var client = new HttpClient
+                {
+                    BaseAddress = new Uri(urlBase)
+                };
+
+                var url = $"{servicePrefix}{controller}";
+                var response = await client.PostAsync(url, content);
+                var answer = await response.Content.ReadAsStringAsync();
+                if (!response.IsSuccessStatusCode)
+                {
+                    return new ResponseT<object>
+                    {
+                        IsSuccess = false,
+                        Message = answer,
+                    };
+                }
+
+                var remotes = JsonConvert.DeserializeObject<List<EntregaResponse>>(answer);
+                return new ResponseT<object>
+                {
+                    IsSuccess = true,
+                    Result = remotes
+                };
+            }
+            catch (Exception ex)
+            {
+                return new ResponseT<object>
+                {
+                    IsSuccess = false,
+                    Message = ex.Message,
+                };
+            }
+        }
     }
 }

@@ -40,7 +40,6 @@
                                                        FocusedColor="White"
                                                        UnfocusedColor="#dc2221">
             <Entry Placeholder="Ingrese Legajo..."
-                                   Keyboard="Numeric"
                                    Text="{Binding Legajo}" />
         </inputLayout:SfTextInputLayout>
 
@@ -115,7 +114,7 @@
 
         <StackLayout Orientation="Horizontal" VerticalOptions="EndAndExpand">
 
-            <Button Command="{Binding ConsultarCommand}" 
+            <Button Command="{Binding EntregasCommand}" 
                         IsEnabled="{Binding IsEnabled}"
                         BackgroundColor="#781f1e"
                         HorizontalOptions="FillAndExpand"
@@ -123,7 +122,7 @@
                         Text="Entregas"/>
 
 
-            <Button Command="{Binding ConsultarCommand}" 
+            <Button Command="{Binding InformesCommand}" 
                         IsEnabled="{Binding IsEnabled}"
                         BackgroundColor="#8C8C8C"
                         HorizontalOptions="FillAndExpand"
