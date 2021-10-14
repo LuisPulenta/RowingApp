@@ -8,25 +8,26 @@
              ios:Page.UseSafeArea="true"
              xmlns:busyindicator="clr-namespace:Syncfusion.SfBusyIndicator.XForms;assembly=Syncfusion.SfBusyIndicator.XForms"
              xmlns:inputLayout="clr-namespace:Syncfusion.XForms.TextInputLayout;assembly=Syncfusion.Core.XForms"
-             x:Class="GenericApp.Prism.Views.EntregasPage"
+             x:Class="GenericApp.Prism.Views.EntregaDetallePage"
              BackgroundColor="{StaticResource ColorBackground}"
              Title="{Binding Title}">
+    
     <AbsoluteLayout>
         <StackLayout AbsoluteLayout.LayoutBounds="0,0,1,1"
                      AbsoluteLayout.LayoutFlags="All" 
                      Padding="5">
 
-        <Grid Padding="5,5">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="Auto" />
-                <ColumnDefinition Width="*" />
-            </Grid.ColumnDefinitions>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
-            </Grid.RowDefinitions>
-            <Label 
+            <Grid Padding="5,10">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                <Label 
                             Grid.Row="0"
                             Grid.Column="0"
                             Text="Nombre:"
@@ -34,15 +35,15 @@
                             FontSize="Small"
                             VerticalOptions="Center"
                             FontAttributes="Bold"></Label>
-            <Label 
+                <Label 
                             Grid.Row="0"
                             Grid.Column="1"
                             Text="{Binding Causante.nombre}"
                             TextColor="White"
                             FontSize="Small"
                             VerticalOptions="Center">
-            </Label>
-            <Label 
+                </Label>
+                <Label 
                             Grid.Row="1"
                             Grid.Column="0"
                             Text="ENC/Puesto:"
@@ -50,15 +51,15 @@
                             FontSize="Small"
                             VerticalOptions="Center"
                             FontAttributes="Bold"></Label>
-            <Label 
+                <Label 
                             Grid.Row="1"
                             Grid.Column="1"
                             Text="{Binding Causante.encargado}"
                             TextColor="White"
                             FontSize="Small"
                             VerticalOptions="Center">
-            </Label>
-            <Label 
+                </Label>
+                <Label 
                             Grid.Row="2"
                             Grid.Column="0"
                             Text="Teléfono:"
@@ -66,68 +67,89 @@
                             FontSize="Small"
                             VerticalOptions="Center"
                             FontAttributes="Bold"></Label>
-            <Label 
+                <Label 
                             Grid.Row="2"
                             Grid.Column="1"
                             Text="{Binding Causante.telefono}"
                             TextColor="White"
                             FontSize="Small"
                             VerticalOptions="Center">
-            </Label>
-        </Grid>
-
+                </Label>
+                <Label 
+                            Grid.Row="3"
+                            Grid.Column="0"
+                            Text="Entrega:"
+                            TextColor="White"
+                            FontSize="Small"
+                            VerticalOptions="Center"
+                            FontAttributes="Bold"></Label>
+                <Label 
+                            Grid.Row="3"
+                            Grid.Column="1"
+                            Text="{Binding Entrega.fecha}"
+                            TextColor="White"
+                            FontSize="Small"
+                            VerticalOptions="Center">
+                </Label>
+            </Grid>
+            
             <BoxView HeightRequest="2"
                      BackgroundColor="White"/>
 
             <StackLayout Orientation="Horizontal">
-            <Label Text="FECHA"
-                    FontSize="Medium"
+                <Label Text="      Cod.SAP"
+                    FontSize="Small"
+                           FontAttributes="None"
+                           TextColor="White"
+                           HorizontalOptions="Start"
+                           VerticalOptions="Center"/>
+                <Label Text="Descripción" FontSize="Small"
                            FontAttributes="None"
                            TextColor="White"
                            HorizontalOptions="CenterAndExpand"
                            VerticalOptions="Center"/>
-            <Label Text="               ITEMS" FontSize="Medium"
+                <Label Text="Cantidad      " FontSize="Small"
                            FontAttributes="None"
                            TextColor="White"
-                           HorizontalOptions="StartAndExpand"
+                           HorizontalOptions="End"
                            VerticalOptions="Center"/>
-        </StackLayout>
+            </StackLayout>
 
             <BoxView HeightRequest="2"
                      BackgroundColor="White"/>
-            <ListView ItemsSource="{Binding Entregas}"
+
+            <ListView ItemsSource="{Binding EntregaDetalle}"
                 HasUnevenRows="True"
                 IsPullToRefreshEnabled="True"
                 RefreshCommand="{Binding RefreshCommand}"
                 IsRefreshing="{Binding IsRefreshing, Mode=TwoWay}"
                 SeparatorVisibility="None">
 
-        <ListView.ItemTemplate>
-            <DataTemplate>
-                <ViewCell>
-                    <Frame CornerRadius="10"
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <Frame CornerRadius="10"
                      HasShadow="True"
                      BackgroundColor="{StaticResource ColorSecondary}"
                      Margin="3"
-                     Padding="5"
-                     >
-                        <StackLayout 
-                  >
-                            <Grid 
-                        RowSpacing="-0">
-                                <Grid.GestureRecognizers>
-                                    <TapGestureRecognizer Command="{Binding SelectEntregaCommand}" />
-                                </Grid.GestureRecognizers>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="3*" />
-                                    <ColumnDefinition Width="*" />
-                                    <ColumnDefinition Width="Auto" />
-                                </Grid.ColumnDefinitions>
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="Auto" />
-                                </Grid.RowDefinitions>
+                     Padding="5">
+                <StackLayout>
+                     <Grid RowSpacing="-0">
+                         <Grid.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding SelectEntregaCommand}" />
+                         </Grid.GestureRecognizers>
+                         
+                         <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="3*" />
+                            <ColumnDefinition Width="*" />
+                         </Grid.ColumnDefinitions>
+                         
+                         <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                         </Grid.RowDefinitions>
 
-                           <Label Grid.Row="0"
+                         <Label Grid.Row="0"
                            Grid.Column="0"
                            FontSize="Medium"
                            FontAttributes="None"
@@ -136,7 +158,7 @@
                            VerticalOptions="Center"
                            Text="{Binding fecha, StringFormat='{0:dd/MM/yyyy/ HH:mm}'}"></Label>
 
-                           <Label Grid.Row="0"
+                         <Label Grid.Row="0"
                            Grid.Column="1"
                            FontSize="Medium"
                            FontAttributes="None"
@@ -145,20 +167,24 @@
                            VerticalOptions="Center"
                            Text="{Binding CantItems}"></Label>
 
-                           <Image Grid.Row="0"
+                         <Image Grid.Row="0"
                            Grid.Column="2"
-                                  HeightRequest="30"
+                           HeightRequest="30"
                            VerticalOptions="Center"
-                           Source="ic_chevron_right">
-                                </Image>
-                            </Grid>
-                        </StackLayout>
-                    </Frame>
-                </ViewCell>
-            </DataTemplate>
-        </ListView.ItemTemplate>
-    </ListView>
-    </StackLayout>
+                           Source="ic_chevron_right"></Image>
+                                    
+                     </Grid>
+                     
+                </StackLayout>
+                                
+            </Frame>
+         </ViewCell>
+     </DataTemplate>
+    </ListView.ItemTemplate>
+</ListView>
+
+
+        </StackLayout>
         <busyindicator:SfBusyIndicator AnimationType="Gear" 
                                        AbsoluteLayout.LayoutBounds=".5,.5,.5,.5"
                 	                   AbsoluteLayout.LayoutFlags="All"

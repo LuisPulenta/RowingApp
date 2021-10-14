@@ -56,9 +56,13 @@ namespace GenericApp.Prism.ViewModels
 
         public List<EntregaResponse> MyEntregas { get; set; }
 
+        private DelegateCommand _refreshCommand;
+        public DelegateCommand RefreshCommand => _refreshCommand ?? (_refreshCommand = new DelegateCommand(Refresh));
+
         public EntregasPageViewModel(INavigationService navigationService, IApiService apiService) : base(navigationService)
         {
             Entregas = new ObservableCollection<EntregaItemViewModel>();
+            Causante = JsonConvert.DeserializeObject<CausanteResponse>(Settings.Causante);
             _apiService = apiService;
             _navigationService = navigationService;
             LoadEntregas();
@@ -70,15 +74,16 @@ namespace GenericApp.Prism.ViewModels
             Causante = JsonConvert.DeserializeObject<CausanteResponse>(Settings.Causante);
             var controller = string.Format("/Entregas/GetEntregas/{0}",Causante.codigo);
             var url = App.Current.Resources["UrlAPI"].ToString();
+            IsRunning = true;
             var response = await _apiService.GetEntregasForCodigo(
                 url,
                 "api",
                 controller,
                 Causante.codigo);
             IsRefreshing = false;
+            IsRunning = false;
             if (!response.IsSuccess)
             {
-                IsRunning = false;
                 IsEnabled = true;
                 await App.Current.MainPage.DisplayAlert("Error", "Problema para recuperar datos.", "Aceptar");
                 return;
@@ -97,6 +102,13 @@ namespace GenericApp.Prism.ViewModels
                 });
                 Entregas = new ObservableCollection<EntregaItemViewModel>(myListEntregaItemViewModel.
                     OrderByDescending(o => o.fecha));
+        }
+
+        private async void Refresh()
+        {
+            IsRefreshing = true;
+            RefreshList();
+            IsRefreshing = false;
         }
     }
 }

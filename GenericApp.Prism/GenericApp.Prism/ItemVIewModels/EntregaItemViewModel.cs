@@ -1,4 +1,6 @@
-﻿using GenericApp.Common.Responses;
+﻿using GenericApp.Common.Helpers;
+using GenericApp.Common.Responses;
+using Newtonsoft.Json;
 using Prism.Commands;
 using Prism.Navigation;
 
@@ -20,8 +22,8 @@ namespace GenericApp.Prism.ItemVIewModels
 
         private async void SelectEntrega()
         {
-            //Settings.Remote = JsonConvert.SerializeObject(this);
-            //await _navigationService.NavigateAsync("RemotePage");
+            Settings.Entrega = JsonConvert.SerializeObject(this);
+            await _navigationService.NavigateAsync("EntregaDetallePage");
         }
     }
 }
