@@ -62,6 +62,52 @@ namespace GenericApp.Common.Services
             }
         }
 
+        public async Task<ResponseT<CausanteResponse>> GetCausanteByCodigoAsync(
+            string urlBase,
+            string servicePrefix,
+            string controller,
+            string codigo)
+        {
+            try
+            {
+                var request = new CausanteRequest { Codigo = codigo};
+                var requestString = JsonConvert.SerializeObject(request);
+                var content = new StringContent(requestString, Encoding.UTF8, "application/json");
+                var client = new HttpClient
+                {
+                    BaseAddress = new Uri(urlBase)
+                };
+
+                var url = $"{servicePrefix}{controller}";
+                var response = await client.PostAsync(url, content);
+                var result = await response.Content.ReadAsStringAsync();
+
+                if (!response.IsSuccessStatusCode)
+                {
+                    return new ResponseT<CausanteResponse>
+                    {
+                        IsSuccess = false,
+                        Message = result,
+                    };
+                }
+
+                var owner = JsonConvert.DeserializeObject<CausanteResponse>(result);
+                return new ResponseT<CausanteResponse>
+                {
+                    IsSuccess = true,
+                    Result = owner
+                };
+            }
+            catch (Exception ex)
+            {
+                return new ResponseT<CausanteResponse>
+                {
+                    IsSuccess = false,
+                    Message = ex.Message
+                };
+            }
+        }
+
         public async Task<Response> GetListAsync<T>(
             string urlBase,
             string servicePrefix,

@@ -19,6 +19,12 @@ namespace GenericApp.Common.Services
           string servicePrefix,
           string controller);
 
+        Task<ResponseT<CausanteResponse>> GetCausanteByCodigoAsync(
+           string urlBase,
+           string servicePrefix,
+           string controller,
+           string codigo);
+
 
         Task<Response> GetListAsync<T>(string urlBase, string servicePrefix, string controller);
 

@@ -11,7 +11,13 @@
              x:Class="GenericApp.Prism.Views.SegHigPage"
              BackgroundColor="{StaticResource ColorBackground}"
              Title="{Binding Title}">
-    <StackLayout Padding="5">
+
+    <AbsoluteLayout>
+
+        <StackLayout AbsoluteLayout.LayoutBounds="0,0,1,1"
+                     AbsoluteLayout.LayoutFlags="All" 
+                     Padding="5">
+        
         <StackLayout Orientation="Horizontal">
             <Image HeightRequest="60"
                            Margin="5"
@@ -41,19 +47,71 @@
         <BoxView HeightRequest="10"/>
 
         <Button Command="{Binding ConsultarCommand}" 
-                        IsEnabled="{Binding IsEnabled}"
+                        IsEnabled="True"
                         Style="{StaticResource DangerButton}"
                         Text="Consultar"/>
 
         <BoxView HeightRequest="10"/>
 
-        <Label Text="Nombre:"
-               TextColor="White"/>
-        <Label Text="Documento:"
-               TextColor="White"/>
-
-
-
+        <Grid Padding="5,5">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            <Label 
+                            Grid.Row="0"
+                            Grid.Column="0"
+                            Text="Nombre:"
+                            TextColor="White"
+                            FontSize="Small"
+                            VerticalOptions="Center"
+                            FontAttributes="Bold"></Label>
+            <Label 
+                            Grid.Row="0"
+                            Grid.Column="1"
+                            Text="{Binding Causante.nombre}"
+                            TextColor="White"
+                            FontSize="Small"
+                            VerticalOptions="Center">
+            </Label>
+            <Label 
+                            Grid.Row="1"
+                            Grid.Column="0"
+                            Text="ENC/Puesto:"
+                            TextColor="White"
+                            FontSize="Small"
+                            VerticalOptions="Center"
+                            FontAttributes="Bold"></Label>
+            <Label 
+                            Grid.Row="1"
+                            Grid.Column="1"
+                            Text="{Binding Causante.encargado}"
+                            TextColor="White"
+                            FontSize="Small"
+                            VerticalOptions="Center">
+            </Label>
+            <Label 
+                            Grid.Row="2"
+                            Grid.Column="0"
+                            Text="Teléfono:"
+                            TextColor="White"
+                            FontSize="Small"
+                            VerticalOptions="Center"
+                            FontAttributes="Bold"></Label>
+            <Label 
+                            Grid.Row="2"
+                            Grid.Column="1"
+                            Text="{Binding Causante.telefono}"
+                            TextColor="White"
+                            FontSize="Small"
+                            VerticalOptions="Center">
+            </Label>
+        </Grid>
 
         <StackLayout Orientation="Horizontal" VerticalOptions="EndAndExpand">
 
@@ -73,9 +131,17 @@
                         Text="Informes"/>
 
         </StackLayout>
-        
-        
-
-
     </StackLayout>
+        <busyindicator:SfBusyIndicator AnimationType="Gear" 
+                                       AbsoluteLayout.LayoutBounds=".5,.5,.5,.5"
+                	                   AbsoluteLayout.LayoutFlags="All"
+                	                   BackgroundColor="Transparent"
+                	                   HorizontalOptions="Center"
+                	                   TextColor="#dc2221"
+                	                   IsBusy="{Binding IsRunning}"
+                	                   Title="Cargando..."
+                	                   VerticalOptions="Center"
+                	                   ViewBoxWidth="80"
+                	                   ViewBoxHeight="80" />
+    </AbsoluteLayout>
 </ContentPage>

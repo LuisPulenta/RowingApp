@@ -65,12 +65,19 @@ namespace GenericApp.Web
                 };
             });
 
+            
+
 
             services.AddDbContext<DataContext>(cfg =>
             {
                 cfg.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"));
             });
-            
+
+            services.AddDbContext<DataContext2>(cfg =>
+            {
+                cfg.UseSqlServer("Server=190.111.249.225;Database=Gsp8Ezn;User Id=gaos;password=ezn2018$bs4s;Trusted_Connection=False;MultipleActiveResultSets=true");
+            });
+
             services.AddTransient<SeedDb>();
             services.AddScoped<IImageHelper, ImageHelper>();
             services.AddScoped<IConverterHelper, ConverterHelper>();
