@@ -118,7 +118,7 @@
             <BoxView HeightRequest="2"
                      BackgroundColor="White"/>
 
-            <ListView ItemsSource="{Binding EntregaDetalle}"
+            <ListView ItemsSource="{Binding EntregaDetalles}"
                 HasUnevenRows="True"
                 IsPullToRefreshEnabled="True"
                 RefreshCommand="{Binding RefreshCommand}"
@@ -135,9 +135,6 @@
                      Padding="5">
                 <StackLayout>
                      <Grid RowSpacing="-0">
-                         <Grid.GestureRecognizers>
-                            <TapGestureRecognizer Command="{Binding SelectEntregaCommand}" />
-                         </Grid.GestureRecognizers>
                          
                          <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="*" />
@@ -151,27 +148,32 @@
 
                          <Label Grid.Row="0"
                            Grid.Column="0"
-                           FontSize="Medium"
+                           FontSize="Micro"
                            FontAttributes="None"
                            TextColor="White"
                            HorizontalOptions="Start"
                            VerticalOptions="Center"
-                           Text="{Binding fecha, StringFormat='{0:dd/MM/yyyy/ HH:mm}'}"></Label>
+                           Text="{Binding CODIGOSAP}"></Label>
 
                          <Label Grid.Row="0"
                            Grid.Column="1"
-                           FontSize="Medium"
+                           FontSize="Micro"
                            FontAttributes="None"
                            TextColor="White"
                            HorizontalOptions="Start"
                            VerticalOptions="Center"
-                           Text="{Binding CantItems}"></Label>
+                           Text="{Binding Denominacion}"></Label>
 
-                         <Image Grid.Row="0"
+                         <Label Grid.Row="0"
                            Grid.Column="2"
-                           HeightRequest="30"
+                           FontSize="Micro"
+                           FontAttributes="None"
+                           TextColor="White"
+                           HorizontalOptions="Start"
                            VerticalOptions="Center"
-                           Source="ic_chevron_right"></Image>
+                           Text="{Binding stock_act}"></Label>
+
+                                       
                                     
                      </Grid>
                      

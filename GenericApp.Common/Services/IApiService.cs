@@ -1,5 +1,6 @@
 ﻿using GenericApp.Common.Requests;
 using GenericApp.Common.Responses;
+using System;
 using System.IO;
 using System.Threading.Tasks;
 
@@ -30,6 +31,12 @@ namespace GenericApp.Common.Services
            string servicePrefix,
            string controller,
            string codigo);
+
+        Task<Response> GetEntregaDetallesPorFecha(
+            string urlBase,
+            string servicePrefix,
+            string controller,
+            EntregaDetallesRequest model);
 
 
         Task<Response> GetListAsync<T>(string urlBase, string servicePrefix, string controller);
