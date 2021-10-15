@@ -46,11 +46,18 @@ namespace GenericApp.Prism.ViewModels
         private int _idPhotoNro;
         public int IdPhotoNro { get => _idPhotoNro; set => SetProperty(ref _idPhotoNro, value); }
 
-        private ObservableCollection<ObrasDocumentoResponse> _images;
-        public ObservableCollection<ObrasDocumentoResponse> Images
+        private ObservableCollection<ObraDocumentoResponse> _images;
+        public ObservableCollection<ObraDocumentoResponse> Images
         {
             get => _images;
             set => SetProperty(ref _images, value);
+        }
+
+        private ObservableCollection<ObraDocumentoResponse> _imagesTemp;
+        public ObservableCollection<ObraDocumentoResponse> ImagesTemp
+        {
+            get => _imagesTemp;
+            set => SetProperty(ref _imagesTemp, value);
         }
 
         private bool _isRefreshing;
@@ -126,14 +133,17 @@ namespace GenericApp.Prism.ViewModels
         
         private DelegateCommand _newPhotoCommand;
         public DelegateCommand NewPhotoCommand => _newPhotoCommand ?? (_newPhotoCommand = new DelegateCommand(NewPhotoAsync));
-        
+
+        private DelegateCommand _documentsCommand;
+        public DelegateCommand DocumentsCommand => _documentsCommand ?? (_documentsCommand = new DelegateCommand(DocumentsAsync));
+
         public ObraPageViewModel(INavigationService navigationService, IApiService apiService, IFilesHelper filesHelper) : base(navigationService)
         {
             _navigationService = navigationService;
             _apiService = apiService;
             _filesHelper = filesHelper;
             //Obra = JsonConvert.DeserializeObject<ObraResponse>(Settings.Obra);
-            //Images = new ObservableCollection<ObrasDocumentoResponse>(Obra.ObrasDocumentos);
+            //Images = new ObservableCollection<ObraDocumentoResponse>(Obra.ObrasDocumentos);
             IsEnabled = true;
             //Title = "Obra: "+Obra.NombreObra;
             instance = this;
@@ -161,7 +171,8 @@ namespace GenericApp.Prism.ViewModels
             {
                 Obra = parameters.GetValue<ObraResponse>("obra");
                 Title = Obra.NombreObra;
-                Images = new ObservableCollection<ObrasDocumentoResponse>(Obra.ObrasDocumentos);
+                ImagesTemp = new ObservableCollection<ObraDocumentoResponse>(Obra.ObrasDocumentos);
+                Images = new ObservableCollection<ObraDocumentoResponse>();
                 IdPhoto = 0;
                 if (Images.Count > 0)
                 {
@@ -172,6 +183,13 @@ namespace GenericApp.Prism.ViewModels
                 ELEMPEP = Obra.ELEMPEP;
                 Modulo = Obra.Modulo;
                 Observaciones = Obra.OBSERVACIONES;
+                foreach(ObraDocumentoResponse obraDocumentoResponse in ImagesTemp)
+                {
+                    if(obraDocumentoResponse.TipoDeFoto>=1 && obraDocumentoResponse.TipoDeFoto <= 3)
+                    {
+                        Images.Add(obraDocumentoResponse);
+                    }
+                }
             }
         }
 
@@ -297,6 +315,16 @@ namespace GenericApp.Prism.ViewModels
             {
                 IdPhoto = Images[IdPhotoNro].NROREGISTRO;
             };
+        }
+
+        private async void DocumentsAsync()
+        {
+            NavigationParameters parameters = new NavigationParameters
+            {
+                { "obra", this }
+            };
+            //Settings.Obra = JsonConvert.SerializeObject(this);
+            await _navigationService.NavigateAsync("DocumentsPage", parameters);
         }
     }
 }

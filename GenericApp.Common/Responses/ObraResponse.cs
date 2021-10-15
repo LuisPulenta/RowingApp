@@ -11,7 +11,7 @@ namespace GenericApp.Common.Responses
         public string OBSERVACIONES { get; set; }
         public string Modulo { get; set; }
         public int CantObras { get; set; }
-        public ICollection<ObrasDocumentoResponse> ObrasDocumentos { get; set; }
+        public ICollection<ObraDocumentoResponse> ObrasDocumentos { get; set; }
         public int ObrasDocumentsNumber => ObrasDocumentos == null ? 0 : ObrasDocumentos.Count;
         public string ImageFullPath => ObrasDocumentos == null || ObrasDocumentos.Count == 0
             ? $"http://keypress.serveftp.net:88/RowingAppApi/images/Obras/noimage.png"

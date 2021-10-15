@@ -25,6 +25,7 @@
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="Auto" />
                             <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="Auto" />
                         </Grid.ColumnDefinitions>
                         <Grid.RowDefinitions>
                             <RowDefinition Height="Auto" />
@@ -42,6 +43,7 @@
                         <Label 
                             Grid.Row="0"
                             Grid.Column="1"
+                            Grid.ColumnSpan="2"
                             Text="{Binding NroObra}"
                             TextColor="White"
                             FontSize="Small"
@@ -58,6 +60,7 @@
                         <Label 
                             Grid.Row="1"
                             Grid.Column="1"
+                            Grid.ColumnSpan="2"
                             Text="{Binding NombreObra}"
                             TextColor="White"
                             FontSize="Small"
@@ -74,11 +77,26 @@
                         <Label 
                             Grid.Row="2"
                             Grid.Column="1"
+                            Grid.ColumnSpan="1"
                             Text="{Binding ELEMPEP}"
                             TextColor="White"
                             FontSize="Small"
                             VerticalOptions="Center">
                         </Label>
+                        <Button 
+                            Grid.Row="2"
+                            Grid.Column="2"
+                            Text="DOCUMENTOS"
+                            BackgroundColor="Blue"
+                            IsEnabled="{Binding IsEnabled}"
+                            CornerRadius="15"
+                            HeightRequest="40"
+                            FontSize="Micro"
+                            TextColor="White"
+                            FontAttributes="Bold"
+                            VerticalOptions="EndAndExpand"
+                            Command="{Binding DocumentsCommand}">
+                        </Button>
                     </Grid>
 
 

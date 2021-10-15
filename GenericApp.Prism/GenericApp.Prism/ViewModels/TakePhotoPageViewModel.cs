@@ -31,8 +31,8 @@ namespace GenericApp.Prism.ViewModels
             set => SetProperty(ref _file, value);
         }
 
-        private ObservableCollection<ObrasDocumentoResponse> _images;
-        public ObservableCollection<ObrasDocumentoResponse> Images
+        private ObservableCollection<ObraDocumentoResponse> _images;
+        public ObservableCollection<ObraDocumentoResponse> Images
         {
             get => _images;
             set => SetProperty(ref _images, value);
@@ -195,7 +195,7 @@ namespace GenericApp.Prism.ViewModels
             {
                 Obra = parameters.GetValue<ObraResponse>("obra");
                 Title = Obra.NombreObra;
-                Images = new ObservableCollection<ObrasDocumentoResponse>(Obra.ObrasDocumentos);
+                Images = new ObservableCollection<ObraDocumentoResponse>(Obra.ObrasDocumentos);
                 NroObra = Obra.NroObra.ToString();
                 NombreObra = Obra.NombreObra;
                 ELEMPEP = Obra.ELEMPEP;
@@ -374,7 +374,7 @@ namespace GenericApp.Prism.ViewModels
 
 
             ObraPageViewModel obraPageViewModel = ObraPageViewModel.GetInstance();
-            obraPageViewModel.Images.Add(new ObrasDocumentoResponse
+            obraPageViewModel.Images.Add(new ObraDocumentoResponse
             {
                 NROREGISTRO = obraDocumentoResponse2.NROREGISTRO,
                 NROOBRA = Obra.NroObra,
