@@ -31,12 +31,31 @@ namespace GenericApp.Prism.ViewModels
             set => SetProperty(ref _obraDocumento, value);
         }
 
+        private string _pDFFile;
+        public string PDFFile
+        {
+            get => _pDFFile;
+            set => SetProperty(ref _pDFFile, value);
+        }
+
+        #region Singleton
+
+        private static DocumentoDetallePageViewModel instance;
+        public static DocumentoDetallePageViewModel GetInstance()
+        {
+            return instance;
+        }
+        #endregion
+
         public DocumentoDetallePageViewModel(INavigationService navigationService, IApiService apiService) : base(navigationService)
         {
             _navigationService = navigationService;
             _apiService = apiService;
+            instance = this;
             ObraDocumento = JsonConvert.DeserializeObject<ObraDocumentoResponse>(Settings.Documento);
+            PDFFile = ObraDocumento.LINK;
             Title = ObraDocumento.OBSERVACION;
+            var a = 1;
         }
     }
 }

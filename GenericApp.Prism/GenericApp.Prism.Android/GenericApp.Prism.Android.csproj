@@ -138,6 +138,10 @@
     <AndroidResource Include="Resources\values\strings.xml" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\GenericApp.Common\GenericApp.Common.csproj">
+      <Project>{3c949fcb-50e2-4153-bcdb-c039e3f296e5}</Project>
+      <Name>GenericApp.Common</Name>
+    </ProjectReference>
     <ProjectReference Include="..\GenericApp.Prism\GenericApp.Prism.csproj">
       <Project>{A682884C-CB44-4A89-B752-27BB634E0ABE}</Project>
       <Name>GenericApp.Prism</Name>

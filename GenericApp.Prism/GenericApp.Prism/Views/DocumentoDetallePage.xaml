@@ -3,7 +3,6 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:prism="http://prismlibrary.com"
              xmlns:busyindicator="clr-namespace:Syncfusion.SfBusyIndicator.XForms;assembly=Syncfusion.SfBusyIndicator.XForms"
-             xmlns:syncfusion="clr-namespace:Syncfusion.SfRotator.XForms;assembly=Syncfusion.SfRotator.XForms"
              xmlns:ffimageloading="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"  
              prism:ViewModelLocator.AutowireViewModel="True"
              xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core"
@@ -11,5 +10,20 @@
              x:Class="GenericApp.Prism.Views.DocumentoDetallePage"
              BackgroundColor="{StaticResource ColorBackground}"
              Title="{Binding Title}">
-  
+
+    <StackLayout>
+        <StackLayout>
+            <Label Text="WebView - PDF" 
+           VerticalOptions="Center" 
+           HorizontalOptions="Center" />
+            <WebView x:Name="navegador" Source="{Binding PDFFile}"
+                 Navigating="webOnNavigating"  
+                 HorizontalOptions="FillAndExpand"  
+                 VerticalOptions="FillAndExpand"/>
+        </StackLayout>
+    </StackLayout>
+    
+    
+
 </ContentPage>
+    
