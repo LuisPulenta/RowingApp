@@ -8,9 +8,13 @@ using GenericApp.Prism.Views;
 using GenericApp.Prism.ViewModels;
 using GenericApp.Prism.Helpers;
 using GenericApp.Common.Helpers;
+using Xamarin.Forms.Internals;
+using System.Reflection;
 
 namespace GenericApp.Prism
 {
+
+    [Preserve(AllMembers = true)]
     public partial class App
     {
         public App(IPlatformInitializer initializer)

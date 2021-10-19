@@ -1,28 +1,30 @@
 ﻿using GenericApp.Common.Helpers;
-using GenericApp.Common.Models;
-using GenericApp.Common.Requests;
 using GenericApp.Common.Responses;
 using GenericApp.Common.Services;
-using GenericApp.Prism.ItemViewModels;
 using Newtonsoft.Json;
-using Plugin.Media;
-using Plugin.Media.Abstractions;
-using Prism.Commands;
 using Prism.Navigation;
-using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
-using Xamarin.Essentials;
-using Xamarin.Forms;
-using Xamarin.Forms.Maps;
+using Syncfusion.Pdf.Parsing;
+using System.IO;
+using System.Reflection;
+using Xamarin.Forms.Internals;
 
 namespace GenericApp.Prism.ViewModels
 {
+    [Preserve(AllMembers = true)]
     public class DocumentoDetallePageViewModel : ViewModelBase
     {
+        public bool IsPdf { get; set; }
+        public string Uri { get; set; }
+
         private readonly INavigationService _navigationService;
         private readonly IApiService _apiService;
+
+        private Stream m_pdfDocumentStream;
+        public Stream PdfDocumentStream
+        {
+            get => m_pdfDocumentStream;
+            set => SetProperty(ref m_pdfDocumentStream, value);
+        }
 
         private ObraDocumentoResponse _obraDocumento;
         public ObraDocumentoResponse ObraDocumento
@@ -55,6 +57,9 @@ namespace GenericApp.Prism.ViewModels
             ObraDocumento = JsonConvert.DeserializeObject<ObraDocumentoResponse>(Settings.Documento);
             PDFFile = ObraDocumento.LINK;
             Title = ObraDocumento.OBSERVACION;
+            PdfDocumentStream = typeof(App).GetTypeInfo().Assembly.GetManifestResourceStream("GenericApp.Prism.Assets2.xaml.pdf");
+            Uri = PDFFile;
+            IsPdf = true;
             var a = 1;
         }
     }

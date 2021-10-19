@@ -5,9 +5,18 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Assets2\xaml.pdf" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="Assets2\xaml.pdf" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Plugin.Permissions" Version="3.0.0.12" />
     <PackageReference Include="Syncfusion.Xamarin.Core" Version="17.3.0.9-beta" />
     <PackageReference Include="Syncfusion.Xamarin.SfBusyIndicator" Version="17.3.0.9-beta" />
+    <PackageReference Include="Syncfusion.Xamarin.SfPdfViewer" Version="17.1.0.38" />
     <PackageReference Include="Syncfusion.Xamarin.SfRotator" Version="17.3.0.9-beta" />
     <PackageReference Include="Xam.Plugin.Media" Version="5.0.1" />
     <PackageReference Include="Xamarin.FFImageLoading.Forms" Version="2.4.11.982" />
