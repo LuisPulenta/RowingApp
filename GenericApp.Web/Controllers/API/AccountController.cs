@@ -44,7 +44,13 @@ namespace GenericApp.Web.Controllers.API
                 Apellido = user.Apellido,
                 AutorWOM = user.AutorWOM,
                 Estado = user.Estado,
-            };
+                HabilitaAPP = user.HabilitaAPP,
+                HabilitaFotos = user.HabilitaFotos,
+                HabilitaReclamos = user.HabilitaReclamos,
+                HabilitaRRHH = user.HabilitaRRHH,
+                HabilitaSSHH = user.HabilitaSSHH,
+                Modulo = user.Modulo
+    };
 
             return Ok(response);
         }

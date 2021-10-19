@@ -1,6 +1,8 @@
 ﻿using GenericApp.Common.Helpers;
 using GenericApp.Common.Models;
+using GenericApp.Common.Responses;
 using GenericApp.Prism.Views;
+using Newtonsoft.Json;
 using Prism.Commands;
 using Prism.Navigation;
 
@@ -11,15 +13,26 @@ namespace GenericApp.Prism.ItemViewModels
         private readonly INavigationService _navigationService;
         private DelegateCommand _selectMenuCommand;
 
+
+        public UsuarioAppResponse UsuarioLogueado;
+        
         public MenuItemViewModel(INavigationService navigationService)
         {
             _navigationService = navigationService;
+            UsuarioLogueado = JsonConvert.DeserializeObject<UsuarioAppResponse>(Settings.UsuarioLogueado);
         }
 
         public DelegateCommand SelectMenuCommand => _selectMenuCommand ?? (_selectMenuCommand = new DelegateCommand(SelectMenuAsync));
 
         private async void SelectMenuAsync()
         {
+
+            if (PageName == "SegHigPage" && UsuarioLogueado.HabilitaSSHH != 1)
+            {
+                await App.Current.MainPage.DisplayAlert("Aviso!", "Su Usuario no está habilitado para esta opción.", "Aceptar");
+                return;
+            }
+
             if (PageName == nameof(LoginPage) && Settings.IsLogin)
             {
                 Settings.IsLogin = false;

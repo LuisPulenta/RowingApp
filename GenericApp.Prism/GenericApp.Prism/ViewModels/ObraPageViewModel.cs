@@ -24,6 +24,13 @@ namespace GenericApp.Prism.ViewModels
         private readonly IApiService _apiService;
         private readonly IFilesHelper _filesHelper;
 
+        private UsuarioAppResponse _usuarioLogueado;
+        public UsuarioAppResponse UsuarioLogueado
+        {
+            get => _usuarioLogueado;
+            set => SetProperty(ref _usuarioLogueado, value);
+        }
+
         private bool _isRunning;
         public bool IsRunning
         {
@@ -142,6 +149,7 @@ namespace GenericApp.Prism.ViewModels
             _navigationService = navigationService;
             _apiService = apiService;
             _filesHelper = filesHelper;
+            UsuarioLogueado = JsonConvert.DeserializeObject<UsuarioAppResponse>(Settings.UsuarioLogueado);
             //Obra = JsonConvert.DeserializeObject<ObraResponse>(Settings.Obra);
             //Images = new ObservableCollection<ObraDocumentoResponse>(Obra.ObrasDocumentos);
             IsEnabled = true;
@@ -154,6 +162,12 @@ namespace GenericApp.Prism.ViewModels
 
         private async void NewPhotoAsync()
         {
+            if (UsuarioLogueado.HabilitaFotos != 1)
+            {
+                await App.Current.MainPage.DisplayAlert("Aviso!", "Su Usuario no está habilitado para sacar fotos.", "Aceptar");
+                return;
+            }
+
             NavigationParameters parameters = new NavigationParameters
             {
                 { "obra", this }
@@ -215,7 +229,12 @@ namespace GenericApp.Prism.ViewModels
 
         private async void DeletePhotoAsync()
         {
-
+                
+            if (UsuarioLogueado.HabilitaFotos!=1)
+            {
+                await App.Current.MainPage.DisplayAlert("Aviso!", "Su Usuario no está habilitado para eliminar fotos.", "Aceptar");
+                return;
+            }
 
             if (IdPhoto == 0)
             {
@@ -231,7 +250,7 @@ namespace GenericApp.Prism.ViewModels
             if (Images.Count == 1)
             {
                 IdPhoto = Images[0].NROREGISTRO;
-            };
+            }
 
 
             var answer = await App.Current.MainPage.DisplayAlert(

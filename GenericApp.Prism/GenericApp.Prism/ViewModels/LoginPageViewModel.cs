@@ -177,6 +177,14 @@ namespace GenericApp.Prism.ViewModels
                 return;
             }
 
+            if (response.Result.HabilitaAPP != 1)
+            {
+                IsRunning = false;
+                IsEnabled = true;
+                await App.Current.MainPage.DisplayAlert("Error", "Usuario no habilitado.", "Aceptar");
+                return;
+            }
+
             Settings.UsuarioLogueado = JsonConvert.SerializeObject(response.Result);
 
             await _navigationService.NavigateAsync("/GenericAppMasterDetailPage/NavigationPage/HomePage");
