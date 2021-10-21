@@ -57,6 +57,9 @@ namespace GenericApp.Prism.ViewModels
         private DelegateCommand _entregasCommand;
         public DelegateCommand EntregasCommand => _entregasCommand ?? (_entregasCommand = new DelegateCommand(EntregasAsync));
 
+        private DelegateCommand _entregas2Command;
+        public DelegateCommand Entregas2Command => _entregas2Command ?? (_entregas2Command = new DelegateCommand(Entregas2Async));
+
         private DelegateCommand _informesCommand;
         public DelegateCommand InformesCommand => _informesCommand ?? (_informesCommand = new DelegateCommand(InformesAsync));
 
@@ -116,6 +119,11 @@ namespace GenericApp.Prism.ViewModels
         private async void EntregasAsync()
         {
             await _navigationService.NavigateAsync(nameof(EntregasPage));
+        }
+
+        private async void Entregas2Async()
+        {
+            await _navigationService.NavigateAsync(nameof(Entregas2Page));
         }
 
         private async void InformesAsync()

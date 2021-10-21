@@ -32,6 +32,12 @@ namespace GenericApp.Common.Services
            string controller,
            string codigo);
 
+        Task<ResponseT<object>> GetEntregas2ForCodigo(
+          string urlBase,
+          string servicePrefix,
+          string controller,
+          string codigo);
+
         Task<Response> GetEntregaDetallesPorFecha(
             string urlBase,
             string servicePrefix,

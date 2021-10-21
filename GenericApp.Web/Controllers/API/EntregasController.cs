@@ -52,6 +52,29 @@ namespace GenericApp.Web.Controllers.API
         }
 
         [HttpPost]
+        [Route("GetEntregas2/{codigo}")]
+        public async Task<IActionResult> GetEntregas2(string Codigo)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest();
+            }
+
+            var entregas = await _dataContext.ProductosStock
+           .Where(o => (o.causante == Codigo) && (o.grupo == "PPR") && (o.stock_act > 0) && (o.fecha != null))
+
+           .OrderBy(o => o.fecha)
+           .ToListAsync();
+
+
+            if (entregas == null)
+            {
+                return BadRequest("No hay Entregas.");
+            }
+            return Ok(entregas);
+        }
+
+        [HttpPost]
         [Route("GetEntregaDetalles")]
         public async Task<IActionResult> GetTrabajos(EntregaDetallesRequest entregaDetallesRequest)
         {

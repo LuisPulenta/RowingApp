@@ -66,7 +66,7 @@ namespace GenericApp.Prism.ViewModels
             _apiService = apiService;
             _navigationService = navigationService;
             LoadEntregas();
-            Title = "Entregas";
+            Title = "Entregas por fecha";
         }
 
         public async void LoadEntregas()
