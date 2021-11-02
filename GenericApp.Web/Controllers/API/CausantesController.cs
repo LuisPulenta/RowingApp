@@ -27,7 +27,8 @@ namespace GenericApp.Web.Controllers.API
                 return BadRequest();
             }
 
-            Data.Entities.Causante user = await _dataContext.Causantes.FirstOrDefaultAsync(o => (o.codigo.ToLower() == codigo.Codigo.ToLower()) && (o.grupo == "PPR"));
+            Data.Entities.Causante user = await _dataContext.Causantes.FirstOrDefaultAsync
+                (o => (o.codigo.ToLower() == codigo.Codigo.ToLower() || o.NroSAP.ToLower() == codigo.Codigo.ToLower()) && (o.grupo == "PPR") && (o.estado));
 
             if (user == null)
             {
@@ -41,6 +42,9 @@ namespace GenericApp.Web.Controllers.API
                 encargado = user.encargado,
                 NroCausante = user.NroCausante,
                 telefono = user.telefono,
+                NroSAP=user.NroSAP,
+                grupo=user.grupo,
+                estado=user.estado
             };
 
             return Ok(response);

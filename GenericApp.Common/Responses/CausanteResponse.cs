@@ -14,5 +14,9 @@
 
         public string grupo { get; set; }
 
+        public string NroSAP { get; set; }
+
+        public bool estado { get; set; }
+
     }
 }

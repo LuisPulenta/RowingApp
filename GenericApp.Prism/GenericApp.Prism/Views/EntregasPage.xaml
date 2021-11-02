@@ -24,7 +24,9 @@
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
             <Label 
                             Grid.Row="0"
@@ -74,7 +76,37 @@
                             FontSize="Small"
                             VerticalOptions="Center">
             </Label>
-        </Grid>
+                <Label 
+                            Grid.Row="3"
+                            Grid.Column="0"
+                            Text="Legajo:"
+                            TextColor="White"
+                            FontSize="Small"
+                            VerticalOptions="Center"
+                            FontAttributes="Bold"></Label>
+                <Label 
+                            Grid.Row="3"
+                            Grid.Column="1"
+                            Text="{Binding Causante.codigo}"
+                            TextColor="White"
+                            FontSize="Small"
+                            VerticalOptions="Center"></Label>
+                <Label 
+                            Grid.Row="4"
+                            Grid.Column="0"
+                            Text="Documento:"
+                            TextColor="White"
+                            FontSize="Small"
+                            VerticalOptions="Center"
+                            FontAttributes="Bold"></Label>
+                <Label 
+                            Grid.Row="4"
+                            Grid.Column="1"
+                            Text="{Binding Causante.NroSAP}"
+                            TextColor="White"
+                            FontSize="Small"
+                            VerticalOptions="Center"></Label>
+            </Grid>
 
             <BoxView HeightRequest="2"
                      BackgroundColor="White"/>
@@ -172,3 +204,4 @@
                 	                   ViewBoxHeight="80" />
     </AbsoluteLayout>
 </ContentPage>
+    

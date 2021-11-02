@@ -33,13 +33,13 @@
 
         <BoxView HeightRequest="50"/>
 
-        <inputLayout:SfTextInputLayout Hint="Ingrese el Legajo del empleado:" 
+        <inputLayout:SfTextInputLayout Hint="Ingrese Legajo o Documento del empleado..." 
                                                        ContainerType="Outlined"
                                                        BackgroundColor="{StaticResource ColorBackground}"
                                                        ContainerBackgroundColor="White"
                                                        FocusedColor="White"
                                                        UnfocusedColor="#dc2221">
-            <Entry Placeholder="Ingrese Legajo..."
+            <Entry Placeholder="Ingrese Legajo o Documento..."
                                    Text="{Binding Legajo}" />
         </inputLayout:SfTextInputLayout>
 
@@ -92,8 +92,7 @@
                             Text="{Binding Causante.encargado}"
                             TextColor="White"
                             FontSize="Small"
-                            VerticalOptions="Center">
-            </Label>
+                            VerticalOptions="Center"></Label>
             <Label 
                             Grid.Row="2"
                             Grid.Column="0"
@@ -108,8 +107,38 @@
                             Text="{Binding Causante.telefono}"
                             TextColor="White"
                             FontSize="Small"
-                            VerticalOptions="Center">
-            </Label>
+                            VerticalOptions="Center"></Label>
+                <Label 
+                            Grid.Row="3"
+                            Grid.Column="0"
+                            Text="Legajo:"
+                            TextColor="White"
+                            FontSize="Small"
+                            VerticalOptions="Center"
+                            FontAttributes="Bold"></Label>
+                <Label 
+                            Grid.Row="3"
+                            Grid.Column="1"
+                            Text="{Binding Causante.codigo}"
+                            TextColor="White"
+                            FontSize="Small"
+                            VerticalOptions="Center"></Label>
+                <Label 
+                            Grid.Row="4"
+                            Grid.Column="0"
+                            Text="Documento:"
+                            TextColor="White"
+                            FontSize="Small"
+                            VerticalOptions="Center"
+                            FontAttributes="Bold"></Label>
+                <Label 
+                            Grid.Row="4"
+                            Grid.Column="1"
+                            Text="{Binding Causante.NroSAP}"
+                            TextColor="White"
+                            FontSize="Small"
+                            VerticalOptions="Center"></Label>
+
                 <StackLayout VerticalOptions="EndAndExpand">
                     
                 </StackLayout>
