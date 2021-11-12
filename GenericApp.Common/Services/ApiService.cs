@@ -108,6 +108,52 @@ namespace GenericApp.Common.Services
             }
         }
 
+        public async Task<ResponseT<ObrasPosteResponse>> GetTicketAsync(
+            string urlBase,
+            string servicePrefix,
+            string controller,
+            string codigo)
+        {
+            try
+            {
+                var request = new TicketRequest { ASTICKET = codigo };
+                var requestString = JsonConvert.SerializeObject(request);
+                var content = new StringContent(requestString, Encoding.UTF8, "application/json");
+                var client = new HttpClient
+                {
+                    BaseAddress = new Uri(urlBase)
+                };
+
+                var url = $"{servicePrefix}{controller}";
+                var response = await client.PostAsync(url, content);
+                var result = await response.Content.ReadAsStringAsync();
+
+                if (!response.IsSuccessStatusCode)
+                {
+                    return new ResponseT<ObrasPosteResponse>
+                    {
+                        IsSuccess = false,
+                        Message = result,
+                    };
+                }
+
+                var obrasPoste = JsonConvert.DeserializeObject<ObrasPosteResponse>(result);
+                return new ResponseT<ObrasPosteResponse>
+                {
+                    IsSuccess = true,
+                    Result = obrasPoste
+                };
+            }
+            catch (Exception ex)
+            {
+                return new ResponseT<ObrasPosteResponse>
+                {
+                    IsSuccess = false,
+                    Message = ex.Message
+                };
+            }
+        }
+
         public async Task<Response> GetListAsync<T>(
             string urlBase,
             string servicePrefix,

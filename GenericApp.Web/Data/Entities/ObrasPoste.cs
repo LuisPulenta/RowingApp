@@ -18,3 +18,4 @@ namespace GenericApp.Web.Data.Entities
         public string CERTIFICADO { get; set; }
         public ICollection<ObrasDocumento> ObrasDocumentos { get; set; }
     }
+}

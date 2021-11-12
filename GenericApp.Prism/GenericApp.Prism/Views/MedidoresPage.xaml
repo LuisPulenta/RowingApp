@@ -89,7 +89,7 @@
                 <Label 
                             Grid.Row="1"
                             Grid.Column="1"
-                            Text="{Binding ObrasPoste.DIRECCION}"
+                            Text="{Binding Domicilio}"
                             TextColor="White"
                             FontSize="Small"
                             VerticalOptions="Center"></Label>

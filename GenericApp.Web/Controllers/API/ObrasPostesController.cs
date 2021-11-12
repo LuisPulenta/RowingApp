@@ -24,7 +24,7 @@ namespace GenericApp.Web.Controllers.API
 
         [HttpPost]
         [Route("GetTicket")]
-        public async Task<IActionResult> GetCausante(TicketRequest ticket)
+        public async Task<IActionResult> GetTicket(TicketRequest ticket)
         {
             if (!ModelState.IsValid)
             {
@@ -32,7 +32,7 @@ namespace GenericApp.Web.Controllers.API
             }
 
             Data.Entities.ObrasPoste obraPoste = await _context.ObrasPostes.FirstOrDefaultAsync
-                (o => (o.ASTICKET.ToLower() == ticket.ASTICKET.ToLower()) && (o.TipoImput == "Medidores") && (o.CERTIFICADO=="SI"));
+                (o => (o.ASTICKET.ToLower() == ticket.ASTICKET.ToLower()) && (o.TipoImput == "Medidores") && (o.CERTIFICADO!="SI"));
 
             if (obraPoste == null)
             {

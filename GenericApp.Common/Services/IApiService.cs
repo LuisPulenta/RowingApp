@@ -44,6 +44,11 @@ namespace GenericApp.Common.Services
             string controller,
             EntregaDetallesRequest model);
 
+        Task<ResponseT<ObrasPosteResponse>> GetTicketAsync(
+           string urlBase,
+           string servicePrefix,
+           string controller,
+           string codigo);
 
         Task<Response> GetListAsync<T>(string urlBase, string servicePrefix, string controller);
 
