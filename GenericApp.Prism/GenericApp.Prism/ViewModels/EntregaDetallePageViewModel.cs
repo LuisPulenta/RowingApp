@@ -115,7 +115,6 @@ namespace GenericApp.Prism.ViewModels
             });
             EntregaDetalles = new ObservableCollection<EntregaDetalleResponse>(myListEntregaDetalles.
                 OrderBy(o => o.Denominacion));
-            var aa = 1;
         }
 
         private async void Refresh()

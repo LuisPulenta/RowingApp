@@ -12,9 +12,9 @@
         public int? HabilitaAPP { get; set; }
         public int? HabilitaFotos { get; set; }
         public int? HabilitaReclamos { get; set; }
-        public int? HabilitaRRHH { get; set; }
         public int? HabilitaSSHH { get; set; }
         public string Modulo { get; set; }
+        public int? HabilitaMedidores { get; set; }
 
         public string FullName => $"{Nombre} {Apellido}";
     }

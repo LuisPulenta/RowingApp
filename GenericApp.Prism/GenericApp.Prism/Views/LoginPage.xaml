@@ -20,7 +20,10 @@
                     <Image HeightRequest="150"
                            Margin="20"
                            Source="logo"/>
-
+                    <Label Text="V 3.0"
+                           HorizontalOptions="Center"
+                           VerticalOptions="Start"
+                           TextColor="White"></Label>
                     <StackLayout VerticalOptions="CenterAndExpand">
                         <inputLayout:SfTextInputLayout Hint="Usuario:" 
                                                        ContainerType="Outlined"

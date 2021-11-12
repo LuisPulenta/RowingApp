@@ -72,8 +72,8 @@ namespace GenericApp.Prism.ViewModels
                 new Menu
             {
                 Icon = "ic_watch_later",
-                PageName = $"{nameof(ObrasWOMPage)}",
-                Title = "Obras WOM",
+                PageName = $"{nameof(MedidoresPage)}",
+                Title = "Medidores",
                 IsLoginRequired = true
             },
                  new Menu

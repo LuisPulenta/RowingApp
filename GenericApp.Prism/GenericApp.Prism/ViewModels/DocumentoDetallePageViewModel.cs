@@ -60,7 +60,6 @@ namespace GenericApp.Prism.ViewModels
             PdfDocumentStream = typeof(App).GetTypeInfo().Assembly.GetManifestResourceStream("GenericApp.Prism.Assets2.xaml.pdf");
             Uri = PDFFile;
             IsPdf = true;
-            var a = 1;
         }
     }
 }

@@ -11,6 +11,7 @@ namespace GenericApp.Common.Helpers
         private const string _obra = "obra";
         private const string _obrasDocumento = "obrasDocumento";
         private const string _usuarioLogueado = "usuarioLogueado";
+        private const string _fechaLogueado = "fechaLogueado";
         private const string _causante= "causante";
         private const string _entrega = "entrega";
         private const string _documento = "documento";
@@ -41,6 +42,12 @@ namespace GenericApp.Common.Helpers
         {
             get => AppSettings.GetValueOrDefault(_usuarioLogueado, _stringDefault);
             set => AppSettings.AddOrUpdateValue(_usuarioLogueado, value);
+        }
+
+        public static string FechaLogueado
+        {
+            get => AppSettings.GetValueOrDefault(_fechaLogueado, _stringDefault);
+            set => AppSettings.AddOrUpdateValue(_fechaLogueado, value);
         }
 
         public static string Obra

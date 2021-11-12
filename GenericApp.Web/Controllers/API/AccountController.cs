@@ -47,9 +47,9 @@ namespace GenericApp.Web.Controllers.API
                 HabilitaAPP = user.HabilitaAPP,
                 HabilitaFotos = user.HabilitaFotos,
                 HabilitaReclamos = user.HabilitaReclamos,
-                HabilitaRRHH = user.HabilitaRRHH,
                 HabilitaSSHH = user.HabilitaSSHH,
-                Modulo = user.Modulo
+                Modulo = user.Modulo,
+                HabilitaMedidores=user.HabilitaMedidores
     };
 
             return Ok(response);

@@ -11,6 +11,7 @@ namespace GenericApp.Web.Data
         }
         public DbSet<Usuario> Usuarios { get; set; }
         public DbSet<Obra> Obras { get; set; }
+        public DbSet<ObrasPoste> ObrasPostes { get; set; }
         public DbSet<ObrasDocumento> ObrasDocumentos { get; set; }
         public DbSet<CategoryEntity> Categories { get; set; }
         public DbSet<CityEntity> Cities { get; set; }

@@ -127,19 +127,10 @@ namespace GenericApp.Prism.ViewModels
             token.User.PicturePath = null;
             token.User.UserType = Common.Enums.UserType.Admin;
 
-
-
-
-
             Settings.Token = JsonConvert.SerializeObject(token);
             Settings.IsLogin = true;
 
-
-
             //*******************************************************************************
-
-
-
 
             var response = await _apiService.GetUserByEmailAsync(url, "api", "/Account/GetUserByEmail", Email, Password);
 
@@ -161,14 +152,6 @@ namespace GenericApp.Prism.ViewModels
                 return;
             }
             //Verificar Usuario Habilitado
-            if (response.Result.AutorWOM != 1)
-            {
-                IsRunning = false;
-                IsEnabled = true;
-                await App.Current.MainPage.DisplayAlert("Error", "Usuario no habilitado.", "Aceptar");
-                return;
-            }
-
             if (response.Result.Estado != 1)
             {
                 IsRunning = false;
@@ -185,22 +168,18 @@ namespace GenericApp.Prism.ViewModels
                 return;
             }
 
+            if (response.Result.Modulo.Equals("ObrasTasa"))
+            {
+                IsRunning = false;
+                IsEnabled = true;
+                await App.Current.MainPage.DisplayAlert("Error", "Usuario no habilitado.", "Aceptar");
+                return;
+            }
+
             Settings.UsuarioLogueado = JsonConvert.SerializeObject(response.Result);
+            Settings.FechaLogueado = JsonConvert.SerializeObject(DateTime.Today);
 
             await _navigationService.NavigateAsync("/GenericAppMasterDetailPage/NavigationPage/HomePage");
-
-
-            //await _navigationService.NavigateAsync($"/{nameof(OnSaleMasterDetailPage)}/NavigationPage/{nameof(ProductsPage)}");
-
-            //if (string.IsNullOrEmpty(_pageReturn))
-            //{
-            //    await _navigationService.NavigateAsync($"/{nameof(GenericAppMasterDetailPage)}/NavigationPage/{nameof(HomePage)}");
-            //}
-            //else
-            //{
-            //    await _navigationService.NavigateAsync($"/{nameof(GenericAppMasterDetailPage)}/NavigationPage/{_pageReturn}");
-            //}
-            //Password = string.Empty;
         }
 
         private async void ForgotPasswordAsync()
