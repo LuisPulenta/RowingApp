@@ -199,7 +199,7 @@ namespace GenericApp.Prism.ViewModels
                 Observaciones = Obra.OBSERVACIONES;
                 foreach(ObraDocumentoResponse obraDocumentoResponse in ImagesTemp)
                 {
-                    if(obraDocumentoResponse.TipoDeFoto>=1 && obraDocumentoResponse.TipoDeFoto <= 3)
+                    if(obraDocumentoResponse.TipoDeFoto>=0 && obraDocumentoResponse.TipoDeFoto <= 3)
                     {
                         Images.Add(obraDocumentoResponse);
                     }

@@ -46,7 +46,12 @@ namespace GenericApp.Prism.ViewModels
 
         public string Ticket { get; set; }
 
-        public string Domicilio { get; set; }
+        private string _domicilio;
+        public string Domicilio
+        {
+            get => _domicilio;
+            set => SetProperty(ref _domicilio, value);
+        }
 
         private DelegateCommand _consultarCommand;
         public DelegateCommand ConsultarCommand => _consultarCommand ?? (_consultarCommand = new DelegateCommand(ConsultarAsync));

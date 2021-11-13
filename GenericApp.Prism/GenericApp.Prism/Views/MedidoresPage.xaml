@@ -7,21 +7,22 @@
              xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core"
              ios:Page.UseSafeArea="true"
              xmlns:busyindicator="clr-namespace:Syncfusion.SfBusyIndicator.XForms;assembly=Syncfusion.SfBusyIndicator.XForms"
+             xmlns:syncfusion="clr-namespace:Syncfusion.SfRotator.XForms;assembly=Syncfusion.SfRotator.XForms"
              xmlns:inputLayout="clr-namespace:Syncfusion.XForms.TextInputLayout;assembly=Syncfusion.Core.XForms"
              x:Class="GenericApp.Prism.Views.MedidoresPage"
              BackgroundColor="{StaticResource ColorBackground}"
              Title="{Binding Title}">
-
-    <AbsoluteLayout>
-
+    <ScrollView>
+        <AbsoluteLayout>
+        
         <StackLayout AbsoluteLayout.LayoutBounds="0,0,1,1"
                      AbsoluteLayout.LayoutFlags="All" 
                      Padding="5">
-            <BoxView HeightRequest="5"/>
+            <BoxView HeightRequest="1"/>
 
             <Grid Padding="5,5">
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="2*" />
+                    <ColumnDefinition Width="3*" />
                     <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
@@ -41,7 +42,16 @@
                     <Entry Placeholder="Ingrese N° de Ticket..."
                                    Text="{Binding Ticket}" />
                 </inputLayout:SfTextInputLayout>
-                <Button 
+
+                    <ImageButton 
+                        Grid.Row="0"
+                        Grid.Column="1"
+                        VerticalOptions="FillAndExpand"
+                        Command="{Binding ConsultarCommand}"
+                        Source="ic_search"/>
+                
+                
+                    <!--<Button 
                       Grid.Row="0"
                     Grid.Column="1"
                     Command="{Binding ConsultarCommand}" 
@@ -49,7 +59,7 @@
                         HeightRequest="40"
                         Style="{StaticResource DangerButton}"
                         Text="Consultar"
-                    VerticalOptions="CenterAndExpand"/>
+                    VerticalOptions="CenterAndExpand"/>-->
 
             </Grid>
             <Grid Padding="5,0">
@@ -108,48 +118,204 @@
                             TextColor="White"
                             FontSize="Small"
                             VerticalOptions="Center"></Label>
-
-                <StackLayout VerticalOptions="EndAndExpand">
-
-                </StackLayout>
-
-
             </Grid>
 
+            <BoxView
+                Color="White"
+                HeightRequest="2"></BoxView>
 
-            <Grid Padding="5,5" VerticalOptions="EndAndExpand">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="*" />
-                </Grid.ColumnDefinitions>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto" />
-                </Grid.RowDefinitions>
+            
+                <inputLayout:SfTextInputLayout 
+                Padding="10,-5"
+                Hint="Serie Medidor Colocado..." 
+                                                       ContainerType="Outlined"
+                                                       BackgroundColor="{StaticResource ColorBackground}"
+                                                       ContainerBackgroundColor="White"
+                                                       FocusedColor="White"
+                                                       UnfocusedColor="#dc2221">
+                    <Entry Placeholder="Ingrese Serie Medidor Colocado..."
+                           FontSize="Small"
+                                   Text="{Binding ObrasPoste.SerieMedidorColocado}" />
+                </inputLayout:SfTextInputLayout>
 
-                <Button Command="{Binding EntregasCommand}" 
-                        Grid.Row="0"
-                        Grid.Column="0"
-                        HeightRequest="70"
+                <inputLayout:SfTextInputLayout 
+                Padding="10,-5"
+                    Hint="Precinto..." 
+                                                       ContainerType="Outlined"
+                                                       BackgroundColor="{StaticResource ColorBackground}"
+                                                       ContainerBackgroundColor="White"
+                                                       FocusedColor="White"
+                                                       UnfocusedColor="#dc2221">
+                    <Entry Placeholder="Ingrese Precinto..."
+                           FontSize="Small"
+                                   Text="{Binding ObrasPoste.Precinto}" />
+                </inputLayout:SfTextInputLayout>
+
+                <inputLayout:SfTextInputLayout 
+                    Padding="10,-5"
+                    Hint="Caja DAE..." 
+                                                       ContainerType="Outlined"
+                                                       BackgroundColor="{StaticResource ColorBackground}"
+                                                       ContainerBackgroundColor="White"
+                                                       FocusedColor="White"
+                                                       UnfocusedColor="#dc2221">
+                    <Entry Placeholder="Ingrese Caja DAE..."
+                           FontSize="Small"
+                                   Text="{Binding ObrasPoste.CajaDAE}" />
+                </inputLayout:SfTextInputLayout>
+
+                <inputLayout:SfTextInputLayout 
+                    Padding="10,-5"
+                    Hint="Lindero 1..." 
+                                                       ContainerType="Outlined"
+                                                       BackgroundColor="{StaticResource ColorBackground}"
+                                                       ContainerBackgroundColor="White"
+                                                       FocusedColor="White"
+                                                       UnfocusedColor="#dc2221">
+                    <Entry Placeholder="Ingrese Lindero 1..."
+                           FontSize="Small"
+                                   Text="{Binding ObrasPoste.Lindero1}" />
+                </inputLayout:SfTextInputLayout>
+
+                <inputLayout:SfTextInputLayout 
+                    Padding="10,-5"
+                    Hint="Lindero 2..." 
+                                                       ContainerType="Outlined"
+                    
+                                                       BackgroundColor="{StaticResource ColorBackground}"
+                                                       ContainerBackgroundColor="White"
+                                                       FocusedColor="White"
+                                                       UnfocusedColor="#dc2221">
+                    <Entry Placeholder="Ingrese Lindero 2..."
+                           FontSize="Small"
+                                   Text="{Binding ObrasPoste.Lindero2}" />
+                </inputLayout:SfTextInputLayout>
+
+                <inputLayout:SfTextInputLayout 
+                    Padding="10,-5"
+                    Hint="Observaciones..." 
+                    
+                                                       ContainerType="Outlined"
+                                                       BackgroundColor="{StaticResource ColorBackground}"
+                                                       ContainerBackgroundColor="White"
+                                                       FocusedColor="White"
+                                                       UnfocusedColor="#dc2221">
+                    <Editor Placeholder="Ingrese Observaciones..."
+                                                 HeightRequest="100"
+                            FontSize="Small"
+                                   Text="{Binding ObrasPoste.OBSERVACIONES}" />
+                </inputLayout:SfTextInputLayout>
+
+                <Button Command="{Binding SaveCommand}" 
+                        Margin="5,5"
+                        HeightRequest="50"
                         
                         IsEnabled="{Binding IsEnabled}"
                         BackgroundColor="#781f1e"
                         HorizontalOptions="FillAndExpand"
                         TextColor="#D9D9D9"
-                        Text="Cargar datos"/>
+                        Text="Guardar cambios"/>
 
-                <Button Command="{Binding Entregas2Command}" 
-                        Grid.Row="0"
-                        Grid.Column="1"
-                        HeightRequest="70"
-                     
-                        IsEnabled="{Binding IsEnabled}"
-                        BackgroundColor="#484848"
-                        HorizontalOptions="FillAndExpand"
-                        TextColor="#D9D9D9"
-                        Text="Sacar Fotos"/>
-            </Grid>
+                <BoxView
+                Color="White"
+                HeightRequest="2"></BoxView>
 
-        </StackLayout>
+
+                <syncfusion:SfRotator 
+                              x:Name="rotator" 
+                              SelectedIndexChanged="Rotator_SelectedIndexChanged"
+                              BackgroundColor="White"
+                              EnableAutoPlay="False"
+                              EnableLooping="True"
+                              HeightRequest="300"
+                              ItemsSource="{Binding Images}"
+                              NavigationDelay="5000"
+                              NavigationDirection="Horizontal"
+                              NavigationStripMode="Thumbnail"
+                              NavigationStripPosition="Bottom">
+                    <syncfusion:SfRotator.ItemTemplate>
+                        <DataTemplate>
+                            <ffimageloading:CachedImage Aspect="AspectFit"
+                                          CacheDuration="50"
+                                          DownsampleToViewSize="true"
+                                          ErrorPlaceholder="ErrorImage"
+                                          HeightRequest="300"
+                                          LoadingPlaceholder="LoaderImage"
+                                          RetryCount="3"
+                                          RetryDelay="600"
+                                          Source="{Binding ImageFullPath}" />
+                        </DataTemplate>
+                    </syncfusion:SfRotator.ItemTemplate>
+                </syncfusion:SfRotator>
+                <Grid Padding="5,5"
+                VerticalOptions="EndAndExpand">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+
+
+                    <Button 
+          Grid.Row="0"
+          Grid.Column="2"
+        Text="cancelar"
+        BackgroundColor="Violet"
+        IsEnabled="{Binding IsEnabled}"
+         CornerRadius="30"
+        HeightRequest="60"
+        FontSize="Small"
+        TextColor="White"
+        FontAttributes="Bold"
+        VerticalOptions="EndAndExpand"
+        Command="{Binding CancelCommand}">
+                    </Button>
+
+                    <Button 
+          Grid.Row="0"
+          Grid.Column="1"
+        Text="BORRAR FOTO"
+        BackgroundColor="Red"
+        IsEnabled="{Binding IsEnabled}"
+        CornerRadius="30"
+        HeightRequest="60"
+        FontSize="Small"
+        TextColor="White"
+        FontAttributes="Bold"
+        VerticalOptions="EndAndExpand"
+        Command="{Binding DeletePhotoCommand}">
+                    </Button>
+
+                    <Button 
+          Grid.Row="0"
+          Grid.Column="0"
+        Text="NUEVA FOTO"
+        BackgroundColor="Blue"
+        IsEnabled="{Binding IsEnabled}"
+         CornerRadius="30"
+        HeightRequest="60"
+        FontSize="Small"
+        TextColor="White"
+        FontAttributes="Bold"
+        VerticalOptions="EndAndExpand"
+        Command="{Binding NewPhotoCommand}">
+                    </Button>
+
+
+                </Grid>
+
+
+
+
+
+
+            </StackLayout>
         <busyindicator:SfBusyIndicator AnimationType="Gear" 
                                        AbsoluteLayout.LayoutBounds=".5,.5,.5,.5"
                 	                   AbsoluteLayout.LayoutFlags="All"
@@ -162,5 +328,6 @@
                 	                   ViewBoxWidth="80"
                 	                   ViewBoxHeight="80" />
     </AbsoluteLayout>
+    </ScrollView>
 
 </ContentPage>

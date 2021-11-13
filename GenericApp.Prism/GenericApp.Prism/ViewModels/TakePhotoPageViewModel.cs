@@ -183,9 +183,10 @@ namespace GenericApp.Prism.ViewModels
         private void LoadTiposFoto()
         {
             TiposFoto = new ObservableCollection<TipoFoto>();
+            TiposFoto.Add(new TipoFoto { Codigo = 0, Descripcion = "Relevamiento(Vereda/Calzada/Traza)", });
             TiposFoto.Add(new TipoFoto { Codigo = 1, Descripcion = "Previa al Trabajo", });
             TiposFoto.Add(new TipoFoto { Codigo = 2, Descripcion = "Durante el Trabajo", });
-            TiposFoto.Add(new TipoFoto { Codigo = 3, Descripcion = "Tras el Trabajo", });
+            TiposFoto.Add(new TipoFoto { Codigo = 3, Descripcion = "Finalización del Trabajo", });
         }
 
         public override void OnNavigatedTo(INavigationParameters parameters)

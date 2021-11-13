@@ -51,7 +51,13 @@ namespace GenericApp.Web.Controllers.API
                 NROREGISTRO = obraPoste.NROREGISTRO,
                 Telefono = obraPoste.Telefono,
                 TipoImput = obraPoste.TipoImput,
-            };
+                SerieMedidorColocado = obraPoste.SerieMedidorColocado,
+                OBSERVACIONES = obraPoste.OBSERVACIONES,
+                CajaDAE = obraPoste.CajaDAE,
+                Lindero1 = obraPoste.Lindero1,
+                Lindero2 = obraPoste.Lindero2,
+                Precinto = obraPoste.Precinto
+    };
             return Ok(response);
         }
     }

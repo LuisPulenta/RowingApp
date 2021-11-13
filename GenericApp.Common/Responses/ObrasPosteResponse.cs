@@ -15,6 +15,14 @@ namespace GenericApp.Common.Responses
         public string Telefono { get; set; }
         public string TipoImput { get; set; }
         public string CERTIFICADO { get; set; }
+
+        public string SerieMedidorColocado { get; set; }
+        public string Precinto { get; set; }
+        public string CajaDAE { get; set; }
+        public string OBSERVACIONES { get; set; }
+        public string Lindero1 { get; set; }
+        public string Lindero2 { get; set; }
+
         public int CantObras { get; set; }
         public ICollection<ObraDocumentoResponse> ObrasDocumentos { get; set; }
         public int ObrasDocumentsNumber => ObrasDocumentos == null ? 0 : ObrasDocumentos.Count;
