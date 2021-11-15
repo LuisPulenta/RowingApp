@@ -6,6 +6,7 @@ namespace GenericApp.Common.Responses
     {
         public int NROREGISTRO { get; set; }
         public int NROOBRA { get; set; }
+        public int? NROREGISTROCAB { get; set; }
         public string OBSERVACION { get; set; }
         public string LINK { get; set; }
         public DateTime? FECHA { get; set; }
@@ -22,5 +23,27 @@ namespace GenericApp.Common.Responses
         public string ImageFullPath => string.IsNullOrEmpty(LINK)
         ? $"http://keypress.serveftp.net:88/RowingAppApi/images/Obras/noimage.png"
         : $"http://keypress.serveftp.net:88/RowingAppApi{LINK.Substring(1)}";
+
+        public string DescFoto => TipoDeFoto == 0
+        ? "Relevamiento(Vereda/Calzada/Traza)"
+        : TipoDeFoto == 1
+            ? "Previa al Trabajo"
+            : TipoDeFoto == 2
+            ? "Durante el Trabajo"
+            : TipoDeFoto == 3
+            ? "Finalización del Trabajo"
+            : TipoDeFoto == 4
+            ? "N° de Medidor Colocado"
+            : TipoDeFoto == 5
+            ? "Estado de medidor retirado"
+            : TipoDeFoto == 6
+            ? "N° de Precinto"
+            : TipoDeFoto == 7
+            ? "N° de tapa o caja"
+            : TipoDeFoto == 8
+            ? "Lindero 1"
+            : TipoDeFoto == 9
+            ? "Lindero 2"
+            :"";
     }
 }

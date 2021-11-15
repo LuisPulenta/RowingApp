@@ -1,4 +1,8 @@
-﻿using Xamarin.Forms;
+﻿using GenericApp.Prism.ViewModels;
+using Syncfusion.SfRotator.XForms;
+using System;
+using Xamarin.Forms;
+
 
 namespace GenericApp.Prism.Views
 {
@@ -8,5 +12,16 @@ namespace GenericApp.Prism.Views
         {
             InitializeComponent();
         }
+
+        private void Rotator_SelectedIndexChanged(object sender, SelectedIndexChangedEventArgs e)
+        {
+            MedidoresPageViewModel medidoresPageViewModel = MedidoresPageViewModel.GetInstance();
+            int foto = rotator.SelectedIndex;
+            medidoresPageViewModel.IdPhotoNro = foto;
+            medidoresPageViewModel.IdPhoto = medidoresPageViewModel.Images[foto].NROREGISTRO;
+            DisplayAlert("Notification", "Selected Index is Changed", "Ok");
+        }
     }
 }
+
+

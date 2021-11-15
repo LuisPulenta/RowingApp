@@ -63,6 +63,12 @@ namespace GenericApp.Prism.ItemViewModels
                     return;
                 }
 
+                if (PageName == "MedidoresPage" && UsuarioLogueado.HabilitaMedidores != 1)
+                {
+                    await App.Current.MainPage.DisplayAlert("Aviso!", "Su Usuario no está habilitado para esta opción.", "Aceptar");
+                    return;
+                }
+
                 if (PageName == "LoginPage")
                 {
                     await _navigationService.NavigateAsync($"{nameof(LoginPage)}");

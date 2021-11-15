@@ -42,6 +42,108 @@
         TextColor="White"
         Text="{Binding User.FullName}"
         HorizontalOptions="CenterAndExpand"/>
-    
-  </StackLayout>
+
+        <BoxView
+      HeightRequest="2"
+      MinimumHeightRequest="1"
+      BackgroundColor="White">
+        </BoxView>
+
+        <Grid Padding="5,5">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="60" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+
+            <Label 
+                            Grid.Row="0"
+                            Grid.Column="0"
+                            Grid.ColumnSpan="3"
+                            Text="PERMISOS"
+                            TextColor="White"
+                            FontSize="Small"
+                            VerticalOptions="Center"
+                            HorizontalOptions="Center"
+                            FontAttributes="Bold"></Label>
+
+            <Label 
+                            Grid.Row="1"
+                            Grid.Column="1"
+                            Text="Sacar/Borrar Fotos:"
+                            TextColor="White"
+                            FontSize="Small"
+                            VerticalOptions="Center"
+                            FontAttributes="Bold"></Label>
+
+            <CheckBox
+                Grid.Row="1"
+                Grid.Column="2"
+                IsChecked="{Binding User.HabilitaFotos}"
+                IsEnabled="False"
+                >
+            </CheckBox>
+
+            <Label 
+                            Grid.Row="2"
+                            Grid.Column="1"
+                            Text="Seguridad e Higiene:"
+                            TextColor="White"
+                            FontSize="Small"
+                            VerticalOptions="Center"
+                            FontAttributes="Bold"></Label>
+
+            <CheckBox
+                Grid.Row="2"
+                Grid.Column="2"
+                IsChecked="{Binding User.HabilitaSSHH}"
+                IsEnabled="False"
+                >
+            </CheckBox>
+
+            <Label 
+                            Grid.Row="3"
+                            Grid.Column="1"
+                            Text="Medidores:"
+                            TextColor="White"
+                            FontSize="Small"
+                            VerticalOptions="Center"
+                            FontAttributes="Bold"></Label>
+            <CheckBox
+                Grid.Row="3"
+                Grid.Column="2"
+                IsChecked="{Binding User.HabilitaMedidores}"
+                IsEnabled="False"
+                >
+            </CheckBox>
+
+           
+            <Label 
+                            Grid.Row="4"
+                            Grid.Column="1"
+                            Text="Reclamos:"
+                            TextColor="White"
+                            FontSize="Small"
+                            VerticalOptions="Center"
+                            FontAttributes="Bold"></Label>
+
+            <CheckBox
+                Grid.Row="4"
+                Grid.Column="2"
+                IsChecked="{Binding User.HabilitaReclamos}"
+                IsEnabled="False"
+                >
+            </CheckBox>
+
+
+        </Grid>
+
+    </StackLayout>
 </ContentPage>

@@ -33,8 +33,9 @@ namespace GenericApp.Prism.ViewModels
         {
             _instance = this;
             _navigationService = navigationService;
-            LoadMenus();
             LoadUser();
+            LoadMenus();
+            
         }
         public ObservableCollection<MenuItemViewModel> Menus { get; set; }
 
@@ -68,7 +69,6 @@ namespace GenericApp.Prism.ViewModels
                 Title = "Obras",
                 IsLoginRequired = true
             },
-                       
                 new Menu
             {
                 Icon = "ic_watch_later",

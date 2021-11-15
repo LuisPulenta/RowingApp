@@ -7,6 +7,7 @@ using GenericApp.Common.Responses;
 using GenericApp.Web.Data.Entities;
 using Microsoft.AspNetCore.Authorization;
 using System.IO;
+using System.Linq;
 using GenericApp.Common.Helpers;
 using GenericApp.Common.Requests;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -60,6 +61,7 @@ namespace GenericApp.Web.Controllers.API
                 LINK= imageUrl1,
                 FECHA=request.FECHA,
                 NROOBRA=request.NROOBRA,
+                NROREGISTROCAB=request.NROREGISTROCAB,
                 OBSERVACION=request.OBSERVACION,
                 Estante=request.Estante,
                 GeneradoPor=request.GeneradoPor,
@@ -98,6 +100,28 @@ namespace GenericApp.Web.Controllers.API
             _context.ObrasDocumentos.Remove(ObrasDocumento);
             await _context.SaveChangesAsync();
             return Ok("ObrasDocumento borrado");
+        }
+
+        [HttpPost]
+        [Route("GetObrasDocumentos/{NROREGISTROCAB}")]
+        public async Task<IActionResult> GetObrasDocumentos(int NROREGISTROCAB)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest();
+            }
+
+            var obrasDocumentos = await _context.ObrasDocumentos
+            .Where(o => (o.NROREGISTROCAB == NROREGISTROCAB))
+           .OrderBy(o => o.TipoDeFoto)
+           .ToListAsync();
+
+            if (obrasDocumentos == null)
+            {
+                return BadRequest("No hay Fotos para este Ticket.");
+            }
+
+            return Ok(obrasDocumentos);
         }
     }
 }

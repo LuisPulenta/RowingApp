@@ -154,6 +154,51 @@ namespace GenericApp.Common.Services
             }
         }
 
+        public async Task<ResponseT<object>> GetObrasDocumentosAsync(
+            string urlBase,
+            string servicePrefix,
+            string controller,
+            int NROREGISTROCAB)
+        {
+            try
+            {
+                var model = new NROREGISTRORequest { NROREGISTRO = NROREGISTROCAB };
+                var request = JsonConvert.SerializeObject(model);
+                var content = new StringContent(request, Encoding.UTF8, "application/json");
+                var client = new HttpClient
+                {
+                    BaseAddress = new Uri(urlBase)
+                };
+
+                var url = $"{servicePrefix}{controller}";
+                var response = await client.PostAsync(url, content);
+                var answer = await response.Content.ReadAsStringAsync();
+                if (!response.IsSuccessStatusCode)
+                {
+                    return new ResponseT<object>
+                    {
+                        IsSuccess = false,
+                        Message = answer,
+                    };
+                }
+
+                var obrasDocumentos = JsonConvert.DeserializeObject<List<ObraDocumentoResponse>>(answer);
+                return new ResponseT<object>
+                {
+                    IsSuccess = true,
+                    Result = obrasDocumentos
+                };
+            }
+            catch (Exception ex)
+            {
+                return new ResponseT<object>
+                {
+                    IsSuccess = false,
+                    Message = ex.Message,
+                };
+            }
+        }
+
         public async Task<Response> GetListAsync<T>(
             string urlBase,
             string servicePrefix,

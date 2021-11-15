@@ -2,8 +2,11 @@
 using GenericApp.Common.Requests;
 using GenericApp.Common.Responses;
 using GenericApp.Web.Data;
+using GenericApp.Web.Data.Entities;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace GenericApp.Web.Controllers.API
@@ -32,7 +35,7 @@ namespace GenericApp.Web.Controllers.API
             }
 
             Data.Entities.ObrasPoste obraPoste = await _context.ObrasPostes.FirstOrDefaultAsync
-                (o => (o.ASTICKET.ToLower() == ticket.ASTICKET.ToLower()) && (o.TipoImput == "Medidores") && (o.CERTIFICADO!="SI"));
+                (o => (o.ASTICKET.ToLower() == ticket.ASTICKET.ToLower()) && (o.TipoImput == "Medidores") && (o.CERTIFICADO != "SI"));
 
             if (obraPoste == null)
             {
@@ -41,24 +44,56 @@ namespace GenericApp.Web.Controllers.API
 
             ObrasPosteResponse response = new ObrasPosteResponse
             {
-                ASTICKET = obraPoste.ASTICKET,
+                ASTICKET= obraPoste.ASTICKET,
                 CERTIFICADO = obraPoste.CERTIFICADO,
                 NROOBRA = obraPoste.NROOBRA,
                 NUMERACION = obraPoste.NUMERACION,
-                Cliente = obraPoste.Cliente,
-                DIRECCION = obraPoste.DIRECCION,
-                Localidad = obraPoste.Localidad,
-                NROREGISTRO = obraPoste.NROREGISTRO,
-                Telefono = obraPoste.Telefono,
-                TipoImput = obraPoste.TipoImput,
-                SerieMedidorColocado = obraPoste.SerieMedidorColocado,
                 OBSERVACIONES = obraPoste.OBSERVACIONES,
                 CajaDAE = obraPoste.CajaDAE,
+                Cliente = obraPoste.Cliente,
+                DIRECCION = obraPoste.DIRECCION,
                 Lindero1 = obraPoste.Lindero1,
                 Lindero2 = obraPoste.Lindero2,
-                Precinto = obraPoste.Precinto
-    };
-            return Ok(response);
+                Localidad = obraPoste.Localidad,
+                NROREGISTRO = obraPoste.NROREGISTRO,
+                Precinto = obraPoste.Precinto,
+                SerieMedidorColocado = obraPoste.SerieMedidorColocado,
+                Telefono = obraPoste.Telefono,
+                TipoImput = obraPoste.TipoImput,
+            };
+                return Ok(response);
+        }
+
+        [HttpPut("{id}")]
+        public async Task<IActionResult> PutObrasPoste(int id, ObrasPoste obrasPoste)
+        {
+            if (id != obrasPoste.NROREGISTRO)
+            {
+                return BadRequest();
+            }
+
+            _context.Entry(obrasPoste).State = EntityState.Modified;
+
+            try
+            {
+                await _context.SaveChangesAsync();
+                return NoContent();
+            }
+            catch (DbUpdateException dbUpdateException)
+            {
+                if (dbUpdateException.InnerException.Message.Contains("duplicate"))
+                {
+                    return BadRequest("Ya existe esta marca.");
+                }
+                else
+                {
+                    return BadRequest(dbUpdateException.InnerException.Message);
+                }
+            }
+            catch (Exception exception)
+            {
+                return BadRequest(exception.InnerException.Message);
+            }
         }
     }
 }

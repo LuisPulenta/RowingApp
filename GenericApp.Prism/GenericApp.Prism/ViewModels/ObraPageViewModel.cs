@@ -197,7 +197,7 @@ namespace GenericApp.Prism.ViewModels
                 ELEMPEP = Obra.ELEMPEP;
                 Modulo = Obra.Modulo;
                 Observaciones = Obra.OBSERVACIONES;
-                foreach(ObraDocumentoResponse obraDocumentoResponse in ImagesTemp)
+                foreach(ObraDocumentoResponse obraDocumentoResponse in ImagesTemp.OrderBy (o=>o.TipoDeFoto))
                 {
                     if(obraDocumentoResponse.TipoDeFoto>=0 && obraDocumentoResponse.TipoDeFoto <= 3)
                     {

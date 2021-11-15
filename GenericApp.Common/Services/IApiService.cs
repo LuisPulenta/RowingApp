@@ -15,11 +15,6 @@ namespace GenericApp.Common.Services
            string email,
            string password);
 
-        Task<ResponseT<object>> GetObras(
-          string urlBase,
-          string servicePrefix,
-          string controller);
-
         Task<ResponseT<CausanteResponse>> GetCausanteByCodigoAsync(
            string urlBase,
            string servicePrefix,
@@ -44,11 +39,22 @@ namespace GenericApp.Common.Services
             string controller,
             EntregaDetallesRequest model);
 
+        Task<ResponseT<object>> GetObras(
+         string urlBase,
+         string servicePrefix,
+         string controller);
+
         Task<ResponseT<ObrasPosteResponse>> GetTicketAsync(
            string urlBase,
            string servicePrefix,
            string controller,
            string codigo);
+
+        Task<ResponseT<object>> GetObrasDocumentosAsync(
+            string urlBase,
+            string servicePrefix,
+            string controller,
+            int NROREGISTROCAB);
 
         Task<Response> GetListAsync<T>(string urlBase, string servicePrefix, string controller);
 

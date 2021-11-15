@@ -8,6 +8,7 @@ namespace GenericApp.Web.Data.Entities
         [Key]
         public int NROREGISTRO { get; set; }
         public int NROOBRA { get; set; }
+        public int? NROREGISTROCAB { get; set; }
         public string OBSERVACION { get; set; }
         public string LINK { get; set; }
         public DateTime FECHA { get; set; }

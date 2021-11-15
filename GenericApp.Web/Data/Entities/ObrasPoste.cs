@@ -24,6 +24,6 @@ namespace GenericApp.Web.Data.Entities
         public string Lindero1 { get; set; }
         public string Lindero2 { get; set; }
 
-        public ICollection<ObrasDocumento> ObrasDocumentos { get; set; }
+        //public ICollection<ObrasDocumento> ObrasDocumentos { get; set; }
     }
 }

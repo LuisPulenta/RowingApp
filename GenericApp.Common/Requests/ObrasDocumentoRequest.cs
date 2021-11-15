@@ -7,6 +7,7 @@ namespace GenericApp.Common.Requests
     {
         public int NROREGISTRO { get; set; }
         public int NROOBRA { get; set; }
+        public int NROREGISTROCAB { get; set; }
         public string OBSERVACION { get; set; }
         public byte[] ImageArray { get; set; }
         public string LINK { get; set; }
