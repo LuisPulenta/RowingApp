@@ -17,6 +17,7 @@
                      Padding="5">
         <SearchBar Placeholder="Buscar..."
                  BackgroundColor="White"
+                 
                  FontSize="Small"
                  WidthRequest="200"
                  Text="{Binding Filter}"

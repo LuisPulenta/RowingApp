@@ -22,6 +22,7 @@
                            Source="logo"/>
                     <Label Text="V 3.0"
                            HorizontalOptions="Center"
+                           FontSize="Medium"
                            VerticalOptions="Start"
                            TextColor="White"></Label>
                     <StackLayout VerticalOptions="CenterAndExpand">

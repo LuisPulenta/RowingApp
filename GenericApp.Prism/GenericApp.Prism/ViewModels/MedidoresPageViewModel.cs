@@ -144,7 +144,6 @@ namespace GenericApp.Prism.ViewModels
             if (Connectivity.NetworkAccess != NetworkAccess.Internet)
             {
                 IsRunning = false;
-                IsEnabled = false;
                 await App.Current.MainPage.DisplayAlert(
                     "Error",
                     "Error de conexión",
@@ -159,7 +158,6 @@ namespace GenericApp.Prism.ViewModels
 
             if (!response.IsSuccess)
             {
-                IsEnabled = false;
                 IsRunning = false;
                 await App.Current.MainPage.DisplayAlert("Error", "El N° de Ticket ingresado no existe.", "Aceptar");
                 ObrasPoste = null;
@@ -174,46 +172,59 @@ namespace GenericApp.Prism.ViewModels
             ObrasPoste = response.Result;
             Domicilio = $"{ObrasPoste.DIRECCION} {ObrasPoste.NUMERACION} - {ObrasPoste.Localidad}";
 
-            var response2 = await _apiService.GetObrasDocumentosAsync(url, "API", "/ObrasDocuments/GetObrasDocumentos/{0}", response.Result.NROREGISTRO);
+            
+            IsRunning = true;
+            var controller = string.Format("/ObrasDocuments/GetObrasDocumentos/{0}", response.Result.NROREGISTRO);
+            var response2 = await _apiService.GetObrasDocumentosAsync(url, "API", controller, response.Result.NROREGISTRO);
+            IsRunning = false;
 
-
-            MyObrasDocumentos = (List<ObraDocumentoResponse>)response2.Result;
-
-            var myListObrasDocumentos = MyObrasDocumentos.Select(a => new ObraDocumentoResponse()
+            if (!response2.IsSuccess)
             {
-                FECHA=a.FECHA,
-                NROOBRA = a.NROOBRA,
-                NROREGISTROCAB = a.NROREGISTROCAB,
-                OBSERVACION = a.OBSERVACION,
-                DireccionFoto = a.DireccionFoto,
-                LINK = a.LINK,
-                TipoDeFoto = a.TipoDeFoto,
-                Sector = a.Sector,
-                NROREGISTRO = a.NROREGISTRO,
-                NroLote = a.NroLote,
-                MODULO = a.MODULO,
-                Longitud = a.Longitud,
-                Latitud = a.Latitud,
-                GeneradoPor = a.GeneradoPor,
-                Estante = a.Estante,
-                FechaHsFoto = a.FechaHsFoto,
-            });
-
-            ImagesTemp = new ObservableCollection<ObraDocumentoResponse>(myListObrasDocumentos.OrderBy(o => o.TipoDeFoto));
-            Images = new ObservableCollection<ObraDocumentoResponse>();
-            IdPhoto = 0;
-            if (Images.Count > 0)
+                MyObrasDocumentos = null;
+            }
+            else
             {
-                IdPhoto = Images[0].NROREGISTRO;
-            };
-            foreach (ObraDocumentoResponse obraDocumentoResponse in ImagesTemp)
-            {
-                if (obraDocumentoResponse.TipoDeFoto >= 0 && obraDocumentoResponse.TipoDeFoto <= 3)
-                {
-                    Images.Add(obraDocumentoResponse);
-                }
+                MyObrasDocumentos = (List<ObraDocumentoResponse>)response2.Result;
             }
 
+            if (MyObrasDocumentos != null)
+            {
+                var myListObrasDocumentos = MyObrasDocumentos.Select(a => new ObraDocumentoResponse()
+                {
+                    FECHA = a.FECHA,
+                    NROOBRA = a.NROOBRA,
+                    NROREGISTROCAB = a.NROREGISTROCAB,
+                    OBSERVACION = a.OBSERVACION,
+                    DireccionFoto = a.DireccionFoto,
+                    LINK = a.LINK,
+                    TipoDeFoto = a.TipoDeFoto,
+                    Sector = a.Sector,
+                    NROREGISTRO = a.NROREGISTRO,
+                    NroLote = a.NroLote,
+                    MODULO = a.MODULO,
+                    Longitud = a.Longitud,
+                    Latitud = a.Latitud,
+                    GeneradoPor = a.GeneradoPor,
+                    Estante = a.Estante,
+                    FechaHsFoto = a.FechaHsFoto,
+                });
+
+                ImagesTemp = new ObservableCollection<ObraDocumentoResponse>(myListObrasDocumentos.OrderBy(o => o.TipoDeFoto));
+                Images = new ObservableCollection<ObraDocumentoResponse>();
+                IdPhoto = 0;
+                if (Images.Count > 0)
+                {
+                    IdPhoto = Images[0].NROREGISTRO;
+                };
+                foreach (ObraDocumentoResponse obraDocumentoResponse in ImagesTemp)
+                {
+                    if (obraDocumentoResponse.TipoDeFoto >= 4 && obraDocumentoResponse.TipoDeFoto <= 9)
+                    {
+                        Images.Add(obraDocumentoResponse);
+                    }
+                }
+                var abc = 1;
+            }
         }
 
         #region Singleton

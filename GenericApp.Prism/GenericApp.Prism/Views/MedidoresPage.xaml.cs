@@ -19,7 +19,7 @@ namespace GenericApp.Prism.Views
             int foto = rotator.SelectedIndex;
             medidoresPageViewModel.IdPhotoNro = foto;
             medidoresPageViewModel.IdPhoto = medidoresPageViewModel.Images[foto].NROREGISTRO;
-            DisplayAlert("Notification", "Selected Index is Changed", "Ok");
+            //DisplayAlert("Notification", "Selected Index is Changed", "Ok");
         }
     }
 }

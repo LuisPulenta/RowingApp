@@ -160,7 +160,7 @@
                 <Button Command="{Binding EntregasCommand}" 
                         Grid.Row="0"
                         Grid.Column="0"
-                        HeightRequest="70"
+                        HeightRequest="60"
                         
                         IsEnabled="{Binding IsEnabled}"
                         BackgroundColor="#781f1e"
@@ -171,7 +171,7 @@
                 <Button Command="{Binding Entregas2Command}" 
                         Grid.Row="0"
                         Grid.Column="1"
-                        HeightRequest="70"
+                        HeightRequest="60"
                      
                         IsEnabled="{Binding IsEnabled}"
                         BackgroundColor="#484848"
@@ -182,7 +182,7 @@
                 <Button Command="{Binding InformesCommand}" 
                         Grid.Row="0"
                         Grid.Column="2"
-                        HeightRequest="70"
+                        HeightRequest="60"
                         
                         IsEnabled="{Binding IsEnabled}"
                         BackgroundColor="#8C8C8C"
