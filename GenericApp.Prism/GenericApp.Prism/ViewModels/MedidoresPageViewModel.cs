@@ -114,6 +114,16 @@ namespace GenericApp.Prism.ViewModels
         private DelegateCommand _consultarCommand;
         public DelegateCommand ConsultarCommand => _consultarCommand ?? (_consultarCommand = new DelegateCommand(ConsultarAsync));
 
+        private DelegateCommand _saveCommand;
+        public DelegateCommand SaveCommand => _saveCommand ?? (_saveCommand = new DelegateCommand(SaveAsync));
+
+        private DelegateCommand _deletePhotoCommand;
+        public DelegateCommand DeletePhotoCommand => _deletePhotoCommand ?? (_deletePhotoCommand = new DelegateCommand(DeletePhotoAsync));
+
+        private DelegateCommand _newPhotoCommand;
+        public DelegateCommand NewPhotoCommand => _newPhotoCommand ?? (_newPhotoCommand = new DelegateCommand(NewPhotoAsync));
+
+
 
         public MedidoresPageViewModel(INavigationService navigationService, IApiService apiService, IFilesHelper filesHelper) : base(navigationService)
         {
@@ -235,5 +245,224 @@ namespace GenericApp.Prism.ViewModels
             return instance;
         }
         #endregion
+
+        private async void SaveAsync()
+        {
+
+            if (ObrasPoste.SerieMedidorColocado.Length > 20)
+            {
+                await App.Current.MainPage.DisplayAlert("Error", "El N° de Serie del Medidor colocado no puede tener más de 20 caracteres.", "Aceptar");
+                return;
+            }
+
+            if (ObrasPoste.Precinto.Length > 20)
+            {
+                await App.Current.MainPage.DisplayAlert("Error", "El Precinto no puede tener más de 20 caracteres.", "Aceptar");
+                return;
+            }
+
+            if (ObrasPoste.CajaDAE.Length > 20)
+            {
+                await App.Current.MainPage.DisplayAlert("Error", "La Caja DAE no puede tener más de 20 caracteres.", "Aceptar");
+                return;
+            }
+
+            if (ObrasPoste.Lindero1.Length > 50)
+            {
+                await App.Current.MainPage.DisplayAlert("Error", "Lindero 1 no puede tener más de 50 caracteres.", "Aceptar");
+                return;
+            }
+
+            if (ObrasPoste.Lindero2.Length > 50)
+            {
+                await App.Current.MainPage.DisplayAlert("Error", "Lindero 2 no puede tener más de 50 caracteres.", "Aceptar");
+                return;
+            }
+
+            //Verificar conectividad
+            if (Connectivity.NetworkAccess != NetworkAccess.Internet)
+            {
+                IsRunning = false;
+                IsEnabled = true;
+                await App.Current.MainPage.DisplayAlert(
+                    "Error",
+                    "Error de conexión",
+                    "Aceptar");
+                return;
+            }
+
+            //****************************************************************************************************************
+            IsRunning = true;
+            IsEnabled = false;
+
+
+            //*********************************************************************************************************
+            //Grabar 
+            //*********************************************************************************************************
+            string url = App.Current.Resources["UrlAPI"].ToString();
+
+            var myMedidor = new ObrasPosteRequest
+                    {
+                        ASTICKET= ObrasPoste.ASTICKET,
+                        CERTIFICADO = ObrasPoste.CERTIFICADO,
+                        NROOBRA = ObrasPoste.NROOBRA,
+                        NUMERACION = ObrasPoste.NUMERACION,
+                        OBSERVACIONES = ObrasPoste.OBSERVACIONES,
+                        CajaDAE = ObrasPoste.CajaDAE,
+                        Cliente = ObrasPoste.Cliente,
+                        DIRECCION = ObrasPoste.DIRECCION,
+                        Lindero1 = ObrasPoste.Lindero1,
+                        Lindero2 = ObrasPoste.Lindero2,
+                        Localidad = ObrasPoste.Localidad,
+                        NROREGISTRO = ObrasPoste.NROREGISTRO,
+                        Precinto = ObrasPoste.Precinto,
+                        SerieMedidorColocado = ObrasPoste.SerieMedidorColocado,
+                        Telefono = ObrasPoste.Telefono,
+                        TipoImput = ObrasPoste.TipoImput,
+                    };
+
+                    var response = await _apiService.PutAsync2(
+                    url,
+                    "api",
+                    "/ObrasPostes",
+                    myMedidor,
+                    myMedidor.NROREGISTRO);
+
+                    IsRunning = false;
+                    IsEnabled = true;
+
+                    if (!response.IsSuccess)
+                    {
+                        await App.Current.MainPage.DisplayAlert("Error", "Ocurrió un error al guardar los cambios, intente más tarde.", "Aceptar");
+                        return;
+                    }
+                
+               
+                await App.Current.MainPage.DisplayAlert("Ok", "Cambios guardados con éxito!!", "Aceptar");
+                //await _navigationService.GoBackAsync();
+                return;
+        }
+
+        private async void NewPhotoAsync()
+        {
+            if (UsuarioLogueado.HabilitaFotos != 1)
+            {
+                await App.Current.MainPage.DisplayAlert("Aviso!", "Su Usuario no está habilitado para sacar fotos.", "Aceptar");
+                return;
+            }
+
+            NavigationParameters parameters = new NavigationParameters
+            {
+                { "obra", this }
+            };
+            Settings.Obra = JsonConvert.SerializeObject(this);
+
+            await _navigationService.NavigateAsync("TakePhoto2Page", parameters);
+        }
+
+        private async void DeletePhotoAsync()
+        {
+
+            if (UsuarioLogueado.HabilitaFotos != 1)
+            {
+                await App.Current.MainPage.DisplayAlert("Aviso!", "Su Usuario no está habilitado para eliminar fotos.", "Aceptar");
+                return;
+            }
+
+            if (IdPhoto == 0)
+            {
+                IsRunning = false;
+                IsEnabled = true;
+                await App.Current.MainPage.DisplayAlert(
+                    "Error",
+                    "Desplace las fotos hasta la foto que desea borrar",
+                    "Aceptar");
+                return;
+            }
+
+            if (Images.Count == 1)
+            {
+                IdPhoto = Images[0].NROREGISTRO;
+            }
+
+
+            var answer = await App.Current.MainPage.DisplayAlert(
+                "Confirmar",
+                "Está seguro de borrar esta foto?",
+                "Si",
+                "No");
+
+            if (!answer)
+            {
+                return;
+            }
+
+            IsRunning = true;
+            IsEnabled = false;
+
+
+            string url = App.Current.Resources["UrlAPI"].ToString();
+            if (Connectivity.NetworkAccess != NetworkAccess.Internet)
+            {
+                IsRunning = false;
+                IsEnabled = true;
+                await App.Current.MainPage.DisplayAlert(
+                    "Error",
+                    "Revise su conexión a Internet",
+                    "Aceptar");
+                return;
+            }
+
+            var response = await _apiService.DeleteAsync(
+            url,
+            "api",
+            "/ObrasDocuments",
+            IdPhoto);
+
+            if (!response.IsSuccess)
+            {
+                IsRunning = false;
+                IsEnabled = true;
+
+                await App.Current.MainPage.DisplayAlert(
+                    "Error",
+                    response.Message,
+                    "Aceptar");
+                return;
+            }
+
+            IsRunning = false;
+            IsEnabled = true;
+            IdPhoto = 0;
+            await App.Current.MainPage.DisplayAlert(
+                "Ok",
+                "Foto eliminada con éxito!!",
+                "Aceptar");
+
+            Images.Remove(Images[IdPhotoNro]);
+
+            if (IdPhotoNro == Images.Count)
+            {
+                IdPhotoNro = 0;
+            }
+
+
+
+            if (Images.Count == 0)
+            {
+                IdPhoto = 0;
+                return;
+            }
+
+            if (Images.Count == 1)
+            {
+                IdPhotoNro = 0;
+                IdPhoto = Images[0].NROREGISTRO;
+            }
+            else
+            {
+                IdPhoto = Images[IdPhotoNro].NROREGISTRO;
+            };
+        }
     }
 }

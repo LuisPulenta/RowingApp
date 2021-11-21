@@ -485,45 +485,45 @@ namespace GenericApp.Common.Services
             }
         }
 
-        public async Task<Response> PutAsync<T>(string urlBase, string servicePrefix, string controller, T model, string token)
+        public async Task<ResponseT<object>> PutAsync2<T>(
+             string urlBase,
+             string servicePrefix,
+             string controller,
+             T model,
+             int id)
         {
             try
             {
-                string request = JsonConvert.SerializeObject(model);
-                StringContent content = new StringContent(request, Encoding.UTF8, "application/json");
-                HttpClient client = new HttpClient
+                var request = JsonConvert.SerializeObject(model);
+                var content = new StringContent(request, Encoding.UTF8, "application/json");
+                var client = new HttpClient
                 {
                     BaseAddress = new Uri(urlBase)
                 };
 
-                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("bearer", token);
-                string url = $"{servicePrefix}{controller}";
-                HttpResponseMessage response = await client.PutAsync(url, content);
-                string result = await response.Content.ReadAsStringAsync();
-
+                var url = $"{servicePrefix}{controller}/{id}";
+                var response = await client.PutAsync(url, content);
+                var answer = await response.Content.ReadAsStringAsync();
                 if (!response.IsSuccessStatusCode)
                 {
-                    return new Response
+                    return new ResponseT<object>
                     {
                         IsSuccess = false,
-                        Message = result,
+                        Message = answer,
                     };
                 }
 
-                T item = JsonConvert.DeserializeObject<T>(result);
-
-                return new Response
+                return new ResponseT<object>
                 {
                     IsSuccess = true,
-                    Result = item
                 };
             }
             catch (Exception ex)
             {
-                return new Response
+                return new ResponseT<object>
                 {
                     IsSuccess = false,
-                    Message = ex.Message
+                    Message = ex.Message,
                 };
             }
         }
@@ -586,52 +586,6 @@ namespace GenericApp.Common.Services
                 {
                     IsSuccess = true,
                     Result = res
-                };
-            }
-            catch (Exception ex)
-            {
-                return new ResponseT<object>
-                {
-                    IsSuccess = false,
-                    Message = ex.Message,
-                };
-            }
-        }
-
-        public async Task<ResponseT<object>> PutAsync<T>(
-            string urlBase,
-            string servicePrefix,
-            string controller,
-            int id,
-            T model,
-            string tokenType,
-            string accessToken)
-        {
-            try
-            {
-                var request = JsonConvert.SerializeObject(model);
-                var content = new StringContent(request, Encoding.UTF8, "application/json");
-                var client = new HttpClient
-                {
-                    BaseAddress = new Uri(urlBase)
-                };
-
-                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(tokenType, accessToken);
-                var url = $"{servicePrefix}{controller}/{id}";
-                var response = await client.PutAsync(url, content);
-                var answer = await response.Content.ReadAsStringAsync();
-                if (!response.IsSuccessStatusCode)
-                {
-                    return new ResponseT<object>
-                    {
-                        IsSuccess = false,
-                        Message = answer,
-                    };
-                }
-
-                return new ResponseT<object>
-                {
-                    IsSuccess = true,
                 };
             }
             catch (Exception ex)
@@ -900,5 +854,95 @@ namespace GenericApp.Common.Services
             }
 
         }
+
+        public async Task<Response> PutAsync<T>(string urlBase, string servicePrefix, string controller, T model, string token)
+        {
+            try
+            {
+                string request = JsonConvert.SerializeObject(model);
+                StringContent content = new StringContent(request, Encoding.UTF8, "application/json");
+                HttpClient client = new HttpClient
+                {
+                    BaseAddress = new Uri(urlBase)
+                };
+
+                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("bearer", token);
+                string url = $"{servicePrefix}{controller}";
+                HttpResponseMessage response = await client.PutAsync(url, content);
+                string result = await response.Content.ReadAsStringAsync();
+
+                if (!response.IsSuccessStatusCode)
+                {
+                    return new Response
+                    {
+                        IsSuccess = false,
+                        Message = result,
+                    };
+                }
+
+                T item = JsonConvert.DeserializeObject<T>(result);
+
+                return new Response
+                {
+                    IsSuccess = true,
+                    Result = item
+                };
+            }
+            catch (Exception ex)
+            {
+                return new Response
+                {
+                    IsSuccess = false,
+                    Message = ex.Message
+                };
+            }
+        }
+
+        public async Task<ResponseT<object>> PutAsync<T>(
+            string urlBase,
+            string servicePrefix,
+            string controller,
+            int id,
+            T model,
+            string tokenType,
+            string accessToken)
+        {
+            try
+            {
+                var request = JsonConvert.SerializeObject(model);
+                var content = new StringContent(request, Encoding.UTF8, "application/json");
+                var client = new HttpClient
+                {
+                    BaseAddress = new Uri(urlBase)
+                };
+
+                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(tokenType, accessToken);
+                var url = $"{servicePrefix}{controller}/{id}";
+                var response = await client.PutAsync(url, content);
+                var answer = await response.Content.ReadAsStringAsync();
+                if (!response.IsSuccessStatusCode)
+                {
+                    return new ResponseT<object>
+                    {
+                        IsSuccess = false,
+                        Message = answer,
+                    };
+                }
+
+                return new ResponseT<object>
+                {
+                    IsSuccess = true,
+                };
+            }
+            catch (Exception ex)
+            {
+                return new ResponseT<object>
+                {
+                    IsSuccess = false,
+                    Message = ex.Message,
+                };
+            }
+        }
+
     }
 }

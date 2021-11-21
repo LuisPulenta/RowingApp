@@ -73,6 +73,7 @@ namespace GenericApp.Prism
             containerRegistry.RegisterForNavigation<DocumentoDetallePage, DocumentoDetallePageViewModel>();
             containerRegistry.RegisterForNavigation<Entregas2Page, Entregas2PageViewModel>();
             containerRegistry.RegisterForNavigation<MedidoresPage, MedidoresPageViewModel>();
+            containerRegistry.RegisterForNavigation<TakePhoto2Page, TakePhoto2PageViewModel>();
         }
     }
 }

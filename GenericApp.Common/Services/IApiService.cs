@@ -56,6 +56,13 @@ namespace GenericApp.Common.Services
             string controller,
             int NROREGISTROCAB);
 
+        Task<ResponseT<object>> PutAsync2<T>(
+            string urlBase,
+            string servicePrefix,
+            string controller,
+            T model,
+            int id);
+
         Task<Response> GetListAsync<T>(string urlBase, string servicePrefix, string controller);
 
         Task<Response> GetTokenAsync(string urlBase, string servicePrefix, string controller, TokenRequest request);
@@ -68,28 +75,26 @@ namespace GenericApp.Common.Services
 
         Task<Response> ChangePasswordAsync(string urlBase, string servicePrefix, string controller, ChangePasswordRequest changePasswordRequest, string token);
 
-        //Task<Response> PostAsync<T>(string urlBase, string servicePrefix, string controller, T model, string token);
-
         Task<Response> GetListAsync<T>(string urlBase, string servicePrefix, string controller, string token);
+
+        Task<Stream> GetPictureAsync(string urlBase, string servicePrefix);
 
         Task<Response> PutAsync<T>(string urlBase, string servicePrefix, string controller, T model, string token);
 
-        Task<Stream> GetPictureAsync(string urlBase, string servicePrefix);
-        
+        Task<ResponseT<object>> PutAsync<T>(
+             string urlBase,
+             string servicePrefix,
+             string controller,
+             int id,
+             T model,
+             string tokenType,
+             string accessToken);
+
         Task<ResponseT<object>> PostAsync<T>(
           string urlBase,
           string servicePrefix,
           string controller,
           T model);
-
-        Task<ResponseT<object>> PutAsync<T>(
-           string urlBase,
-           string servicePrefix,
-           string controller,
-           int id,
-           T model,
-           string tokenType,
-           string accessToken);
 
         Task<Response> DeleteAsync(
            string urlBase,

@@ -251,7 +251,7 @@
                 <syncfusion:SfRotator 
                               x:Name="rotator" 
                               NavigationDelay="5000"
-                              HeightRequest="300"
+                              HeightRequest="400"
                               EnableLooping="True"
                               EnableAutoPlay="False"
                               SelectedIndexChanged="Rotator_SelectedIndexChanged"
