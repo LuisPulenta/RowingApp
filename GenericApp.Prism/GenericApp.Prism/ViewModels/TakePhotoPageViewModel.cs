@@ -337,7 +337,7 @@ namespace GenericApp.Prism.ViewModels
             ResponseT<object> response = await _apiService.PostAsync(
               url,
               "api",
-              "/ObrasDocuments",
+              "/ObrasDocuments/ObrasDocument",
               obrasDocumento);
 
 

@@ -31,6 +31,7 @@ namespace GenericApp.Web.Controllers.API
         // POST: api/ObrasDocuments
 
         [HttpPost]
+        [Route("ObrasDocument")]
         public async Task<IActionResult> PostObrasDocument([FromBody] ObrasDocumentoRequest request)
         {
             if (!ModelState.IsValid)
@@ -61,7 +62,7 @@ namespace GenericApp.Web.Controllers.API
                 LINK= imageUrl1,
                 FECHA=request.FECHA,
                 NROOBRA=request.NROOBRA,
-                NROREGISTROCAB=request.NROREGISTROCAB,
+                IDObrasPostes = request.IDObrasPostes,
                 OBSERVACION=request.OBSERVACION,
                 Estante=request.Estante,
                 GeneradoPor=request.GeneradoPor,
@@ -74,6 +75,58 @@ namespace GenericApp.Web.Controllers.API
                 TipoDeFoto = request.TipoDeFoto,
                 DireccionFoto = request.DireccionFoto
     };
+
+            _context.ObrasDocumentos.Add(obraDocumento);
+            await _context.SaveChangesAsync();
+
+            return Ok(obraDocumento);
+        }
+
+        [HttpPost]
+        [Route("ObrasDocument2")]
+        public async Task<IActionResult> PostObrasDocument2([FromBody] ObrasDocumentoRequest request)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            //Foto
+            var imageUrl1 = string.Empty;
+            var stream = new MemoryStream(request.ImageArray);
+            var guid = Guid.NewGuid().ToString();
+            var file = $"{guid}.jpg";
+            var folder = "wwwroot\\images\\Medidores";
+            var fullPath = $"~/images/Medidores/{file}";
+            var response = _filesHelper.UploadPhoto(stream, folder, file);
+
+            if (response)
+            {
+                imageUrl1 = fullPath;
+            }
+
+            Obra obra = await _context.Obras
+                .FirstOrDefaultAsync(o => o.NroObra == request.Obra.NroObra);
+
+            var obraDocumento = new ObrasDocumento
+            {
+                //NROREGISTRO = request.NROREGISTRO,
+                LINK = imageUrl1,
+                FECHA = request.FECHA,
+                NROOBRA = request.NROOBRA,
+                IDObrasPostes = request.IDObrasPostes,
+                OBSERVACION = request.OBSERVACION,
+                Estante = request.Estante,
+                GeneradoPor = request.GeneradoPor,
+                MODULO = request.MODULO,
+                NroLote = request.NroLote,
+                Sector = request.Sector,
+                Latitud = request.Latitud,
+                Longitud = request.Longitud,
+                FechaHsFoto = request.FechaHsFoto,
+                TipoDeFoto = request.TipoDeFoto,
+                DireccionFoto = request.DireccionFoto
+            };
 
             _context.ObrasDocumentos.Add(obraDocumento);
             await _context.SaveChangesAsync();
@@ -103,8 +156,8 @@ namespace GenericApp.Web.Controllers.API
         }
 
         [HttpPost]
-        [Route("GetObrasDocumentos/{NROREGISTROCAB}")]
-        public async Task<IActionResult> GetObrasDocumentos(int NROREGISTROCAB)
+        [Route("GetObrasDocumentos/{IDObrasPostes}")]
+        public async Task<IActionResult> GetObrasDocumentos(int IDObrasPostes)
         {
             if (!ModelState.IsValid)
             {
@@ -112,7 +165,7 @@ namespace GenericApp.Web.Controllers.API
             }
 
             var obrasDocumentos = await _context.ObrasDocumentos
-            .Where(o => (o.NROREGISTROCAB == NROREGISTROCAB))
+            .Where(o => (o.IDObrasPostes == IDObrasPostes))
            .OrderBy(o => o.TipoDeFoto)
            .ToListAsync();
 

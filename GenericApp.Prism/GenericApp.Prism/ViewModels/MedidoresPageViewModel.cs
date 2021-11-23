@@ -203,7 +203,7 @@ namespace GenericApp.Prism.ViewModels
                 {
                     FECHA = a.FECHA,
                     NROOBRA = a.NROOBRA,
-                    NROREGISTROCAB = a.NROREGISTROCAB,
+                    IDObrasPostes=a.IDObrasPostes,
                     OBSERVACION = a.OBSERVACION,
                     DireccionFoto = a.DireccionFoto,
                     LINK = a.LINK,

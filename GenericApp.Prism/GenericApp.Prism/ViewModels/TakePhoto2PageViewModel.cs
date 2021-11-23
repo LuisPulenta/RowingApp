@@ -329,7 +329,7 @@ namespace GenericApp.Prism.ViewModels
             {
                 ImageArray = ImageArray,
                 FECHA = FechaYa,
-                NROREGISTROCAB=ObrasPoste.NROREGISTRO,
+                IDObrasPostes = ObrasPoste.NROREGISTRO,
                 NROOBRA = ObrasPoste.NROOBRA,
                 OBSERVACION = Obs,
                 Estante = "App",
@@ -348,7 +348,7 @@ namespace GenericApp.Prism.ViewModels
             ResponseT<object> response = await _apiService.PostAsync(
               url,
               "api",
-              "/ObrasDocuments",
+              "/ObrasDocuments/ObrasDocument2",
               obrasDocumento);
 
 

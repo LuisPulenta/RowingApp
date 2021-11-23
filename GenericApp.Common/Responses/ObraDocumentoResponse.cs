@@ -6,7 +6,7 @@ namespace GenericApp.Common.Responses
     {
         public int NROREGISTRO { get; set; }
         public int NROOBRA { get; set; }
-        public int? NROREGISTROCAB { get; set; }
+        public int? IDObrasPostes { get; set; }
         public string OBSERVACION { get; set; }
         public string LINK { get; set; }
         public DateTime? FECHA { get; set; }
