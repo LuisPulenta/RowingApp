@@ -20,7 +20,7 @@
                     <Image HeightRequest="150"
                            Margin="20"
                            Source="logo"/>
-                    <Label Text="V 3.0"
+                    <Label Text="V 4.0"
                            HorizontalOptions="Center"
                            FontSize="Medium"
                            VerticalOptions="Start"
