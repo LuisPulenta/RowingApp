@@ -54,7 +54,7 @@ namespace GenericApp.Common.Services
             string urlBase,
             string servicePrefix,
             string controller,
-            int NROREGISTROCAB);
+            int IDObrasPostes);
 
         Task<ResponseT<object>> PutAsync2<T>(
             string urlBase,

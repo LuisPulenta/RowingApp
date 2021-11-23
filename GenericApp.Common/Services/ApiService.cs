@@ -158,11 +158,11 @@ namespace GenericApp.Common.Services
             string urlBase,
             string servicePrefix,
             string controller,
-            int NROREGISTROCAB)
+            int IDObrasPostes)
         {
             try
             {
-                var model = new NROREGISTRORequest { NROREGISTRO = NROREGISTROCAB };
+                var model = new NROREGISTRORequest { NROREGISTRO = IDObrasPostes };
                 var request = JsonConvert.SerializeObject(model);
                 var content = new StringContent(request, Encoding.UTF8, "application/json");
                 var client = new HttpClient
