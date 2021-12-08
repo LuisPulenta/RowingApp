@@ -152,13 +152,13 @@ namespace GenericApp.Prism.ViewModels
                 return;
             }
             //Verificar Usuario Habilitado
-            if (response.Result.Estado != 1)
-            {
-                IsRunning = false;
-                IsEnabled = true;
-                await App.Current.MainPage.DisplayAlert("Error", "Usuario no habilitado.", "Aceptar");
-                return;
-            }
+            //if (response.Result.Estado != 1)
+            //{
+            //    IsRunning = false;
+            //    IsEnabled = true;
+            //    await App.Current.MainPage.DisplayAlert("Error", "Usuario no habilitado.", "Aceptar");
+            //    return;
+            //}
 
             if (response.Result.HabilitaAPP != 1)
             {
@@ -168,13 +168,13 @@ namespace GenericApp.Prism.ViewModels
                 return;
             }
 
-            if (response.Result.Modulo.Equals("ObrasTasa"))
-            {
-                IsRunning = false;
-                IsEnabled = true;
-                await App.Current.MainPage.DisplayAlert("Error", "Usuario no habilitado.", "Aceptar");
-                return;
-            }
+            //if (response.Result.Modulo.Equals("ObrasTasa"))
+            //{
+            //    IsRunning = false;
+            //    IsEnabled = true;
+            //    await App.Current.MainPage.DisplayAlert("Error", "Usuario no habilitado.", "Aceptar");
+            //    return;
+            //}
 
             Settings.UsuarioLogueado = JsonConvert.SerializeObject(response.Result);
             Settings.FechaLogueado = JsonConvert.SerializeObject(DateTime.Today);

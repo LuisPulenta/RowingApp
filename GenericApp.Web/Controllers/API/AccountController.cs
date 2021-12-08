@@ -49,16 +49,18 @@ namespace GenericApp.Web.Controllers.API
                 HabilitaReclamos = user.HabilitaReclamos,
                 HabilitaSSHH = user.HabilitaSSHH,
                 Modulo = user.Modulo,
-                HabilitaMedidores=user.HabilitaMedidores
-    };
+                HabilitaMedidores=user.HabilitaMedidores,
+                CODIGOCAUSANTE = user.CODIGOCAUSANTE,
+                CODIGOGRUPO = user.CODIGOGRUPO
+            };
 
             return Ok(response);
         }
 
 
         [HttpGet]
-        [Route("GetObras")]
-        public async Task<IActionResult> GetObras()
+        [Route("GetObrasEnergia")]
+        public async Task<IActionResult> GetObrasEnergia()
         {
             if (!ModelState.IsValid)
             {
@@ -71,16 +73,63 @@ namespace GenericApp.Web.Controllers.API
            && (o.Modulo == "Energia") 
            && (o.GrupoAlmacen!="") 
            && (o.GrupoCausante != "") 
-           && (o.SUPERVISORE != "Sin Asignar") 
            && (o.CodigoEstado != "TE"))
            .OrderBy(o => o.NroObra)
            .ToListAsync();
-
             if (obras == null)
             {
                 return BadRequest("No hay Obras.");
             }
+            return Ok(obras);
+        }
 
+        [HttpGet]
+        [Route("GetObrasObrasTasa")]
+        public async Task<IActionResult> GetObrasObrasTasa()
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest();
+            }
+
+            var obras = await _dataContext.Obras
+            .Include(p => p.ObrasDocumentos)
+           .Where(o => (o.Finalizada == 0)
+           && (o.Modulo == "ObrasTasa")
+           && (o.GrupoAlmacen != "")
+           && (o.GrupoCausante != "")
+           && (o.CodigoEstado != "TE"))
+           .OrderBy(o => o.NroObra)
+           .ToListAsync();
+            if (obras == null)
+            {
+                return BadRequest("No hay Obras.");
+            }
+            return Ok(obras);
+        }
+
+        [HttpGet]
+        [Route("GetObrasRowing")]
+        public async Task<IActionResult> GetObrasRowing()
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest();
+            }
+
+            var obras = await _dataContext.Obras
+            .Include(p => p.ObrasDocumentos)
+           .Where(o => (o.Finalizada == 0)
+           && (o.Modulo == "Rowing")
+           && (o.GrupoAlmacen != "")
+           && (o.GrupoCausante != "")
+           && (o.CodigoEstado != "TE"))
+           .OrderBy(o => o.NroObra)
+           .ToListAsync();
+            if (obras == null)
+            {
+                return BadRequest("No hay Obras.");
+            }
             return Ok(obras);
         }
     }

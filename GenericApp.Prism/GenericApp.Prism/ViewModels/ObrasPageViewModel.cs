@@ -103,7 +103,22 @@ namespace GenericApp.Prism.ViewModels
         public async void LoadUser()
         {
             User = JsonConvert.DeserializeObject<UsuarioAppResponse>(Settings.UsuarioLogueado);
-            var controller = string.Format("/Account/GetObras");
+
+            var controller = "";
+
+            if (User.Modulo== "Energia")
+            {
+                controller = string.Format("/Account/GetObrasEnergia");
+            }
+            else if (User.Modulo == "ObrasTasa")
+            {
+                controller = string.Format("/Account/GetObrasObrasTasa");
+            }
+            else if (User.Modulo == "Rowing")
+            {
+                controller = string.Format("/Account/GetObrasRowing");
+            };
+
             var url = App.Current.Resources["UrlAPI"].ToString();
             IsRunning = true;
             var response = await _apiService.GetObras(

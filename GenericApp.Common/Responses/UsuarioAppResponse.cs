@@ -15,6 +15,8 @@
         public int? HabilitaSSHH { get; set; }
         public string Modulo { get; set; }
         public int? HabilitaMedidores { get; set; }
+        public string CODIGOGRUPO { get; set; }
+        public string CODIGOCAUSANTE { get; set; }
 
         public string FullName => $"{Nombre} {Apellido}";
     }
