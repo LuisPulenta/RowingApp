@@ -5,6 +5,7 @@ using GenericApp.Common.Services;
 using Newtonsoft.Json;
 using Prism.Commands;
 using Prism.Navigation;
+using System;
 using Xamarin.Essentials;
 
 namespace GenericApp.Prism.ViewModels
@@ -50,6 +51,13 @@ namespace GenericApp.Prism.ViewModels
             set => SetProperty(ref _nroObra, value);
         }
 
+        private int _nroReg;
+        public int NroReg
+        {
+            get => _nroReg;
+            set => SetProperty(ref _nroReg, value);
+        }
+
         private string _zona;
         public string Zona
         {
@@ -93,22 +101,15 @@ namespace GenericApp.Prism.ViewModels
             _navigationService = navigationService;
             _apiService = apiService;
             _filesHelper = filesHelper;
+            Obra = JsonConvert.DeserializeObject<ObraResponse>(Settings.Obra);
+            NroObra = Obra.NroObra;
             UsuarioLogueado = JsonConvert.DeserializeObject<UsuarioAppResponse>(Settings.UsuarioLogueado);
             IsEnabled = false;
             Title = "Reclamos";
 
         }
 
-        public override void OnNavigatedTo(INavigationParameters parameters)
-        {
-            base.OnNavigatedTo(parameters);
-
-            if (parameters.ContainsKey("obra"))
-            {
-                Obra = parameters.GetValue<ObraResponse>("obra");
-                NroObra = Obra.NroObra;
-            }
-        }
+     
 
         private async void SaveAsync()
         {
@@ -222,17 +223,36 @@ namespace GenericApp.Prism.ViewModels
             //*********************************************************************************************************
             string url = App.Current.Resources["UrlAPI"].ToString();
 
+
+            var response2 = await _apiService.GetNroRegistroMax(
+            url,
+            "api",
+            "/ObrasPostes/GetNroRegistroMax"
+            );
+
+
+
             var myReclamo = new ObrasPosteRequest
             {
+                NROREGISTRO=Convert.ToInt32(response2.Result)+1,
                 ASTICKET = NroReclamo,
                 NROOBRA = NroObra,
                 NUMERACION = Numero,
                 DIRECCION = Direccion,
-                CODIGOCAUSANTE= UsuarioLogueado.CODIGOCAUSANTE,
-                CODIGOGRUPO=UsuarioLogueado.CODIGOGRUPO,
+                Subcontratista= UsuarioLogueado.CODIGOGRUPO,
+                CausanteC=UsuarioLogueado.CODIGOCAUSANTE,
                 TERMINAL=Descripcion,
                 ZONA=Zona,
                 TipoImput = "Reclamos",
+                GRXX="",
+                GRYY="",
+                IDUsrIn=UsuarioLogueado.IDUsuario,
+                ObservacionAdicional="App",
+                FechaCarga=DateTime.Today,
+                RiesgoElectrico="No",
+                CERTIFICADO="No",
+                FECHAASIGNACION = DateTime.Today,
+                MES = DateTime.Today.Month,
             };
 
             var response = await _apiService.PostAsync(

@@ -64,6 +64,16 @@ namespace GenericApp.Web.Controllers.API
                 return Ok(response);
         }
 
+        [HttpGet]
+        [Route("GetNroRegistroMax")]
+        public async Task<IActionResult> GetNroRegistroMax()
+        {
+            var query = _context.ObrasPostes.Max(c => c.NROREGISTRO);
+
+            return Ok(query);
+        }
+
+
         [HttpPut("{id}")]
         public async Task<IActionResult> PutObrasPoste(int id, ObrasPoste obrasPoste)
         {
@@ -105,17 +115,29 @@ namespace GenericApp.Web.Controllers.API
                 return BadRequest(ModelState);
             }
 
+            
             var Reclamo = new ObrasPoste
             {
+                NROREGISTRO= request.NROREGISTRO,
                 ASTICKET=request.ASTICKET,
                 NUMERACION=request.NUMERACION,
                 NROOBRA = request.NROOBRA,
-                CODIGOCAUSANTE = request.CODIGOCAUSANTE,
+                Subcontratista = request.Subcontratista,
                 ZONA = request.ZONA,
                 TERMINAL = request.TERMINAL,
-                CODIGOGRUPO = request.CODIGOGRUPO,
+                CausanteC = request.CausanteC,
                 DIRECCION = request.DIRECCION,
-                TipoImput = request.TipoImput
+                TipoImput = request.TipoImput,
+                GRXX = request.GRXX,
+                GRYY = request.GRYY,
+                IDUsrIn = request.IDUsrIn,
+                ObservacionAdicional = request.ObservacionAdicional,
+                FechaCarga=request.FechaCarga,
+                RiesgoElectrico = request.RiesgoElectrico,
+                CERTIFICADO = request.CERTIFICADO,
+                FECHAASIGNACION = request.FECHAASIGNACION,
+                MES = request.MES
+
             };
 
             _context.ObrasPostes.Add(Reclamo);

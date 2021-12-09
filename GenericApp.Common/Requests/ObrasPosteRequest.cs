@@ -1,4 +1,6 @@
-﻿namespace GenericApp.Common.Requests
+﻿using System;
+
+namespace GenericApp.Common.Requests
 {
     public class ObrasPosteRequest
     {
@@ -22,7 +24,16 @@
 
         public string ZONA { get; set; }
         public string TERMINAL { get; set; }
-        public string CODIGOGRUPO { get; set; }
-        public string CODIGOCAUSANTE { get; set; }
+        public string Subcontratista { get; set; }
+        public string CausanteC { get; set; }
+
+        public string GRXX { get; set; }
+        public string GRYY { get; set; }
+        public int IDUsrIn { get; set; }
+        public string ObservacionAdicional { get; set; }
+        public DateTime FechaCarga { get; set; }
+        public string RiesgoElectrico { get; set; }
+        public DateTime FECHAASIGNACION { get; set; }
+        public int MES { get; set; }
     }
 }

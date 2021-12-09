@@ -721,6 +721,48 @@ namespace GenericApp.Common.Services
             }
         }
 
+        public async Task<ResponseT<object>> GetNroRegistroMax(
+           string urlBase,
+           string servicePrefix,
+           string controller)
+        {
+            try
+            {
+                var client = new HttpClient
+                {
+                    BaseAddress = new Uri(urlBase)
+                };
+
+                var url = $"{servicePrefix}{controller}";
+                var response = await client.GetAsync(url);
+                var answer = await response.Content.ReadAsStringAsync();
+                if (!response.IsSuccessStatusCode)
+                {
+                    return new ResponseT<object>
+                    {
+                        IsSuccess = false,
+                        Message = answer,
+                    };
+                }
+
+                
+                return new ResponseT<object>
+                {
+                    IsSuccess = true,
+                    Result = answer
+                };
+            }
+            catch (Exception ex)
+            {
+                return new ResponseT<object>
+                {
+                    IsSuccess = false,
+                    Message = ex.Message,
+                };
+            }
+        }
+
+
         public async Task<ResponseT<object>> GetEntregasForCodigo(
             string urlBase,
             string servicePrefix,

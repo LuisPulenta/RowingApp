@@ -132,7 +132,7 @@
                               NavigationStripMode="Thumbnail" 
                               BackgroundColor="White"
                               NavigationStripPosition="Bottom">
-                       
+
                     </syncfusion:SfRotator>
 
                     <Grid Padding="5,5">
@@ -143,12 +143,12 @@
                         <Grid.RowDefinitions>
                             <RowDefinition Height="Auto" />
                         </Grid.RowDefinitions>
-                        
+
                     </Grid>
 
                     <!--***** TOMAR FOTOS *****-->
 
-                    
+
 
 
                 </StackLayout>
@@ -211,7 +211,7 @@
         Command="{Binding NewPhotoCommand}">
                 </Button>
 
-               
+
             </Grid>
         </StackLayout>
         <busyindicator:SfBusyIndicator AnimationType="Gear" 

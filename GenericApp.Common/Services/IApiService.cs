@@ -44,6 +44,11 @@ namespace GenericApp.Common.Services
          string servicePrefix,
          string controller);
 
+        Task<ResponseT<object>> GetNroRegistroMax(
+         string urlBase,
+         string servicePrefix,
+         string controller);
+
         Task<ResponseT<ObrasPosteResponse>> GetTicketAsync(
            string urlBase,
            string servicePrefix,

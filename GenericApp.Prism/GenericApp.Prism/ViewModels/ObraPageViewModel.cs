@@ -218,11 +218,8 @@ namespace GenericApp.Prism.ViewModels
 
         private async void Reclamo()
         {
-            NavigationParameters parameters = new NavigationParameters
-            {
-                { "obra", this }
-            };
-            await _navigationService.NavigateAsync("ReclamosPage", parameters);
+            Settings.Obra = JsonConvert.SerializeObject(this);
+            await _navigationService.NavigateAsync("ReclamosPage");
         }
 
         private async void TakePhoto()
