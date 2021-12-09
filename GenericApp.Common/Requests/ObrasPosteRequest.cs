@@ -19,5 +19,10 @@
         public string OBSERVACIONES { get; set; }
         public string Lindero1 { get; set; }
         public string Lindero2 { get; set; }
+
+        public string ZONA { get; set; }
+        public string TERMINAL { get; set; }
+        public string CODIGOGRUPO { get; set; }
+        public string CODIGOCAUSANTE { get; set; }
     }
 }

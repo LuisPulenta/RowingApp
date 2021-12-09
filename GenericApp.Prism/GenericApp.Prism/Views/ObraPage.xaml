@@ -172,7 +172,7 @@
                 <Button 
           Grid.Row="0"
           Grid.Column="2"
-        Text="cancelar"
+        Text="cargar reclamo"
         BackgroundColor="Violet"
         IsEnabled="{Binding IsEnabled}"
          CornerRadius="5"
@@ -180,7 +180,7 @@
         FontSize="Small"
         TextColor="White"
         VerticalOptions="EndAndExpand"
-        Command="{Binding CancelCommand}">
+        Command="{Binding ReclamoCommand}">
                 </Button>
 
                 <Button 

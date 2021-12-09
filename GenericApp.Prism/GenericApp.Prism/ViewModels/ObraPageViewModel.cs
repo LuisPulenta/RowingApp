@@ -132,8 +132,8 @@ namespace GenericApp.Prism.ViewModels
 
        
 
-        private DelegateCommand _cancelCommand;
-        public DelegateCommand CancelCommand => _cancelCommand ?? (_cancelCommand = new DelegateCommand(Cancel));
+        private DelegateCommand _reclamoCommand;
+        public DelegateCommand ReclamoCommand => _reclamoCommand ?? (_reclamoCommand = new DelegateCommand(Reclamo));
         
         private DelegateCommand _deletePhotoCommand;
         public DelegateCommand DeletePhotoCommand => _deletePhotoCommand ?? (_deletePhotoCommand = new DelegateCommand(DeletePhotoAsync));
@@ -216,9 +216,13 @@ namespace GenericApp.Prism.ViewModels
         }
         #endregion
 
-        private async void Cancel()
+        private async void Reclamo()
         {
-            await _navigationService.GoBackAsync();
+            NavigationParameters parameters = new NavigationParameters
+            {
+                { "obra", this }
+            };
+            await _navigationService.NavigateAsync("ReclamosPage", parameters);
         }
 
         private async void TakePhoto()

@@ -95,5 +95,33 @@ namespace GenericApp.Web.Controllers.API
                 return BadRequest(exception.InnerException.Message);
             }
         }
+
+        [HttpPost]
+        [Route("PostReclamo")]
+        public async Task<IActionResult> PostReclamo([FromBody] ObrasPosteRequest request)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            var Reclamo = new ObrasPoste
+            {
+                ASTICKET=request.ASTICKET,
+                NUMERACION=request.NUMERACION,
+                NROOBRA = request.NROOBRA,
+                CODIGOCAUSANTE = request.CODIGOCAUSANTE,
+                ZONA = request.ZONA,
+                TERMINAL = request.TERMINAL,
+                CODIGOGRUPO = request.CODIGOGRUPO,
+                DIRECCION = request.DIRECCION,
+                TipoImput = request.TipoImput
+            };
+
+            _context.ObrasPostes.Add(Reclamo);
+            await _context.SaveChangesAsync();
+
+            return Ok();
+        }
     }
 }

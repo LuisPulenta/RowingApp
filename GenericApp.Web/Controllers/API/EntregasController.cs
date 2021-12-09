@@ -29,7 +29,7 @@ namespace GenericApp.Web.Controllers.API
             }
 
             var entregas = await _dataContext.ProductosStock
-           .Where(o => (o.causante == Codigo) && (o.grupo == "PPR") && (o.stock_act > 0) && (o.fecha != null))
+           .Where(o => (o.causante == Codigo) && (o.grupo == "PPR" || o.grupo == "PPC") && (o.stock_act > 0))
 
            .OrderBy(o => o.fecha)
            .GroupBy(r => new

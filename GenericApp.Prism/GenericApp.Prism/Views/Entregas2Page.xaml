@@ -70,7 +70,7 @@
                     <DataTemplate>
                         <ViewCell>
                             <Frame CornerRadius="10"
-                               HeightRequest="20"
+                               HeightRequest="40"
                      HasShadow="True"
                      BackgroundColor="White"
                      Margin="3"
@@ -125,6 +125,30 @@
                                         HorizontalOptions="Start"
                                         VerticalOptions="Center"
                                         Text="{Binding stock_act}"></Label>
+
+                                        <Label Grid.Row="1"
+                                        Grid.Column="0"
+                                        Grid.ColumnSpan="2"
+                                        FontSize="Micro"
+                                        FontAttributes="None"
+                                        TextColor="Black"
+                                        HorizontalOptions="Start"
+                                        VerticalOptions="Center"
+                                        Text="Fecha últ. entr.:"></Label>
+
+
+                                        <Label Grid.Row="1"
+                                        Grid.Column="2"
+                                        Grid.ColumnSpan="2"
+                                        FontSize="Micro"
+                                        FontAttributes="None"
+                                        TextColor="Black"
+                                        HorizontalOptions="Start"
+                                        VerticalOptions="Center"
+                                        Text="{Binding fecha, StringFormat='{0:dd/MM/yyyy'}"></Label>
+
+                                        
+
 
                                     </Grid>
                                 </StackLayout>

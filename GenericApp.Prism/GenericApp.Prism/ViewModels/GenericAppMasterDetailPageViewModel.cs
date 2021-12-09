@@ -60,8 +60,6 @@ namespace GenericApp.Prism.ViewModels
                 Title = "Inicio",
                 IsLoginRequired = true
             },
-
-
                 new Menu
             {
                 Icon = "ic_construction",
@@ -83,6 +81,13 @@ namespace GenericApp.Prism.ViewModels
                 Title = "Seguridad e Higiene",
                 IsLoginRequired = true
             },
+                 new Menu
+            {
+                Icon = "ic_format_list_numbered",
+                PageName = $"{nameof(InspeccionesPage)}",
+                Title = "Inspecciones",
+                IsLoginRequired = true
+            },
 
             new Menu
             {
@@ -100,6 +105,7 @@ namespace GenericApp.Prism.ViewModels
                     Title = m.Title,
                     IsLoginRequired = m.IsLoginRequired
                 }).ToList());
+
         }
     }
 }

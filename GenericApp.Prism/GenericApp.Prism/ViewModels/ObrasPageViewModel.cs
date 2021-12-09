@@ -95,7 +95,16 @@ namespace GenericApp.Prism.ViewModels
             _navigationService = navigationService;
             LoadUser();
             Obras = new ObservableCollection<ObraItemViewModel>();
-            Title = "Obras";
+            
+            if (User.Modulo == "ObrasTasa")
+            {
+                Title = "Obras Tasa";
+            }
+            else
+            {
+                Title = "Obras " + User.Modulo;
+            }
+            
             _instance = this;
         }
 

@@ -70,10 +70,7 @@ namespace GenericApp.Web.Controllers.API
             var obras = await _dataContext.Obras
             .Include(p => p.ObrasDocumentos)
            .Where(o => (o.Finalizada == 0) 
-           && (o.Modulo == "Energia") 
-           && (o.GrupoAlmacen!="") 
-           && (o.GrupoCausante != "") 
-           && (o.CodigoEstado != "TE"))
+           && (o.Modulo == "Energia"))
            .OrderBy(o => o.NroObra)
            .ToListAsync();
             if (obras == null)
@@ -95,10 +92,7 @@ namespace GenericApp.Web.Controllers.API
             var obras = await _dataContext.Obras
             .Include(p => p.ObrasDocumentos)
            .Where(o => (o.Finalizada == 0)
-           && (o.Modulo == "ObrasTasa")
-           && (o.GrupoAlmacen != "")
-           && (o.GrupoCausante != "")
-           && (o.CodigoEstado != "TE"))
+           && (o.Modulo == "ObrasTasa"))
            .OrderBy(o => o.NroObra)
            .ToListAsync();
             if (obras == null)
@@ -120,10 +114,7 @@ namespace GenericApp.Web.Controllers.API
             var obras = await _dataContext.Obras
             .Include(p => p.ObrasDocumentos)
            .Where(o => (o.Finalizada == 0)
-           && (o.Modulo == "Rowing")
-           && (o.GrupoAlmacen != "")
-           && (o.GrupoCausante != "")
-           && (o.CodigoEstado != "TE"))
+           && (o.Modulo == "Rowing"))
            .OrderBy(o => o.NroObra)
            .ToListAsync();
             if (obras == null)
