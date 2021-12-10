@@ -161,16 +161,23 @@ namespace GenericApp.Prism.ViewModels
             //****************************************************************************************************************
             IsRunning = true;
             IsEnabled = false;
-
-
+            
             //*********************************************************************************************************
             //Grabar 
             //*********************************************************************************************************
             string url = App.Current.Resources["UrlAPI"].ToString();
 
+            var response2 = await _apiService.GetNroRegistroMax(
+            url,
+            "api",
+            "/ObrasPostesCajasDetalle/GetNroRegistroMax"
+            );
+
+            int NROREGISTRO = Convert.ToInt32(response2.Result) + 1;
+
             bool bandera = false;
 
-            foreach (var myCatalogo in MyCatalogos)
+            foreach (var myCatalogo in Catalogos)
             {
                 if (myCatalogo.Cantidad > 0)
                 {
@@ -181,17 +188,18 @@ namespace GenericApp.Prism.ViewModels
                         CATCODIGO = myCatalogo.catCodigo,
                         NROREGISTROCAB = Obra.NROREGISTRO,
                         CODIGOSAP = myCatalogo.CodigoSap,
-                        NROREGISTROD = 1,
+                        NROREGISTROD = NROREGISTRO,
                     };
 
-                    var response = await _apiService.PutAsync2(
+                    var response = await _apiService.PostAsync(
                     url,
                     "api",
-                    "/ObrasPostes",
+                    "/ObrasPostesCajasDetalle/PostObrasPostesCajasDetalle",
                     myObrasPostesCajaDetalle);
 
                     IsRunning = false;
                     IsEnabled = true;
+                    NROREGISTRO = NROREGISTRO + 1;
 
                     if (!response.IsSuccess)
                     {

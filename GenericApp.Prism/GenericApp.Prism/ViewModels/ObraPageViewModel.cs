@@ -218,6 +218,12 @@ namespace GenericApp.Prism.ViewModels
 
         private async void Reclamo()
         {
+            if (UsuarioLogueado.HabilitaReclamos != 1)
+            {
+                await App.Current.MainPage.DisplayAlert("Aviso!", "Su Usuario no está habilitado para Reclamos.", "Aceptar");
+                return;
+            }
+
             Settings.Obra = JsonConvert.SerializeObject(this);
             await _navigationService.NavigateAsync("ReclamosPage");
         }

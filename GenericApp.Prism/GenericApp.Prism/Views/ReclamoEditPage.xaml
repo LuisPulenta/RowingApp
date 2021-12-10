@@ -29,9 +29,7 @@
                   >
                     <Grid HeightRequest="90"
                         RowSpacing="-0">
-                        <Grid.GestureRecognizers>
-                            <TapGestureRecognizer Command="{Binding SelectReclamoCommand}" />
-                        </Grid.GestureRecognizers>
+                       
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="120" />
                             <ColumnDefinition Width="*" />
@@ -174,9 +172,7 @@
                   >
                                     <Grid HeightRequest="60"
                         RowSpacing="-0">
-                                        <Grid.GestureRecognizers>
-                                            <TapGestureRecognizer Command="{Binding SelectCatalogoCommand}" />
-                                        </Grid.GestureRecognizers>
+                                        
                                         <Grid.ColumnDefinitions>
                                             <ColumnDefinition Width="5*" />
                                             <ColumnDefinition Width="*" />
@@ -208,7 +204,7 @@
                                         HorizontalOptions="End"
                                         VerticalOptions="Center"
                                         BackgroundColor="Yellow"
-                                        Text="{Binding Cantidad}"></Entry>
+                                        Text="{Binding Cantidad, Mode=TwoWay}"></Entry>
 
                                        
 
