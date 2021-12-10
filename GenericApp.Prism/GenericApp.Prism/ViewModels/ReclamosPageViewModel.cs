@@ -1,12 +1,13 @@
 ﻿using GenericApp.Common.Helpers;
-using GenericApp.Common.Requests;
 using GenericApp.Common.Responses;
 using GenericApp.Common.Services;
 using Newtonsoft.Json;
 using Prism.Commands;
 using Prism.Navigation;
 using System;
-using Xamarin.Essentials;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Linq;
 
 namespace GenericApp.Prism.ViewModels
 {
@@ -16,12 +17,21 @@ namespace GenericApp.Prism.ViewModels
         private readonly IApiService _apiService;
         private readonly IFilesHelper _filesHelper;
 
+        private UsuarioAppResponse _user;
+        public UsuarioAppResponse User
+        {
+            get => _user;
+            set => SetProperty(ref _user, value);
+        }
+
         private UsuarioAppResponse _usuarioLogueado;
         public UsuarioAppResponse UsuarioLogueado
         {
             get => _usuarioLogueado;
             set => SetProperty(ref _usuarioLogueado, value);
         }
+
+        private static ReclamosPageViewModel _instance;
 
         private bool _isRunning;
         public bool IsRunning
@@ -35,6 +45,13 @@ namespace GenericApp.Prism.ViewModels
         {
             get => _isEnabled;
             set => SetProperty(ref _isEnabled, value);
+        }
+
+        private bool _isRefreshing;
+        public bool IsRefreshing
+        {
+            get => _isRefreshing;
+            set => SetProperty(ref _isRefreshing, value);
         }
 
         private ObraResponse _obra;
@@ -51,228 +68,132 @@ namespace GenericApp.Prism.ViewModels
             set => SetProperty(ref _nroObra, value);
         }
 
-        private int _nroReg;
-        public int NroReg
+        private int _cantReclamos;
+        public int CantReclamos
         {
-            get => _nroReg;
-            set => SetProperty(ref _nroReg, value);
+            get => _cantReclamos;
+            set => SetProperty(ref _cantReclamos, value);
         }
 
-        private string _zona;
-        public string Zona
+        private ObservableCollection<ReclamoItemViewModel> _obras;
+        public ObservableCollection<ReclamoItemViewModel> Obras
         {
-            get => _zona;
-            set => SetProperty(ref _zona, value);
+            get => _obras;
+            set => SetProperty(ref _obras, value);
         }
 
-        private string _descripcion;
-        public string Descripcion
-        {
-            get => _descripcion;
-            set => SetProperty(ref _descripcion, value);
-        }
+        public List<ObrasPosteResponse> MyObras { get; set; }
 
-        private string _direccion;
-        public string Direccion
-        {
-            get => _direccion;
-            set => SetProperty(ref _direccion, value);
-        }
+        private DelegateCommand _addReclamo;
+        public DelegateCommand AddReclamo => _addReclamo ?? (_addReclamo = new DelegateCommand(AddAsync));
 
-        private string _numero;
-        public string Numero
-        {
-            get => _numero;
-            set => SetProperty(ref _numero, value);
-        }
 
-        private string _nroReclamo;
-        public string NroReclamo
-        {
-            get => _nroReclamo;
-            set => SetProperty(ref _nroReclamo, value);
-        }
+        private DelegateCommand _refreshCommand;
+        public DelegateCommand RefreshCommand => _refreshCommand ?? (_refreshCommand = new DelegateCommand(Refresh));
 
-        private DelegateCommand _saveCommand;
-        public DelegateCommand SaveCommand => _saveCommand ?? (_saveCommand = new DelegateCommand(SaveAsync));
+        public static ReclamosPageViewModel GetInstance()
+        {
+            return _instance;
+        }
 
         public ReclamosPageViewModel(INavigationService navigationService, IApiService apiService, IFilesHelper filesHelper) : base(navigationService)
         {
             _navigationService = navigationService;
             _apiService = apiService;
             _filesHelper = filesHelper;
+            _instance = this;
+
             Obra = JsonConvert.DeserializeObject<ObraResponse>(Settings.Obra);
             NroObra = Obra.NroObra;
+            LoadUser();
             UsuarioLogueado = JsonConvert.DeserializeObject<UsuarioAppResponse>(Settings.UsuarioLogueado);
             IsEnabled = false;
             Title = "Reclamos";
-
         }
 
-     
-
-        private async void SaveAsync()
+        private async void AddAsync()
         {
-            if (string.IsNullOrEmpty(Zona))
-            {
-                await App.Current.MainPage.DisplayAlert(
-                    "Error",
-                    "Debe ingresar una Zona",
-                    "Aceptar");
-                return;
-            }
+            Settings.Obra = JsonConvert.SerializeObject(this);
+            await _navigationService.NavigateAsync("ReclamoPage");
+        }
 
-            if (Zona.Length > 50)
-            {
-                await App.Current.MainPage.DisplayAlert("Error", "La zona no puede tener más de 50 caracteres.", "Aceptar");
-                return;
-            }
+        public async void LoadUser()
+        {
+            User = JsonConvert.DeserializeObject<UsuarioAppResponse>(Settings.UsuarioLogueado);
 
-            if (string.IsNullOrEmpty(Descripcion))
-            {
-                await App.Current.MainPage.DisplayAlert(
-                    "Error",
-                    "Debe ingresar una Descripción",
-                    "Aceptar");
-                return;
-            }
-
-            if (Descripcion.Length > 160)
-            {
-                await App.Current.MainPage.DisplayAlert("Error", "La Descripción no puede tener más de 160 caracteres.", "Aceptar");
-                return;
-            }
-
-            if (string.IsNullOrEmpty(Direccion))
-            {
-                await App.Current.MainPage.DisplayAlert(
-                    "Error",
-                    "Debe ingresar una Dirección",
-                    "Aceptar");
-                return;
-            }
-
-            if (Direccion.Length > 100)
-            {
-                await App.Current.MainPage.DisplayAlert("Error", "La Dirección no puede tener más de 100 caracteres.", "Aceptar");
-                return;
-            }
-
-            if (string.IsNullOrEmpty(Numero))
-            {
-                await App.Current.MainPage.DisplayAlert(
-                    "Error",
-                    "Debe ingresar un Número",
-                    "Aceptar");
-                return;
-            }
-
-            if (Numero.Length > 19)
-            {
-                await App.Current.MainPage.DisplayAlert("Error", "El Número no puede tener más de 19 caracteres.", "Aceptar");
-                return;
-            }
-
-            if (string.IsNullOrEmpty(NroReclamo))
-            {
-                await App.Current.MainPage.DisplayAlert(
-                    "Error",
-                    "Debe ingresar un AS/N° Reclamo",
-                    "Aceptar");
-                return;
-            }
-
-            if (NroReclamo.Length > 20)
-            {
-                await App.Current.MainPage.DisplayAlert("Error", "El AS/N° Reclamo no puede tener más de 20 caracteres.", "Aceptar");
-                return;
-            }
-
-            if (UsuarioLogueado.CODIGOCAUSANTE.Length<1)
-            {
-                await App.Current.MainPage.DisplayAlert("Error", "Su Usuario no tiene cargado el campo CODIGOCAUSANTE", "Aceptar");
-                return;
-            }
-
-            if (UsuarioLogueado.CODIGOGRUPO.Length < 1)
-            {
-                await App.Current.MainPage.DisplayAlert("Error", "Su Usuario no tiene cargado el campo CODIGOGRUPO", "Aceptar");
-                return;
-            }
-
-
-            //Verificar conectividad
-            if (Connectivity.NetworkAccess != NetworkAccess.Internet)
-            {
-                IsRunning = false;
-                IsEnabled = true;
-                await App.Current.MainPage.DisplayAlert(
-                    "Error",
-                    "Error de conexión",
-                    "Aceptar");
-                return;
-            }
-
-            //****************************************************************************************************************
+            var controller = string.Format("/ObrasPostes/GetReclamos/{0}", NroObra);
+            var url = App.Current.Resources["UrlAPI"].ToString();
             IsRunning = true;
-            IsEnabled = false;
-
-
-            //*********************************************************************************************************
-            //Grabar 
-            //*********************************************************************************************************
-            string url = App.Current.Resources["UrlAPI"].ToString();
-
-
-            var response2 = await _apiService.GetNroRegistroMax(
-            url,
-            "api",
-            "/ObrasPostes/GetNroRegistroMax"
-            );
-
-
-
-            var myReclamo = new ObrasPosteRequest
-            {
-                NROREGISTRO=Convert.ToInt32(response2.Result)+1,
-                ASTICKET = NroReclamo,
-                NROOBRA = NroObra,
-                NUMERACION = Numero,
-                DIRECCION = Direccion,
-                Subcontratista= UsuarioLogueado.CODIGOGRUPO,
-                CausanteC=UsuarioLogueado.CODIGOCAUSANTE,
-                TERMINAL=Descripcion,
-                ZONA=Zona,
-                TipoImput = "Reclamos",
-                GRXX="",
-                GRYY="",
-                IDUsrIn=UsuarioLogueado.IDUsuario,
-                ObservacionAdicional="App",
-                FechaCarga=DateTime.Today,
-                RiesgoElectrico="No",
-                CERTIFICADO="No",
-                FECHAASIGNACION = DateTime.Today,
-                MES = DateTime.Today.Month,
-            };
-
-            var response = await _apiService.PostAsync(
-            url,
-            "api",
-            "/ObrasPostes/PostReclamo",
-            myReclamo);
-
+            var response = await _apiService.GetObrasPoste(
+                url,
+                "api",
+                controller,
+                NroObra);
+            IsRefreshing = false;
             IsRunning = false;
-            IsEnabled = true;
 
             if (!response.IsSuccess)
             {
-                await App.Current.MainPage.DisplayAlert("Error", "Ocurrió un error al guardar el Reclamo, intente más tarde.", "Aceptar");
+                IsEnabled = true;
+                await App.Current.MainPage.DisplayAlert("Error", "Problema para recuperar datos.", "Aceptar");
                 return;
             }
+            MyObras = (List<ObrasPosteResponse>)response.Result;
+            RefreshList();
+            IsRefreshing = false;
 
-            await App.Current.MainPage.DisplayAlert("Ok", "Reclamo guardado con éxito!!", "Aceptar");
-            await _navigationService.GoBackAsync();
-            return;
+
+        }
+
+        public async void RefreshList()
+        {
+            var myObraItemViewModel = MyObras.Select(a => new ReclamoItemViewModel(_navigationService)
+            {
+                ASTICKET = a.ASTICKET,
+                CERTIFICADO = a.CERTIFICADO,
+                FECHAASIGNACION = a.FECHAASIGNACION,
+                NROOBRA = a.NROOBRA,
+                NUMERACION = a.NUMERACION,
+                ObservacionAdicional = a.ObservacionAdicional,
+                TERMINAL = a.TERMINAL,
+                ZONA = a.ZONA,
+                CajaDAE = a.CajaDAE,
+                CausanteC = a.CausanteC,
+                Cliente = a.Cliente,
+                DIRECCION = a.DIRECCION,
+                FechaCarga = a.FechaCarga,
+                GRXX = a.GRXX,
+                GRYY = a.GRYY,
+                IDUsrIn = a.IDUsrIn,
+                Lindero1 = a.Lindero1,
+                Lindero2 = a.Lindero2,
+                Localidad = a.Localidad,
+                MES = a.MES,
+                NROREGISTRO = a.NROREGISTRO,
+                Precinto = a.Precinto,
+                RiesgoElectrico = a.RiesgoElectrico,
+                SerieMedidorColocado = a.SerieMedidorColocado,
+                Subcontratista = a.Subcontratista,
+                Telefono = a.Telefono,
+                TipoImput = a.TipoImput,
+                OBSERVACIONES = a.OBSERVACIONES,
+                CantObras = a.CantObras,
+            });
+            Obras = new ObservableCollection<ReclamoItemViewModel>(myObraItemViewModel
+                .OrderBy(o => o.NROREGISTRO));
+
+            CantReclamos = Obras.Count();
+
+
+        }
+        private async void Search()
+        {
+            RefreshList();
+        }
+
+        private async void Refresh()
+        {
+            LoadUser();
         }
     }
 }

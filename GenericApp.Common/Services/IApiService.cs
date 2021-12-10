@@ -44,6 +44,12 @@ namespace GenericApp.Common.Services
          string servicePrefix,
          string controller);
 
+        Task<ResponseT<object>> GetObrasPoste(
+        string urlBase,
+        string servicePrefix,
+        string controller,
+        int id);
+
         Task<ResponseT<object>> GetNroRegistroMax(
          string urlBase,
          string servicePrefix,

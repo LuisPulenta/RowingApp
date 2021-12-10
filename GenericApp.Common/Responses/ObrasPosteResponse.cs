@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace GenericApp.Common.Responses
@@ -23,9 +24,20 @@ namespace GenericApp.Common.Responses
         public string Lindero1 { get; set; }
         public string Lindero2 { get; set; }
 
+        public string ZONA { get; set; }
+        public string TERMINAL { get; set; }
+        public string Subcontratista { get; set; }
+        public string CausanteC { get; set; }
+
+        public string GRXX { get; set; }
+        public string GRYY { get; set; }
+        public int IDUsrIn { get; set; }
+        public string ObservacionAdicional { get; set; }
+        public DateTime FechaCarga { get; set; }
+        public string RiesgoElectrico { get; set; }
+        public DateTime FECHAASIGNACION { get; set; }
+        public int MES { get; set; }
+
         public int CantObras { get; set; }
-        //public ICollection<ObraDocumentoResponse> ObrasDocumentos { get; set; }
-        //public int ObrasDocumentsNumber => ObrasDocumentos == null ? 0 : ObrasDocumentos.Count;
-        //public string ImageFullPath => ObrasDocumentos == null || ObrasDocumentos.Count == 0 $"http://keypress.serveftp.net:88/RowingAppApi2/images/Obras/noimage.png": ObrasDocumentos.FirstOrDefault().ImageFullPath;
     }
 }

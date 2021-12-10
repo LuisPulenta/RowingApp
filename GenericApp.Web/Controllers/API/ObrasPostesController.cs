@@ -136,14 +136,45 @@ namespace GenericApp.Web.Controllers.API
                 RiesgoElectrico = request.RiesgoElectrico,
                 CERTIFICADO = request.CERTIFICADO,
                 FECHAASIGNACION = request.FECHAASIGNACION,
-                MES = request.MES
-
+                MES = request.MES,
+                OBSERVACIONES = request.OBSERVACIONES,
+                CajaDAE = request.CajaDAE,
+                Cliente = request.Cliente,
+                Lindero1 = request.Lindero1,
+                Lindero2 = request.Lindero2,
+                Localidad = request.Localidad,
+                Precinto = request.Precinto,
+                SerieMedidorColocado = request.SerieMedidorColocado,
+                Telefono = request.Telefono,
             };
 
             _context.ObrasPostes.Add(Reclamo);
             await _context.SaveChangesAsync();
 
             return Ok();
+        }
+
+        [HttpPost]
+        [Route("GetReclamos/{ObraID}")]
+        public async Task<IActionResult> GetReclamosEnergia(int ObraID)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest();
+            }
+
+            var reclamos = await _context.ObrasPostes
+           .Where(o => (o.NROOBRA == ObraID) && ((o.TipoImput == "Reclamos")))
+           .OrderBy(o => o.NROREGISTRO)
+           .ToListAsync();
+
+
+            if (reclamos == null)
+            {
+                return BadRequest("No hay Reclamos para esta Obra.");
+            }
+
+            return Ok(reclamos);
         }
     }
 }

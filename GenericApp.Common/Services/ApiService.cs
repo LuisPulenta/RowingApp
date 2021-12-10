@@ -8,6 +8,7 @@ using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
+using GenericApp.Common.Models;
 
 namespace GenericApp.Common.Services
 {
@@ -974,6 +975,51 @@ namespace GenericApp.Common.Services
                 return new ResponseT<object>
                 {
                     IsSuccess = true,
+                };
+            }
+            catch (Exception ex)
+            {
+                return new ResponseT<object>
+                {
+                    IsSuccess = false,
+                    Message = ex.Message,
+                };
+            }
+        }
+
+        public async Task<ResponseT<object>> GetObrasPoste(
+            string urlBase,
+            string servicePrefix,
+            string controller,
+            int id)
+        {
+            try
+            {
+                var model = new ObraIdRequest { Id = id };
+                var request = JsonConvert.SerializeObject(model);
+                var content = new StringContent(request, Encoding.UTF8, "application/json");
+                var client = new HttpClient
+                {
+                    BaseAddress = new Uri(urlBase)
+                };
+
+                var url = $"{servicePrefix}{controller}";
+                var response = await client.PostAsync(url, content);
+                var answer = await response.Content.ReadAsStringAsync();
+                if (!response.IsSuccessStatusCode)
+                {
+                    return new ResponseT<object>
+                    {
+                        IsSuccess = false,
+                        Message = answer,
+                    };
+                }
+
+                var reclamos = JsonConvert.DeserializeObject<List<ObrasPosteResponse>>(answer);
+                return new ResponseT<object>
+                {
+                    IsSuccess = true,
+                    Result = reclamos
                 };
             }
             catch (Exception ex)
