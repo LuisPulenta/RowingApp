@@ -56,7 +56,7 @@
                                     <Grid HeightRequest="60"
                         RowSpacing="-0">
                                         <Grid.GestureRecognizers>
-                                            <TapGestureRecognizer Command="{Binding SelectObraCommand}" />
+                                            <TapGestureRecognizer Command="{Binding SelectReclamoCommand}" />
                                         </Grid.GestureRecognizers>
                                         <Grid.ColumnDefinitions>
                                             <ColumnDefinition Width="120" />

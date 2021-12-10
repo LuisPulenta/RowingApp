@@ -27,7 +27,7 @@ namespace GenericApp.Prism.ViewModels
                 { "obra", this }
             };
             Settings.Obra = JsonConvert.SerializeObject(this);
-            await _navigationService.NavigateAsync("ReclamoPage", parameters);
+            await _navigationService.NavigateAsync("ReclamoEditPage", parameters);
         }
     }
 }

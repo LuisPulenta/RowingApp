@@ -77,6 +77,7 @@ namespace GenericApp.Prism
             containerRegistry.RegisterForNavigation<ReclamosPage, ReclamosPageViewModel>();
             containerRegistry.RegisterForNavigation<InspeccionesPage, InspeccionesPageViewModel>();
             containerRegistry.RegisterForNavigation<ReclamoPage, ReclamoPageViewModel>();
+            containerRegistry.RegisterForNavigation<ReclamoEditPage, ReclamoEditPageViewModel>();
         }
     }
 }
