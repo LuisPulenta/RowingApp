@@ -172,7 +172,7 @@
                 <Button 
           Grid.Row="0"
           Grid.Column="2"
-        Text="cargar reclamo"
+        Text="reclamos"
         BackgroundColor="Violet"
         IsEnabled="{Binding IsEnabled}"
          CornerRadius="5"

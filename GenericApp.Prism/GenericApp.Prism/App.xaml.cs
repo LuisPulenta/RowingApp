@@ -74,8 +74,9 @@ namespace GenericApp.Prism
             containerRegistry.RegisterForNavigation<Entregas2Page, Entregas2PageViewModel>();
             containerRegistry.RegisterForNavigation<MedidoresPage, MedidoresPageViewModel>();
             containerRegistry.RegisterForNavigation<TakePhoto2Page, TakePhoto2PageViewModel>();
-            containerRegistry.RegisterForNavigation<ReclamosPage, ReclamosPageViewModel>();
+            containerRegistry.RegisterForNavigation<ReclamoPage, ReclamoPageViewModel>();
             containerRegistry.RegisterForNavigation<InspeccionesPage, InspeccionesPageViewModel>();
+            containerRegistry.RegisterForNavigation<ReclamosPage, ReclamosPageViewModel>();
         }
     }
 }

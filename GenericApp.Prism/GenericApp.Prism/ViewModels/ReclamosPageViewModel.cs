@@ -1,12 +1,10 @@
 ﻿using GenericApp.Common.Helpers;
-using GenericApp.Common.Requests;
 using GenericApp.Common.Responses;
 using GenericApp.Common.Services;
 using Newtonsoft.Json;
 using Prism.Commands;
 using Prism.Navigation;
 using System;
-using Xamarin.Essentials;
 
 namespace GenericApp.Prism.ViewModels
 {
@@ -93,8 +91,10 @@ namespace GenericApp.Prism.ViewModels
             set => SetProperty(ref _nroReclamo, value);
         }
 
-        private DelegateCommand _saveCommand;
-        public DelegateCommand SaveCommand => _saveCommand ?? (_saveCommand = new DelegateCommand(SaveAsync));
+        private DelegateCommand _addReclamo;
+        public DelegateCommand AddReclamo => _addReclamo ?? (_addReclamo = new DelegateCommand(AddAsync));
+
+        
 
         public ReclamosPageViewModel(INavigationService navigationService, IApiService apiService, IFilesHelper filesHelper) : base(navigationService)
         {
@@ -106,173 +106,12 @@ namespace GenericApp.Prism.ViewModels
             UsuarioLogueado = JsonConvert.DeserializeObject<UsuarioAppResponse>(Settings.UsuarioLogueado);
             IsEnabled = false;
             Title = "Reclamos";
-
         }
 
-     
-
-        private async void SaveAsync()
+        private async void AddAsync()
         {
-            if (string.IsNullOrEmpty(Zona))
-            {
-                await App.Current.MainPage.DisplayAlert(
-                    "Error",
-                    "Debe ingresar una Zona",
-                    "Aceptar");
-                return;
-            }
-
-            if (Zona.Length > 50)
-            {
-                await App.Current.MainPage.DisplayAlert("Error", "La zona no puede tener más de 50 caracteres.", "Aceptar");
-                return;
-            }
-
-            if (string.IsNullOrEmpty(Descripcion))
-            {
-                await App.Current.MainPage.DisplayAlert(
-                    "Error",
-                    "Debe ingresar una Descripción",
-                    "Aceptar");
-                return;
-            }
-
-            if (Descripcion.Length > 160)
-            {
-                await App.Current.MainPage.DisplayAlert("Error", "La Descripción no puede tener más de 160 caracteres.", "Aceptar");
-                return;
-            }
-
-            if (string.IsNullOrEmpty(Direccion))
-            {
-                await App.Current.MainPage.DisplayAlert(
-                    "Error",
-                    "Debe ingresar una Dirección",
-                    "Aceptar");
-                return;
-            }
-
-            if (Direccion.Length > 100)
-            {
-                await App.Current.MainPage.DisplayAlert("Error", "La Dirección no puede tener más de 100 caracteres.", "Aceptar");
-                return;
-            }
-
-            if (string.IsNullOrEmpty(Numero))
-            {
-                await App.Current.MainPage.DisplayAlert(
-                    "Error",
-                    "Debe ingresar un Número",
-                    "Aceptar");
-                return;
-            }
-
-            if (Numero.Length > 19)
-            {
-                await App.Current.MainPage.DisplayAlert("Error", "El Número no puede tener más de 19 caracteres.", "Aceptar");
-                return;
-            }
-
-            if (string.IsNullOrEmpty(NroReclamo))
-            {
-                await App.Current.MainPage.DisplayAlert(
-                    "Error",
-                    "Debe ingresar un AS/N° Reclamo",
-                    "Aceptar");
-                return;
-            }
-
-            if (NroReclamo.Length > 20)
-            {
-                await App.Current.MainPage.DisplayAlert("Error", "El AS/N° Reclamo no puede tener más de 20 caracteres.", "Aceptar");
-                return;
-            }
-
-            if (UsuarioLogueado.CODIGOCAUSANTE.Length<1)
-            {
-                await App.Current.MainPage.DisplayAlert("Error", "Su Usuario no tiene cargado el campo CODIGOCAUSANTE", "Aceptar");
-                return;
-            }
-
-            if (UsuarioLogueado.CODIGOGRUPO.Length < 1)
-            {
-                await App.Current.MainPage.DisplayAlert("Error", "Su Usuario no tiene cargado el campo CODIGOGRUPO", "Aceptar");
-                return;
-            }
-
-
-            //Verificar conectividad
-            if (Connectivity.NetworkAccess != NetworkAccess.Internet)
-            {
-                IsRunning = false;
-                IsEnabled = true;
-                await App.Current.MainPage.DisplayAlert(
-                    "Error",
-                    "Error de conexión",
-                    "Aceptar");
-                return;
-            }
-
-            //****************************************************************************************************************
-            IsRunning = true;
-            IsEnabled = false;
-
-
-            //*********************************************************************************************************
-            //Grabar 
-            //*********************************************************************************************************
-            string url = App.Current.Resources["UrlAPI"].ToString();
-
-
-            var response2 = await _apiService.GetNroRegistroMax(
-            url,
-            "api",
-            "/ObrasPostes/GetNroRegistroMax"
-            );
-
-
-
-            var myReclamo = new ObrasPosteRequest
-            {
-                NROREGISTRO=Convert.ToInt32(response2.Result)+1,
-                ASTICKET = NroReclamo,
-                NROOBRA = NroObra,
-                NUMERACION = Numero,
-                DIRECCION = Direccion,
-                Subcontratista= UsuarioLogueado.CODIGOGRUPO,
-                CausanteC=UsuarioLogueado.CODIGOCAUSANTE,
-                TERMINAL=Descripcion,
-                ZONA=Zona,
-                TipoImput = "Reclamos",
-                GRXX="",
-                GRYY="",
-                IDUsrIn=UsuarioLogueado.IDUsuario,
-                ObservacionAdicional="App",
-                FechaCarga=DateTime.Today,
-                RiesgoElectrico="No",
-                CERTIFICADO="No",
-                FECHAASIGNACION = DateTime.Today,
-                MES = DateTime.Today.Month,
-            };
-
-            var response = await _apiService.PostAsync(
-            url,
-            "api",
-            "/ObrasPostes/PostReclamo",
-            myReclamo);
-
-            IsRunning = false;
-            IsEnabled = true;
-
-            if (!response.IsSuccess)
-            {
-                await App.Current.MainPage.DisplayAlert("Error", "Ocurrió un error al guardar el Reclamo, intente más tarde.", "Aceptar");
-                return;
-            }
-
-            await App.Current.MainPage.DisplayAlert("Ok", "Reclamo guardado con éxito!!", "Aceptar");
-            await _navigationService.GoBackAsync();
-            return;
+            Settings.Obra = JsonConvert.SerializeObject(this);
+            await _navigationService.NavigateAsync("ReclamoPage");
         }
     }
 }
