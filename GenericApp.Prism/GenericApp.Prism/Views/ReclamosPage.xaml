@@ -45,7 +45,7 @@
                     <DataTemplate>
                         <ViewCell>
                             <Frame CornerRadius="10"
-                               HeightRequest="70"
+                               HeightRequest="90"
                      HasShadow="True"
                      BackgroundColor="White"
                      Margin="3"
@@ -53,7 +53,7 @@
                      >
                                 <StackLayout 
                   >
-                                    <Grid HeightRequest="60"
+                                    <Grid HeightRequest="90"
                         RowSpacing="-0">
                                         <Grid.GestureRecognizers>
                                             <TapGestureRecognizer Command="{Binding SelectReclamoCommand}" />
@@ -64,6 +64,7 @@
                                             <ColumnDefinition Width="48" />
                                         </Grid.ColumnDefinitions>
                                         <Grid.RowDefinitions>
+                                            <RowDefinition Height="*" />
                                             <RowDefinition Height="*" />
                                             <RowDefinition Height="*" />
                                             <RowDefinition Height="*" />
@@ -95,7 +96,7 @@
                                         FontAttributes="Bold"
                                         TextColor="Blue"
                                         VerticalOptions="Center"
-                                        Text="Descripcion/Nombre:"></Label>
+                                        Text="Zona:"></Label>
 
                                         <Label Grid.Row="1"
                                         Grid.Column="1"
@@ -104,7 +105,8 @@
                                         TextColor="Black"
                                         HorizontalOptions="Start"
                                         VerticalOptions="Center"
-                                        Text="{Binding TERMINAL}"></Label>
+                                        Text="{Binding ZONA}"></Label>
+
 
                                         <Label Grid.Row="2"
                                         Grid.Column="0"
@@ -112,7 +114,7 @@
                                         FontAttributes="Bold"
                                         TextColor="Blue"
                                         VerticalOptions="Center"
-                                        Text="Dirección:"></Label>
+                                        Text="Descripcion/Nombre:"></Label>
 
                                         <Label Grid.Row="2"
                                         Grid.Column="1"
@@ -121,7 +123,7 @@
                                         TextColor="Black"
                                         HorizontalOptions="Start"
                                         VerticalOptions="Center"
-                                        Text="{Binding DIRECCION}"></Label>
+                                        Text="{Binding TERMINAL}"></Label>
 
                                         <Label Grid.Row="3"
                                         Grid.Column="0"
@@ -129,9 +131,26 @@
                                         FontAttributes="Bold"
                                         TextColor="Blue"
                                         VerticalOptions="Center"
-                                        Text="N°:"></Label>
+                                        Text="Dirección:"></Label>
 
                                         <Label Grid.Row="3"
+                                        Grid.Column="1"
+                                        FontSize="Micro"
+                                        FontAttributes="None"
+                                        TextColor="Black"
+                                        HorizontalOptions="Start"
+                                        VerticalOptions="Center"
+                                        Text="{Binding DIRECCION}"></Label>
+
+                                        <Label Grid.Row="4"
+                                        Grid.Column="0"
+                                        FontSize="Micro"
+                                        FontAttributes="Bold"
+                                        TextColor="Blue"
+                                        VerticalOptions="Center"
+                                        Text="N°:"></Label>
+
+                                        <Label Grid.Row="4"
                                         Grid.Column="1"
                                         FontSize="Micro"
                                         FontAttributes="None"
@@ -142,8 +161,8 @@
 
                                         <Image Grid.Row="0"
                                         Grid.Column="2"
-                                        Grid.RowSpan="4"
-                                        VerticalOptions="Center"
+                                        Grid.RowSpan="5"
+                                        VerticalOptions="CenterAndExpand"
                                         Source="ic_chevron_right_negro">
                                         </Image>
                                     </Grid>

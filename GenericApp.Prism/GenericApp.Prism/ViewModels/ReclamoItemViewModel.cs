@@ -26,7 +26,7 @@ namespace GenericApp.Prism.ViewModels
             {
                 { "obra", this }
             };
-            Settings.Obra = JsonConvert.SerializeObject(this);
+            Settings.ObrasPoste = JsonConvert.SerializeObject(this);
             await _navigationService.NavigateAsync("ReclamoEditPage", parameters);
         }
     }
