@@ -1,13 +1,11 @@
-﻿using Newtonsoft.Json;
-using GenericApp.Common.Requests;
+﻿using GenericApp.Common.Helpers;
 using GenericApp.Common.Responses;
 using GenericApp.Common.Services;
-using GenericApp.Prism.Views;
+using Newtonsoft.Json;
 using Prism.Commands;
 using Prism.Navigation;
-using Xamarin.Essentials;
-using GenericApp.Common.Helpers;
 using System;
+using Xamarin.Essentials;
 
 namespace GenericApp.Prism.ViewModels
 {
@@ -17,8 +15,6 @@ namespace GenericApp.Prism.ViewModels
         private bool _isEnabled;
         private string _password;
         private DelegateCommand _loginCommand;
-        private DelegateCommand _registerCommand;
-        private DelegateCommand _forgotPasswordCommand;
         private readonly INavigationService _navigationService;
         private readonly IApiService _apiService;
 
@@ -35,10 +31,6 @@ namespace GenericApp.Prism.ViewModels
         }
 
         public DelegateCommand LoginCommand => _loginCommand ?? (_loginCommand = new DelegateCommand(LoginAsync));
-
-        public DelegateCommand RegisterCommand => _registerCommand ?? (_registerCommand = new DelegateCommand(RegisterAsync));
-
-        public DelegateCommand ForgotPasswordCommand => _forgotPasswordCommand ?? (_forgotPasswordCommand = new DelegateCommand(ForgotPasswordAsync));
 
         public bool IsRunning
         {
@@ -182,16 +174,5 @@ namespace GenericApp.Prism.ViewModels
             await _navigationService.NavigateAsync("/GenericAppMasterDetailPage/NavigationPage/HomePage");
         }
 
-        private async void ForgotPasswordAsync()
-        {
-            var parameters = new NavigationParameters();
-            parameters.Add("email", Email);
-            await _navigationService.NavigateAsync(nameof(RecoverPasswordPage), parameters);
-        }
-
-        private async void RegisterAsync()
-        {
-            await _navigationService.NavigateAsync(nameof(RegisterPage));
-        }
     }
 }

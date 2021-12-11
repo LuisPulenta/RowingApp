@@ -49,26 +49,13 @@ namespace GenericApp.Prism
 
             containerRegistry.RegisterForNavigation<NavigationPage>();
             containerRegistry.RegisterForNavigation<LoginPage, LoginPageViewModel>();
-            containerRegistry.RegisterForNavigation<RecoverPasswordPage, RecoverPasswordPageViewModel>();
-            containerRegistry.RegisterForNavigation<RegisterPage, RegisterPageViewModel>();
             containerRegistry.RegisterForNavigation<GenericAppMasterDetailPage, GenericAppMasterDetailPageViewModel>();
-            containerRegistry.RegisterForNavigation<ModifyUserPage, ModifyUserPageViewModel>();
-
-            containerRegistry.RegisterForNavigation<ChangePasswordPage, ChangePasswordPageViewModel>();
-            containerRegistry.RegisterForNavigation<ProductsPage, ProductsPageViewModel>();
             containerRegistry.RegisterForNavigation<HomePage, HomePageViewModel>();
-            containerRegistry.RegisterForNavigation<ProductsMapPage, ProductsMapPageViewModel>();
-            containerRegistry.RegisterForNavigation<AddProductPage, AddProductPageViewModel>();
-            containerRegistry.RegisterForNavigation<EditProductPage, EditProductPageViewModel>();
-            containerRegistry.RegisterForNavigation<ViewProductPage, ViewProductPageViewModel>();
             containerRegistry.RegisterForNavigation<ObrasPage, ObrasPageViewModel>();
             containerRegistry.RegisterForNavigation<ObraPage, ObraPageViewModel>();
-            containerRegistry.RegisterForNavigation<ObrasWOMPage, ObrasWOMPageViewModel>();
             containerRegistry.RegisterForNavigation<TakePhotoPage, TakePhotoPageViewModel>();
             containerRegistry.RegisterForNavigation<SegHigPage, SegHigPageViewModel>();
-            containerRegistry.RegisterForNavigation<EntregasPage, EntregasPageViewModel>();
             containerRegistry.RegisterForNavigation<InformesPage, InformesPageViewModel>();
-            containerRegistry.RegisterForNavigation<EntregaDetallePage, EntregaDetallePageViewModel>();
             containerRegistry.RegisterForNavigation<DocumentsPage, DocumentsPageViewModel>();
             containerRegistry.RegisterForNavigation<DocumentoDetallePage, DocumentoDetallePageViewModel>();
             containerRegistry.RegisterForNavigation<Entregas2Page, Entregas2PageViewModel>();

@@ -73,6 +73,9 @@ namespace GenericApp.Prism.ViewModels
         private DelegateCommand _saveCommand;
         public DelegateCommand SaveCommand => _saveCommand ?? (_saveCommand = new DelegateCommand(SaveAsync));
 
+        private DelegateCommand _refreshCommand;
+        public DelegateCommand RefreshCommand => _refreshCommand ?? (_refreshCommand = new DelegateCommand(Refresh));
+        
 
         public ReclamoEditPageViewModel(INavigationService navigationService, IApiService apiService, IFilesHelper filesHelper) : base(navigationService)
         {
@@ -166,14 +169,9 @@ namespace GenericApp.Prism.ViewModels
             //Grabar 
             //*********************************************************************************************************
             string url = App.Current.Resources["UrlAPI"].ToString();
+            int NROREGISTRO = 0;
 
-            var response2 = await _apiService.GetNroRegistroMax(
-            url,
-            "api",
-            "/ObrasPostesCajasDetalle/GetNroRegistroMax"
-            );
-
-            int NROREGISTRO = Convert.ToInt32(response2.Result) + 1;
+            
 
             bool bandera = false;
 
@@ -182,6 +180,15 @@ namespace GenericApp.Prism.ViewModels
                 if (myCatalogo.Cantidad > 0)
                 {
                     bandera = true;
+
+                    var response2 = await _apiService.GetNroRegistroMax(
+                        url,
+                        "api",
+                        "/ObrasPostesCajasDetalle/GetNroRegistroMax"
+                    );
+
+                    NROREGISTRO = Convert.ToInt32(response2.Result) + 1;
+
                     var myObrasPostesCajaDetalle = new ObrasPostesCajaDetalleResponse
                     {
                         CANTIDAD = (decimal)myCatalogo.Cantidad,
@@ -199,7 +206,6 @@ namespace GenericApp.Prism.ViewModels
 
                     IsRunning = false;
                     IsEnabled = true;
-                    NROREGISTRO = NROREGISTRO + 1;
 
                     if (!response.IsSuccess)
                     {
