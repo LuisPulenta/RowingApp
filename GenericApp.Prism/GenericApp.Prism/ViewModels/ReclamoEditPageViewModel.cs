@@ -181,13 +181,13 @@ namespace GenericApp.Prism.ViewModels
                 {
                     bandera = true;
 
-                    var response2 = await _apiService.GetNroRegistroMax(
-                        url,
-                        "api",
-                        "/ObrasPostesCajasDetalle/GetNroRegistroMax"
-                    );
+                    //var response2 = await _apiService.GetNroRegistroMax(
+                    //    url,
+                    //    "api",
+                    //    "/ObrasPostesCajasDetalle/GetNroRegistroMax"
+                    //);
 
-                    NROREGISTRO = Convert.ToInt32(response2.Result) + 1;
+                    //NROREGISTRO = Convert.ToInt32(response2.Result) + 1;
 
                     var myObrasPostesCajaDetalle = new ObrasPostesCajaDetalleResponse
                     {
@@ -195,7 +195,7 @@ namespace GenericApp.Prism.ViewModels
                         CATCODIGO = myCatalogo.catCodigo,
                         NROREGISTROCAB = Obra.NROREGISTRO,
                         CODIGOSAP = myCatalogo.CodigoSap,
-                        NROREGISTROD = NROREGISTRO,
+                        //NROREGISTROD = NROREGISTRO,
                     };
 
                     var response = await _apiService.PostAsync(

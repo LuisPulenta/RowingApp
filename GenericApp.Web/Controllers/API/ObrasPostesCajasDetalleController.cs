@@ -41,7 +41,7 @@ namespace GenericApp.Web.Controllers.API
             }
 
 
-            ObrasPostesCajaDetalle ObrasPostesCajaDetalle = new ObrasPostesCajaDetalle
+            ObrasPosteCajaDetalleAPP ObrasPostesCajaDetalle = new ObrasPosteCajaDetalleAPP
             {
                 CANTIDAD = request.CANTIDAD,
                 CATCODIGO = request.CATCODIGO,
@@ -50,7 +50,7 @@ namespace GenericApp.Web.Controllers.API
                 NROREGISTROD = request.NROREGISTROD,
             };
 
-            _context.ObrasPostesCajasDetalle.Add(ObrasPostesCajaDetalle);
+            _context.ObrasPostesCajasDetalleAPP.Add(ObrasPostesCajaDetalle);
             await _context.SaveChangesAsync();
             return Ok();
         }

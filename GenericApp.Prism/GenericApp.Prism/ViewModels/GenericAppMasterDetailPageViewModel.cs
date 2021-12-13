@@ -55,40 +55,40 @@ namespace GenericApp.Prism.ViewModels
         {
             new Menu
             {
-                //Icon = "ic_home",
-                Icon = "home_2",
+                Icon = "ic_home",
+                //Icon = "home_2",
                 PageName = $"{nameof(HomePage)}",
                 Title = "Inicio",
                 IsLoginRequired = true
             },
                 new Menu
             {
-                //Icon = "ic_construction",
-                Icon = "tools_2",
+                Icon = "ic_construction",
+                //Icon = "tools_2",
                 PageName = $"{nameof(ObrasPage)}",
                 Title = "Obras",
                 IsLoginRequired = true
             },
                 new Menu
             {
-                //Icon = "ic_watch_later",
-                Icon = "clock_2",
+                Icon = "ic_watch_later",
+                //Icon = "clock_2",
                 PageName = $"{nameof(MedidoresPage)}",
                 Title = "Medidores",
                 IsLoginRequired = true
             },
                  new Menu
             {
-                //Icon = "ic_warning",
-                Icon = "security",
+                Icon = "ic_warning",
+                //Icon = "security",
                 PageName = $"{nameof(SegHigPage)}",
                 Title = "Seguridad e Higiene",
                 IsLoginRequired = true
             },
                  new Menu
             {
-                //Icon = "ic_format_list_numbered",
-                Icon = "list",
+                Icon = "ic_format_list_numbered",
+                //Icon = "list",
                 PageName = $"{nameof(InspeccionesPage)}",
                 Title = "Inspecciones",
                 IsLoginRequired = true
@@ -96,8 +96,8 @@ namespace GenericApp.Prism.ViewModels
 
             new Menu
             {
-                //Icon = "ic_exit_to_app",
-                Icon = "exit_2",
+                Icon = "ic_exit_to_app",
+                //Icon = "exit_2",
                 PageName = $"{nameof(LoginPage)}",
                 Title = Settings.IsLogin ? "Cerrar Sesión" : "Login"
             }

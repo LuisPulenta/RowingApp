@@ -248,36 +248,51 @@ namespace GenericApp.Prism.ViewModels
 
         private async void SaveAsync()
         {
-
-            if (ObrasPoste.SerieMedidorColocado.Length > 20)
+            if(!string.IsNullOrEmpty(ObrasPoste.SerieMedidorColocado))
             {
-                await App.Current.MainPage.DisplayAlert("Error", "El N° de Serie del Medidor colocado no puede tener más de 20 caracteres.", "Aceptar");
-                return;
+                if (ObrasPoste.SerieMedidorColocado.Length > 20)
+                {
+                    await App.Current.MainPage.DisplayAlert("Error", "El N° de Serie del Medidor colocado no puede tener más de 20 caracteres.", "Aceptar");
+                    return;
+                }
             }
 
-            if (ObrasPoste.Precinto.Length > 20)
+            if (!string.IsNullOrEmpty(ObrasPoste.Precinto))
             {
-                await App.Current.MainPage.DisplayAlert("Error", "El Precinto no puede tener más de 20 caracteres.", "Aceptar");
-                return;
+                if (ObrasPoste.Precinto.Length > 20)
+                {
+                    await App.Current.MainPage.DisplayAlert("Error", "El Precinto no puede tener más de 20 caracteres.", "Aceptar");
+                    return;
+                }
             }
 
-            if (ObrasPoste.CajaDAE.Length > 20)
+            if (!string.IsNullOrEmpty(ObrasPoste.CajaDAE))
             {
-                await App.Current.MainPage.DisplayAlert("Error", "La Caja DAE no puede tener más de 20 caracteres.", "Aceptar");
-                return;
+                if (ObrasPoste.CajaDAE.Length > 20)
+                {
+                    await App.Current.MainPage.DisplayAlert("Error", "La Caja DAE no puede tener más de 20 caracteres.", "Aceptar");
+                    return;
+                }
             }
 
-            if (ObrasPoste.Lindero1.Length > 50)
+            if (!string.IsNullOrEmpty(ObrasPoste.Lindero1))
             {
-                await App.Current.MainPage.DisplayAlert("Error", "Lindero 1 no puede tener más de 50 caracteres.", "Aceptar");
-                return;
+                if (ObrasPoste.Lindero1.Length > 50)
+                {
+                    await App.Current.MainPage.DisplayAlert("Error", "Lindero 1 no puede tener más de 50 caracteres.", "Aceptar");
+                    return;
+                }
             }
 
-            if (ObrasPoste.Lindero2.Length > 50)
+            if (!string.IsNullOrEmpty(ObrasPoste.Lindero2))
             {
-                await App.Current.MainPage.DisplayAlert("Error", "Lindero 2 no puede tener más de 50 caracteres.", "Aceptar");
-                return;
+                if (ObrasPoste.Lindero2.Length > 50)
+                {
+                    await App.Current.MainPage.DisplayAlert("Error", "Lindero 2 no puede tener más de 50 caracteres.", "Aceptar");
+                    return;
+                }
             }
+
 
             //Verificar conectividad
             if (Connectivity.NetworkAccess != NetworkAccess.Internet)
@@ -319,7 +334,20 @@ namespace GenericApp.Prism.ViewModels
                         SerieMedidorColocado = ObrasPoste.SerieMedidorColocado,
                         Telefono = ObrasPoste.Telefono,
                         TipoImput = ObrasPoste.TipoImput,
-                    };
+                ZONA = ObrasPoste.ZONA,
+                TERMINAL = ObrasPoste.TERMINAL,
+                FECHAASIGNACION = ObrasPoste.FECHAASIGNACION,
+                Subcontratista = ObrasPoste.Subcontratista,
+                RiesgoElectrico = ObrasPoste.RiesgoElectrico,
+                FechaCarga = ObrasPoste.FechaCarga,
+                CausanteC = ObrasPoste.CausanteC,
+                IDUsrIn = ObrasPoste.IDUsrIn,
+                MES = ObrasPoste.MES,
+                GRXX = ObrasPoste.GRXX,
+                GRYY = ObrasPoste.GRYY,
+                ObservacionAdicional = ObrasPoste.ObservacionAdicional,
+
+            };
 
                     var response = await _apiService.PutAsync2(
                     url,

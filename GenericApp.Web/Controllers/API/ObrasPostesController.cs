@@ -108,7 +108,7 @@ namespace GenericApp.Web.Controllers.API
 
         [HttpPost]
         [Route("PostReclamo")]
-        public async Task<IActionResult> PostReclamo([FromBody] ObrasPosteRequest request)
+        public async Task<IActionResult> PostReclamo([FromBody] ObrasPosteCajasAppRequest request)
         {
             if (!ModelState.IsValid)
             {
@@ -116,7 +116,7 @@ namespace GenericApp.Web.Controllers.API
             }
 
             
-            var Reclamo = new ObrasPoste
+            var Reclamo = new ObrasPosteCajasAPP
             {
                 NROREGISTRO= request.NROREGISTRO,
                 ASTICKET=request.ASTICKET,
@@ -148,7 +148,7 @@ namespace GenericApp.Web.Controllers.API
                 Telefono = request.Telefono,
             };
 
-            _context.ObrasPostes.Add(Reclamo);
+            _context.ObrasPostesCajasAPP.Add(Reclamo);
             await _context.SaveChangesAsync();
 
             return Ok();
@@ -163,7 +163,7 @@ namespace GenericApp.Web.Controllers.API
                 return BadRequest();
             }
 
-            var reclamos = await _context.ObrasPostes
+            var reclamos = await _context.ObrasPostesCajasAPP
            .Where(o => (o.NROOBRA == ObraID) && ((o.TipoImput == "Reclamos")))
            .OrderBy(o => o.NROREGISTRO)
            .ToListAsync();

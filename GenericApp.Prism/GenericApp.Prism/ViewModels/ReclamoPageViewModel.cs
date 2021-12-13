@@ -221,17 +221,17 @@ namespace GenericApp.Prism.ViewModels
             string url = App.Current.Resources["UrlAPI"].ToString();
 
 
-            var response2 = await _apiService.GetNroRegistroMax(
-            url,
-            "api",
-            "/ObrasPostes/GetNroRegistroMax"
-            );
+            //var response2 = await _apiService.GetNroRegistroMax(
+            //url,
+            //"api",
+            //"/ObrasPostes/GetNroRegistroMax"
+            //);
 
 
 
             var myReclamo = new ObrasPosteRequest
             {
-                NROREGISTRO = Convert.ToInt32(response2.Result) + 1,
+                //NROREGISTRO = Convert.ToInt32(response2.Result) + 1,
                 ASTICKET = NroReclamo,
                 NROOBRA = NroObra,
                 NUMERACION = Numero,
@@ -250,6 +250,16 @@ namespace GenericApp.Prism.ViewModels
                 CERTIFICADO = "No",
                 FECHAASIGNACION = DateTime.Today,
                 MES = DateTime.Today.Month,
+
+                OBSERVACIONES = "",
+                CajaDAE = "",
+                Cliente = "",
+                Lindero1 = "",
+                Lindero2 = "",
+                Localidad = "",
+                Precinto = "",
+                SerieMedidorColocado = "",
+                Telefono = "",
             };
 
             var response = await _apiService.PostAsync(
