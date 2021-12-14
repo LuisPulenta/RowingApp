@@ -64,6 +64,23 @@ namespace GenericApp.Web.Controllers.API
                 return Ok(response);
         }
 
+        // GET: api/Users/5
+        [HttpGet("GetTicket2/{codigo}")]
+        public async Task<ActionResult<Data.Entities.ObrasPoste>> GetTicket2(string codigo)
+        {
+            Data.Entities.ObrasPoste obraPoste = await _context.ObrasPostes
+                .FirstOrDefaultAsync
+                (o => (o.ASTICKET.ToLower() == codigo.ToLower()) && (o.TipoImput == "Medidores") && (o.CERTIFICADO != "SI"));
+
+            if (obraPoste == null)
+            {
+                return NotFound();
+            }
+            return obraPoste;
+        }
+
+
+
         [HttpGet]
         [Route("GetNroRegistroMax")]
         public async Task<IActionResult> GetNroRegistroMax()

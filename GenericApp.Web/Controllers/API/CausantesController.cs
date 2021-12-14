@@ -49,5 +49,19 @@ namespace GenericApp.Web.Controllers.API
 
             return Ok(response);
         }
+
+        // GET: api/Users/5
+        [HttpGet("GetCausanteByCodigo2/{codigo}")]
+        public async Task<ActionResult<Data.Entities.Causante>> GetCausante2(string codigo)
+        {
+            Data.Entities.Causante causante = await _dataContext.Causantes
+                .FirstOrDefaultAsync(o => (o.codigo.ToLower() == codigo.ToLower() || o.NroSAP.ToLower() == codigo.ToLower()) && (o.grupo == "PPR" || o.grupo == "PPC"));
+
+            if (causante == null)
+            {
+                return NotFound();
+            }
+            return causante;
+        }
     }
 }
