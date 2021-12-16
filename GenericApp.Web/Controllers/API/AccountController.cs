@@ -123,5 +123,32 @@ namespace GenericApp.Web.Controllers.API
             }
             return Ok(obras);
         }
+
+        [HttpGet]
+        [Route("GetObrasReclamosRowing")]
+        public IActionResult GetObrasReclamosRowing()
+        {
+            return Ok(_dataContext.Obras
+                .Where(o=> o.HabilitaReclamosAPP==1 && o.Modulo=="Rowing")
+                );
+        }
+
+        [HttpGet]
+        [Route("GetObrasReclamosEnergia")]
+        public IActionResult GetObrasReclamosEnergia()
+        {
+            return Ok(_dataContext.Obras
+                .Where(o => o.HabilitaReclamosAPP == 1 && o.Modulo == "Energia")
+                );
+        }
+
+        [HttpGet]
+        [Route("GetObrasReclamosObrasTasa")]
+        public IActionResult GetObrasReclamosObrasTasa()
+        {
+            return Ok(_dataContext.Obras
+                .Where(o => o.HabilitaReclamosAPP == 1 && o.Modulo == "ObrasTasa")
+                );
+        }
     }
 }

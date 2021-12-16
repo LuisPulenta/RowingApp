@@ -77,6 +77,14 @@ namespace GenericApp.Prism.ViewModels
                 Title = "Medidores",
                 IsLoginRequired = true
             },
+                new Menu
+            {
+                Icon = "ic_border_color",
+                //Icon = "clock_2",
+                PageName = $"{nameof(ReclamosPage)}",
+                Title = "Reclamos",
+                IsLoginRequired = true
+            },
                  new Menu
             {
                 Icon = "ic_warning",

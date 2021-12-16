@@ -121,7 +121,7 @@ namespace GenericApp.Prism.ViewModels
         {
             User = JsonConvert.DeserializeObject<UsuarioAppResponse>(Settings.UsuarioLogueado);
 
-            var controller = string.Format("/ObrasPostes/GetReclamos/{0}", NroObra);
+            var controller = string.Format("/ObrasPostes/GetReclamosByUser/{0}", User.IDUsuario);
             var url = App.Current.Resources["UrlAPI"].ToString();
             IsRunning = true;
             var response = await _apiService.GetObrasPoste(

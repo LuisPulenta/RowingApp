@@ -107,25 +107,7 @@
                                         VerticalOptions="Center"
                                         Text="{Binding ZONA}"></Label>
 
-
                                         <Label Grid.Row="2"
-                                        Grid.Column="0"
-                                        FontSize="Micro"
-                                        FontAttributes="Bold"
-                                        TextColor="Blue"
-                                        VerticalOptions="Center"
-                                        Text="Descripcion/Nombre:"></Label>
-
-                                        <Label Grid.Row="2"
-                                        Grid.Column="1"
-                                        FontSize="Micro"
-                                        FontAttributes="None"
-                                        TextColor="Black"
-                                        HorizontalOptions="Start"
-                                        VerticalOptions="Center"
-                                        Text="{Binding TERMINAL}"></Label>
-
-                                        <Label Grid.Row="3"
                                         Grid.Column="0"
                                         FontSize="Micro"
                                         FontAttributes="Bold"
@@ -133,7 +115,7 @@
                                         VerticalOptions="Center"
                                         Text="Dirección:"></Label>
 
-                                        <Label Grid.Row="3"
+                                        <Label Grid.Row="2"
                                         Grid.Column="1"
                                         FontSize="Micro"
                                         FontAttributes="None"
@@ -142,13 +124,30 @@
                                         VerticalOptions="Center"
                                         Text="{Binding DIRECCION}"></Label>
 
-                                        <Label Grid.Row="4"
+                                        <Label Grid.Row="3"
                                         Grid.Column="0"
                                         FontSize="Micro"
                                         FontAttributes="Bold"
                                         TextColor="Blue"
                                         VerticalOptions="Center"
                                         Text="N°:"></Label>
+
+                                        <Label Grid.Row="3"
+                                        Grid.Column="1"
+                                        FontSize="Micro"
+                                        FontAttributes="None"
+                                        TextColor="Black"
+                                        HorizontalOptions="Start"
+                                        VerticalOptions="Center"
+                                        Text="{Binding NUMERACION}"></Label>
+
+                                        <Label Grid.Row="4"
+                                        Grid.Column="0"
+                                        FontSize="Micro"
+                                        FontAttributes="Bold"
+                                        TextColor="Blue"
+                                        VerticalOptions="Center"
+                                        Text="Descripcion/Nombre:"></Label>
 
                                         <Label Grid.Row="4"
                                         Grid.Column="1"
@@ -157,7 +156,7 @@
                                         TextColor="Black"
                                         HorizontalOptions="Start"
                                         VerticalOptions="Center"
-                                        Text="{Binding NUMERACION}"></Label>
+                                        Text="{Binding TERMINAL}"></Label>
 
                                         <Image Grid.Row="0"
                                         Grid.Column="2"

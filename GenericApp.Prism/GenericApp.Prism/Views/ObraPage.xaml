@@ -159,7 +159,6 @@
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*" />
                     <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
 
                 <Grid.RowDefinitions>
@@ -169,19 +168,7 @@
                 </Grid.RowDefinitions>
 
 
-                <Button 
-          Grid.Row="0"
-          Grid.Column="2"
-        Text="reclamos"
-        BackgroundColor="Violet"
-        IsEnabled="{Binding IsEnabled}"
-         CornerRadius="5"
-        HeightRequest="60"
-        FontSize="Small"
-        TextColor="White"
-        VerticalOptions="EndAndExpand"
-        Command="{Binding ReclamoCommand}">
-                </Button>
+                
 
                 <Button 
           Grid.Row="0"

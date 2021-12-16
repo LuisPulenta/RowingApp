@@ -69,6 +69,12 @@ namespace GenericApp.Prism.ItemViewModels
                     return;
                 }
 
+                if (PageName == "ReclamosPage" && UsuarioLogueado.HabilitaReclamos != 1)
+                {
+                    await App.Current.MainPage.DisplayAlert("Aviso!", "Su Usuario no está habilitado para Reclamos.", "Aceptar");
+                    return;
+                }
+
                 if (PageName == "LoginPage")
                 {
                     await _navigationService.NavigateAsync($"{nameof(LoginPage)}");

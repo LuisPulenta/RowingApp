@@ -6,6 +6,9 @@ using Newtonsoft.Json;
 using Prism.Commands;
 using Prism.Navigation;
 using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Linq;
 using Xamarin.Essentials;
 
 namespace GenericApp.Prism.ViewModels
@@ -43,6 +46,14 @@ namespace GenericApp.Prism.ViewModels
             get => _obra;
             set => SetProperty(ref _obra, value);
         }
+
+        private ObservableCollection<ObraResponse> _obras;
+        public ObservableCollection<ObraResponse> Obras
+        {
+            get => _obras;
+            set => SetProperty(ref _obras, value);
+        }
+
 
         private int _nroObra;
         public int NroObra
@@ -101,15 +112,75 @@ namespace GenericApp.Prism.ViewModels
             _navigationService = navigationService;
             _apiService = apiService;
             _filesHelper = filesHelper;
-            Obra = JsonConvert.DeserializeObject<ObraResponse>(Settings.Obra);
-            NroObra = Obra.NroObra;
             UsuarioLogueado = JsonConvert.DeserializeObject<UsuarioAppResponse>(Settings.UsuarioLogueado);
+            LoadObrasAsync();
             IsEnabled = false;
             Title = "Reclamo";
         }
 
+        private async void LoadObrasAsync()
+        {
+            IsRunning = true;
+            IsEnabled = false;
+
+            if (Connectivity.NetworkAccess != NetworkAccess.Internet)
+            {
+                IsRunning = false;
+                IsEnabled = true;
+                await App.Current.MainPage.DisplayAlert("Error", "Error de conexión", "Aceptar");
+                return;
+            }
+
+            string url = App.Current.Resources["UrlAPI"].ToString();
+
+            Response response;
+
+            if(UsuarioLogueado.Modulo=="Rowing")
+            {
+                response = await _apiService.GetListAsync<ObraResponse>(url, "api", "/Account/GetObrasReclamosRowing");
+            }
+            else
+            if
+                (UsuarioLogueado.Modulo == "Energia")
+                {
+                    response = await _apiService.GetListAsync<ObraResponse>(url, "api", "/Account/GetObrasReclamosEnergia");
+                }
+            else
+            if
+                (UsuarioLogueado.Modulo == "ObrasTasa")
+            {
+                response = await _apiService.GetListAsync<ObraResponse>(url, "api", "/Account/GetObrasReclamosObrasTasa");
+            }
+            else
+            {
+                return;
+            }
+
+
+            IsRunning = false;
+            IsEnabled = true;
+
+            if (!response.IsSuccess)
+            {
+                await App.Current.MainPage.DisplayAlert("Error", response.Message, "Aceptar");
+                return;
+            }
+
+            List<ObraResponse> list = (List<ObraResponse>)response.Result;
+            Obras = new ObservableCollection<ObraResponse>(list.OrderBy(c => c.NombreObra));
+        }
+
         private async void SaveAsync()
         {
+            if (Obra ==null)
+            {
+                await App.Current.MainPage.DisplayAlert(
+                    "Error",
+                    "Debe seleccionar una Obra",
+                    "Aceptar");
+                return;
+            }
+
             if (string.IsNullOrEmpty(Zona))
             {
                 await App.Current.MainPage.DisplayAlert(
@@ -233,7 +304,7 @@ namespace GenericApp.Prism.ViewModels
             {
                 //NROREGISTRO = Convert.ToInt32(response2.Result) + 1,
                 ASTICKET = NroReclamo,
-                NROOBRA = NroObra,
+                NROOBRA = Obra.NroObra,
                 NUMERACION = Numero,
                 DIRECCION = Direccion,
                 Subcontratista = UsuarioLogueado.CODIGOGRUPO,

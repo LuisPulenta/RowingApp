@@ -21,8 +21,28 @@
 
             <StackLayout AbsoluteLayout.LayoutBounds="0,0,1,1"
                      AbsoluteLayout.LayoutFlags="All" 
-                     Padding="5">
+                     Padding="5"
+                         BackgroundColor="{StaticResource ColorBackground}"
+>
                 <BoxView HeightRequest="1"/>
+
+                <inputLayout:SfTextInputLayout 
+                Padding="10,-5"
+                Hint="Obra..." 
+                ContainerType="Outlined"
+                BackgroundColor="{StaticResource ColorBackground}"
+                ContainerBackgroundColor="White"
+                FocusedColor="White"
+                UnfocusedColor="#dc2221">
+                    <Picker ItemDisplayBinding="{Binding NombreObra}"
+                            TextColor="Black"
+                            FontSize="Small"
+                                ItemsSource="{Binding Obras}"
+                                SelectedItem="{Binding Obra}"
+                            
+                            
+                                Title="Seleccione Obra..."/>
+                </inputLayout:SfTextInputLayout>
 
                 <inputLayout:SfTextInputLayout 
                 Padding="10,-5"
@@ -35,19 +55,6 @@
                     <Entry Placeholder="Ingrese Zona..."
                        FontSize="Small"
                        Text="{Binding Zona}" />
-                </inputLayout:SfTextInputLayout>
-
-                <inputLayout:SfTextInputLayout 
-                Padding="10,-5"
-                Hint="Descripción/Nombre......" 
-                ContainerType="Outlined"
-                BackgroundColor="{StaticResource ColorBackground}"
-                ContainerBackgroundColor="White"
-                FocusedColor="White"
-                UnfocusedColor="#dc2221">
-                    <Entry Placeholder="Ingrese Descripción/Nombre..."
-                       FontSize="Small"
-                       Text="{Binding Descripcion}" />
                 </inputLayout:SfTextInputLayout>
 
                 <inputLayout:SfTextInputLayout 
@@ -87,6 +94,20 @@
                     <Entry Placeholder="Ingrese AS/N° Reclamo..."
                        FontSize="Small"
                        Text="{Binding NroReclamo}" />
+                </inputLayout:SfTextInputLayout>
+
+                <inputLayout:SfTextInputLayout 
+                Padding="10,-5"
+                Hint="Descripción/Nombre......" 
+                ContainerType="Outlined"
+                BackgroundColor="{StaticResource ColorBackground}"
+                ContainerBackgroundColor="White"
+                FocusedColor="White"
+                UnfocusedColor="#dc2221">
+                    <Editor Placeholder="Ingrese Descripción/Nombre..."
+                       FontSize="Small"
+                       HeightRequest="120"
+                       Text="{Binding Descripcion}" />
                 </inputLayout:SfTextInputLayout>
 
 

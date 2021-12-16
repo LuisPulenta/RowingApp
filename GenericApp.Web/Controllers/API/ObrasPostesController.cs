@@ -193,5 +193,28 @@ namespace GenericApp.Web.Controllers.API
 
             return Ok(reclamos);
         }
+
+        [HttpPost]
+        [Route("GetReclamosByUser/{UserID}")]
+        public async Task<IActionResult> GetReclamosByUser(int UserID)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest();
+            }
+
+            var reclamos = await _context.ObrasPostesCajasAPP
+           .Where(o => (o.IDUsrIn == UserID) && (o.TipoImput == "Reclamos") && (o.CERTIFICADO == "No"))
+           .OrderBy(o => o.NROREGISTRO)
+           .ToListAsync();
+
+
+            if (reclamos == null)
+            {
+                return BadRequest("No hay Reclamos para esta Obra.");
+            }
+
+            return Ok(reclamos);
+        }
     }
 }

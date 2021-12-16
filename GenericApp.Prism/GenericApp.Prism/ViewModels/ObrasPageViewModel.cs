@@ -165,7 +165,8 @@ namespace GenericApp.Prism.ViewModels
                     CantObras=a.CantObras,
                     OBSERVACIONES=a.OBSERVACIONES,
                     Modulo=a.Modulo,
-                    ObrasDocumentos=a.ObrasDocumentos
+                    ObrasDocumentos=a.ObrasDocumentos,
+                    HabilitaReclamosAPP=a.HabilitaReclamosAPP
                     
                 });
                 Obras = new ObservableCollection<ObraItemViewModel>(myObraItemViewModel
@@ -183,7 +184,9 @@ namespace GenericApp.Prism.ViewModels
                     CantObras = a.CantObras,
                     OBSERVACIONES = a.OBSERVACIONES,
                     Modulo = a.Modulo,
-                    ObrasDocumentos = a.ObrasDocumentos
+                    ObrasDocumentos = a.ObrasDocumentos,
+                    HabilitaReclamosAPP=a.HabilitaReclamosAPP,
+                    
                 });
                 Obras = new ObservableCollection<ObraItemViewModel>(myObraItemViewModel
                     .OrderBy(o => o.NombreObra)

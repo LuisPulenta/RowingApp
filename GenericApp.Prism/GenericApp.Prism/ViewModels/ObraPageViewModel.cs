@@ -130,10 +130,6 @@ namespace GenericApp.Prism.ViewModels
             set => SetProperty(ref _eLEMPEP, value);
         }
 
-       
-
-        private DelegateCommand _reclamoCommand;
-        public DelegateCommand ReclamoCommand => _reclamoCommand ?? (_reclamoCommand = new DelegateCommand(Reclamo));
         
         private DelegateCommand _deletePhotoCommand;
         public DelegateCommand DeletePhotoCommand => _deletePhotoCommand ?? (_deletePhotoCommand = new DelegateCommand(DeletePhotoAsync));
@@ -216,18 +212,9 @@ namespace GenericApp.Prism.ViewModels
         }
         #endregion
 
-        private async void Reclamo()
-        {
-            if (UsuarioLogueado.HabilitaReclamos != 1)
-            {
-                await App.Current.MainPage.DisplayAlert("Aviso!", "Su Usuario no está habilitado para Reclamos.", "Aceptar");
-                return;
-            }
-
-            Settings.Obra = JsonConvert.SerializeObject(this);
-            await _navigationService.NavigateAsync("ReclamosPage");
-        }
-
+        
+            
+        
         private async void TakePhoto()
         {
             
