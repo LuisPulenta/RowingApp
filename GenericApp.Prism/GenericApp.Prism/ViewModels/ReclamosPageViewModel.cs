@@ -102,11 +102,11 @@ namespace GenericApp.Prism.ViewModels
             _apiService = apiService;
             _filesHelper = filesHelper;
             _instance = this;
-
-            Obra = JsonConvert.DeserializeObject<ObraResponse>(Settings.Obra);
-            NroObra = Obra.NroObra;
-            LoadUser();
             UsuarioLogueado = JsonConvert.DeserializeObject<UsuarioAppResponse>(Settings.UsuarioLogueado);
+            //Obra = JsonConvert.DeserializeObject<ObraResponse>(Settings.Obra);
+            //NroObra = Obra.NroObra;
+            LoadUser();
+            
             IsEnabled = false;
             Title = "Reclamos";
         }
