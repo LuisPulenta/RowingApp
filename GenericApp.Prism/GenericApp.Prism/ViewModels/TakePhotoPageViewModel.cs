@@ -214,7 +214,28 @@ namespace GenericApp.Prism.ViewModels
         {
             await CrossMedia.Current.Initialize();
 
-            _file = await CrossMedia.Current.TakePhotoAsync(
+            string source = await Application.Current.MainPage.DisplayActionSheet(
+               "De donde quiere tomar la foto?",
+               "Cancelar",
+               null,
+               "Galería",
+               "Cámara");
+
+            if (source == "Cancelar")
+            {
+                _file = null;
+                return;
+            }
+
+            if (source == "Cámara")
+            {
+                if (!CrossMedia.Current.IsCameraAvailable)
+                {
+                    await App.Current.MainPage.DisplayAlert("Error", "La cámara no está disponible", "Aceptar");
+                    return;
+                }
+
+                _file = await CrossMedia.Current.TakePhotoAsync(
                 new StoreCameraMediaOptions
                 {
                     Directory = "Sample",
@@ -222,6 +243,17 @@ namespace GenericApp.Prism.ViewModels
                     PhotoSize = PhotoSize.Small,
                 }
             );
+            }
+            else
+            {
+                if (!CrossMedia.Current.IsPickPhotoSupported)
+                {
+                    await App.Current.MainPage.DisplayAlert("Error", "La Galería no está disponible", "Aceptar");
+                    return;
+                }
+
+                _file = await CrossMedia.Current.PickPhotoAsync();
+            }
 
             if (_file != null)
             {

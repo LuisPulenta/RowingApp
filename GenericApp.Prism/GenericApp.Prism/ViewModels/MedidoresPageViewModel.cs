@@ -221,11 +221,9 @@ namespace GenericApp.Prism.ViewModels
 
                 ImagesTemp = new ObservableCollection<ObraDocumentoResponse>(myListObrasDocumentos.OrderBy(o => o.TipoDeFoto));
                 Images = new ObservableCollection<ObraDocumentoResponse>();
+                
                 IdPhoto = 0;
-                if (Images.Count > 0)
-                {
-                    IdPhoto = Images[0].NROREGISTRO;
-                };
+
                 foreach (ObraDocumentoResponse obraDocumentoResponse in ImagesTemp)
                 {
                     if (obraDocumentoResponse.TipoDeFoto >= 4 && obraDocumentoResponse.TipoDeFoto <= 9)
@@ -233,6 +231,12 @@ namespace GenericApp.Prism.ViewModels
                         Images.Add(obraDocumentoResponse);
                     }
                 }
+
+                if (Images.Count > 0)
+                {
+                    IdPhoto = Images[0].NROREGISTRO;
+                };
+
                 var abc = 1;
             }
         }
@@ -391,22 +395,23 @@ namespace GenericApp.Prism.ViewModels
         private async void DeletePhotoAsync()
         {
 
+
             if (UsuarioLogueado.HabilitaFotos != 1)
             {
                 await App.Current.MainPage.DisplayAlert("Aviso!", "Su Usuario no está habilitado para eliminar fotos.", "Aceptar");
                 return;
             }
 
-            if (IdPhoto == 0)
-            {
-                IsRunning = false;
-                IsEnabled = true;
-                await App.Current.MainPage.DisplayAlert(
-                    "Error",
-                    "Desplace las fotos hasta la foto que desea borrar",
-                    "Aceptar");
-                return;
-            }
+            //if (IdPhoto == 0)
+            //{
+            //    IsRunning = false;
+            //    IsEnabled = true;
+            //    await App.Current.MainPage.DisplayAlert(
+            //        "Error",
+            //        "Desplace las fotos hasta la foto que desea borrar",
+            //        "Aceptar");
+            //    return;
+            //}
 
             if (Images.Count == 1)
             {

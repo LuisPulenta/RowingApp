@@ -183,11 +183,9 @@ namespace GenericApp.Prism.ViewModels
                 Title = Obra.NombreObra;
                 ImagesTemp = new ObservableCollection<ObraDocumentoResponse>(Obra.ObrasDocumentos);
                 Images = new ObservableCollection<ObraDocumentoResponse>();
+                
                 IdPhoto = 0;
-                if (Images.Count > 0)
-                {
-                    IdPhoto = Images[0].NROREGISTRO;
-                };
+                
                 NroObra = Obra.NroObra.ToString();
                 NombreObra = Obra.NombreObra;
                 ELEMPEP = Obra.ELEMPEP;
@@ -200,6 +198,11 @@ namespace GenericApp.Prism.ViewModels
                         Images.Add(obraDocumentoResponse);
                     }
                 }
+
+                if (Images.Count > 0)
+                {
+                    IdPhoto = Images[0].NROREGISTRO;
+                };
             }
         }
 
@@ -230,16 +233,16 @@ namespace GenericApp.Prism.ViewModels
                 return;
             }
 
-            if (IdPhoto == 0)
-            {
-                IsRunning = false;
-                IsEnabled = true;
-                await App.Current.MainPage.DisplayAlert(
-                    "Error",
-                    "Desplace las fotos hasta la foto que desea borrar",
-                    "Aceptar");
-                return;
-            }
+            //if (IdPhoto == 0)
+            //{
+            //    IsRunning = false;
+            //    IsEnabled = true;
+            //    await App.Current.MainPage.DisplayAlert(
+            //        "Error",
+            //        "Desplace las fotos hasta la foto que desea borrar",
+            //        "Aceptar");
+            //    return;
+            //}
 
             if (Images.Count == 1)
             {
