@@ -186,6 +186,7 @@ namespace GenericApp.Prism.ViewModels
             TiposFoto.Add(new TipoFoto { Codigo = 0, Descripcion = "Relevamiento(Vereda/Calzada/Traza)", });
             TiposFoto.Add(new TipoFoto { Codigo = 1, Descripcion = "Previa al Trabajo", });
             TiposFoto.Add(new TipoFoto { Codigo = 2, Descripcion = "Durante el Trabajo", });
+            TiposFoto.Add(new TipoFoto { Codigo = 10, Descripcion = "Vereda conforme", });
             TiposFoto.Add(new TipoFoto { Codigo = 3, Descripcion = "Finalización del Trabajo", });
         }
 
