@@ -1,6 +1,7 @@
 ﻿using GenericApp.Common.Requests;
 using GenericApp.Common.Responses;
 using GenericApp.Web.Data;
+using GenericApp.Web.Data.Entities;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
@@ -149,6 +150,20 @@ namespace GenericApp.Web.Controllers.API
             return Ok(_dataContext.Obras
                 .Where(o => o.HabilitaReclamosAPP == 1 && o.Modulo == "ObrasTasa")
                 );
+        }
+
+        [HttpGet("{id}")]
+        [Route("GetObra/{id}")]
+        public async Task<ActionResult<Obra>> GetObra(int id)
+        {
+            Obra obra = await _dataContext.Obras
+                .Include(x => x.ObrasDocumentos)
+                .FirstOrDefaultAsync(x => x.NroObra == id);
+            if (obra == null)
+            {
+                return NotFound();
+            }
+            return obra;
         }
     }
 }
