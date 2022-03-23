@@ -18,17 +18,12 @@ namespace GenericApp.Web.Controllers.API
             _dataContext = dataContext;
         }
 
-        [HttpPost]
-        [Route("GetVehiculoByChapa")]
-        public async Task<IActionResult> GetVehiculoByChapa(VehiculoRequest chapa)
-        {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest();
-            }
 
-            Data.Entities.Vehiculo vehiculo = await _dataContext.Vehiculos.FirstOrDefaultAsync
-                (o => o.NUMCHA.ToLower() == chapa.NUMCHA.ToLower());
+        [HttpPost("GetVehiculoByChapa/{chapa}")]
+        public async Task<ActionResult<Data.Entities.Causante>> GetVehiculoByChapa(string chapa)
+        {
+            Data.Entities.Vehiculo vehiculo = await _dataContext.Vehiculos
+                .FirstOrDefaultAsync(o => o.NUMCHA.ToLower() == chapa.ToLower());
 
             if (vehiculo == null)
             {
@@ -37,7 +32,7 @@ namespace GenericApp.Web.Controllers.API
 
             VehiculoResponse response = new VehiculoResponse
             {
-                ANIOFA= vehiculo.ANIOFA,
+                ANIOFA = vehiculo.ANIOFA,
                 CAMPOMEMO = vehiculo.CAMPOMEMO,
                 CHASIS = vehiculo.CHASIS,
                 KMHSACTUAL = vehiculo.KMHSACTUAL,
