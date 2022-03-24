@@ -2,6 +2,7 @@
 using GenericApp.Web.Data;
 using GenericApp.Web.Data.Entities;
 using Microsoft.AspNetCore.Mvc;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace GenericApp.Web.Controllers.API
@@ -39,11 +40,20 @@ namespace GenericApp.Web.Controllers.API
                 KILFIN = request.KILFIN,
                 KILINI = request.KILINI,
                 NRODEOT = request.NRODEOT,
-                Orden = 0,
+                Orden = request.Orden,
             };
             _context.VehiculosKilometrajes.Add(kilometraje);
             await _context.SaveChangesAsync();
             return Ok(kilometraje);
+        }
+
+        [HttpGet]
+        [Route("GetNroRegistroMax")]
+        public async Task<IActionResult> GetNroRegistroMax()
+        {
+            int query = _context.VehiculosKilometrajes.Max(c => c.Orden);
+
+            return Ok(query);
         }
     }
 }
