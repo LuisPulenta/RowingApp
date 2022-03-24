@@ -3,6 +3,7 @@ using GenericApp.Common.Responses;
 using GenericApp.Web.Data;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace GenericApp.Web.Controllers.API
@@ -52,6 +53,29 @@ namespace GenericApp.Web.Controllers.API
                 UsaHoras = vehiculo.UsaHoras,
             };
             return Ok(response);
+        }
+
+        [HttpPost]
+        [Route("GetKilometrajes/{codigo}")]
+        public async Task<IActionResult> GetKilometrajes(string Codigo)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest();
+            }
+
+            var kilometrajes = await _dataContext.VehiculosKilometrajes
+           .Where(o => o.Equipo == Codigo)
+
+           .OrderBy(o => o.Fecha)
+           .ToListAsync();
+
+
+            if (kilometrajes == null)
+            {
+                return BadRequest("No hay Kilometrajes.");
+            }
+            return Ok(kilometrajes);
         }
     }
 }
