@@ -16,20 +16,20 @@ namespace GenericApp.Web.Controllers.API
             _context = context;
         }
 
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutVehiculosProgramasPrev([FromRoute] int id, [FromBody] Vehiculo2Request request)
+        [HttpPut("{NroInterno}")]
+        public async Task<IActionResult> PutVehiculosProgramasPrev([FromRoute] int NroInterno, [FromBody] Vehiculo3Request request)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            if (id != request.Id)
+            if (NroInterno != request.NroInterno)
             {
                 return BadRequest();
             }
 
-            var oldVehiculoProgramaPrev = await _context.VehiculosProgramasPrev.FindAsync(request.Id);
+            var oldVehiculoProgramaPrev = await _context.VehiculosProgramasPrev.FindAsync(request.NroInterno);
             if (oldVehiculoProgramaPrev == null)
             {
                 return BadRequest("El Vehículo no existe.");
