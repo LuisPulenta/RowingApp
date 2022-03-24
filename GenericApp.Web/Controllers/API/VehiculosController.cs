@@ -77,5 +77,55 @@ namespace GenericApp.Web.Controllers.API
             }
             return Ok(kilometrajes);
         }
+
+        [HttpPut("{id}")]
+        public async Task<IActionResult> PutVehiculo([FromRoute] int id, [FromBody] Vehiculo2Request request)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            if (id != request.Id)
+            {
+                return BadRequest();
+            }
+
+            var oldVehiculo = await _dataContext.Vehiculos.FindAsync(request.Id);
+            if (oldVehiculo == null)
+            {
+                return BadRequest("El Vehículo no existe.");
+            }
+
+            oldVehiculo.KMHSACTUAL = request.KMHSACTUAL;
+
+            _dataContext.Vehiculos.Update(oldVehiculo);
+            await _dataContext.SaveChangesAsync();
+            return Ok();
+        }
+
+        [HttpPost]
+        [Route("GetProgramasPrev/{codigo}")]
+        public async Task<IActionResult> GetProgramasPrev(string Codigo)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest();
+            }
+
+            var kilometrajes = await _dataContext.VehiculosProgramasPrev
+           .Where(o => o.CodigoDeEquipo == Codigo)
+
+           .OrderBy(o => o.CodigoDeTarea)
+           .ToListAsync();
+
+
+            if (kilometrajes == null)
+            {
+                return BadRequest("No hay Programas Preventivos.");
+            }
+            return Ok(kilometrajes);
+        }
+
     }
 }
