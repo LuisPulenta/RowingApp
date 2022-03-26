@@ -15,7 +15,7 @@ namespace GenericApp.Common.Requests
         public int? NRODEOT { get; set; }
         public string CAMBIO { get; set; }
         public byte? PROCESADO { get; set; }
-        public DateTime KMFECHAANTERIOR { get; set; }
+        public DateTime? KMFECHAANTERIOR { get; set; }
         public int? NOPROMEDIAR { get; set; }
         public DateTime FECHAALTA { get; set; }
     }
