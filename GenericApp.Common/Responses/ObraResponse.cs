@@ -15,7 +15,7 @@ namespace GenericApp.Common.Responses
         public ICollection<ObraDocumentoResponse> ObrasDocumentos { get; set; }
         public int ObrasDocumentsNumber => ObrasDocumentos == null ? 0 : ObrasDocumentos.Count;
         public string ImageFullPath => ObrasDocumentos == null || ObrasDocumentos.Count == 0
-            ? $"http://keypress.serveftp.net:88/RowingAppApi/images/Obras/noimage.png"
+            ? $"http://190.111.249.225/RowingAppApi/images/Obras/noimage.png"
             : ObrasDocumentos.FirstOrDefault().ImageFullPath;
     }
 }

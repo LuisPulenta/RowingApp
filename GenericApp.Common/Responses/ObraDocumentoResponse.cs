@@ -21,8 +21,8 @@ namespace GenericApp.Common.Responses
         public int? TipoDeFoto { get; set; }
         public string DireccionFoto { get; set; }
         public string ImageFullPath => string.IsNullOrEmpty(LINK)
-        ? $"http://keypress.serveftp.net:88/RowingAppApi/images/Obras/noimage.png"
-        : $"http://keypress.serveftp.net:88/RowingAppApi{LINK.Substring(1)}";
+        ? $"http://190.111.249.225/RowingAppApi/images/Obras/noimage.png"
+        : $"http://190.111.249.225/RowingAppApi{LINK.Substring(1)}";
 
         public string DescFoto => TipoDeFoto == 0
         ? "Relevamiento(Vereda/Calzada/Traza)"
