@@ -30,7 +30,7 @@ namespace GenericApp.Web.Controllers.API
 
             System.Collections.Generic.List<Catalogo> catalogos = await _context.Catalogos
            .Where(o => (o.VerEnReclamosApp == 1)
-           && (o.Modulo == "Energia"))
+           && (o.Modulo == "Energia" || o.Modulo == "Compartido"))
            .OrderBy(o => o.catCatalogo)
            .ToListAsync();
             if (catalogos == null)
@@ -51,7 +51,7 @@ namespace GenericApp.Web.Controllers.API
 
             System.Collections.Generic.List<Catalogo> catalogos = await _context.Catalogos
            .Where(o => (o.VerEnReclamosApp == 1)
-           && (o.Modulo == "Rowing"))
+           && (o.Modulo == "Rowing" || o.Modulo == "Compartido"))
            .OrderBy(o => o.catCatalogo)
            .ToListAsync();
             if (catalogos == null)
@@ -72,7 +72,7 @@ namespace GenericApp.Web.Controllers.API
 
             System.Collections.Generic.List<Catalogo> catalogos = await _context.Catalogos
            .Where(o => (o.VerEnReclamosApp == 1)
-           && (o.Modulo == "ObrasTasa"))
+           && (o.Modulo == "ObrasTasa" || o.Modulo == "Compartido"))
            .OrderBy(o => o.catCatalogo)
            .ToListAsync();
             if (catalogos == null)
