@@ -26,6 +26,9 @@ namespace GenericApp.Web.Data
         public DbSet<StateEntity> States { get; set; }
         public DbSet<TeamEntity> Teams { get; set; }
 
+        public DbSet<CausantesNovedade> CausantesNovedades { get; set; }
+        public DbSet<TipoNoveda> TipoNovedad { get; set; }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
