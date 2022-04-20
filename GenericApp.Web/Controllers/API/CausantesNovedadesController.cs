@@ -1,10 +1,12 @@
-﻿using GenericApp.Common.Requests;
+﻿using GenericApp.Common.Helpers;
+using GenericApp.Common.Requests;
 using GenericApp.Common.Responses;
 using GenericApp.Web.Data;
 using GenericApp.Web.Data.Entities;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -15,10 +17,12 @@ namespace GenericApp.Web.Controllers.API
     public class CausantesNovedadesController : ControllerBase
     {
         private readonly DataContext _dataContext;
+        private readonly IFilesHelper _filesHelper;
 
-        public CausantesNovedadesController(DataContext dataContext)
+        public CausantesNovedadesController(DataContext dataContext,IFilesHelper filesHelper)
         {
             _dataContext = dataContext;
+            _filesHelper = filesHelper;
         }
 
         [HttpGet]
@@ -66,16 +70,61 @@ namespace GenericApp.Web.Controllers.API
 
         [HttpPost]
         [Route("PostNovedades")]
-        public async Task<IActionResult> PostNovedades([FromBody] CausantesNovedade request)
+        public async Task<IActionResult> PostNovedades([FromBody] CausantesNovedadeRequest request)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
-            _dataContext.CausantesNovedades.Add(request);
+
+            //Foto1
+            var imageUrl1 = string.Empty;
+            var stream1 = new MemoryStream(request.ImageArray1);
+            var guid1 = Guid.NewGuid().ToString();
+            var file1 = $"{guid1}.jpg";
+            var folder1 = "wwwroot\\images\\Novedades";
+            var fullPath1 = $"~/images/Novedades/{file1}";
+            var response1 = _filesHelper.UploadPhoto(stream1, folder1, file1);
+
+            if (response1)
+            {
+                imageUrl1 = fullPath1;
+            }
+
+            //Foto1
+            var imageUrl2 = string.Empty;
+            var stream2 = new MemoryStream(request.ImageArray2);
+            var guid2 = Guid.NewGuid().ToString();
+            var file2 = $"{guid2}.jpg";
+            var folder2 = "wwwroot\\images\\Novedades";
+            var fullPath2 = $"~/images/Novedades/{file2}";
+            var response2 = _filesHelper.UploadPhoto(stream2, folder2, file2);
+
+            if (response2)
+            {
+                imageUrl2 = fullPath2;
+            }
+
+            var causantesNovedade = new CausantesNovedade
+            {
+                //NROREGISTRO = request.NROREGISTRO,
+                CAUSANTE=request.CAUSANTE,
+                EMPRESA = request.EMPRESA,
+                FECHACARGA = request.FECHACARGA,
+                FECHAFIN = request.FECHAFIN,
+                FECHAINICIO = request.FECHAINICIO,
+                FECHANOVEDAD = request.FECHANOVEDAD,
+                GRUPO = request.GRUPO,
+                LinkAdjunto1= imageUrl1,
+                LinkAdjunto2= imageUrl2,
+                OBSERVACIONES = request.OBSERVACIONES,
+                TIPONOVEDAD = request.TIPONOVEDAD,
+                Idusuario = request.Idusuario,
+                VistaRRHH = request.VistaRRHH,
+            };
+            _dataContext.CausantesNovedades.Add(causantesNovedade);
             await _dataContext.SaveChangesAsync();
             return Ok();
         }
-
     }
 }

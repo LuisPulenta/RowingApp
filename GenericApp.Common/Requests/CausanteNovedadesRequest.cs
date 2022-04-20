@@ -1,11 +1,9 @@
 ﻿using System;
-using System.ComponentModel.DataAnnotations;
 
-namespace GenericApp.Web.Data.Entities
+namespace GenericApp.Common.Requests
 {
-    public class CausantesNovedade
+    public class CausantesNovedadeRequest
     {
-        [Key]
         public int IDNOVEDAD { get; set; }
         public string GRUPO { get; set; }
         public string CAUSANTE { get; set; }
@@ -18,15 +16,9 @@ namespace GenericApp.Web.Data.Entities
         public string OBSERVACIONES { get; set; }
         public int VistaRRHH { get; set; }
         public int Idusuario { get; set; }
-
         public string LinkAdjunto1 { get; set; }
-        public string ImageFullPath1 => string.IsNullOrEmpty(LinkAdjunto1)
-        ? $"http://190.111.249.225/RowingAppApi/images/Novedades/noimage.png"
-        : $"http://190.111.249.225/RowingAppApi{LinkAdjunto1.Substring(1)}";
-
         public string LinkAdjunto2 { get; set; }
-        public string ImageFullPath2 => string.IsNullOrEmpty(LinkAdjunto2)
-        ? $"http://190.111.249.225/RowingAppApi/images/Novedades/noimage.png"
-        : $"http://190.111.249.225/RowingAppApi{LinkAdjunto1.Substring(1)}";
+        public byte[] ImageArray1 { get; set; }
+        public byte[] ImageArray2 { get; set; }
     }
 }
