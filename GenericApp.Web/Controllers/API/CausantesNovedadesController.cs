@@ -78,31 +78,37 @@ namespace GenericApp.Web.Controllers.API
             }
 
             //Foto1
-            var imageUrl1 = string.Empty;
-            var stream1 = new MemoryStream(request.ImageArray1);
-            var guid1 = Guid.NewGuid().ToString();
-            var file1 = $"{guid1}.jpg";
-            var folder1 = "wwwroot\\images\\Novedades";
-            var fullPath1 = $"~/images/Novedades/{file1}";
-            var response1 = _filesHelper.UploadPhoto(stream1, folder1, file1);
-
-            if (response1)
+            string imageUrl1 = string.Empty;
+            if (request.ImageArray1 != null && request.ImageArray1.Length > 0)
             {
-                imageUrl1 = fullPath1;
+                var stream1 = new MemoryStream(request.ImageArray1);
+                var guid1 = Guid.NewGuid().ToString();
+                var file1 = $"{guid1}.jpg";
+                var folder1 = "wwwroot\\images\\Novedades";
+                var fullPath1 = $"~/images/Novedades/{file1}";
+                var response1 = _filesHelper.UploadPhoto(stream1, folder1, file1);
+
+                if (response1)
+                {
+                    imageUrl1 = fullPath1;
+                }
             }
 
-            //Foto1
-            var imageUrl2 = string.Empty;
-            var stream2 = new MemoryStream(request.ImageArray2);
-            var guid2 = Guid.NewGuid().ToString();
-            var file2 = $"{guid2}.jpg";
-            var folder2 = "wwwroot\\images\\Novedades";
-            var fullPath2 = $"~/images/Novedades/{file2}";
-            var response2 = _filesHelper.UploadPhoto(stream2, folder2, file2);
-
-            if (response2)
+            //Foto2
+            string imageUrl2 = string.Empty;
+            if (request.ImageArray2 != null && request.ImageArray2.Length > 0)
             {
-                imageUrl2 = fullPath2;
+                var stream2 = new MemoryStream(request.ImageArray2);
+                var guid2 = Guid.NewGuid().ToString();
+                var file2 = $"{guid2}.jpg";
+                var folder2 = "wwwroot\\images\\Novedades";
+                var fullPath2 = $"~/images/Novedades/{file2}";
+                var response2 = _filesHelper.UploadPhoto(stream2, folder2, file2);
+
+                if (response2)
+                {
+                    imageUrl2 = fullPath2;
+                }
             }
 
             var causantesNovedade = new CausantesNovedade
