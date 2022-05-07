@@ -25,9 +25,14 @@ namespace GenericApp.Web.Data
         public DbSet<ProductImageEntity> ProductImages { get; set; }
         public DbSet<StateEntity> States { get; set; }
         public DbSet<TeamEntity> Teams { get; set; }
-
         public DbSet<CausantesNovedade> CausantesNovedades { get; set; }
         public DbSet<TipoNoveda> TipoNovedad { get; set; }
+
+        public DbSet<SHInspeccio> SHInspeccion { get; set; }
+        public DbSet<SHGrupoFormPonderado> SHGrupoFormPonderados { get; set; }
+        public DbSet<SHGrupoFormulario> SHGrupoFormularios { get; set; }
+        public DbSet<SHTiposTrabajo> SHTiposTrabajos { get; set; }
+        public DbSet<Cliente> Clientes { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -62,7 +67,15 @@ namespace GenericApp.Web.Data
                 dep.HasIndex("Name", "CountryId").IsUnique();
                 dep.HasOne(d => d.Country).WithMany(c => c.Teams).OnDelete(DeleteBehavior.Cascade);
             });
-        }
+
+            
+            modelBuilder.Entity<SHGrupoFormulario>()
+                .HasKey(c => new { c.IDCLIENTE, c.IDTIPOTRABAJO,c.IDGRUPOFORMULARIO });
+        
+
+
+
+    }
 
     }
 }
