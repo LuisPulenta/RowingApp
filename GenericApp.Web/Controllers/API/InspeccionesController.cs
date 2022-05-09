@@ -92,7 +92,7 @@ namespace GenericApp.Web.Controllers.API
             var detallesFormularios = await _dataContext.SHGrupoFormPonderados
            .Where(o => (o.IDCLIENTE == idcliente))
 
-           .OrderBy(o => o.DETALLEF)
+           .OrderBy(o => o.IDGRUPOFORMULARIO).ThenBy(o=>o.DETALLEF)
            .ToListAsync();
 
             if (detallesFormularios == null)

@@ -71,11 +71,14 @@ namespace GenericApp.Web.Data
             
             modelBuilder.Entity<SHGrupoFormulario>()
                 .HasKey(c => new { c.IDCLIENTE, c.IDTIPOTRABAJO,c.IDGRUPOFORMULARIO });
-        
+
+            modelBuilder.Entity<SHGrupoFormPonderado>()
+               .HasKey(c => new { c.IDCLIENTE, c.IDGRUPOFORMULARIO, c.DETALLEF });
 
 
 
-    }
+
+        }
 
     }
 }

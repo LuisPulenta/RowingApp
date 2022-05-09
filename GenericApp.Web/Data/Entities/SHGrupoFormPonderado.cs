@@ -4,7 +4,6 @@ namespace GenericApp.Web.Data.Entities
 {
     public class SHGrupoFormPonderado
     {
-        [Key]
         public int IDCLIENTE { get; set; }
         public int IDGRUPOFORMULARIO { get; set; }
         public string DETALLEF { get; set; }
