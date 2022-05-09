@@ -81,8 +81,8 @@ namespace GenericApp.Web.Controllers.API
         }
 
         [HttpGet]
-        [Route("GetDetallesFormularios/{idcliente}/{idgrupoformulario}")]
-        public async Task<IActionResult> GetDetallesFormularios(int idcliente, int idgrupoformulario)
+        [Route("GetDetallesFormularios/{idcliente}")]
+        public async Task<IActionResult> GetDetallesFormularios(int idcliente)
         {
             if (!ModelState.IsValid)
             {
@@ -90,7 +90,7 @@ namespace GenericApp.Web.Controllers.API
             }
 
             var detallesFormularios = await _dataContext.SHGrupoFormPonderados
-           .Where(o => (o.IDCLIENTE == idcliente) && (o.IDGRUPOFORMULARIO == idgrupoformulario))
+           .Where(o => (o.IDCLIENTE == idcliente))
 
            .OrderBy(o => o.DETALLEF)
            .ToListAsync();
