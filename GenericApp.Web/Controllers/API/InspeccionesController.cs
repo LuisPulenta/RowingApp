@@ -1,5 +1,6 @@
 ﻿using GenericApp.Common.Requests;
 using GenericApp.Web.Data;
+using GenericApp.Web.Data.Entities;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -100,6 +101,34 @@ namespace GenericApp.Web.Controllers.API
                 return BadRequest("No hay GrupoFormPonderados.");
             }
             return Ok(detallesFormularios);
+        }
+
+        [HttpPost]
+        [Route("PostInspeccion")]
+        public async Task<IActionResult> PostInspeccion([FromBody] SHInspeccio request)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            _dataContext.SHInspeccion.Add(request);
+            var newInsp = await _dataContext.SaveChangesAsync();
+            return Ok(newInsp);
+        }
+
+        [HttpPost]
+        [Route("PostInspeccionDetalle")]
+        public async Task<IActionResult> PostInspeccionDetalle([FromBody] SHInspeccionDetall request)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            _dataContext.SHInspeccionDetalle.Add(request);
+            var newInsp = await _dataContext.SaveChangesAsync();
+            return Ok();
         }
     }
 }

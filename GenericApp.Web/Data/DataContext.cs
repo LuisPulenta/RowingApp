@@ -29,6 +29,7 @@ namespace GenericApp.Web.Data
         public DbSet<TipoNoveda> TipoNovedad { get; set; }
 
         public DbSet<SHInspeccio> SHInspeccion { get; set; }
+        public DbSet<SHInspeccionDetall> SHInspeccionDetalle { get; set; }
         public DbSet<SHGrupoFormPonderado> SHGrupoFormPonderados { get; set; }
         public DbSet<SHGrupoFormulario> SHGrupoFormularios { get; set; }
         public DbSet<SHTiposTrabajo> SHTiposTrabajos { get; set; }
