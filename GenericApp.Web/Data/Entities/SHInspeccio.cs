@@ -6,24 +6,29 @@ namespace GenericApp.Web.Data.Entities
     public class SHInspeccio
     {
         [Key]
-        public int IDINSPECCION { get; set; }
-        public int IDCLIENTE { get; set; }
-        public DateTime FECHA { get; set; }
-        public int USUARIOALTA { get; set; }
-        public string LATITUD { get; set; }
-        public string LONGITUD { get; set; }
-        public int IDOBRA { get; set; }
-        public string SUPERVISOR { get; set; }
-        public string VEHICULO { get; set; }
-        public int NROLEGAJO { get; set; }
-        public string GRUPOC { get; set; }
-        public string CAUSANTEC { get; set; }
+        public int IDInspeccion { get; set; }
+        public int IDCliente { get; set; }
+        public DateTime Fecha { get; set; }
+        public int UsuarioAlta { get; set; }
+        public string Latitud { get; set; }
+        public string Longitud { get; set; }
+        public int IDObra { get; set; }
+        public string Supervisor { get; set; }
+        public string Vehiculo { get; set; }
+        public int NroLegajo { get; set; }
+        public string GrupoC { get; set; }
+        public string CausanteC { get; set; }
         public string DNI { get; set; }
-        public int ESTADO { get; set; }
-        public string OBSERVACIONESINSPECCION { get; set; }
-        public string AVISO { get; set; }
-        public int EMAILENVIADO { get; set; }
-        public int REQUIEREREINSPECCION { get; set; }
+        public int Estado { get; set; }
+        public string ObservacionesInspeccion { get; set; }
+        public string Aviso { get; set; }
+        public int EmailEnviado { get; set; }
+        public int RequiereReinspeccion { get; set; }
+        public int TotalPreguntas { get; set; }
+        public int RespSi { get; set; }
+        public int RespNo { get; set; }
+        public int RespNA { get; set; }
+        public int TotalPuntos { get; set; }
 
 
     }
