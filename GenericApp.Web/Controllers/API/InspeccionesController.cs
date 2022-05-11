@@ -113,8 +113,8 @@ namespace GenericApp.Web.Controllers.API
             }
 
             _dataContext.SHInspeccion.Add(request);
-            var newInsp = await _dataContext.SaveChangesAsync();
-            return Ok(newInsp);
+            await _dataContext.SaveChangesAsync();
+            return Ok(request);
         }
 
         [HttpPost]
@@ -127,7 +127,7 @@ namespace GenericApp.Web.Controllers.API
             }
 
             _dataContext.SHInspeccionDetalle.Add(request);
-            var newInsp = await _dataContext.SaveChangesAsync();
+            await _dataContext.SaveChangesAsync();
             return Ok();
         }
     }
