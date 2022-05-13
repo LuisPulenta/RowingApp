@@ -1,11 +1,11 @@
 ﻿using System;
-using System.ComponentModel.DataAnnotations;
+using System.Collections.Generic;
+using System.Text;
 
-namespace GenericApp.Web.Data.Entities
+namespace GenericApp.Common.Requests
 {
-    public class SHInspeccionDetall
+    public class SHInspeccionDetallRequest
     {
-        [Key]
         public int IDRegistro { get; set; }
         public int InspeccionCab { get; set; }
         public int IdCliente { get; set; }
@@ -15,11 +15,6 @@ namespace GenericApp.Web.Data.Entities
         public int PonderacionPuntos { get; set; }
         public string Cumple { get; set; }
         public string LinkFoto { get; set; }
-
-        public string ImageFullPath => string.IsNullOrEmpty(LinkFoto)
-        ? $"http://190.111.249.225/RowingAppApi/images/Inspecciones/noimage.png"
-        : $"http://190.111.249.225/RowingAppApi{LinkFoto.Substring(1)}";
-
-
+        public byte[] ImageArray { get; set; }
     }
 }
