@@ -189,5 +189,58 @@ namespace GenericApp.Web.Controllers.API
 
             return Ok(inspecciones);
         }
+
+        // GET: api/Users/5
+        [HttpGet("GetInspeccion/{codigo}")]
+        public async Task<ActionResult<Data.Entities.SHInspeccio>> GetInspeccion(int codigo)
+        {
+            Data.Entities.SHInspeccio inspeccion = await _dataContext.SHInspeccion
+                .FirstOrDefaultAsync
+                (o => (o.IDInspeccion == codigo));
+
+            if (inspeccion == null)
+            {
+                return NotFound();
+            }
+            return inspeccion;
+        }
+
+        [HttpGet]
+        [Route("GetDetallesInspecciones/{idinspeccion}")]
+        public async Task<IActionResult> GetDetallesInspecciones(int idinspeccion)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest();
+            }
+
+            var detallesInspeccion = await _dataContext.SHInspeccionDetalle
+           .Where(o => (o.InspeccionCab == idinspeccion))
+
+           .OrderBy(o => o.IDRegistro)
+           .ToListAsync();
+
+            if (detallesInspeccion == null)
+            {
+                return BadRequest("No hay DetalleInspeccion.");
+            }
+            return Ok(detallesInspeccion);
+        }
+
+        // GET: api/Users/5
+        [HttpGet("GetObra/{codigo}")]
+        public async Task<ActionResult<Data.Entities.Obra>> GetObra(int codigo)
+        {
+            Data.Entities.Obra obra = await _dataContext.Obras
+                .FirstOrDefaultAsync
+                (o => (o.NroObra == codigo));
+
+            if (obra == null)
+            {
+                return NotFound();
+            }
+            return obra;
+        }
+
     }
 }
