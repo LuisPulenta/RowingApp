@@ -29,7 +29,8 @@ namespace GenericApp.Web.Data.Entities
         public int RespNo { get; set; }
         public int RespNA { get; set; }
         public int TotalPuntos { get; set; }
-
-
+        public string DniSR { get; set; }
+        public string NombreSR { get; set; }
+        public int IDTipoTrabajo { get; set; }
     }
 }

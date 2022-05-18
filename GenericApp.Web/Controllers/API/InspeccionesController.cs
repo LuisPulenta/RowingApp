@@ -166,5 +166,28 @@ namespace GenericApp.Web.Controllers.API
 
             return Ok(inspeccionDetalle);
         }
+
+        [HttpPost]
+        [Route("GetInspecciones/{UserID}")]
+        public async Task<IActionResult> GetInspecciones(int UserID)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest();
+            }
+
+            var inspecciones = await _dataContext.VistaInspecciones
+           .Where(o => (o.UsuarioAlta == UserID) && (o.Fecha.AddDays(3)>= DateTime.Now))
+           .OrderBy(o => o.Fecha)
+           .ToListAsync();
+
+
+            if (inspecciones == null)
+            {
+                return BadRequest("No hay Inspecciones para este Usuario.");
+            }
+
+            return Ok(inspecciones);
+        }
     }
 }
