@@ -26,8 +26,6 @@ namespace PDFViewDemo.Droid
                     Control.LoadUrl(customWebView.Uri);
                 else
                     Control.LoadUrl("https://drive.google.com/viewerng/viewer?embedded=true&url=" + customWebView.Uri);
-                var aaa = 1;
-
             }
         }
     }

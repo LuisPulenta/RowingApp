@@ -241,28 +241,5 @@ namespace GenericApp.Web.Controllers.API
             }
             return obra;
         }
-
-        [HttpGet]
-        [Route("GetGruposFormularios/{idcliente/{idtipotrabajo}}")]
-        public async Task<IActionResult> GetGruposFormularios(int idcliente, int idtipotrabajo)
-        {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest();
-            }
-
-            var gruposFormularios = await _dataContext.SHInspeccionDetalle
-           .Where(o => (o.InspeccionCab == idinspeccion))
-
-           .OrderBy(o => o.IDRegistro)
-           .ToListAsync();
-
-            if (gruposFormularios == null)
-            {
-                return BadRequest("No hay DetalleInspeccion.");
-            }
-            return Ok(gruposFormularios);
-        }
-
     }
 }
