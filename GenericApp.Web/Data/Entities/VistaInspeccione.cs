@@ -18,5 +18,7 @@ namespace GenericApp.Web.Data.Entities
         public int Puntos { get; set; }
         public string DniSR { get; set; }
         public string NombreSR { get; set; }
+        public int IDCliente{ get; set; }
+        public int IDTipoTrabajo { get; set; }
     }
 }
