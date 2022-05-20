@@ -168,6 +168,35 @@ namespace GenericApp.Web.Controllers.API
         }
 
         [HttpPost]
+        [Route("PostInspeccionDetalleConFotoExistente")]
+        public async Task<IActionResult> PostInspeccionDetalleConFotoExistente([FromBody] SHInspeccionDetallRequest request)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            var inspeccionDetalle = new SHInspeccionDetall
+            {
+                //NROREGISTRO = request.NROREGISTRO,
+                Cumple = request.Cumple,
+                Descripcion = request.Descripcion,
+                DetalleF = request.DetalleF,
+                IdCliente = request.IdCliente,
+                IDGrupoFormulario = request.IDGrupoFormulario,
+                IDRegistro = request.IDRegistro,
+                InspeccionCab = request.InspeccionCab,
+                LinkFoto = request.LinkFoto,
+                PonderacionPuntos = request.PonderacionPuntos,
+            };
+
+            _dataContext.SHInspeccionDetalle.Add(inspeccionDetalle);
+            await _dataContext.SaveChangesAsync();
+
+            return Ok(inspeccionDetalle);
+        }
+
+        [HttpPost]
         [Route("GetInspecciones/{UserID}")]
         public async Task<IActionResult> GetInspecciones(int UserID)
         {
