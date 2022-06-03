@@ -55,7 +55,10 @@ namespace GenericApp.Web.Controllers.API
             }
 
             var novedades = await _dataContext.CausantesNovedades
-           .Where(o => (o.GRUPO == Grupo) && (o.CAUSANTE == Causante) && (o.FECHACARGA.AddDays(30) >= DateTime.Now))
+           .Where(o => ((o.GRUPO == Grupo) && (o.CAUSANTE == Causante) && (o.FECHACARGA.AddDays(30) >= DateTime.Now) && (o.Estado != "Pendiente"))
+           || ((o.GRUPO == Grupo) && (o.CAUSANTE == Causante) && (o.Estado == "Pendiente"))
+           || ((o.GRUPO == Grupo) && (o.CAUSANTE == Causante) && (o.ConfirmaLeido != 1))
+           )
 
            .OrderBy(o => o.FECHACARGA)
            .ToListAsync();
@@ -127,8 +130,39 @@ namespace GenericApp.Web.Controllers.API
                 TIPONOVEDAD = request.TIPONOVEDAD,
                 Idusuario = request.Idusuario,
                 VistaRRHH = request.VistaRRHH,
+                FechaEstado=request.FechaEstado,
+                ObservacionEstado = request.ObservacionEstado,
+                ConfirmaLeido = request.ConfirmaLeido,
+                IDUsrEstado = request.IDUsrEstado,
+                Estado = request.Estado
             };
             _dataContext.CausantesNovedades.Add(causantesNovedade);
+            await _dataContext.SaveChangesAsync();
+            return Ok();
+        }
+
+        [HttpPut("{id}")]
+        public async Task<IActionResult> PutNovedad([FromRoute] int id, [FromBody] NovedadRequest request)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            if (id != request.IDNOVEDAD)
+            {
+                return BadRequest();
+            }
+
+            var oldNovedad = await _dataContext.CausantesNovedades.FindAsync(request.IDNOVEDAD);
+            if (oldNovedad == null)
+            {
+                return BadRequest("La Novedad no existe.");
+            }
+
+            oldNovedad.ConfirmaLeido = 1;
+
+            _dataContext.CausantesNovedades.Update(oldNovedad);
             await _dataContext.SaveChangesAsync();
             return Ok();
         }

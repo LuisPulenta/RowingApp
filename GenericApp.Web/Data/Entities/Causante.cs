@@ -13,5 +13,6 @@ namespace GenericApp.Web.Data.Entities
         public string grupo { get; set; }
         public string NroSAP { get; set; }
         public bool estado { get; set; }
+        public string RazonSocial { get; set; }
     }
 }

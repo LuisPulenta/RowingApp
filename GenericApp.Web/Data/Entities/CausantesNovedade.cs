@@ -19,6 +19,12 @@ namespace GenericApp.Web.Data.Entities
         public int VistaRRHH { get; set; }
         public int Idusuario { get; set; }
 
+        public DateTime? FechaEstado { get; set; }
+        public string ObservacionEstado { get; set; }
+        public int? ConfirmaLeido { get; set; }
+        public int? IDUsrEstado { get; set; }
+        public string Estado { get; set; }
+
         public string LinkAdjunto1 { get; set; }
         public string ImageFullPath1 => string.IsNullOrEmpty(LinkAdjunto1)
         ? $"http://190.111.249.225/RowingAppApi/images/Novedades/noimage.png"

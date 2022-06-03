@@ -14,10 +14,12 @@ namespace GenericApp.Web.Controllers.API
     public class AccountController : ControllerBase
     {
         private readonly DataContext _dataContext;
+        private readonly DataContext2 _dataContext2;
 
-        public AccountController(DataContext dataContext)
+        public AccountController(DataContext dataContext, DataContext2 dataContext2)
         {
             _dataContext = dataContext;
+            _dataContext2 = dataContext2;
         }
 
         [HttpPost]
@@ -33,12 +35,41 @@ namespace GenericApp.Web.Controllers.API
 
             if (user == null)
             {
-                return BadRequest("El Usuario no existe.");
+
+                var user2 = await _dataContext2.Causantes.FirstOrDefaultAsync(o => o.codigo.ToLower() == userRequest.Email.ToLower() && o.NroSAP.ToLower() == userRequest.Password.ToLower());
+                if (user2 == null)
+                {
+                    return BadRequest("El Usuario no existe.");
+                }
+                var response2 = new UsuarioAppResponse
+                {
+                    IDUsuario = user2.NroCausante,
+                    CodigoCausante = user2.codigo,
+                    Login = user2.codigo,
+                    Contrasena = user2.NroSAP,
+                    Nombre = user2.nombre,
+                    Apellido = user2.nombre,
+                    AutorWOM = 0,
+                    Estado = 1,
+                    HabilitaAPP = 1,
+                    HabilitaFotos = 0,
+                    HabilitaReclamos = 0,
+                    HabilitaSSHH = 0,
+                    HabilitaRRHH = 0,
+                    Modulo = user2.RazonSocial,
+                    HabilitaMedidores = 0,
+                    HabilitaFlotas = "NO",
+                    CODIGOCAUSANTE = user2.codigo,
+                    CODIGOGRUPO = user2.codigo
+                };
+
+                return Ok(response2);
             }
 
             var response = new UsuarioAppResponse
             {
                 IDUsuario = user.IDUsuario,
+                CodigoCausante=user.CODIGOCAUSANTE,
                 Login = user.Login,
                 Contrasena = user.Contrasena,
                 Nombre = user.Nombre,
@@ -49,8 +80,10 @@ namespace GenericApp.Web.Controllers.API
                 HabilitaFotos = user.HabilitaFotos,
                 HabilitaReclamos = user.HabilitaReclamos,
                 HabilitaSSHH = user.HabilitaSSHH,
+                HabilitaRRHH = user.HabilitaRRHH,
                 Modulo = user.Modulo,
                 HabilitaMedidores=user.HabilitaMedidores,
+                HabilitaFlotas=user.HabilitaFlotas,
                 CODIGOCAUSANTE = user.CODIGOCAUSANTE,
                 CODIGOGRUPO = user.CODIGOGRUPO
             };

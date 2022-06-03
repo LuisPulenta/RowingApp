@@ -20,5 +20,10 @@ namespace GenericApp.Common.Requests
         public string LinkAdjunto2 { get; set; }
         public byte[] ImageArray1 { get; set; }
         public byte[] ImageArray2 { get; set; }
+        public DateTime? FechaEstado { get; set; }
+        public string ObservacionEstado { get; set; }
+        public int? ConfirmaLeido { get; set; }
+        public int? IDUsrEstado { get; set; }
+        public string Estado { get; set; }
     }
 }
