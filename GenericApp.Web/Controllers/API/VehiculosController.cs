@@ -127,5 +127,17 @@ namespace GenericApp.Web.Controllers.API
             return Ok(kilometrajes);
         }
 
+        [HttpGet("GetUsuarioChapa/{codigo}")]
+        public async Task<ActionResult<Data.Entities.VFlotaApp>> GetUsuarioChapa(string codigo)
+        {
+            Data.Entities.VFlotaApp vFlotaApp = await _dataContext.VFlotaApps
+                .FirstOrDefaultAsync(o => o.NUMCHA.ToLower() == codigo.ToLower());
+
+            if (vFlotaApp == null)
+            {
+                return NotFound();
+            }
+            return vFlotaApp;
+        }
     }
 }
