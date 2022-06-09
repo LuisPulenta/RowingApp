@@ -63,5 +63,32 @@ namespace GenericApp.Web.Controllers.API
             }
             return causante;
         }
+
+        [HttpPut("{id}")]
+        public async Task<IActionResult> PutCausante([FromRoute] int id, [FromBody] CausanteRequest2 request)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            if (id != request.Id)
+            {
+                return BadRequest();
+            }
+
+            var oldCausante = await _dataContext.Causantes.FindAsync(request.Id);
+            if (oldCausante == null)
+            {
+                return BadRequest("El Vehículo no existe.");
+            }
+
+            oldCausante.telefono = request.telefono;
+
+            _dataContext.Causantes.Update(oldCausante);
+            await _dataContext.SaveChangesAsync();
+            return Ok();
+        }
+
     }
 }
