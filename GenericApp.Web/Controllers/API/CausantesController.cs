@@ -1,6 +1,7 @@
 ﻿using GenericApp.Common.Requests;
 using GenericApp.Common.Responses;
 using GenericApp.Web.Data;
+using GenericApp.Web.Helpers;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Threading.Tasks;
@@ -12,10 +13,12 @@ namespace GenericApp.Web.Controllers.API
     public class CausantesController : ControllerBase
     {
         private readonly DataContext2 _dataContext;
+        private readonly IImageHelper _imageHelper;
 
-        public CausantesController(DataContext2 dataContext)
+        public CausantesController(DataContext2 dataContext,IImageHelper imageHelper)
         {
             _dataContext = dataContext;
+            _imageHelper = imageHelper;
         }
 
         [HttpPost]
@@ -44,7 +47,8 @@ namespace GenericApp.Web.Controllers.API
                 telefono = user.telefono,
                 NroSAP=user.NroSAP,
                 grupo=user.grupo,
-                estado=user.estado
+                estado=user.estado,
+                LinkFoto=user.LinkFoto,
             };
 
             return Ok(response);
@@ -77,13 +81,22 @@ namespace GenericApp.Web.Controllers.API
                 return BadRequest();
             }
 
+            
+
             var oldCausante = await _dataContext.Causantes.FindAsync(request.Id);
             if (oldCausante == null)
             {
-                return BadRequest("El Vehículo no existe.");
+                return BadRequest("El Causante no existe.");
+            }
+
+            string imageId = oldCausante.LinkFoto;
+            if (request.Image != null && request.Image.Length > 0)
+            {
+                imageId = _imageHelper.UploadImage(request.Image, "Causantes");
             }
 
             oldCausante.telefono = request.telefono;
+            oldCausante.LinkFoto = imageId;
 
             _dataContext.Causantes.Update(oldCausante);
             await _dataContext.SaveChangesAsync();

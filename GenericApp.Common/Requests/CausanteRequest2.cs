@@ -8,5 +8,7 @@ namespace GenericApp.Common.Requests
         public int Id { get; set; }
 
         public string telefono { get; set; }
+
+        public byte[] Image { get; set; }
     }
 }
