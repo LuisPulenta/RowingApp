@@ -152,11 +152,11 @@ namespace GenericApp.Web.Controllers.API
             var preventivos = await _dataContext.VFlotaPreventivos
            .Where(o => o.NUMCHA == Codigo)
 
-           .OrderBy(o => o.Descripcion)
+           .OrderBy(o => o.NUMCHA)
            .ToListAsync();
 
 
-            if (preventivos == null)
+                if (preventivos == null)
             {
                 return BadRequest("No hay Preventivos.");
             }

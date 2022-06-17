@@ -6,6 +6,7 @@ namespace GenericApp.Web.Data.Entities
     public class VFlotaPreventivo
     {
         [Key]
+        public int NroInterno { get; set; }
         public string NUMCHA { get; set; }
         public string DescripcionParte { get; set; }
         public string Frecuencia { get; set; }
