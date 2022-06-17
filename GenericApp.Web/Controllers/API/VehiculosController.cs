@@ -139,5 +139,28 @@ namespace GenericApp.Web.Controllers.API
             }
             return vFlotaApp;
         }
+
+        [HttpPost]
+        [Route("GetPreventivos/{codigo}")]
+        public async Task<IActionResult> GetPreventivos(string Codigo)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest();
+            }
+
+            var preventivos = await _dataContext.VFlotaPreventivos
+           .Where(o => o.NUMCHA == Codigo)
+
+           .OrderBy(o => o.Descripcion)
+           .ToListAsync();
+
+
+            if (preventivos == null)
+            {
+                return BadRequest("No hay Preventivos.");
+            }
+            return Ok(preventivos);
+        }
     }
 }

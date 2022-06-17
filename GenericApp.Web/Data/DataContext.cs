@@ -35,6 +35,7 @@ namespace GenericApp.Web.Data
         public DbSet<SHTiposTrabajo> SHTiposTrabajos { get; set; }
         public DbSet<Cliente> Clientes { get; set; }
         public DbSet<VistaInspeccione> VistaInspecciones { get; set; }
+        public DbSet<WebSesio> WebSesion { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

@@ -15,6 +15,7 @@ namespace GenericApp.Web.Data
         public DbSet<VehiculosKilometraje> VehiculosKilometrajes { get; set; }
         public DbSet<VehiculosProgramaPrev> VehiculosProgramasPrev { get; set; }
         public DbSet<VFlotaApp> VFlotaApps { get; set; }
+        public DbSet<VFlotaPreventivo> VFlotaPreventivos { get; set; }
 
     }
 }
