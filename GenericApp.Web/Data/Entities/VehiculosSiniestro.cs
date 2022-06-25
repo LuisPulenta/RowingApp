@@ -26,8 +26,8 @@ namespace GenericApp.Web.Data.Entities
         public string INTERVINOPOLICIA { get; set; }
         public string INTERVINOAMBULANCIA { get; set; }
         public string RELATOSINIESTRO { get; set; }
-        public string Numcha { get; set; }
-        public string CompaniaSeguroTercero { get; set; }
-        public int IDUsuarioCarga { get; set; }
+        public string NUMCHA { get; set; }
+        public string COMPANIASEGUROTERCERO { get; set; }
+        public int IDUSUARIOCARGA { get; set; }
     }
 }
