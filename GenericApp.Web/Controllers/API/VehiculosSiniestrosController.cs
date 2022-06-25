@@ -77,10 +77,10 @@ namespace GenericApp.Web.Controllers.API
                 PROVINCIA = request.PROVINCIA,
                 RELATOSINIESTRO = request.RELATOSINIESTRO,
                 TELEFONOCONTACTOTERCERO = request.TELEFONOCONTACTOTERCERO,
-                CompaniaSeguroTercero = request.CompaniaSeguroTercero,
+                COMPANIASEGUROTERCERO = request.COMPANIASEGUROTERCERO,
                 DIRECCIONSINIESTRO = request.DIRECCIONSINIESTRO,
-                IDUsuarioCarga = request.IDUsuarioCarga,
-                Numcha = request.Numcha,
+                IDUSUARIOCARGA = request.IDUSUARIOCARGA,
+                NUMCHA = request.NUMCHA,
             };
             _dataContext.VehiculosSiniestros.Add(vehiculoSiniestro);
             await _dataContext.SaveChangesAsync();
