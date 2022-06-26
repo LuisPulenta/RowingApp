@@ -36,6 +36,7 @@ namespace GenericApp.Web.Data
         public DbSet<Cliente> Clientes { get; set; }
         public DbSet<VistaInspeccione> VistaInspecciones { get; set; }
         public DbSet<WebSesio> WebSesion { get; set; }
+        public DbSet<UsuariosGeo> UsuariosGeos { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
