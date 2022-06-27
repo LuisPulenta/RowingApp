@@ -16,5 +16,6 @@ namespace GenericApp.Web.Data.Entities
         public double Velocidad { get; set; }
         public int Bateria { get; set; }
         public DateTime Fecha { get; set; }
+        public string Modulo { get; set; }
     }
 }
