@@ -1,4 +1,6 @@
-﻿namespace GenericApp.Common.Responses
+﻿using System;
+
+namespace GenericApp.Common.Responses
 {
     public class CausanteResponse
     {
@@ -20,6 +22,13 @@
         
         public string RazonSocial { get; set; }
         public string LinkFoto { get; set; }
+        public string direccion { get; set; }
+        public int Numero { get; set; }
+        public string TelefonoContacto1 { get; set; }
+        public string TelefonoContacto2 { get; set; }
+        public string TelefonoContacto3 { get; set; }
+        public DateTime fecha { get; set; }
+        public string NotasCausantes { get; set; }
         public string ImageFullPath => string.IsNullOrEmpty(LinkFoto)
         ? $"http://190.111.249.225/RowingAppApi/images/Causantes/nouser.png"
         : $"http://190.111.249.225/RowingAppApi{LinkFoto.Substring(1)}";

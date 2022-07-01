@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace GenericApp.Common.Requests
 {
@@ -10,5 +11,12 @@ namespace GenericApp.Common.Requests
         public string telefono { get; set; }
 
         public byte[] Image { get; set; }
+        public string direccion { get; set; }
+        public int Numero { get; set; }
+        public string TelefonoContacto1 { get; set; }
+        public string TelefonoContacto2 { get; set; }
+        public string TelefonoContacto3 { get; set; }
+        public DateTime fecha { get; set; }
+        public string NotasCausantes { get; set; }
     }
 }

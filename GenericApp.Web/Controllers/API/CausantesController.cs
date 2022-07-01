@@ -49,6 +49,14 @@ namespace GenericApp.Web.Controllers.API
                 grupo=user.grupo,
                 estado=user.estado,
                 LinkFoto=user.LinkFoto,
+                direccion = user.direccion,
+                Numero = user.Numero,
+                TelefonoContacto1 = user.TelefonoContacto1,
+                TelefonoContacto2 = user.TelefonoContacto2,
+                TelefonoContacto3 = user.TelefonoContacto3,
+                fecha = user.fecha,
+                NotasCausantes = user.NotasCausantes,
+                
             };
 
             return Ok(response);
@@ -97,6 +105,16 @@ namespace GenericApp.Web.Controllers.API
 
             oldCausante.telefono = request.telefono;
             oldCausante.LinkFoto = imageId;
+            oldCausante.direccion = request.direccion;
+            oldCausante.Numero = request.Numero;
+            oldCausante.TelefonoContacto1 = request.TelefonoContacto1;
+            oldCausante.TelefonoContacto2 = request.TelefonoContacto2;
+            oldCausante.TelefonoContacto3 = request.TelefonoContacto3;
+            oldCausante.fecha = request.fecha;
+            oldCausante.NotasCausantes = request.NotasCausantes;
+
+
+
 
             _dataContext.Causantes.Update(oldCausante);
             await _dataContext.SaveChangesAsync();
