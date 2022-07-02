@@ -270,5 +270,26 @@ namespace GenericApp.Web.Controllers.API
             }
             return obra;
         }
+
+        [HttpGet]
+        [Route("GetVistaInspeccionesFotos")]
+        public async Task<IActionResult> GetVistaInspeccionesFotos()
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest();
+            }
+
+            var vistaInspeccionesFotos = await _dataContext.VistaInspeccionesFotos
+           .Where (o => o.Fecha >= DateTime.Now.AddDays(-3))
+                .OrderBy(o => o.IDRegistro)
+
+           .ToListAsync();
+            if (vistaInspeccionesFotos == null)
+            {
+                return BadRequest("No hay Fotos.");
+            }
+            return Ok(vistaInspeccionesFotos);
+        }
     }
 }
