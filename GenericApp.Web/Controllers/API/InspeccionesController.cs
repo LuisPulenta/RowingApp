@@ -272,8 +272,8 @@ namespace GenericApp.Web.Controllers.API
         }
 
         [HttpGet]
-        [Route("GetVistaInspeccionesFotos")]
-        public async Task<IActionResult> GetVistaInspeccionesFotos()
+        [Route("GetVistaInspeccionesFotos/{codigo}")]
+        public async Task<IActionResult> GetVistaInspeccionesFotos(int codigo)
         {
             if (!ModelState.IsValid)
             {
@@ -281,7 +281,7 @@ namespace GenericApp.Web.Controllers.API
             }
 
             var vistaInspeccionesFotos = await _dataContext.VistaInspeccionesFotos
-           .Where (o => o.Fecha >= DateTime.Now.AddDays(-3))
+           .Where (o => o.Fecha >= DateTime.Now.AddDays(-codigo))
                 .OrderBy(o => o.IDRegistro)
 
            .ToListAsync();
