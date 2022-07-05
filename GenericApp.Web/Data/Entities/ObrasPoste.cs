@@ -37,7 +37,9 @@ namespace GenericApp.Web.Data.Entities
         public DateTime FechaCarga { get; set; }
         public string RiesgoElectrico { get; set; }
         public DateTime FECHAASIGNACION { get; set; }
-        public int MES { get; set; }
+        public DateTime FechaActualizada { get; set; }
+        public int IDUsrAcualiza { get; set; }
+        public string ProvieneAct { get; set; }
 
 
         //public ICollection<ObrasDocumento> ObrasDocumentos { get; set; }
