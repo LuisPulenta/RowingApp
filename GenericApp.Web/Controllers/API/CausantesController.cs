@@ -56,7 +56,9 @@ namespace GenericApp.Web.Controllers.API
                 TelefonoContacto3 = user.TelefonoContacto3,
                 fecha = user.fecha,
                 NotasCausantes = user.NotasCausantes,
-                
+                ciudad=user.ciudad,
+                Provincia = user.Provincia
+
             };
 
             return Ok(response);
@@ -112,9 +114,8 @@ namespace GenericApp.Web.Controllers.API
             oldCausante.TelefonoContacto3 = request.TelefonoContacto3;
             oldCausante.fecha = request.fecha;
             oldCausante.NotasCausantes = request.NotasCausantes;
-
-
-
+            oldCausante.ciudad = request.ciudad;
+            oldCausante.Provincia = request.Provincia;
 
             _dataContext.Causantes.Update(oldCausante);
             await _dataContext.SaveChangesAsync();

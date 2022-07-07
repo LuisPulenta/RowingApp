@@ -23,6 +23,8 @@ namespace GenericApp.Web.Data.Entities
         public string TelefonoContacto3 { get; set; }
         public DateTime fecha { get; set; }
         public string NotasCausantes { get; set; }
+        public string ciudad { get; set; }
+        public string Provincia { get; set; }
 
         public string ImageFullPath => string.IsNullOrEmpty(LinkFoto)
         ? $"http://190.111.249.225/RowingAppApi/images/Causantes/nouser.png"

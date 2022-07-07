@@ -18,5 +18,7 @@ namespace GenericApp.Common.Requests
         public string TelefonoContacto3 { get; set; }
         public DateTime fecha { get; set; }
         public string NotasCausantes { get; set; }
+        public string ciudad { get; set; }
+        public string Provincia { get; set; }
     }
 }
