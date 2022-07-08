@@ -1,12 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 
-namespace GenericApp.Web.Data.Entities
+namespace GenericApp.Common.Responses
 {
-    public class VehiculosSiniestro
+    public class VehiculosSiniestroResponse
     {
-        [Key]
         public int NROSINIESTRO { get; set; }
         public DateTime FECHACARGA { get; set; }
         public string GRUPO { get; set; }
@@ -30,6 +28,5 @@ namespace GenericApp.Web.Data.Entities
         public string NUMCHA { get; set; }
         public string COMPANIASEGUROTERCERO { get; set; }
         public int IDUSUARIOCARGA { get; set; }
-        //public ICollection<VehiculosSiniestrosFoto> Fotos { get; set; }
     }
 }

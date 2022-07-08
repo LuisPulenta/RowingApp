@@ -33,6 +33,7 @@ namespace GenericApp.Web.Controllers.API
             }
 
             var siniestros = await _dataContext.VehiculosSiniestros
+            //.Include(p => p.Fotos)
            .Where(o => ((o.GRUPO == Grupo) && (o.CAUSANTE == Causante) && (o.FECHACARGA.AddDays(30) >= DateTime.Now))
            )
 
