@@ -61,8 +61,9 @@ namespace GenericApp.Web.Controllers.API
                 //NROREGISTRO = request.NROREGISTRO,
                 LINKFOTO = imageUrl1,
                 OBSERVACION=request.OBSERVACION,
-                NROSINIESTROCAB=request.NROSINIESTROCAB
-    };
+                NROSINIESTROCAB=request.NROSINIESTROCAB,
+                CORRESPONDEA = request.CORRESPONDEA
+            };
 
             _context.VehiculosSiniestrosFotos.Add(vehiculosSiniestrosFoto);
             await _context.SaveChangesAsync();
