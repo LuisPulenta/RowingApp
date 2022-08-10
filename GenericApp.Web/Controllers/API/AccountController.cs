@@ -180,6 +180,27 @@ namespace GenericApp.Web.Controllers.API
             return Ok(obras);
         }
 
+        [HttpPost]
+        [Route("GetObrasTodas")]
+        public async Task<IActionResult> GetObrasTodas()
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest();
+            }
+
+            var obras = await _dataContext.Obras
+            .Include(p => p.ObrasDocumentos)
+           .Where(o => (o.Finalizada == 0))
+           .OrderBy(o => o.NroObra)
+           .ToListAsync();
+            if (obras == null)
+            {
+                return BadRequest("No hay Obras.");
+            }
+            return Ok(obras);
+        }
+
         [HttpGet]
         [Route("GetObrasReclamosRowing")]
         public IActionResult GetObrasReclamosRowing()
@@ -213,6 +234,15 @@ namespace GenericApp.Web.Controllers.API
         {
             return Ok(_dataContext.Obras
                 .Where(o => o.HabilitaReclamosAPP == 1 && o.Modulo == ProyectoModulo)
+                );
+        }
+
+        [HttpPost]
+        [Route("GetObrasReclamosTodas}")]
+        public IActionResult GetObrasReclamosTodas()
+        {
+            return Ok(_dataContext.Obras
+                .Where(o => o.HabilitaReclamosAPP == 1)
                 );
         }
 
