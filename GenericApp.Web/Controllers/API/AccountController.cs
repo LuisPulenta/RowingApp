@@ -238,13 +238,15 @@ namespace GenericApp.Web.Controllers.API
         }
 
         [HttpPost]
-        [Route("GetObrasReclamosTodas}")]
+        [Route("GetObrasReclamosTodas")]
         public IActionResult GetObrasReclamosTodas()
         {
             return Ok(_dataContext.Obras
                 .Where(o => o.HabilitaReclamosAPP == 1)
                 );
         }
+
+
 
         [HttpGet("{id}")]
         [Route("GetObra/{id}")]
