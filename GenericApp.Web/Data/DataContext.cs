@@ -38,6 +38,8 @@ namespace GenericApp.Web.Data
         public DbSet<WebSesio> WebSesion { get; set; }
         public DbSet<UsuariosGeo> UsuariosGeos { get; set; }
         public DbSet<VistaInspeccionesFoto> VistaInspeccionesFotos { get; set; }
+        public DbSet<WRemitosCab> WRemitosCab { get; set; }
+        public DbSet<WRemitosDet> WRemitosDet { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
