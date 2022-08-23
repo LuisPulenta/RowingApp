@@ -6,7 +6,7 @@ namespace GenericApp.Web.Data.Entities
     public class WRemitosCab
     {
         [Key]
-        public int NROREGISTRO { get; set; }
+        public int NROREMITO { get; set; }
         public int NROOBRA { get; set; }
         public int? NroReserva { get; set; }
         public string NroGrafo { get; set; }

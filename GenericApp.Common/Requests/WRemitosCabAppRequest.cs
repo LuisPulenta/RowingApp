@@ -4,7 +4,7 @@ namespace GenericApp.Common.Requests
 {
     public class WRemitosCabAppRequest
     {
-        public int NROREGISTRO { get; set; }
+        //public int NROREGISTRO { get; set; }
         public int NROOBRA { get; set; }
         public DateTime FECHACARGA { get; set; }
         public string CONTRATISTA { get; set; }

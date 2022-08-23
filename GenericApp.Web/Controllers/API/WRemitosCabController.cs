@@ -33,7 +33,6 @@ namespace GenericApp.Web.Controllers.API
 
             var wRemitosCab = new WRemitosCab
             {
-                NROREGISTRO = request.NROREGISTRO,
                 NROOBRA = request.NROOBRA,
                 FECHACARGA = request.FECHACARGA,
                 CONTRATISTA = request.CONTRATISTA,
