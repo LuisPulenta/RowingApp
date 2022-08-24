@@ -3,6 +3,7 @@ using GenericApp.Common.Requests;
 using GenericApp.Web.Data;
 using GenericApp.Web.Data.Entities;
 using Microsoft.AspNetCore.Mvc;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace GenericApp.Web.Controllers.API
@@ -87,5 +88,15 @@ namespace GenericApp.Web.Controllers.API
             await _context.SaveChangesAsync();
             return Ok();
         }
+
+        [HttpGet]
+        [Route("GetNroRemitoMax")]
+        public async Task<IActionResult> GetNroRemitoMax()
+        {
+            int query = _context.WRemitosCab.Max(c => c.NROREMITO);
+
+            return Ok(query);
+        }
     }
 }
+
