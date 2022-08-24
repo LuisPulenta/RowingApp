@@ -103,5 +103,47 @@ namespace GenericApp.Web.Controllers.API
             return Ok(catalogos);
         }
 
+        [HttpPost]
+        [Route("GetCatalogosEPP/{ProyectoModulo}")]
+        public async Task<IActionResult> GetCatalogosEPP(string ProyectoModulo)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest();
+            }
+
+            System.Collections.Generic.List<Catalogo> catalogos = await _context.Catalogos
+           .Where(o => (o.VerRequerimientosEPP == 1)
+           && (o.Modulo == ProyectoModulo || o.Modulo == "Compartido"))
+           .OrderBy(o => o.catCatalogo)
+           .ToListAsync();
+            if (catalogos == null)
+            {
+                return BadRequest("No hay Catálogos.");
+            }
+            return Ok(catalogos);
+        }
+
+        [HttpPost]
+        [Route("GetCatalogosAPP/{ProyectoModulo}")]
+        public async Task<IActionResult> GetCatalogosAPP(string ProyectoModulo)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest();
+            }
+
+            System.Collections.Generic.List<Catalogo> catalogos = await _context.Catalogos
+           .Where(o => (o.VerRequerimientosAPP == 1)
+           && (o.Modulo == ProyectoModulo || o.Modulo == "Compartido"))
+           .OrderBy(o => o.catCatalogo)
+           .ToListAsync();
+            if (catalogos == null)
+            {
+                return BadRequest("No hay Catálogos.");
+            }
+            return Ok(catalogos);
+        }
+
     }
 }
