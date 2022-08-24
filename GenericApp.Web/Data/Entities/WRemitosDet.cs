@@ -13,7 +13,6 @@ namespace GenericApp.Web.Data.Entities
         public string CodigoSap { get; set; }
         public decimal Cantidad { get; set; }
         public string OBSERVACION { get; set; }
-        public string CLASIFICACION { get; set; }
         public int? NRORESERVA { get; set; }
         public string NROGRAFO { get; set; }
         public int? TAG { get; set; }

@@ -69,13 +69,15 @@ namespace GenericApp.Web.Controllers.API
 
             WRemitosDet wRemitosDet = new WRemitosDet
             {
-                NROREMITODET = request.NROREMITODET,
                 NROREMITOCAB = request.NROREMITOCAB,
                 NROOBRA = request.NROOBRA,
                 catCodigo = request.catCodigo,
                 catCatalogo = request.catCatalogo,
                 CodigoSap = request.CodigoSap,
                 Cantidad = request.Cantidad,
+                OBSERVACION="",
+                NRORESERVA=0,
+                NROGRAFO="",
                 TAG = request.TAG,
                 COSTOUNIT = request.COSTOUNIT,
                 COSTOTOTAL = request.COSTOTOTAL,
