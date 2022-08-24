@@ -40,6 +40,7 @@ namespace GenericApp.Web.Data
         public DbSet<VistaInspeccionesFoto> VistaInspeccionesFotos { get; set; }
         public DbSet<WRemitosCab> WRemitosCab { get; set; }
         public DbSet<WRemitosDet> WRemitosDet { get; set; }
+        public DbSet<Subcontratista> Subcontratistas { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

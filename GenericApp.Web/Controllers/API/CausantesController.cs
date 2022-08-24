@@ -4,6 +4,7 @@ using GenericApp.Web.Data;
 using GenericApp.Web.Helpers;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace GenericApp.Web.Controllers.API
@@ -57,8 +58,7 @@ namespace GenericApp.Web.Controllers.API
                 fecha = user.fecha,
                 NotasCausantes = user.NotasCausantes,
                 ciudad=user.ciudad,
-                Provincia = user.Provincia
-
+                Provincia = user.Provincia,
             };
 
             return Ok(response);
@@ -120,6 +120,17 @@ namespace GenericApp.Web.Controllers.API
             _dataContext.Causantes.Update(oldCausante);
             await _dataContext.SaveChangesAsync();
             return Ok();
+        }
+
+
+        [HttpPost]
+        [Route("GetCausantesByGrupo/{Grupo}")]
+        public IActionResult GetCausantesByProyectoModulo(string Grupo)
+        {
+            return Ok(_dataContext.Causantes
+                .Where(o => o.grupo == Grupo && o.estado==true)
+                .OrderBy(o => o.nombre)
+                );
         }
 
     }
