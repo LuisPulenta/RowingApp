@@ -261,5 +261,14 @@ namespace GenericApp.Web.Controllers.API
             }
             return obra;
         }
+
+        [HttpPost]
+        [Route("GetObrasEPP/{ProyectoModulo}")]
+        public IActionResult GetObrasEPP(string ProyectoModulo)
+        {
+            return Ok(_dataContext.Obras
+                .Where(o => o.CORRESPONDEABONADOS == 1 && o.Modulo == ProyectoModulo)
+                );
+        }
     }
 }

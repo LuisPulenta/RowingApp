@@ -18,5 +18,6 @@ namespace GenericApp.Web.Data.Entities
         public string GrupoCausante { get; set; }
         public ICollection<ObrasDocumento> ObrasDocumentos { get; set; }
         public int HabilitaReclamosAPP { get; set; }
+        public int? CORRESPONDEABONADOS { get; set; }
     }
 }
