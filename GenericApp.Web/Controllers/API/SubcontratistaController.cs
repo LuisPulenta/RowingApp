@@ -24,7 +24,7 @@ namespace GenericApp.Web.Controllers.API
         public IActionResult GetObrasReclamos(string ProyectoModulo)
         {
             return Ok(_dataContext.Subcontratistas
-                .Where(o => o.MODULO == ProyectoModulo)
+                .Where(o => o.MODULO == ProyectoModulo && o.subDeshabilitado==0)
                 .OrderBy(o => o.subSubcontratista)
                 );
         }
