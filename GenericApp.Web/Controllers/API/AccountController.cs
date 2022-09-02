@@ -59,6 +59,7 @@ namespace GenericApp.Web.Controllers.API
                     Modulo = user2.RazonSocial,
                     HabilitaMedidores = 0,
                     HabilitaFlotas = "NO",
+                    ReHabilitaUsuarios = 0,
                     CODIGOCAUSANTE = user2.codigo,
                     CODIGOGRUPO = user2.codigo
                 };
@@ -84,6 +85,7 @@ namespace GenericApp.Web.Controllers.API
                 Modulo = user.Modulo,
                 HabilitaMedidores=user.HabilitaMedidores,
                 HabilitaFlotas=user.HabilitaFlotas,
+                ReHabilitaUsuarios = user.ReHabilitaUsuarios,
                 CODIGOCAUSANTE = user.CODIGOCAUSANTE,
                 CODIGOGRUPO = user.CODIGOGRUPO
             };

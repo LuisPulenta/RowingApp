@@ -18,6 +18,7 @@
         public string Modulo { get; set; }
         public int? HabilitaMedidores { get; set; }
         public string HabilitaFlotas { get; set; }
+        public int? ReHabilitaUsuarios { get; set; }
         public string CODIGOGRUPO { get; set; }
         public string CODIGOCAUSANTE { get; set; }
 
