@@ -35,7 +35,7 @@ namespace GenericApp.Web.Controllers.API
             }
 
             Data.Entities.ObrasPoste obraPoste = await _context.ObrasPostes.FirstOrDefaultAsync
-                (o => (o.ASTICKET.ToLower() == ticket.ASTICKET.ToLower()) && (o.TipoImput == "Medidores") && (o.CERTIFICADO != "SI"));
+                (o => (o.ASTICKET.ToLower() == ticket.ASTICKET.ToLower()) && (o.TipoImput == "Medidores"));
 
             if (obraPoste == null)
             {
@@ -50,6 +50,7 @@ namespace GenericApp.Web.Controllers.API
                 NUMERACION = obraPoste.NUMERACION,
                 OBSERVACIONES = obraPoste.OBSERVACIONES,
                 CajaDAE = obraPoste.CajaDAE,
+                IDActaCertif=obraPoste.IDActaCertif,
                 Cliente = obraPoste.Cliente,
                 DIRECCION = obraPoste.DIRECCION,
                 Lindero1 = obraPoste.Lindero1,
@@ -156,6 +157,7 @@ namespace GenericApp.Web.Controllers.API
                 MES = request.MES,
                 OBSERVACIONES = request.OBSERVACIONES,
                 CajaDAE = request.CajaDAE,
+                IDActaCertif=request.IDActaCertif,
                 Cliente = request.Cliente,
                 Lindero1 = request.Lindero1,
                 Lindero2 = request.Lindero2,

@@ -21,6 +21,7 @@ namespace GenericApp.Web.Data.Entities
         public string SerieMedidorColocado { get; set; }
         public string Precinto { get; set; }
         public string CajaDAE { get; set; }
+        public int IDActaCertif { get; set; }
         public string OBSERVACIONES { get; set; }
         public string Lindero1 { get; set; }
         public string Lindero2 { get; set; }
