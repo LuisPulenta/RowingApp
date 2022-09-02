@@ -9,5 +9,7 @@ namespace GenericApp.Common.Requests
 
         [Required]
         public string Login { get; set; }
+        [Required]
+        public int FechaCaduca { get; set; }
     }
 }

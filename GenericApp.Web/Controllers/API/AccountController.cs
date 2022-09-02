@@ -164,7 +164,7 @@ namespace GenericApp.Web.Controllers.API
             }
 
             oldUsuario.Estado=1;
-            oldUsuario.FechaCaduca = 15000;
+            oldUsuario.FechaCaduca = request.FechaCaduca;
             oldUsuario.IntentosInvDiario = 0;
             oldUsuario.OpeAutorizo = request.IdUsuarioAutoriza;
 
@@ -172,21 +172,6 @@ namespace GenericApp.Web.Controllers.API
             await _dataContext.SaveChangesAsync();
             return Ok();
         }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
         [HttpGet]
         [Route("GetObrasEnergia")]
