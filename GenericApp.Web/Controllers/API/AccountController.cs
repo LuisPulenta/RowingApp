@@ -93,6 +93,47 @@ namespace GenericApp.Web.Controllers.API
             return Ok(response);
         }
 
+        [HttpPost]
+        [Route("GetUserByLogin")]
+        public async Task<IActionResult> GetUserByLogin(UsuarioRequest userRequest)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest();
+            }
+
+            var user = await _dataContext.Usuarios.FirstOrDefaultAsync(o => o.Login.ToLower() == userRequest.Email.ToLower());
+
+            if (user == null)
+            {
+                    return BadRequest("El Usuario no existe.");
+            }
+
+            var response = new UsuarioAppResponse
+            {
+                IDUsuario = user.IDUsuario,
+                CodigoCausante = user.CODIGOCAUSANTE,
+                Login = user.Login,
+                Contrasena = user.Contrasena,
+                Nombre = user.Nombre,
+                Apellido = user.Apellido,
+                AutorWOM = user.AutorWOM,
+                Estado = user.Estado,
+                HabilitaAPP = user.HabilitaAPP,
+                HabilitaFotos = user.HabilitaFotos,
+                HabilitaReclamos = user.HabilitaReclamos,
+                HabilitaSSHH = user.HabilitaSSHH,
+                HabilitaRRHH = user.HabilitaRRHH,
+                Modulo = user.Modulo,
+                HabilitaMedidores = user.HabilitaMedidores,
+                HabilitaFlotas = user.HabilitaFlotas,
+                ReHabilitaUsuarios = user.ReHabilitaUsuarios,
+                CODIGOCAUSANTE = user.CODIGOCAUSANTE,
+                CODIGOGRUPO = user.CODIGOGRUPO
+            };
+            return Ok(response);
+        }
+
 
         [HttpGet]
         [Route("GetObrasEnergia")]
