@@ -44,7 +44,6 @@ namespace GenericApp.Web.Controllers.API
 
             ObrasPosteResponse response = new ObrasPosteResponse
             {
-
                 ASTICKET= obraPoste.ASTICKET,
                 CERTIFICADO = obraPoste.CERTIFICADO,
                 NROOBRA = obraPoste.NROOBRA,
