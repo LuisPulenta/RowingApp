@@ -20,8 +20,9 @@
         public string HabilitaFlotas { get; set; }
         public int? ReHabilitaUsuarios { get; set; }
         public string CODIGOGRUPO { get; set; }
-        public string CODIGOCAUSANTE { get; set; }
-
         public string FullName => $"{Nombre} {Apellido}";
+        public int? FechaCaduca { get; set; }
+        public int? IntentosInvDiario { get; set; }
+        public int? OpeAutorizo { get; set; }
     }
 }

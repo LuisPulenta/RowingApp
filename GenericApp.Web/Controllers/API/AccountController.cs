@@ -60,8 +60,10 @@ namespace GenericApp.Web.Controllers.API
                     HabilitaMedidores = 0,
                     HabilitaFlotas = "NO",
                     ReHabilitaUsuarios = 0,
-                    CODIGOCAUSANTE = user2.codigo,
-                    CODIGOGRUPO = user2.codigo
+                    CODIGOGRUPO = user2.codigo,
+                    FechaCaduca=0,
+                    IntentosInvDiario=0,
+                    OpeAutorizo=0
                 };
 
                 return Ok(response2);
@@ -70,7 +72,7 @@ namespace GenericApp.Web.Controllers.API
             var response = new UsuarioAppResponse
             {
                 IDUsuario = user.IDUsuario,
-                CodigoCausante=user.CODIGOCAUSANTE,
+                CodigoCausante=user.CodigoCausante,
                 Login = user.Login,
                 Contrasena = user.Contrasena,
                 Nombre = user.Nombre,
@@ -86,8 +88,10 @@ namespace GenericApp.Web.Controllers.API
                 HabilitaMedidores=user.HabilitaMedidores,
                 HabilitaFlotas=user.HabilitaFlotas,
                 ReHabilitaUsuarios = user.ReHabilitaUsuarios,
-                CODIGOCAUSANTE = user.CODIGOCAUSANTE,
-                CODIGOGRUPO = user.CODIGOGRUPO
+                CODIGOGRUPO = user.CODIGOGRUPO,
+                FechaCaduca = user.FechaCaduca,
+                IntentosInvDiario = user.IntentosInvDiario,
+                OpeAutorizo = user.OpeAutorizo
             };
 
             return Ok(response);
@@ -113,7 +117,7 @@ namespace GenericApp.Web.Controllers.API
             var response = new UsuarioAppResponse
             {
                 IDUsuario = user.IDUsuario,
-                CodigoCausante = user.CODIGOCAUSANTE,
+                CodigoCausante = user.CodigoCausante,
                 Login = user.Login,
                 Contrasena = user.Contrasena,
                 Nombre = user.Nombre,
@@ -129,11 +133,59 @@ namespace GenericApp.Web.Controllers.API
                 HabilitaMedidores = user.HabilitaMedidores,
                 HabilitaFlotas = user.HabilitaFlotas,
                 ReHabilitaUsuarios = user.ReHabilitaUsuarios,
-                CODIGOCAUSANTE = user.CODIGOCAUSANTE,
-                CODIGOGRUPO = user.CODIGOGRUPO
+                CODIGOGRUPO = user.CODIGOGRUPO,
+                FechaCaduca = user.FechaCaduca,
+                IntentosInvDiario = user.IntentosInvDiario,
+                OpeAutorizo = user.OpeAutorizo
             };
             return Ok(response);
         }
+
+
+        [HttpPut("{login}")]
+        [Route("ReactivaUsuario")]
+        public async Task<IActionResult> ReactivaUsuario([FromRoute] string login, [FromBody] UsuarioAutorizaRequest request)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            if (login != request.Login)
+            {
+                return BadRequest();
+            }
+
+            var oldUsuario= await _dataContext.Usuarios.FirstOrDefaultAsync(x => x.Login == request.Login);
+
+            if (oldUsuario == null)
+            {
+                return BadRequest("El Usuario no existe.");
+            }
+
+            oldUsuario.Estado=1;
+            oldUsuario.FechaCaduca = 15000;
+            oldUsuario.IntentosInvDiario = 0;
+            oldUsuario.OpeAutorizo = request.IdUsuarioAutoriza;
+
+            _dataContext.Usuarios.Update(oldUsuario);
+            await _dataContext.SaveChangesAsync();
+            return Ok();
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
         [HttpGet]
