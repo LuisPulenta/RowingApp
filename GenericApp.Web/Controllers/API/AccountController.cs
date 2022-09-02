@@ -102,6 +102,7 @@ namespace GenericApp.Web.Controllers.API
                 return BadRequest();
             }
 
+
             var user = await _dataContext.Usuarios.FirstOrDefaultAsync(o => o.Login.ToLower() == userRequest.Email.ToLower());
 
             if (user == null)
