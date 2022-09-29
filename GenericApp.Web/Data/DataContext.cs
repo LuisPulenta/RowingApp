@@ -41,6 +41,8 @@ namespace GenericApp.Web.Data
         public DbSet<WRemitosCab> WRemitosCab { get; set; }
         public DbSet<WRemitosDet> WRemitosDet { get; set; }
         public DbSet<Subcontratista> Subcontratistas { get; set; }
+        public DbSet<ObrasNuevoSuministro> ObrasNuevoSuministros { get; set; }
+      
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

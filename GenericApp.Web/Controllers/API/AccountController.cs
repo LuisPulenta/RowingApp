@@ -63,8 +63,9 @@ namespace GenericApp.Web.Controllers.API
                     CODIGOGRUPO = user2.codigo,
                     FechaCaduca=0,
                     IntentosInvDiario=0,
-                    OpeAutorizo=0
-                };
+                    OpeAutorizo=0,
+                    HabilitaNuevoSuministro=0
+    };
 
                 return Ok(response2);
             }
@@ -91,7 +92,8 @@ namespace GenericApp.Web.Controllers.API
                 CODIGOGRUPO = user.CODIGOGRUPO,
                 FechaCaduca = user.FechaCaduca,
                 IntentosInvDiario = user.IntentosInvDiario,
-                OpeAutorizo = user.OpeAutorizo
+                OpeAutorizo = user.OpeAutorizo,
+                HabilitaNuevoSuministro = user.HabilitaNuevoSuministro
             };
 
             return Ok(response);
@@ -136,7 +138,8 @@ namespace GenericApp.Web.Controllers.API
                 CODIGOGRUPO = user.CODIGOGRUPO,
                 FechaCaduca = user.FechaCaduca,
                 IntentosInvDiario = user.IntentosInvDiario,
-                OpeAutorizo = user.OpeAutorizo
+                OpeAutorizo = user.OpeAutorizo,
+                HabilitaNuevoSuministro = user.HabilitaNuevoSuministro
             };
             return Ok(response);
         }
