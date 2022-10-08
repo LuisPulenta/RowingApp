@@ -91,7 +91,7 @@ namespace GenericApp.Web.Controllers.API
             string imageUrl3 = string.Empty;
             if (request.ImageArrayDESPUESFOTO1 != null && request.ImageArrayDESPUESFOTO1.Length > 0)
             {
-                var stream3 = new MemoryStream(request.ImageArrayANTESFOTO1);
+                var stream3 = new MemoryStream(request.ImageArrayDESPUESFOTO1);
                 var guid3 = Guid.NewGuid().ToString();
                 var file3 = $"{guid3}.jpg";
                 var folder3 = "wwwroot\\images\\ObrasSuministros";
@@ -108,7 +108,7 @@ namespace GenericApp.Web.Controllers.API
             string imageUrl4 = string.Empty;
             if (request.ImageArrayDESPUESFOTO2 != null && request.ImageArrayDESPUESFOTO2.Length > 0)
             {
-                var stream4 = new MemoryStream(request.ImageArrayANTESFOTO2);
+                var stream4 = new MemoryStream(request.ImageArrayDESPUESFOTO2);
                 var guid4 = Guid.NewGuid().ToString();
                 var file4 = $"{guid4}.jpg";
                 var folder4 = "wwwroot\\images\\ObrasSuministros";
