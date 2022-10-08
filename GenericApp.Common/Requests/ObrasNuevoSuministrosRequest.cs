@@ -4,7 +4,7 @@ namespace GenericApp.Common.Requests
 {
     public class ObrasNuevoSuministrosRequest
     {
-        public int NROSUMINISTRO { get; set; }
+        //public int NROSUMINISTRO { get; set; }
         public int NROOBRA { get; set; }
         public DateTime? FECHA { get; set; }
         public string APELLIDONOMBRE { get; set; }

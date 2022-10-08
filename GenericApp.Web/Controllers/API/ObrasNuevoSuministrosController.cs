@@ -157,7 +157,6 @@ namespace GenericApp.Web.Controllers.API
 
             var obrasNuevoSuministro = new ObrasNuevoSuministro
             {
-                //NROREGISTRO = request.NROREGISTRO,
                 ANTESFOTO1=imageUrl1,
                 ANTESFOTO2=imageUrl2,
                 APELLIDONOMBRE = request.APELLIDONOMBRE,
@@ -188,7 +187,7 @@ namespace GenericApp.Web.Controllers.API
                 MEDIDORVECINO = request.MEDIDORVECINO,
                 MTSCABLERETIRADO = request.MTSCABLERETIRADO,
                 NROOBRA = request.NROOBRA,
-                NROSUMINISTRO = request.NROSUMINISTRO,
+                //NROSUMINISTRO = request.NROSUMINISTRO,
                 OBSERVACIONES = request.OBSERVACIONES,
                 OTRO = request.OTRO,
                 PARTIDO = request.PARTIDO,
