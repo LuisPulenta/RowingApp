@@ -19,12 +19,6 @@ namespace GenericApp.Common.Requests
         public string BARRIO { get; set; }
         public string LOCALIDAD { get; set; }
         public string PARTIDO { get; set; }
-        public string ANTESFOTO1 { get; set; }
-        public string ANTESFOTO2 { get; set; }
-        public string DESPUESFOTO1 { get; set; }
-        public string DESPUESFOTO2 { get; set; }
-        public string FOTODNIFRENTE { get; set; }
-        public string FOTODNIREVERSO { get; set; }
         public byte[] ImageArrayANTESFOTO1 { get; set; }
         public byte[] ImageArrayANTESFOTO2 { get; set; }
         public byte[] ImageArrayDESPUESFOTO1 { get; set; }
@@ -41,16 +35,7 @@ namespace GenericApp.Common.Requests
         public string ENRE { get; set; }
         public string OTRO { get; set; }
         public string CONEXIONDIRECTA { get; set; }
-        public string CONCENTRICO { get; set; }
-        public string CABLETALLER { get; set; }
-        public string CABLEUNIPOLAR { get; set; }
-        public string CNOTRO { get; set; }
         public string RETIROCONEXION { get; set; }
-        public string CAJADISTRIBUIDORA { get; set; }
-        public string LUMINARIA { get; set; }
-        public string RED { get; set; }
-        public string ACOMETIDAVECINO { get; set; }
-        public string OTRORT { get; set; }
         public string RETIROCRUCECALLE { get; set; }
         public int? MTSCABLERETIRADO { get; set; }
         public string TRABAJOCONHIDRO { get; set; }
