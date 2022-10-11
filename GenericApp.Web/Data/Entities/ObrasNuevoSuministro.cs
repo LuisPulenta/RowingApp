@@ -27,6 +27,7 @@ namespace GenericApp.Web.Data.Entities
         public string DESPUESFOTO2 { get; set; }
         public string FOTODNIFRENTE { get; set; }
         public string FOTODNIREVERSO { get; set; }
+        public string FIRMACLIENTE { get; set; }
         public string ENTRECALLES1 { get; set; }
         public string ENTRECALLES2 { get; set; }
         public string MEDIDORCOLOCADO { get; set; }
@@ -71,5 +72,9 @@ namespace GenericApp.Web.Data.Entities
         public string FOTODNIREVERSOImageFullPath => string.IsNullOrEmpty(FOTODNIREVERSO)
        ? $"http://190.111.249.225/RowingAppApi/images/ObrasNuevoSuministro/noimage.png"
        : $"http://190.111.249.225/RowingAppApi{FOTODNIREVERSO.Substring(1)}";
+
+        public string FIRMACLIENTEImageFullPath => string.IsNullOrEmpty(FIRMACLIENTE)
+      ? $"http://190.111.249.225/RowingAppApi/images/ObrasNuevoSuministro/noimage.png"
+      : $"http://190.111.249.225/RowingAppApi{FIRMACLIENTE.Substring(1)}";
     }
 }

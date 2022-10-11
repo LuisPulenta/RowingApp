@@ -25,6 +25,7 @@ namespace GenericApp.Common.Requests
         public byte[] ImageArrayDESPUESFOTO2 { get; set; }
         public byte[] ImageArrayFOTODNIFRENTE { get; set; }
         public byte[] ImageArrayFOTODNIREVERSO { get; set; }
+        public byte[] ImageArrayFIRMACLIENTE { get; set; }
         public string ENTRECALLES1 { get; set; }
         public string ENTRECALLES2 { get; set; }
         public string MEDIDORCOLOCADO { get; set; }

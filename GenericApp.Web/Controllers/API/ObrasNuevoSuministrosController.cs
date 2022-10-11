@@ -121,7 +121,7 @@ namespace GenericApp.Web.Controllers.API
                 }
             }
 
-            //FotoDespues1
+            //FotoDNIFrente
             string imageUrl5 = string.Empty;
             if (request.ImageArrayFOTODNIFRENTE != null && request.ImageArrayFOTODNIFRENTE.Length > 0)
             {
@@ -138,7 +138,7 @@ namespace GenericApp.Web.Controllers.API
                 }
             }
 
-            //FotoDespues2
+            //FotoDNIReverso
             string imageUrl6 = string.Empty;
             if (request.ImageArrayFOTODNIREVERSO != null && request.ImageArrayFOTODNIREVERSO.Length > 0)
             {
@@ -152,6 +152,23 @@ namespace GenericApp.Web.Controllers.API
                 if (response6)
                 {
                     imageUrl6 = fullPath6;
+                }
+            }
+
+            //FIRMACLIENTE
+            string imageUrl7 = string.Empty;
+            if (request.ImageArrayFIRMACLIENTE != null && request.ImageArrayFIRMACLIENTE.Length > 0)
+            {
+                var stream7 = new MemoryStream(request.ImageArrayFIRMACLIENTE);
+                var guid7 = Guid.NewGuid().ToString();
+                var file7 = $"{guid7}.jpg";
+                var folder7 = "wwwroot\\images\\ObrasSuministros";
+                var fullPath7 = $"~/images/ObrasSuministros/{file7}";
+                var response7 = _filesHelper.UploadPhoto(stream7, folder7, file7);
+
+                if (response7)
+                {
+                    imageUrl7 = fullPath7;
                 }
             }
 
@@ -176,6 +193,7 @@ namespace GenericApp.Web.Controllers.API
                 ENTRECALLES1 = request.ENTRECALLES1,
                 ENTRECALLES2 = request.ENTRECALLES2,
                 FECHA = request.FECHA,
+                FIRMACLIENTE=imageUrl7,
                 FOTODNIFRENTE = imageUrl5,
                 FOTODNIREVERSO = imageUrl6,
                 GRUPOC = request.GRUPOC,
