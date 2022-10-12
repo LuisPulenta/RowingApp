@@ -96,7 +96,8 @@ namespace GenericApp.Web.Controllers.API
                 FechaCaduca = user.FechaCaduca,
                 IntentosInvDiario = user.IntentosInvDiario,
                 OpeAutorizo = user.OpeAutorizo,
-                HabilitaNuevoSuministro = user.HabilitaNuevoSuministro
+                HabilitaNuevoSuministro = user.HabilitaNuevoSuministro,
+                FirmaUsuario=user.FirmaUsuario,
             };
 
             return Ok(response);
