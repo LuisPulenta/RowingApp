@@ -29,7 +29,7 @@ namespace GenericApp.Web.Data.Entities
         public int? HabilitaNuevoSuministro { get; set; }
         public string FirmaUsuario { get; set; }
         public string FirmaUsuarioImageFullPath => string.IsNullOrEmpty(FirmaUsuario)
-      ? $"http://190.111.249.225/RowingAppApi/images/ObrasNuevoSuministro/noimage.png"
+      ? $"http://190.111.249.225/RowingAppApi/images/ObrasSuministros/noimage.png"
       : $"http://190.111.249.225/RowingAppApi{FirmaUsuario.Substring(1)}";
     }
 }
