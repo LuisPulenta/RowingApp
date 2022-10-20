@@ -68,7 +68,7 @@ namespace GenericApp.Web.Controllers.API
             }
 
             var obrasReparos = await _dataContext.ObrasReparos
-           .Where(o => (o.FECHACUMPLIMENTO == null)
+           .Where(o => (o.FECHACUMPLIMENTO == null && o.LATITUD!="" && o.LONGITUD != "")
 
            )
            .OrderBy(o => o.NROREGISTRO)

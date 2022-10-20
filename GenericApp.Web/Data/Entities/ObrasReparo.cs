@@ -23,7 +23,7 @@ namespace GenericApp.Web.Data.Entities
         public int? CODTIPOSTDRPARO { get; set; }
         public string ESTADOSUBCON { get; set; }
         public string RECURSOS { get; set; }
-        public double? MONTODISPONIBLE { get; set; }
+        public decimal? MONTODISPONIBLE { get; set; }
         public string GRUA { get; set; }
         public int? IDUsuario { get; set; }
         public string Terminal { get; set; }
