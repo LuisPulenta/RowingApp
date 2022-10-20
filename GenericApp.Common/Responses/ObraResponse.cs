@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace GenericApp.Common.Responses
@@ -12,6 +13,7 @@ namespace GenericApp.Common.Responses
         public string Modulo { get; set; }
         public int HabilitaReclamosAPP { get; set; }
         public int? CORRESPONDEABONADOS { get; set; }
+        public DateTime? FechaCierreElectrico { get; set; }
         public int CantObras { get; set; }
         public ICollection<ObraDocumentoResponse> ObrasDocumentos { get; set; }
         public int ObrasDocumentsNumber => ObrasDocumentos == null ? 0 : ObrasDocumentos.Count;

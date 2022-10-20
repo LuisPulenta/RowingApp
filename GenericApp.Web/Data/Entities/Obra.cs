@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace GenericApp.Web.Data.Entities
@@ -19,5 +20,6 @@ namespace GenericApp.Web.Data.Entities
         public ICollection<ObrasDocumento> ObrasDocumentos { get; set; }
         public int HabilitaReclamosAPP { get; set; }
         public int? CORRESPONDEABONADOS { get; set; }
+        public DateTime? FechaCierreElectrico { get; set; }
     }
 }
