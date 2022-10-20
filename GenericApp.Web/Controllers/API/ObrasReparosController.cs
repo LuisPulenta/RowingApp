@@ -24,8 +24,15 @@ namespace GenericApp.Web.Controllers.API
             _dataContext = dataContext;
             _filesHelper = filesHelper;
         }
-              
 
+        [HttpGet]
+        [Route("GetNroRegistroMax")]
+        public async Task<IActionResult> GetNroRegistroMax()
+        {
+            int query = _dataContext.ObrasReparos.Max(c => c.NROREGISTRO);
+
+            return Ok(query);
+        }
 
         [HttpPost]
         [Route("GetObrasReparos/{nroobra}")]
