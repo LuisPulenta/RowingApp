@@ -59,6 +59,30 @@ namespace GenericApp.Web.Controllers.API
         }
 
         [HttpPost]
+        [Route("GetObrasReparosTodas")]
+        public async Task<IActionResult> GetObrasReparosTodas()
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest();
+            }
+
+            var obrasReparos = await _dataContext.ObrasReparos
+           .Where(o => (o.FECHACUMPLIMENTO == null)
+
+           )
+           .OrderBy(o => o.NROREGISTRO)
+           .ToListAsync();
+
+
+            if (obrasReparos == null)
+            {
+                return BadRequest("No hay Obras Reparos.");
+            }
+            return Ok(obrasReparos);
+        }
+
+        [HttpPost]
         [Route("PostObrasReparos")]
         public async Task<IActionResult> PostObrasReparos([FromBody] ObrasReparosRequest request)
         {
