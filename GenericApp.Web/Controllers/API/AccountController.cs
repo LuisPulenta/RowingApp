@@ -39,7 +39,11 @@ namespace GenericApp.Web.Controllers.API
             if (user == null)
             {
 
-                var user2 = await _dataContext2.Causantes.FirstOrDefaultAsync(o => o.codigo.ToLower() == userRequest.Email.ToLower() && o.NroSAP.ToLower() == userRequest.Password.ToLower());
+                var user2 = await _dataContext2.Causantes.FirstOrDefaultAsync(
+                    o => o.codigo.ToLower() == userRequest.Email.ToLower() 
+                    && o.NroSAP.ToLower() == userRequest.Password.ToLower()
+                    && o.estado == true
+                    );
                 if (user2 == null)
                 {
                     return BadRequest("El Usuario no existe.");
