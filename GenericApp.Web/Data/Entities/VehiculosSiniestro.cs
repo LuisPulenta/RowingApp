@@ -30,6 +30,11 @@ namespace GenericApp.Web.Data.Entities
         public string NUMCHA { get; set; }
         public string COMPANIASEGUROTERCERO { get; set; }
         public int IDUSUARIOCARGA { get; set; }
+        public string DetalleDanosTercero { get; set; }
+        public string DetalleDanosPropio { get; set; }
+        public string NumChaTercero { get; set; }
+        public DateTime FechaCargaAPP { get; set; }
+
         //public ICollection<VehiculosSiniestrosFoto> Fotos { get; set; }
     }
 }

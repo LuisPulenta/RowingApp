@@ -82,6 +82,10 @@ namespace GenericApp.Web.Controllers.API
                 DIRECCIONSINIESTRO = request.DIRECCIONSINIESTRO,
                 IDUSUARIOCARGA = request.IDUSUARIOCARGA,
                 NUMCHA = request.NUMCHA,
+                DetalleDanosTercero = request.DetalleDanosTercero,
+                DetalleDanosPropio = request.DetalleDanosPropio,
+                NumChaTercero = request.NumChaTercero,
+                FechaCargaAPP = request.FechaCargaAPP,
             };
             _dataContext.VehiculosSiniestros.Add(vehiculoSiniestro);
             await _dataContext.SaveChangesAsync();
