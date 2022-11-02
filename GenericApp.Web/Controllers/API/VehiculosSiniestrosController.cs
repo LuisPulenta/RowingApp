@@ -91,5 +91,59 @@ namespace GenericApp.Web.Controllers.API
             await _dataContext.SaveChangesAsync();
             return Ok();
         }
+
+        [HttpPut("{id}")]
+        public async Task<IActionResult> PutSiniestro([FromRoute] int id, [FromBody] VehiculosSiniestroRequest request)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            if (id != request.NROSINIESTRO)
+            {
+                return BadRequest();
+            }
+
+
+
+            var oldSiniestro = await _dataContext.VehiculosSiniestros.FindAsync(request.NROSINIESTRO);
+            if (oldSiniestro == null)
+            {
+                return BadRequest("El Causante no existe.");
+            }
+
+            oldSiniestro.ALTURA = request.ALTURA;
+            oldSiniestro.APELLIDONOMBRETERCERO = request.APELLIDONOMBRETERCERO;
+            oldSiniestro.CANTIDADLESIONADOS = request.CANTIDADLESIONADOS;
+            oldSiniestro.CAUSANTE = request.CAUSANTE;
+            oldSiniestro.CIUDAD = request.CIUDAD;
+            oldSiniestro.COMPANIASEGUROTERCERO = request.COMPANIASEGUROTERCERO;
+            oldSiniestro.DIRECCIONSINIESTRO = request.DIRECCIONSINIESTRO;
+            oldSiniestro.DetalleDanosPropio = request.DetalleDanosPropio;
+            oldSiniestro.DetalleDanosTercero = request.DetalleDanosTercero;
+            oldSiniestro.EMAILTERCERO = request.EMAILTERCERO;
+            oldSiniestro.FECHACARGA = request.FECHACARGA;
+            oldSiniestro.FechaCargaAPP = request.FechaCargaAPP;
+            oldSiniestro.GRUPO = request.GRUPO;
+            oldSiniestro.HORASINIESTRO = request.HORASINIESTRO;
+            oldSiniestro.IDUSUARIOCARGA = request.IDUSUARIOCARGA;
+            oldSiniestro.INTERVINOAMBULANCIA = request.INTERVINOAMBULANCIA;
+            oldSiniestro.INTERVINOPOLICIA = request.INTERVINOPOLICIA;
+            oldSiniestro.LESIONADOS = request.LESIONADOS;
+            oldSiniestro.NOTIFICADOA = request.NOTIFICADOA;
+            oldSiniestro.NOTIFICADOEMPRESA = request.NOTIFICADOEMPRESA;
+            oldSiniestro.NROPOLIZATERCERO = request.NROPOLIZATERCERO;
+            oldSiniestro.NROSINIESTRO = request.NROSINIESTRO;
+            oldSiniestro.NUMCHA = request.NUMCHA;
+            oldSiniestro.NumChaTercero = request.NumChaTercero;
+            oldSiniestro.PROVINCIA = request.PROVINCIA;            
+            oldSiniestro.RELATOSINIESTRO = request.RELATOSINIESTRO;
+            oldSiniestro.TELEFONOCONTACTOTERCERO = request.TELEFONOCONTACTOTERCERO;
+
+            _dataContext.VehiculosSiniestros.Update(oldSiniestro);
+            await _dataContext.SaveChangesAsync();
+            return Ok();
+        }
     }
 }
