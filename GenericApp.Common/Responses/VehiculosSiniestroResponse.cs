@@ -28,9 +28,9 @@ namespace GenericApp.Common.Responses
         public string NUMCHA { get; set; }
         public string COMPANIASEGUROTERCERO { get; set; }
         public int IDUSUARIOCARGA { get; set; }
-        public string DetalleDanosTercero { get; set; }
-        public string DetalleDanosPropio { get; set; }
-        public string NumChaTercero { get; set; }
-        public DateTime FechaCargaAPP { get; set; }
+        public string DETALLEDANOSTERCERO { get; set; }
+        public string DETALLEDANOSPROPIO { get; set; }
+        public string NUMCHATERCERO { get; set; }
+        public DateTime FECHACARGAAPP { get; set; }
     }
 }

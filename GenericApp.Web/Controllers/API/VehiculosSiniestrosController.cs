@@ -82,10 +82,10 @@ namespace GenericApp.Web.Controllers.API
                 DIRECCIONSINIESTRO = request.DIRECCIONSINIESTRO,
                 IDUSUARIOCARGA = request.IDUSUARIOCARGA,
                 NUMCHA = request.NUMCHA,
-                DetalleDanosTercero = request.DetalleDanosTercero,
-                DetalleDanosPropio = request.DetalleDanosPropio,
-                NumChaTercero = request.NumChaTercero,
-                FechaCargaAPP = request.FechaCargaAPP,
+                DETALLEDANOSTERCERO = request.DETALLEDANOSTERCERO,
+                DETALLEDANOSPROPIO = request.DETALLEDANOSPROPIO,
+                NUMCHATERCERO = request.NUMCHATERCERO,
+                FECHACARGAAPP = request.FECHACARGAAPP,
             };
             _dataContext.VehiculosSiniestros.Add(vehiculoSiniestro);
             await _dataContext.SaveChangesAsync();
@@ -120,11 +120,11 @@ namespace GenericApp.Web.Controllers.API
             oldSiniestro.CIUDAD = request.CIUDAD;
             oldSiniestro.COMPANIASEGUROTERCERO = request.COMPANIASEGUROTERCERO;
             oldSiniestro.DIRECCIONSINIESTRO = request.DIRECCIONSINIESTRO;
-            oldSiniestro.DetalleDanosPropio = request.DetalleDanosPropio;
-            oldSiniestro.DetalleDanosTercero = request.DetalleDanosTercero;
+            oldSiniestro.DETALLEDANOSPROPIO = request.DETALLEDANOSPROPIO;
+            oldSiniestro.DETALLEDANOSTERCERO = request.DETALLEDANOSTERCERO;
             oldSiniestro.EMAILTERCERO = request.EMAILTERCERO;
             oldSiniestro.FECHACARGA = request.FECHACARGA;
-            oldSiniestro.FechaCargaAPP = request.FechaCargaAPP;
+            oldSiniestro.FECHACARGAAPP = request.FECHACARGAAPP;
             oldSiniestro.GRUPO = request.GRUPO;
             oldSiniestro.HORASINIESTRO = request.HORASINIESTRO;
             oldSiniestro.IDUSUARIOCARGA = request.IDUSUARIOCARGA;
@@ -136,7 +136,7 @@ namespace GenericApp.Web.Controllers.API
             oldSiniestro.NROPOLIZATERCERO = request.NROPOLIZATERCERO;
             oldSiniestro.NROSINIESTRO = request.NROSINIESTRO;
             oldSiniestro.NUMCHA = request.NUMCHA;
-            oldSiniestro.NumChaTercero = request.NumChaTercero;
+            oldSiniestro.NUMCHATERCERO = request.NUMCHATERCERO;
             oldSiniestro.PROVINCIA = request.PROVINCIA;            
             oldSiniestro.RELATOSINIESTRO = request.RELATOSINIESTRO;
             oldSiniestro.TELEFONOCONTACTOTERCERO = request.TELEFONOCONTACTOTERCERO;
