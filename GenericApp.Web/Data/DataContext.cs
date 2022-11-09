@@ -43,6 +43,7 @@ namespace GenericApp.Web.Data
         public DbSet<Subcontratista> Subcontratistas { get; set; }
         public DbSet<ObrasNuevoSuministro> ObrasNuevoSuministros { get; set; }
         public DbSet<ObrasReparo> ObrasReparos { get; set; }
+        public DbSet<StandardReparo> StandardReparos{ get; set; }
 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
