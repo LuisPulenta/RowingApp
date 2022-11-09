@@ -17,7 +17,7 @@ namespace GenericApp.Common.Requests
         public int? CantidadMTL { get; set; }
         public int? Ancho { get; set; }
         public int? Profundidad { get; set; }
-        public DateTime FechaCierreElectrico { get; set; }
+        public DateTime? FechaCierreElectrico { get; set; }
         public byte[] ImageArray { get; set; }
        
     }

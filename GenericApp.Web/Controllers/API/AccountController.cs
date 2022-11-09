@@ -71,7 +71,8 @@ namespace GenericApp.Web.Controllers.API
                     FechaCaduca=0,
                     IntentosInvDiario=0,
                     OpeAutorizo=0,
-                    HabilitaNuevoSuministro=0
+                    HabilitaNuevoSuministro=0,
+                    HabilitaVeredas=0
     };
 
                 return Ok(response2);
@@ -101,6 +102,7 @@ namespace GenericApp.Web.Controllers.API
                 IntentosInvDiario = user.IntentosInvDiario,
                 OpeAutorizo = user.OpeAutorizo,
                 HabilitaNuevoSuministro = user.HabilitaNuevoSuministro,
+                HabilitaVeredas=user.HabilitaVeredas,
                 FirmaUsuario=user.FirmaUsuario,
             };
 
@@ -147,7 +149,8 @@ namespace GenericApp.Web.Controllers.API
                 FechaCaduca = user.FechaCaduca,
                 IntentosInvDiario = user.IntentosInvDiario,
                 OpeAutorizo = user.OpeAutorizo,
-                HabilitaNuevoSuministro = user.HabilitaNuevoSuministro
+                HabilitaNuevoSuministro = user.HabilitaNuevoSuministro,
+                HabilitaVeredas=user.HabilitaVeredas
             };
             return Ok(response);
         }
