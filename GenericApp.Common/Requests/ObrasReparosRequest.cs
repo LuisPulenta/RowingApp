@@ -19,6 +19,7 @@ namespace GenericApp.Common.Requests
         public int? Profundidad { get; set; }
         public DateTime? FechaCierreElectrico { get; set; }
         public byte[] ImageArray { get; set; }
-       
+        public int? CODTIPOSTDRPARO { get; set; }
+
     }
 }

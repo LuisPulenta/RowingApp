@@ -125,7 +125,7 @@ namespace GenericApp.Web.Controllers.API
                 ALTURA=request.ALTURA,
                 LATITUD = request.LATITUD,
                 LONGITUD = request.LONGITUD,
-                CODTIPOSTDRPARO=null,
+                CODTIPOSTDRPARO=request.CODTIPOSTDRPARO,
                 ESTADOSUBCON="SinDatos",
                 RECURSOS = "",
                 MONTODISPONIBLE=null,
