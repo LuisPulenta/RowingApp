@@ -34,9 +34,21 @@ namespace GenericApp.Web.Data.Entities
         public int? Ancho { get; set; }
         public int? Profundidad { get; set; }
         public DateTime? FechaCierreElectrico { get; set; }
-
+        public string FotoInicio { get; set; }
+        public string FotoFin { get; set; }
+        public string Modulo { get; set; }
+        public string ObservacionesFotoInicio { get; set; }
+        public string ObservacionesFotoFin { get; set; }
         public string ImageFullPath => string.IsNullOrEmpty(Foto1)
         ? $"http://190.111.249.225/RowingAppApi/images/ObrasReparos/noimage.png"
         : $"http://190.111.249.225/RowingAppApi{Foto1.Substring(1)}";
+
+        public string FotoInicioFullPath => string.IsNullOrEmpty(FotoInicio)
+       ? $"http://190.111.249.225/RowingAppApi/images/ObrasReparos/noimage.png"
+       : $"http://190.111.249.225/RowingAppApi{FotoInicio.Substring(1)}";
+
+        public string FotoFinFullPath => string.IsNullOrEmpty(FotoInicio)
+       ? $"http://190.111.249.225/RowingAppApi/images/ObrasReparos/noimage.png"
+       : $"http://190.111.249.225/RowingAppApi{FotoFin.Substring(1)}";
     }
 }

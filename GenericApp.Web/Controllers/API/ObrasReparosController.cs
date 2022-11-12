@@ -59,6 +59,30 @@ namespace GenericApp.Web.Controllers.API
         }
 
         [HttpPost]
+        [Route("GetObrasReparosByCodigo/{codigocausante}")]
+        public async Task<IActionResult> GetObrasReparosByCodigo(String codigocausante)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest();
+            }
+
+            var obrasReparos = await _dataContext.ObrasReparos
+           .Where(o => (o.CODCAUSANTE == codigocausante) && (o.FotoFin == null) && (o.FechaCierreElectrico!=null)
+
+           )
+           .OrderBy(o => o.NROREGISTRO)
+           .ToListAsync();
+
+
+            if (obrasReparos == null)
+            {
+                return BadRequest("No hay Obras Reparos.");
+            }
+            return Ok(obrasReparos);
+        }
+
+        [HttpPost]
         [Route("GetObrasReparosTodas")]
         public async Task<IActionResult> GetObrasReparosTodas()
         {
@@ -108,6 +132,40 @@ namespace GenericApp.Web.Controllers.API
                 }
             }
 
+            //Foto Inicio
+            string imageUrlInicio = string.Empty;
+            if (request.FotoInicioArray != null && request.FotoInicioArray.Length > 0)
+            {
+                var stream2 = new MemoryStream(request.FotoInicioArray);
+                var guid2 = Guid.NewGuid().ToString();
+                var file2 = $"{guid2}.jpg";
+                var folder2 = "wwwroot\\images\\ObrasReparos";
+                var fullPath2 = $"~/images/ObrasReparos/{file2}";
+                var response2 = _filesHelper.UploadPhoto(stream2, folder2, file2);
+
+                if (response2)
+                {
+                    imageUrlInicio = fullPath2;
+                }
+            }
+
+            //Foto Fin
+            string imageUrlFin = string.Empty;
+            if (request.FotoFinArray != null && request.FotoFinArray.Length > 0)
+            {
+                var stream3 = new MemoryStream(request.FotoFinArray);
+                var guid3 = Guid.NewGuid().ToString();
+                var file3 = $"{guid3}.jpg";
+                var folder3 = "wwwroot\\images\\ObrasReparos";
+                var fullPath3 = $"~/images/ObrasReparos/{file3}";
+                var response3 = _filesHelper.UploadPhoto(stream3, folder3, file3);
+
+                if (response3)
+                {
+                    imageUrlFin = fullPath3;
+                }
+            }
+
 
             var obrasReparo = new ObrasReparo
             {
@@ -134,11 +192,16 @@ namespace GenericApp.Web.Controllers.API
                 Terminal=null,
                 Observaciones=request.Observaciones,
                 Foto1 = imageUrl,
+                FotoInicio=imageUrlInicio,
+                FotoFin=imageUrlFin,
                 TipoVereda=request.TipoVereda,
                 CantidadMTL=request.CantidadMTL,
                 Ancho=request.Ancho,
                 Profundidad=request.Profundidad,
-                FechaCierreElectrico=request.FechaCierreElectrico
+                FechaCierreElectrico=request.FechaCierreElectrico,
+                ObservacionesFotoInicio=request.ObservacionesFotoInicio,
+                ObservacionesFotoFin = request.ObservacionesFotoFin,
+                Modulo = request.Modulo
             };
             _dataContext.ObrasReparos.Add(obrasReparo);
             await _dataContext.SaveChangesAsync();
@@ -158,6 +221,40 @@ namespace GenericApp.Web.Controllers.API
                 return BadRequest();
             }
 
+            //Foto Inicio
+            string imageUrlInicio = string.Empty;
+            if (request.FotoInicioArray != null && request.FotoInicioArray.Length > 0)
+            {
+                var stream2 = new MemoryStream(request.FotoInicioArray);
+                var guid2 = Guid.NewGuid().ToString();
+                var file2 = $"{guid2}.jpg";
+                var folder2 = "wwwroot\\images\\ObrasReparos";
+                var fullPath2 = $"~/images/ObrasReparos/{file2}";
+                var response2 = _filesHelper.UploadPhoto(stream2, folder2, file2);
+
+                if (response2)
+                {
+                    imageUrlInicio = fullPath2;
+                }
+            }
+
+            //Foto Fin
+            string imageUrlFin = string.Empty;
+            if (request.FotoFinArray != null && request.FotoFinArray.Length > 0)
+            {
+                var stream3 = new MemoryStream(request.FotoFinArray);
+                var guid3 = Guid.NewGuid().ToString();
+                var file3 = $"{guid3}.jpg";
+                var folder3 = "wwwroot\\images\\ObrasReparos";
+                var fullPath3 = $"~/images/ObrasReparos/{file3}";
+                var response3 = _filesHelper.UploadPhoto(stream3, folder3, file3);
+
+                if (response3)
+                {
+                    imageUrlFin = fullPath3;
+                }
+            }
+
             var oldObraReparo = await _dataContext.ObrasReparos.FindAsync(request.NROREGISTRO);
             if (oldObraReparo == null)
             {
@@ -165,6 +262,11 @@ namespace GenericApp.Web.Controllers.API
             }
 
             oldObraReparo.FECHACUMPLIMENTO = request.FECHACUMPLIMENTO;
+            oldObraReparo.FotoInicio = imageUrlInicio;
+            oldObraReparo.FotoFin = imageUrlFin;
+            oldObraReparo.ObservacionesFotoInicio = request.ObservacionesFotoInicio;
+            oldObraReparo.ObservacionesFotoFin = request.ObservacionesFotoFin;
+                
 
             _dataContext.ObrasReparos.Update(oldObraReparo);
             await _dataContext.SaveChangesAsync();
