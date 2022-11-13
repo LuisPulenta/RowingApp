@@ -47,7 +47,7 @@ namespace GenericApp.Web.Data.Entities
        ? $"http://190.111.249.225/RowingAppApi/images/ObrasReparos/noimage.png"
        : $"http://190.111.249.225/RowingAppApi{FotoInicio.Substring(1)}";
 
-        public string FotoFinFullPath => string.IsNullOrEmpty(FotoInicio)
+        public string FotoFinFullPath => string.IsNullOrEmpty(FotoFin)
        ? $"http://190.111.249.225/RowingAppApi/images/ObrasReparos/noimage.png"
        : $"http://190.111.249.225/RowingAppApi{FotoFin.Substring(1)}";
     }
