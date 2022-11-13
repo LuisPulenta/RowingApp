@@ -92,7 +92,7 @@ namespace GenericApp.Web.Controllers.API
             }
 
             var obrasReparos = await _dataContext.ObrasReparos
-           .Where(o => (o.FECHACUMPLIMENTO == null && o.LATITUD!="" && o.LONGITUD != "")
+           .Where(o => (o.FECHACUMPLIMENTO == null && o.LATITUD!="" && o.LONGITUD != "" && o.FotoFin == null)
 
            )
            .OrderBy(o => o.NROREGISTRO)
@@ -240,8 +240,11 @@ namespace GenericApp.Web.Controllers.API
 
             //Foto Fin
             string imageUrlFin = string.Empty;
+            DateTime? fec = null;
             if (request.FotoFinArray != null && request.FotoFinArray.Length > 0)
             {
+
+                fec = request.FECHACUMPLIMENTO;
                 var stream3 = new MemoryStream(request.FotoFinArray);
                 var guid3 = Guid.NewGuid().ToString();
                 var file3 = $"{guid3}.jpg";
@@ -261,7 +264,7 @@ namespace GenericApp.Web.Controllers.API
                 return BadRequest("La Obra Reparo no existe.");
             }
 
-            oldObraReparo.FECHACUMPLIMENTO = request.FECHACUMPLIMENTO;
+            oldObraReparo.FECHACUMPLIMENTO = fec;
             oldObraReparo.FotoInicio = imageUrlInicio;
             oldObraReparo.FotoFin = imageUrlFin;
             oldObraReparo.ObservacionesFotoInicio = request.ObservacionesFotoInicio;
