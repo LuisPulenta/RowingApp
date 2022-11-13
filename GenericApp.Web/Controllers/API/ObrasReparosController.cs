@@ -68,7 +68,7 @@ namespace GenericApp.Web.Controllers.API
             }
 
             var obrasReparos = await _dataContext.ObrasReparos
-           .Where(o => (o.CODCAUSANTE == codigocausante) && (o.FotoFin == null) && (o.FechaCierreElectrico!=null)
+           .Where(o => (o.CODCAUSANTE == codigocausante) && (o.FotoFin == null || o.FotoFin=="" ) && (o.FechaCierreElectrico!=null)
 
            )
            .OrderBy(o => o.NROREGISTRO)
@@ -92,7 +92,7 @@ namespace GenericApp.Web.Controllers.API
             }
 
             var obrasReparos = await _dataContext.ObrasReparos
-           .Where(o => (o.FECHACUMPLIMENTO == null && o.LATITUD!="" && o.LONGITUD != "" && o.FotoFin == null)
+           .Where(o => (o.FECHACUMPLIMENTO == null && o.LATITUD!="" && o.LONGITUD != "" && (o.FotoFin == null || o.FotoFin == ""))
 
            )
            .OrderBy(o => o.NROREGISTRO)
