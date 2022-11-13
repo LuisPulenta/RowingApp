@@ -222,7 +222,7 @@ namespace GenericApp.Web.Controllers.API
             }
 
             //Foto Inicio
-            string imageUrlInicio = string.Empty;
+            string imageUrlInicio = null;
             if (request.FotoInicioArray != null && request.FotoInicioArray.Length > 0)
             {
                 var stream2 = new MemoryStream(request.FotoInicioArray);
@@ -239,7 +239,7 @@ namespace GenericApp.Web.Controllers.API
             }
 
             //Foto Fin
-            string imageUrlFin = string.Empty;
+            string imageUrlFin = null;
             DateTime? fec = null;
             if (request.FotoFinArray != null && request.FotoFinArray.Length > 0)
             {
@@ -264,11 +264,25 @@ namespace GenericApp.Web.Controllers.API
                 return BadRequest("La Obra Reparo no existe.");
             }
 
+            string obsInicio = null;
+            string obsFin = null;
+
+            if (request.ObservacionesFotoInicio.Length > 0)
+            {
+                obsInicio = request.ObservacionesFotoInicio;
+            }
+
+            if (request.ObservacionesFotoFin.Length > 0)
+            {
+                obsFin = request.ObservacionesFotoFin;
+            }
+
+
             oldObraReparo.FECHACUMPLIMENTO = fec;
             oldObraReparo.FotoInicio = imageUrlInicio;
             oldObraReparo.FotoFin = imageUrlFin;
-            oldObraReparo.ObservacionesFotoInicio = request.ObservacionesFotoInicio;
-            oldObraReparo.ObservacionesFotoFin = request.ObservacionesFotoFin;
+            oldObraReparo.ObservacionesFotoInicio = obsInicio;
+            oldObraReparo.ObservacionesFotoFin = obsFin;
                 
 
             _dataContext.ObrasReparos.Update(oldObraReparo);
