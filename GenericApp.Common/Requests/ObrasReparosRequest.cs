@@ -25,6 +25,8 @@ namespace GenericApp.Common.Requests
         public string Modulo { get; set; }
         public string ObservacionesFotoInicio { get; set; }
         public string ObservacionesFotoFin { get; set; }
+        public int? Largo2 { get; set; }
+        public int? Ancho2 { get; set; }
 
     }
 }

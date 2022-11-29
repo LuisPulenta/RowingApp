@@ -201,7 +201,9 @@ namespace GenericApp.Web.Controllers.API
                 FechaCierreElectrico=request.FechaCierreElectrico,
                 ObservacionesFotoInicio=request.ObservacionesFotoInicio,
                 ObservacionesFotoFin = request.ObservacionesFotoFin,
-                Modulo = request.Modulo
+                Modulo = request.Modulo,
+                Largo2=request.Largo2,
+                Ancho2=request.Ancho2
             };
             _dataContext.ObrasReparos.Add(obrasReparo);
             await _dataContext.SaveChangesAsync();
@@ -283,7 +285,9 @@ namespace GenericApp.Web.Controllers.API
             oldObraReparo.FotoFin = imageUrlFin;
             oldObraReparo.ObservacionesFotoInicio = obsInicio;
             oldObraReparo.ObservacionesFotoFin = obsFin;
-                
+            oldObraReparo.Ancho2 = request.Ancho2;
+            oldObraReparo.Largo2 =request.Largo2;
+
 
             _dataContext.ObrasReparos.Update(oldObraReparo);
             await _dataContext.SaveChangesAsync();

@@ -39,6 +39,8 @@ namespace GenericApp.Web.Data.Entities
         public string Modulo { get; set; }
         public string ObservacionesFotoInicio { get; set; }
         public string ObservacionesFotoFin { get; set; }
+        public int? Largo2 { get; set; }
+        public int? Ancho2 { get; set; }
         public string ImageFullPath => string.IsNullOrEmpty(Foto1)
         ? $"http://190.111.249.225/RowingAppApi/images/ObrasReparos/noimage.png"
         : $"http://190.111.249.225/RowingAppApi{Foto1.Substring(1)}";
