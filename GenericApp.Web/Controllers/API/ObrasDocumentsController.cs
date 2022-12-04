@@ -1,16 +1,13 @@
-﻿using System;
-using System.Threading.Tasks;
+﻿using GenericApp.Common.Helpers;
+using GenericApp.Common.Requests;
+using GenericApp.Web.Data;
+using GenericApp.Web.Data.Entities;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using GenericApp.Web.Data;
-using GenericApp.Common.Responses;
-using GenericApp.Web.Data.Entities;
-using Microsoft.AspNetCore.Authorization;
+using System;
 using System.IO;
 using System.Linq;
-using GenericApp.Common.Helpers;
-using GenericApp.Common.Requests;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
+using System.Threading.Tasks;
 
 namespace GenericApp.Web.Controllers.API
 {
@@ -59,22 +56,22 @@ namespace GenericApp.Web.Controllers.API
             var obraDocumento = new ObrasDocumento
             {
                 //NROREGISTRO = request.NROREGISTRO,
-                LINK= imageUrl1,
-                FECHA=request.FECHA,
-                NROOBRA=request.NROOBRA,
+                LINK = imageUrl1,
+                FECHA = request.FECHA,
+                NROOBRA = request.NROOBRA,
                 IDObrasPostes = request.IDObrasPostes,
-                OBSERVACION=request.OBSERVACION,
-                Estante=request.Estante,
-                GeneradoPor=request.GeneradoPor,
-                MODULO=request.MODULO,
-                NroLote=request.NroLote,
-                Sector=request.Sector,
+                OBSERVACION = request.OBSERVACION,
+                Estante = request.Estante,
+                GeneradoPor = request.GeneradoPor,
+                MODULO = request.MODULO,
+                NroLote = request.NroLote,
+                Sector = request.Sector,
                 Latitud = request.Latitud,
                 Longitud = request.Longitud,
                 FechaHsFoto = request.FechaHsFoto,
                 TipoDeFoto = request.TipoDeFoto,
                 DireccionFoto = request.DireccionFoto
-    };
+            };
 
             _context.ObrasDocumentos.Add(obraDocumento);
             await _context.SaveChangesAsync();
@@ -175,6 +172,32 @@ namespace GenericApp.Web.Controllers.API
             }
 
             return Ok(obrasDocumentos);
+        }
+
+        [HttpPut("{id}")]
+        public async Task<IActionResult> PutObrasDocumentos([FromRoute] int id, [FromBody] ObrasDocumentoRequest2 request)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            if (id != request.NROREGISTRO)
+            {
+                return BadRequest();
+            }
+
+            var oldObraDocumento = await _context.ObrasDocumentos.FindAsync(request.NROREGISTRO);
+            if (oldObraDocumento == null)
+            {
+                return BadRequest("ObraDocumento no existe.");
+            }
+
+            oldObraDocumento.LINK = request.LINK;
+
+            _context.ObrasDocumentos.Update(oldObraDocumento);
+            await _context.SaveChangesAsync();
+            return Ok();
         }
     }
 }
