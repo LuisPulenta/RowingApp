@@ -193,7 +193,7 @@ namespace GenericApp.Web.Controllers.API
                 return BadRequest("ObraDocumento no existe.");
             }
 
-            oldObraDocumento.LINK = request.LINK;
+            oldObraDocumento.LINK = "~/images/ObrasDoc/" + request.LINK;
 
             _context.ObrasDocumentos.Update(oldObraDocumento);
             await _context.SaveChangesAsync();
