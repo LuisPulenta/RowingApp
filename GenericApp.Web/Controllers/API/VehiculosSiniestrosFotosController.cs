@@ -71,7 +71,48 @@ namespace GenericApp.Web.Controllers.API
             return Ok(vehiculosSiniestrosFoto);
         }
 
-        
+        [HttpPost]
+        [Route("VehiculosSiniestrosPdf")]
+        public async Task<IActionResult> VehiculosSiniestrosPdf([FromBody] VehiculosSiniestrosFotoRequest request)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            //Foto
+            var imageUrl1 = string.Empty;
+            var stream = new MemoryStream(request.ImageArray);
+            var guid = Guid.NewGuid().ToString();
+            var file = $"{guid}.pdf";
+            var folder = "wwwroot\\images\\SiniestrosPdf";
+            var fullPath = $"~/images/SiniestrosPdf/{file}";
+            var response = _filesHelper.UploadPhoto(stream, folder, file);
+
+            if (response)
+            {
+                imageUrl1 = fullPath;
+            }
+
+            VehiculosSiniestro vehiculosSiniestro = await _context.VehiculosSiniestros
+                .FirstOrDefaultAsync(o => o.NROSINIESTRO == request.NROSINIESTROCAB);
+
+            var vehiculosSiniestrosFoto = new VehiculosSiniestrosFoto
+            {
+                //NROREGISTRO = request.NROREGISTRO,
+                LINKFOTO = imageUrl1,
+                OBSERVACION = request.OBSERVACION,
+                NROSINIESTROCAB = request.NROSINIESTROCAB,
+                CORRESPONDEA = request.CORRESPONDEA
+            };
+
+            _context.VehiculosSiniestrosFotos.Add(vehiculosSiniestrosFoto);
+            await _context.SaveChangesAsync();
+
+            return Ok(vehiculosSiniestrosFoto);
+        }
+
+
 
         // DELETE: api/ObrasDocumentos/5
         [HttpDelete("{id}")]

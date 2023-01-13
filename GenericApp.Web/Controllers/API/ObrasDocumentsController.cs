@@ -187,13 +187,17 @@ namespace GenericApp.Web.Controllers.API
                 return BadRequest();
             }
 
+           
+
+
+
             var oldObraDocumento = await _context.ObrasDocumentos.FindAsync(request.NROREGISTRO);
             if (oldObraDocumento == null)
             {
                 return BadRequest("ObraDocumento no existe.");
             }
 
-            oldObraDocumento.LINK = "~/images/ObrasDoc/" + request.LINK;
+            oldObraDocumento.LINK = request.nombrearchivo;
 
             _context.ObrasDocumentos.Update(oldObraDocumento);
             await _context.SaveChangesAsync();
