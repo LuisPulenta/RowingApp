@@ -264,7 +264,7 @@ namespace GenericApp.Web.Controllers.API
 
             var obras = await _dataContext.Obras
             .Include(p => p.ObrasDocumentos)
-           .Where(o => (o.Finalizada == 0)
+           .Where(o => (o.Finalizada == 0 && o.ULTIMAACTA==0)
            && (o.Modulo == ProyectoModulo))
            .OrderBy(o => o.NroObra)
            .ToListAsync();
