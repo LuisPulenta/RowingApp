@@ -2,7 +2,7 @@
 
 namespace GenericApp.Common.Requests
 {
-    public class TicketRequest
+    public class ObrasNuevoSuministrosDe
     {
         [Required]
         public string ASTICKET { get; set; }

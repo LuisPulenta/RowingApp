@@ -217,6 +217,9 @@ namespace GenericApp.Web.Controllers.API
                 TENSIONCONTRATADA = request.TENSIONCONTRATADA,
                 TIPORED = request.TIPORED,
                 TRABAJOCONHIDRO = request.TRABAJOCONHIDRO,
+                PosX=request.PosX,
+                PosY = request.PosY,
+                IDUserCarga = request.IDUserCarga,
             };
             _dataContext.ObrasNuevoSuministros.Add(obrasNuevoSuministro);
             await _dataContext.SaveChangesAsync();

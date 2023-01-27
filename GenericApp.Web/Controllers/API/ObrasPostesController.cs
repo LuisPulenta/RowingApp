@@ -27,7 +27,7 @@ namespace GenericApp.Web.Controllers.API
 
         [HttpPost]
         [Route("GetTicket")]
-        public async Task<IActionResult> GetTicket(TicketRequest ticket)
+        public async Task<IActionResult> GetTicket(ObrasNuevoSuministrosDe ticket)
         {
             if (!ModelState.IsValid)
             {

@@ -47,5 +47,8 @@ namespace GenericApp.Common.Requests
         public int? KITNRO { get; set; }
         public int? IDCERTIFMATERIALES { get; set; }
         public int? IDCERTIFBAREMO { get; set; }
+        public string PosX { get; set; }
+        public string PosY { get; set; }
+        public int? IDUserCarga { get; set; }
     }
 }

@@ -42,6 +42,7 @@ namespace GenericApp.Web.Data
         public DbSet<WRemitosDet> WRemitosDet { get; set; }
         public DbSet<Subcontratista> Subcontratistas { get; set; }
         public DbSet<ObrasNuevoSuministro> ObrasNuevoSuministros { get; set; }
+        public DbSet<ObrasNuevoSuministroDe> ObrasNuevoSuministrosDet { get; set; }
         public DbSet<ObrasReparo> ObrasReparos { get; set; }
         public DbSet<StandardReparo> StandardReparos{ get; set; }
 

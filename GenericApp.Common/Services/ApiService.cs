@@ -117,7 +117,7 @@ namespace GenericApp.Common.Services
         {
             try
             {
-                var request = new TicketRequest { ASTICKET = codigo };
+                var request = new ObrasNuevoSuministrosDe { ASTICKET = codigo };
                 var requestString = JsonConvert.SerializeObject(request);
                 var content = new StringContent(requestString, Encoding.UTF8, "application/json");
                 var client = new HttpClient

@@ -49,6 +49,9 @@ namespace GenericApp.Web.Data.Entities
         public int? KITNRO { get; set; }
         public int? IDCERTIFMATERIALES { get; set; }
         public int? IDCERTIFBAREMO { get; set; }
+        public string PosX { get; set; }
+        public string PosY { get; set; }
+        public int? IDUserCarga { get; set; }
         public string ANTESFOTO1ImageFullPath => string.IsNullOrEmpty(ANTESFOTO1)
        ? $"http://190.111.249.225/RowingAppApi/images/ObrasSuministros/noimage.png"
        : $"http://190.111.249.225/RowingAppApi{ANTESFOTO1.Substring(1)}";
