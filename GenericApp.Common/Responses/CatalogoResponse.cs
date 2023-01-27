@@ -8,6 +8,7 @@
         public int VerEnReclamosApp { get; set; }
         public int VerRequerimientosAPP { get; set; }
         public int VerRequerimientosEPP { get; set; }
+        public int? VerEnSuministros { get; set; }
         public string Modulo { get; set; }
         public decimal? Cantidad { get; set; }
     }
