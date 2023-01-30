@@ -223,7 +223,10 @@ namespace GenericApp.Web.Controllers.API
             };
             _dataContext.ObrasNuevoSuministros.Add(obrasNuevoSuministro);
             await _dataContext.SaveChangesAsync();
-            return Ok();
+
+            int query = _dataContext.ObrasNuevoSuministros.Max(c => c.NROSUMINISTRO);
+
+            return Ok(query);
         }
     }
 }
