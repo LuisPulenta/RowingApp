@@ -9,6 +9,7 @@ namespace GenericApp.Web.Data.Entities
         public Int16 CODVEH { get; set; }
         public string NUMCHA { get; set; }
         public string CodProducto { get; set; }
+        public string NROTAR { get; set; }
         public Int16? ANIOFA { get; set; }
         public string Descripcion { get; set; }
         public string NMOTOR { get; set; }

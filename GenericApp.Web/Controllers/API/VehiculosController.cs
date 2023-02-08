@@ -46,6 +46,7 @@ namespace GenericApp.Web.Controllers.API
                 FechaVencObleaGAS = vehiculo.FechaVencObleaGAS,
                 Habilitado = vehiculo.Habilitado,
                 Modulo = vehiculo.Modulo,
+                NROTAR = vehiculo.NROTAR,
                 NMOTOR = vehiculo.NMOTOR,
                 NroPolizaSeguro = vehiculo.NroPolizaSeguro,
                 PropiedadDe = vehiculo.PropiedadDe,
