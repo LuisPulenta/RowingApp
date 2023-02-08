@@ -23,8 +23,8 @@ namespace GenericApp.Web.Controllers.API
         [HttpPost("GetVehiculoByChapa/{chapa}")]
         public async Task<ActionResult<Data.Entities.Causante>> GetVehiculoByChapa(string chapa)
         {
-            Data.Entities.Vehiculo vehiculo = await _dataContext.Vehiculos
-                .FirstOrDefaultAsync(o => o.NUMCHA.ToLower() == chapa.ToLower());
+            Data.Entities.VehiculosCheckList vehiculo = await _dataContext.Vehiculos
+                .FirstOrDefaultAsync(o => o.NUMCHA.ToLower() == chapa.ToLower() && o.Habilitado==1);
 
             if (vehiculo == null)
             {

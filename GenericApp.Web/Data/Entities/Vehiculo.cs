@@ -4,6 +4,7 @@ using System.ComponentModel.DataAnnotations;
 namespace GenericApp.Web.Data.Entities
 {
     public class Vehiculo
+
     {
         [Key]
         public Int16 CODVEH { get; set; }

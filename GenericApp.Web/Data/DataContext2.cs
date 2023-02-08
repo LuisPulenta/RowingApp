@@ -11,13 +11,13 @@ namespace GenericApp.Web.Data
         }
         public DbSet<Causante> Causantes { get; set; }
         public DbSet<Entrega> ProductosStock { get; set; }
-        public DbSet<Vehiculo> Vehiculos { get; set; }
+        public DbSet<VehiculosCheckList> Vehiculos { get; set; }
         public DbSet<VehiculosKilometraje> VehiculosKilometrajes { get; set; }
         public DbSet<VehiculosProgramaPrev> VehiculosProgramasPrev { get; set; }
         public DbSet<VFlotaApp> VFlotaApps { get; set; }
         public DbSet<VFlotaPreventivo> VFlotaPreventivos { get; set; }
         public DbSet<VehiculosSiniestro> VehiculosSiniestros { get; set; }
         public DbSet<VehiculosSiniestrosFoto> VehiculosSiniestrosFotos { get; set; }
-
+        public DbSet<VehiculosCheckList> VehiculosCheckLists { get; set; }
     }
 }
