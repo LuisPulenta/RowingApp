@@ -11,7 +11,7 @@ namespace GenericApp.Web.Data
         }
         public DbSet<Causante> Causantes { get; set; }
         public DbSet<Entrega> ProductosStock { get; set; }
-        public DbSet<VehiculosCheckList> Vehiculos { get; set; }
+        public DbSet<Vehiculo> Vehiculos { get; set; }
         public DbSet<VehiculosKilometraje> VehiculosKilometrajes { get; set; }
         public DbSet<VehiculosProgramaPrev> VehiculosProgramasPrev { get; set; }
         public DbSet<VFlotaApp> VFlotaApps { get; set; }

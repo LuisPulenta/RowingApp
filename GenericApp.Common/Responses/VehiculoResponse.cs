@@ -5,11 +5,11 @@ namespace GenericApp.Common.Responses
 {
     public class VehiculoResponse
     {
-        public Int16 CODVEH { get; set; }
+        public int CODVEH { get; set; }
         public string NUMCHA { get; set; }
         public string NROTAR { get; set; }
         public string CodProducto { get; set; }
-        public Int16? ANIOFA { get; set; }
+        public int? ANIOFA { get; set; }
         public string Descripcion { get; set; }
         public string NMOTOR { get; set; }
         public string CHASIS { get; set; }
