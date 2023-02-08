@@ -7,11 +7,11 @@ namespace GenericApp.Web.Data.Entities
 
     {
         [Key]
-        public int CODVEH { get; set; }
+        public Int16 CODVEH { get; set; }
         public string NUMCHA { get; set; }
-        public string CodProducto { get; set; }
         public string NROTAR { get; set; }
-        public int? ANIOFA { get; set; }
+        public string CodProducto { get; set; }
+        public Int16? ANIOFA { get; set; }
         public string Descripcion { get; set; }
         public string NMOTOR { get; set; }
         public string CHASIS { get; set; }
@@ -26,6 +26,6 @@ namespace GenericApp.Web.Data.Entities
         public int? FechaVencObleaGAS { get; set; }
         public string Modulo { get; set; }
         public string CAMPOMEMO { get; set; }
-       
+
     }
 }
