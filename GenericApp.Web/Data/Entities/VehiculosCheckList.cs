@@ -12,9 +12,9 @@ namespace GenericApp.Web.Data.Entities
         public int IdCliente { get; set; }
         public int IDVehiculo { get; set; }
         public string VTV { get; set; }
-        public DateTime FechaVencVTV { get; set; }
+        public DateTime? FechaVencVTV { get; set; }
         public string VTH { get; set; }
-        public DateTime FechaVencVTH { get; set; }
+        public DateTime? FechaVencVTH { get; set; }
         public string Cubiertas { get; set; }
         public string CorreaCinturon { get; set; }
         public string ApoyaCabezas { get; set; }
@@ -48,7 +48,7 @@ namespace GenericApp.Web.Data.Entities
         public string DNI { get; set; }
         public string ApellidoNombre { get; set; }
         public string Seguro { get; set; }
-        public DateTime FechaVencSeguro { get; set; }
+        public DateTime? FechaVencSeguro { get; set; }
 
     }
 }
