@@ -22,14 +22,14 @@ namespace GenericApp.Web.Controllers.API
 
         [HttpPost]
         [Route("GetVehiculosCheckLists/{iDUser}")]
-        public async Task<IActionResult> GetNovedades(int iDUser)
+        public async Task<IActionResult> GetVehiculosCheckLists(int iDUser)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest();
             }
 
-            var checkLists = await _dataContext.VehiculosCheckLists
+            var checkLists = await _dataContext.VistaFlotasChecklistAPP
            .Where(o => ((o.IDUser == iDUser) && (o.Fecha.AddDays(7) >= DateTime.Now))
            )
 
