@@ -53,7 +53,8 @@ namespace GenericApp.Web.Controllers.API
                 Telepase = vehiculo.Telepase,
                 UsaHoras = vehiculo.UsaHoras,
             };
-            return Ok(response);
+            return Ok(response); 
+
         }
 
         [HttpPost]
