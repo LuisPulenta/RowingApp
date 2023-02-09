@@ -69,39 +69,7 @@ namespace GenericApp.Web.Controllers.API
             {
                 return BadRequest();
             }
-
-            var oldVehiculosCheckList = await _dataContext.VehiculosCheckLists.FindAsync(request.IDCheckList);
-            if (oldVehiculosCheckList == null)
-            {
-                return BadRequest("El CHeck List no existe.");
-            }
-
-            oldVehiculosCheckList.AlarmaRetroceso = request.AlarmaRetroceso;
-            oldVehiculosCheckList.ApellidoNombre = request.ApellidoNombre;
-            oldVehiculosCheckList.ApoyaCabezas = request.ApoyaCabezas;
-            oldVehiculosCheckList.DispositivoPAT = request.DispositivoPAT;
-            oldVehiculosCheckList.DNI = request.DNI;
-            oldVehiculosCheckList.Espejos = request.Espejos;
-            oldVehiculosCheckList.IdentificadorEmpresa = request.IdentificadorEmpresa;
-            oldVehiculosCheckList.IDUser = request.IDUser;
-            oldVehiculosCheckList.IDVehiculo = request.IDVehiculo;
-            oldVehiculosCheckList.IndicadoresDeGiro = request.IndicadoresDeGiro;
-            oldVehiculosCheckList.JefeDirecto = request.JefeDirecto;
-            oldVehiculosCheckList.Limpiavidrios = request.Limpiavidrios;
-            oldVehiculosCheckList.LuzEmergencia = request.LuzEmergencia;
-            oldVehiculosCheckList.LuzFreno = request.LuzFreno;
-            oldVehiculosCheckList.LuzPosicion = request.LuzPosicion;
-            oldVehiculosCheckList.LuzRetroceso = request.LuzRetroceso;
-            oldVehiculosCheckList.ManguerasCircuitoHidraulico = request.ManguerasCircuitoHidraulico;
-            oldVehiculosCheckList.Matafuegos = request.Matafuegos;
-            oldVehiculosCheckList.Observaciones = request.Observaciones;
-            oldVehiculosCheckList.ResponsableVehiculo = request.ResponsableVehiculo;
-            oldVehiculosCheckList.Seguro = request.Seguro;
-            oldVehiculosCheckList.SobreSalientesPeligro = request.SobreSalientesPeligro;
-            oldVehiculosCheckList.VTH = request.VTH;
-            oldVehiculosCheckList.VTV = request.VTV;
-
-            _dataContext.VehiculosCheckLists.Update(oldVehiculosCheckList);
+            _dataContext.VehiculosCheckLists.Update(request);
             await _dataContext.SaveChangesAsync();
             return Ok();
         }
