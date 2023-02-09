@@ -20,5 +20,6 @@ namespace GenericApp.Web.Data
         public DbSet<VehiculosSiniestrosFoto> VehiculosSiniestrosFotos { get; set; }
         public DbSet<VehiculosCheckList> VehiculosCheckLists { get; set; }
         public DbSet<VistaFlotasChecklistAPP> VistaFlotasChecklistAPP { get; set; }
+        public DbSet<VehiculosCheckListsFoto> VehiculosCheckListsFotos { get; set; }
     }
 }
