@@ -67,7 +67,7 @@ namespace GenericApp.Web.Controllers.API
             return Ok(vehiculosCheckListsFoto);
         }
 
-        
+        //***** Borra una sola foto (el id es el IDREGISTRO) *****
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteVehiculosCheckListsFoto([FromRoute] int id)
         {
@@ -86,6 +86,33 @@ namespace GenericApp.Web.Controllers.API
             _context.VehiculosCheckListsFotos.Remove(vehiculosCheckListsFoto);
             await _context.SaveChangesAsync();
             return Ok("VehiculosCheckListsFoto borrado");
+        }
+
+        //***** Borra muchas fotos (el id es el IDCHECKLISTCAB) *****
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteVehiculosCheckListsFotos([FromRoute] int id)
+        {
+            if (!ModelState.IsValid)
+            {
+                return this.BadRequest(ModelState);
+            }
+
+            var vehiculosCheckListsFotos = await _context.VehiculosCheckListsFotos
+           
+          .Where(o => (o.IDCHECKLISTCAB == id))
+          .ToListAsync();
+            if (vehiculosCheckListsFotos == null)
+            {
+                return BadRequest("No hay Fotos.");
+            }
+
+            foreach (VehiculosCheckListsFoto foto in vehiculosCheckListsFotos)
+            {
+                _context.VehiculosCheckListsFotos.Remove(foto);
+                await _context.SaveChangesAsync();
+            }
+            
+            return Ok("VehiculosCheckListsFotos borradas");
         }
 
         [HttpPost]
