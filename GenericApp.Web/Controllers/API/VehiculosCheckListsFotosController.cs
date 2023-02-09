@@ -28,7 +28,7 @@ namespace GenericApp.Web.Controllers.API
         // POST: api/ObrasDocuments
 
         [HttpPost]
-        [Route("VehiculosCheckListsFoto")]
+        [Route("PostVehiculosCheckListsFoto")]
         public async Task<IActionResult> PostVehiculosCheckListsFoto([FromBody] VehiculosCheckListsFotoRequest request)
         {
             if (!ModelState.IsValid)
