@@ -105,5 +105,25 @@ namespace GenericApp.Web.Controllers.API
             await _dataContext.SaveChangesAsync();
             return Ok();
         }
+                
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteVehiculosCheckList([FromRoute] int id)
+        {
+            if (!ModelState.IsValid)
+            {
+                return this.BadRequest(ModelState);
+            }
+
+            var checkList = await _dataContext.VehiculosCheckLists
+                .FirstOrDefaultAsync(p => p.IDCheckList == id);
+            if (checkList == null)
+            {
+                return this.NotFound();
+            }
+
+            _dataContext.VehiculosCheckLists.Remove(checkList);
+            await _dataContext.SaveChangesAsync();
+            return Ok("Check List borrado");
+        }
     }
 }
