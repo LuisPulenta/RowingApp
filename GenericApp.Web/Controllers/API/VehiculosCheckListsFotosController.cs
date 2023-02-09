@@ -133,7 +133,6 @@ namespace GenericApp.Web.Controllers.API
             {
                 return BadRequest("No hay Fotos para este Check List.");
             }
-
             return Ok(vehiculosCheckListsFotos);
         }
     }
