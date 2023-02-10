@@ -69,6 +69,7 @@ namespace GenericApp.Web.Controllers.API
 
         //***** Borra una sola foto (el id es el IDREGISTRO) *****
         [HttpDelete("{id}")]
+        [Route("DeleteVehiculosCheckListsFoto/{id}")]
         public async Task<IActionResult> DeleteVehiculosCheckListsFoto([FromRoute] int id)
         {
             if (!ModelState.IsValid)
@@ -90,6 +91,7 @@ namespace GenericApp.Web.Controllers.API
 
         //***** Borra muchas fotos (el id es el IDCHECKLISTCAB) *****
         [HttpDelete("{id}")]
+        [Route("DeleteVehiculosCheckListsFotos/{id}")]
         public async Task<IActionResult> DeleteVehiculosCheckListsFotos([FromRoute] int id)
         {
             if (!ModelState.IsValid)
