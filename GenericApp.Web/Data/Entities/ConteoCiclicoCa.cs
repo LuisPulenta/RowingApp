@@ -14,7 +14,7 @@ namespace GenericApp.Web.Data.Entities
         public string CausanteD { get; set; }
         public string Observacion { get; set; }
         public int Aprobado { get; set; }
-        public DateTime FechaAprobado { get; set; }
+        public DateTime? FechaAprobado { get; set; }
         public string Terminal { get; set; }
         public int IdMov901 { get; set; }
         public decimal Monto901 { get; set; }

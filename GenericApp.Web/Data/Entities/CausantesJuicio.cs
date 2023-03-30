@@ -38,7 +38,6 @@ namespace GenericApp.Web.Data.Entities
         public int VARIOS { get; set; }
         public decimal IMPORTEVARIOS { get; set; }
         public int PERIODO { get; set; }
-        public string NroSAP { get; set; }
         public string GRUPO { get; set; }
         public string CAUSANTE { get; set; }
         public int IDUSERIMPUT { get; set; }
