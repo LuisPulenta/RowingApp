@@ -19,7 +19,7 @@ namespace GenericApp.Web.Controllers.API
         }
 
         [HttpPost]
-        [Route("GetJuicios}")]
+        [Route("GetJuicios")]
         public async Task<IActionResult> GetJuicios()
         {
             if (!ModelState.IsValid)
