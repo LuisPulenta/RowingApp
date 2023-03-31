@@ -41,5 +41,53 @@ namespace GenericApp.Web.Controllers.API
             }
             return Ok(juicios);
         }
+
+        [HttpPost]
+        [Route("GetMediaciones/{codigo}")]
+        public async Task<IActionResult> GetMediaciones(int codigo)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest();
+            }
+
+            var mediaciones = await _dataContext.CausantesJuiciosMediaciones
+           .Where(o => ((o.IDCAUSANTEJUICIO == codigo))
+           )
+
+           .OrderBy(o => o.IDMEDIACION)
+           .ToListAsync();
+
+
+            if (mediaciones == null)
+            {
+                return BadRequest("No hay Mediaciones.");
+            }
+            return Ok(mediaciones);
+        }
+
+        [HttpPost]
+        [Route("GetNotificaciones/{codigo}")]
+        public async Task<IActionResult> GetNotificaciones(int codigo)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest();
+            }
+
+            var notificaciones = await _dataContext.CausantesJuiciosNotificaciones
+           .Where(o => ((o.IDJUICIO == codigo))
+           )
+
+           .OrderBy(o => o.IDNOTIFICACION)
+           .ToListAsync();
+
+
+            if (notificaciones == null)
+            {
+                return BadRequest("No hay Notificaciones.");
+            }
+            return Ok(notificaciones);
+        }
     }
 }
