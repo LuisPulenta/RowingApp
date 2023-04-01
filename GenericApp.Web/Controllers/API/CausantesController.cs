@@ -61,7 +61,8 @@ namespace GenericApp.Web.Controllers.API
                 Provincia = user.Provincia,
                 CodigoSupervisorObras=user.CodigoSupervisorObras,
                 ZonaTrabajo=user.ZonaTrabajo,
-                NombreActividad=user.NombreActividad
+                NombreActividad=user.NombreActividad,
+                notas=user.notas
             };
 
             return Ok(response);
