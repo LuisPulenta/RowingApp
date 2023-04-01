@@ -59,6 +59,7 @@ namespace GenericApp.Web.Controllers.API
                 NotasCausantes = user.NotasCausantes,
                 ciudad=user.ciudad,
                 Provincia = user.Provincia,
+                CodigoSupervisorObras=user.CodigoSupervisorObras
             };
 
             return Ok(response);
@@ -129,6 +130,16 @@ namespace GenericApp.Web.Controllers.API
         {
             return Ok(_dataContext.Causantes
                 .Where(o => o.grupo == Grupo && o.estado==true)
+                .OrderBy(o => o.nombre)
+                );
+        }
+
+        [HttpPost]
+        [Route("GetCausantesBySupervisor/{id}")]
+        public IActionResult GetCausantesBySupervisor(int id)
+        {
+            return Ok(_dataContext.Causantes
+                .Where(o => o.CodigoSupervisorObras == id)
                 .OrderBy(o => o.nombre)
                 );
         }

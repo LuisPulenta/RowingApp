@@ -25,6 +25,9 @@ namespace GenericApp.Web.Data.Entities
         public string NotasCausantes { get; set; }
         public string ciudad { get; set; }
         public string Provincia { get; set; }
+        public int CodigoSupervisorObras { get; set; }
+
+        
         public string ImageFullPath => string.IsNullOrEmpty(LinkFoto)
         ? $"http://190.111.249.225/RowingAppApi/images/Causantes/nouser.png"
         : $"http://190.111.249.225/RowingAppApi{LinkFoto.Substring(1)}";
