@@ -1,6 +1,7 @@
 ﻿using GenericApp.Common.Requests;
 using GenericApp.Common.Responses;
 using GenericApp.Web.Data;
+using GenericApp.Web.Data.Entities;
 using GenericApp.Web.Helpers;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -13,12 +14,14 @@ namespace GenericApp.Web.Controllers.API
     [ApiController]
     public class CausantesController : ControllerBase
     {
-        private readonly DataContext2 _dataContext;
+        private readonly DataContext _dataContext;
+        private readonly DataContext2 _dataContext2;
         private readonly IImageHelper _imageHelper;
 
-        public CausantesController(DataContext2 dataContext,IImageHelper imageHelper)
+        public CausantesController(DataContext dataContext,DataContext2 dataContext2,IImageHelper imageHelper)
         {
             _dataContext = dataContext;
+            _dataContext2 = dataContext2;
             _imageHelper = imageHelper;
         }
 
@@ -31,7 +34,7 @@ namespace GenericApp.Web.Controllers.API
                 return BadRequest();
             }
 
-            Data.Entities.Causante user = await _dataContext.Causantes.FirstOrDefaultAsync
+            Data.Entities.Causante user = await _dataContext2.Causantes.FirstOrDefaultAsync
                 (o => (o.codigo.ToLower() == codigo.Codigo.ToLower() || o.NroSAP.ToLower() == codigo.Codigo.ToLower()) && (o.grupo == "PPR" || o.grupo == "PPC"));
 
             if (user == null)
@@ -72,7 +75,7 @@ namespace GenericApp.Web.Controllers.API
         [HttpGet("GetCausanteByCodigo2/{codigo}")]
         public async Task<ActionResult<Data.Entities.Causante>> GetCausante2(string codigo)
         {
-            Data.Entities.Causante causante = await _dataContext.Causantes
+            Data.Entities.Causante causante = await _dataContext2.Causantes
                 .FirstOrDefaultAsync(o => (o.codigo.ToLower() == codigo.ToLower() || o.NroSAP.ToLower() == codigo.ToLower()) && (o.grupo == "PPR" || o.grupo == "PPC"));
 
             if (causante == null)
@@ -97,7 +100,7 @@ namespace GenericApp.Web.Controllers.API
 
             
 
-            var oldCausante = await _dataContext.Causantes.FindAsync(request.Id);
+            var oldCausante = await _dataContext2.Causantes.FindAsync(request.Id);
             if (oldCausante == null)
             {
                 return BadRequest("El Causante no existe.");
@@ -123,8 +126,8 @@ namespace GenericApp.Web.Controllers.API
             oldCausante.ZonaTrabajo = request.ZonaTrabajo;
             oldCausante.NombreActividad = request.ZonaTrabajo;
 
-            _dataContext.Causantes.Update(oldCausante);
-            await _dataContext.SaveChangesAsync();
+            _dataContext2.Causantes.Update(oldCausante);
+            await _dataContext2.SaveChangesAsync();
             return Ok();
         }
 
@@ -133,7 +136,7 @@ namespace GenericApp.Web.Controllers.API
         [Route("GetCausantesByGrupo/{Grupo}")]
         public IActionResult GetCausantesByProyectoModulo(string Grupo)
         {
-            return Ok(_dataContext.Causantes
+            return Ok(_dataContext2.Causantes
                 .Where(o => o.grupo == Grupo && o.estado==true)
                 .OrderBy(o => o.nombre)
                 );
@@ -143,7 +146,7 @@ namespace GenericApp.Web.Controllers.API
         [Route("GetCausantesBySupervisor/{id}")]
         public IActionResult GetCausantesBySupervisor(int id)
         {
-            return Ok(_dataContext.Causantes
+            return Ok(_dataContext2.Causantes
                 .Where(o => o.CodigoSupervisorObras == id)
                 .OrderBy(o => o.nombre)
                 );
@@ -153,7 +156,7 @@ namespace GenericApp.Web.Controllers.API
         [Route("GetCausantesEstados")]
         public IActionResult GetCausantesEstados()
         {
-            return Ok(_dataContext.CausantesEstados
+            return Ok(_dataContext2.CausantesEstados
                 .Where(o => o.SoloAPP == 1)
                 .OrderBy(o => o.NOMENCLADORESTADO)
                 );
@@ -163,11 +166,23 @@ namespace GenericApp.Web.Controllers.API
         [Route("GetCausantesZonas")]
         public IActionResult GetCausantesZonas()
         {
-            return Ok(_dataContext.CausantesZonasZonas
+            return Ok(_dataContext2.CausantesZonasZonas
                 
                 .OrderBy(o => o.NOMBREZONA)
                 );
         }
 
+        [HttpPost]
+        [Route("PostPresentismos")]
+        public async Task<IActionResult> PostPresentismos([FromBody] CausantesPresentismo request)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+            _dataContext.CausantesPresentismos.Add(request);
+            await _dataContext.SaveChangesAsync();
+            return Ok();
+        }
     }
 }
