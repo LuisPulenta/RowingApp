@@ -89,5 +89,29 @@ namespace GenericApp.Web.Controllers.API
             }
             return Ok(notificaciones);
         }
+
+        [HttpPost]
+        [Route("GetContraparte/{id}")]
+        public async Task<IActionResult> GetContraparte(int id)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest();
+            }
+
+            var contraparte = await _dataContext.CausantesJuiciosContraparte
+           .Where(o => ((o.IDCONTRAPARTE == id))
+           )
+
+           .OrderBy(o => o.IDCONTRAPARTE)
+           .ToListAsync();
+
+
+            if (contraparte == null)
+            {
+                return BadRequest("No hay Contraparte.");
+            }
+            return Ok(contraparte);
+        }
     }
 }
