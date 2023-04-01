@@ -184,5 +184,16 @@ namespace GenericApp.Web.Controllers.API
             await _dataContext.SaveChangesAsync();
             return Ok();
         }
+
+        [HttpPost]
+        [Route("GetPresentismosBySupervisorDay/{id}/{year}/{month}/{day}")]
+
+        public IActionResult GetPresentismosBySupervisorDay(int id,int year, int month,int day)
+        {
+            return Ok(_dataContext.CausantesPresentismos
+                .Where(o => (o.IDSUPERVISOR == id) && (o.FECHA.Year==year) && (o.FECHA.Month == month) && (o.FECHA.Day == day))
+                .OrderBy(o => o.CAUSANTEC)
+                );
+        }
     }
 }
