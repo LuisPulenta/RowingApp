@@ -20,5 +20,7 @@ namespace GenericApp.Common.Requests
         public string NotasCausantes { get; set; }
         public string ciudad { get; set; }
         public string Provincia { get; set; }
+        public string ZonaTrabajo { get; set; }
+        public string NombreActividad { get; set; }
     }
 }

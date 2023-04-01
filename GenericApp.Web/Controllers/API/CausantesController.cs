@@ -59,7 +59,9 @@ namespace GenericApp.Web.Controllers.API
                 NotasCausantes = user.NotasCausantes,
                 ciudad=user.ciudad,
                 Provincia = user.Provincia,
-                CodigoSupervisorObras=user.CodigoSupervisorObras
+                CodigoSupervisorObras=user.CodigoSupervisorObras,
+                ZonaTrabajo=user.ZonaTrabajo,
+                NombreActividad=user.NombreActividad
             };
 
             return Ok(response);
@@ -117,6 +119,8 @@ namespace GenericApp.Web.Controllers.API
             oldCausante.NotasCausantes = request.NotasCausantes;
             oldCausante.ciudad = request.ciudad;
             oldCausante.Provincia = request.Provincia;
+            oldCausante.ZonaTrabajo = request.ZonaTrabajo;
+            oldCausante.NombreActividad = request.ZonaTrabajo;
 
             _dataContext.Causantes.Update(oldCausante);
             await _dataContext.SaveChangesAsync();
