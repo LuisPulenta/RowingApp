@@ -149,5 +149,25 @@ namespace GenericApp.Web.Controllers.API
                 );
         }
 
+        [HttpPost]
+        [Route("GetCausantesEstados")]
+        public IActionResult GetCausantesEstados()
+        {
+            return Ok(_dataContext.CausantesEstados
+                .Where(o => o.SoloAPP == 1)
+                .OrderBy(o => o.NOMENCLADORESTADO)
+                );
+        }
+
+        [HttpPost]
+        [Route("GetCausantesZonas")]
+        public IActionResult GetCausantesZonas()
+        {
+            return Ok(_dataContext.CausantesZonasZonas
+                
+                .OrderBy(o => o.NOMBREZONA)
+                );
+        }
+
     }
 }
