@@ -188,5 +188,55 @@ namespace GenericApp.Web.Controllers.API
             await _dataContext.SaveChangesAsync();
             return Ok();
         }
+
+        [HttpPost]
+        [Route("PostMediacion")]
+        public async Task<IActionResult> PostMediacion([FromBody] CausantesJuiciosMediacioneRequest request)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            //Foto
+            string imageUrl = string.Empty;
+            if (request.ImageArray != null && request.ImageArray.Length > 0)
+            {
+                var stream = new MemoryStream(request.ImageArray);
+                var guid = Guid.NewGuid().ToString();
+                var file = $"{guid}.jpg";
+                var folder = "wwwroot\\images\\Legales";
+                var fullPath = $"~/images/Legales/{file}";
+                var response = _filesHelper.UploadPhoto(stream, folder, file);
+
+                if (response)
+                {
+                    imageUrl = fullPath;
+                }
+            }
+
+            var causantesJuiciosMediacione = new CausantesJuiciosMediacione
+            {
+                IDMEDIACION = request.IDMEDIACION,
+                IDCAUSANTEJUICIO = request.IDCAUSANTEJUICIO,
+                MEDIADORES = request.MEDIADORES,
+                FECHA = request.FECHA,
+                ABOGADO = request.ABOGADO,
+                IDCONTRAPARTE = request.IDCONTRAPARTE,
+                MONEDA = request.MONEDA,
+                OFRECIMIENTO = request.OFRECIMIENTO,
+                TIPOTRANSACCION = request.TIPOTRANSACCION,
+                CONDICIONPAGO = request.CONDICIONPAGO,
+                VENCIMIENTOOFERTA = request.VENCIMIENTOOFERTA,
+                RESULTADOOFERTA = request.RESULTADOOFERTA,
+                MONTOCONTRAOFERTA = request.MONTOCONTRAOFERTA,
+                ACEPTACIONCONTRAOFERTA = request.ACEPTACIONCONTRAOFERTA,
+                LINKARCHIVOMEDIACION=imageUrl,
+
+            };
+            _dataContext.CausantesJuiciosMediaciones.Add(causantesJuiciosMediacione);
+            await _dataContext.SaveChangesAsync();
+            return Ok();
+        }
     }
 }
