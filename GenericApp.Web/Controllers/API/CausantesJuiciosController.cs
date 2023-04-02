@@ -151,9 +151,11 @@ namespace GenericApp.Web.Controllers.API
             string imageUrl = string.Empty;
             if (request.ImageArray != null && request.ImageArray.Length > 0)
             {
+                var file = "";
                 var stream = new MemoryStream(request.ImageArray);
                 var guid = Guid.NewGuid().ToString();
-                var file = $"{guid}.{request.TIPOARRAY}";
+                if (request.TIPOARRAY == "jpg") { file = $"{guid}.jpg"; };
+                if (request.TIPOARRAY == "pdf") { file = $"{guid}.pdf"; };
                 var folder = "wwwroot\\images\\Legales";
                 var fullPath = $"~/images/Legales/{file}";
                 var response = _filesHelper.UploadPhoto(stream, folder, file);
@@ -206,9 +208,14 @@ namespace GenericApp.Web.Controllers.API
             string imageUrl = string.Empty;
             if (request.ImageArray != null && request.ImageArray.Length > 0)
             {
+                var file = "";
+
+
                 var stream = new MemoryStream(request.ImageArray);
                 var guid = Guid.NewGuid().ToString();
-                var file = $"{guid}.{request.TIPOARRAY}";
+                if (request.TIPOARRAY == "jpg") { file = $"{guid}.jpg"; };
+                if (request.TIPOARRAY == "pdf") { file = $"{guid}.pdf"; };
+
                 var folder = "wwwroot\\images\\Legales";
                 var fullPath = $"~/images/Legales/{file}";
                 var response = _filesHelper.UploadPhoto(stream, folder, file);
