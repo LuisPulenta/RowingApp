@@ -19,6 +19,7 @@ namespace GenericApp.Common.Requests
         public string PARTICIPANTES { get; set; }
         public DateTime? FECHAECHO { get; set; }
         public DateTime? FECHAVENCIMIENTO { get; set; }
+        public string TIPOARRAY { get; set; }
         public byte[] ImageArray { get; set; }
     }
 }

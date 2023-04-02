@@ -18,6 +18,7 @@ namespace GenericApp.Common.Requests
         public string RESULTADOOFERTA { get; set; }
         public decimal? MONTOCONTRAOFERTA { get; set; }
         public string ACEPTACIONCONTRAOFERTA { get; set; }
+        public string TIPOARRAY { get; set; }
         public byte[] ImageArray { get; set; }
     }
 }

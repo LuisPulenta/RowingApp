@@ -153,7 +153,7 @@ namespace GenericApp.Web.Controllers.API
             {
                 var stream = new MemoryStream(request.ImageArray);
                 var guid = Guid.NewGuid().ToString();
-                var file = $"{guid}.jpg";
+                var file = $"{guid}.{request.TIPOARRAY}";
                 var folder = "wwwroot\\images\\Legales";
                 var fullPath = $"~/images/Legales/{file}";
                 var response = _filesHelper.UploadPhoto(stream, folder, file);
@@ -198,13 +198,17 @@ namespace GenericApp.Web.Controllers.API
                 return BadRequest(ModelState);
             }
 
+
+            
+
+
             //Foto
             string imageUrl = string.Empty;
             if (request.ImageArray != null && request.ImageArray.Length > 0)
             {
                 var stream = new MemoryStream(request.ImageArray);
                 var guid = Guid.NewGuid().ToString();
-                var file = $"{guid}.jpg";
+                var file = $"{guid}.{request.TIPOARRAY}";
                 var folder = "wwwroot\\images\\Legales";
                 var fullPath = $"~/images/Legales/{file}";
                 var response = _filesHelper.UploadPhoto(stream, folder, file);
