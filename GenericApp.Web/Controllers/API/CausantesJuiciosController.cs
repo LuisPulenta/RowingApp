@@ -1,6 +1,11 @@
-﻿using GenericApp.Web.Data;
+﻿using GenericApp.Common.Helpers;
+using GenericApp.Common.Requests;
+using GenericApp.Web.Data;
+using GenericApp.Web.Data.Entities;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -11,11 +16,12 @@ namespace GenericApp.Web.Controllers.API
     public class CausantesJuiciosController : ControllerBase
     {
         private readonly DataContext _dataContext;
+        private readonly IFilesHelper _filesHelper;
 
-
-        public CausantesJuiciosController(DataContext dataContext)
+        public CausantesJuiciosController(DataContext dataContext, IFilesHelper filesHelper)
         {
             _dataContext = dataContext;
+            _filesHelper = filesHelper;
         }
 
         [HttpPost]
@@ -130,6 +136,57 @@ namespace GenericApp.Web.Controllers.API
             int query = _dataContext.CausantesJuiciosMediaciones.Max(c => c.IDMEDIACION);
 
             return Ok(query);
+        }
+
+        [HttpPost]
+        [Route("PostNotificacion")]
+        public async Task<IActionResult> PostNotificacion([FromBody] CausantesJuiciosNotificacioneRequest request)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            //Foto
+            string imageUrl = string.Empty;
+            if (request.ImageArray != null && request.ImageArray.Length > 0)
+            {
+                var stream = new MemoryStream(request.ImageArray);
+                var guid = Guid.NewGuid().ToString();
+                var file = $"{guid}.jpg";
+                var folder = "wwwroot\\images\\Legales";
+                var fullPath = $"~/images/Legales/{file}";
+                var response = _filesHelper.UploadPhoto(stream, folder, file);
+
+                if (response)
+                {
+                    imageUrl = fullPath;
+                }
+            }
+
+            var causantesJuiciosNotificacione = new CausantesJuiciosNotificacione
+            {
+                IDNOTIFICACION = request.IDNOTIFICACION,
+                IDJUICIO = request.IDJUICIO,
+                FECHACARGA = request.FECHACARGA,
+                TIPO = request.TIPO,
+                TITULO = request.TITULO,
+                OBSERVACIONES = request.OBSERVACIONES,
+                MONEDA = request.MONEDA,
+                MONTO = request.MONTO,
+                TIPOTRANSACCION = request.TIPOTRANSACCION,
+                CONDICIONPAGO = request.CONDICIONPAGO,
+                NROFACTURA = request.NROFACTURA,
+                LUGAR = request.LUGAR,
+                PARTICIPANTES = request.PARTICIPANTES,
+                FECHAECHO = request.FECHAECHO,
+                FECHAVENCIMIENTO = request.FECHAVENCIMIENTO,
+                LINKARCHIVO = imageUrl,
+                
+            };
+            _dataContext.CausantesJuiciosNotificaciones.Add(causantesJuiciosNotificacione);
+            await _dataContext.SaveChangesAsync();
+            return Ok();
         }
     }
 }
