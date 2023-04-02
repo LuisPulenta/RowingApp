@@ -113,5 +113,23 @@ namespace GenericApp.Web.Controllers.API
             }
             return Ok(contraparte);
         }
+
+        [HttpGet]
+        [Route("GetNroRegistroMaxNotificaciones")]
+        public async Task<IActionResult> GetNroRegistroMaxNotificaciones()
+        {
+            int query = _dataContext.CausantesJuiciosNotificaciones.Max(c => c.IDNOTIFICACION);
+
+            return Ok(query);
+        }
+
+        [HttpGet]
+        [Route("GetNroRegistroMaxMediaciones")]
+        public async Task<IActionResult> GetNroRegistroMaxMediaciones()
+        {
+            int query = _dataContext.CausantesJuiciosMediaciones.Max(c => c.IDMEDIACION);
+
+            return Ok(query);
+        }
     }
 }
