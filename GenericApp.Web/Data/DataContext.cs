@@ -50,7 +50,8 @@ namespace GenericApp.Web.Data
         public DbSet<CausantesJuiciosNotificacione> CausantesJuiciosNotificaciones { get; set; }
         public DbSet<CausantesJuiciosContrapart> CausantesJuiciosContraparte { get; set; }
         public DbSet<CausantesPresentismo> CausantesPresentismos { get; set; }
-        
+        public DbSet<Parametro> Parametros { get; set; }
+
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

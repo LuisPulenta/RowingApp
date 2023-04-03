@@ -1,6 +1,7 @@
 ﻿using GenericApp.Web.Data;
 using GenericApp.Web.Data.Entities;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System.Threading.Tasks;
 
 namespace GenericApp.Web.Controllers.API
@@ -27,6 +28,19 @@ namespace GenericApp.Web.Controllers.API
             _dataContext.UsuariosGeos.Add(request);
             await _dataContext.SaveChangesAsync();
             return Ok();
+        }
+
+        [HttpPost]
+        [Route("GetParametro")]
+        public async Task<IActionResult> GetParametro()
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest();
+            }
+
+            var parametro = await _dataContext.Parametros.FirstOrDefaultAsync(o => o.ID == 1);
+            return Ok(parametro);
         }
     }
 }

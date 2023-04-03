@@ -76,7 +76,7 @@ namespace GenericApp.Web.Controllers.API
         public async Task<ActionResult<Data.Entities.Causante>> GetCausante2(string codigo)
         {
             Data.Entities.Causante causante = await _dataContext2.Causantes
-                .FirstOrDefaultAsync(o => (o.codigo.ToLower() == codigo.ToLower() || o.NroSAP.ToLower() == codigo.ToLower()) && (o.grupo == "PPR" || o.grupo == "PPC"));
+                .FirstOrDefaultAsync(o => (o.codigo.ToLower() == codigo.ToLower() || o.NroSAP.ToLower() == codigo.ToLower()) && (o.grupo == "PPR" || o.grupo == "PPC" || o.grupo == "EXT"));
 
             if (causante == null)
             {
