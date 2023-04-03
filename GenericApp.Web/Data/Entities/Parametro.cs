@@ -6,7 +6,7 @@ namespace GenericApp.Web.Data.Entities
     {
         [Key]
         public int ID { get; set; }
-        public int? BLOQUEAACTAS { get; set; }
+        public byte BLOQUEAACTAS { get; set; }
         public string IPServ { get; set; }
         public int Metros { get; set; }
         public int Tiempo { get; set; }
