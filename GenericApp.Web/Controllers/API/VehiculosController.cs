@@ -178,5 +178,28 @@ namespace GenericApp.Web.Controllers.API
             await _dataContext.SaveChangesAsync();
             return Ok();
         }
+
+        [HttpPost]
+        [Route("GetTurnos/{id}")]
+        public async Task<IActionResult> GetTurnos(int id)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest();
+            }
+
+            var turnos = await _dataContext.VehiculosPartesTurnos
+           .Where(o => o.IdUser == id && o.VehiculoRetirado==0)
+
+           .OrderBy(o => o.IDTurno)
+           .ToListAsync();
+
+
+            if (turnos == null)
+            {
+                return BadRequest("No hay Turnos.");
+            }
+            return Ok(turnos);
+        }
     }
 }
