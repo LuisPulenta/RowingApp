@@ -195,5 +195,17 @@ namespace GenericApp.Web.Controllers.API
                 .OrderBy(o => o.CAUSANTEC)
                 );
         }
+
+
+        [HttpPost]
+        [Route("GetTalleres")]
+        public IActionResult GetTalleres()
+        {
+            return Ok(_dataContext2.Causantes
+                .Where(o => o.grupo == "TAL" && o.estado == true)
+                .OrderBy(o => o.nombre)
+                );
+        }
+
     }
 }

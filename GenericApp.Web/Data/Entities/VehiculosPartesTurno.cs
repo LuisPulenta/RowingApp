@@ -22,6 +22,6 @@ namespace GenericApp.Web.Data.Entities
         public string Grupo { get; set; }
         public string Causante { get; set; }
         public int? VehiculoRetirado { get; set; }
-        public int IdVehiculoParteTaller { get; set; }
+        public int? IdVehiculoParteTaller { get; set; }
     }
 }
