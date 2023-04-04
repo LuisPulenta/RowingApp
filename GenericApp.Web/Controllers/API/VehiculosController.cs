@@ -1,6 +1,7 @@
 ﻿using GenericApp.Common.Requests;
 using GenericApp.Common.Responses;
 using GenericApp.Web.Data;
+using GenericApp.Web.Data.Entities;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
@@ -163,6 +164,19 @@ namespace GenericApp.Web.Controllers.API
                 return BadRequest("No hay Preventivos.");
             }
             return Ok(preventivos);
+        }
+
+        [HttpPost]
+        [Route("PostTurno")]
+        public async Task<IActionResult> PostTurno([FromBody] VehiculosPartesTurno request)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+            _dataContext.VehiculosPartesTurnos.Add(request);
+            await _dataContext.SaveChangesAsync();
+            return Ok();
         }
     }
 }
