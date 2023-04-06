@@ -50,6 +50,10 @@ namespace GenericApp.Web.Data
         public DbSet<CausantesJuiciosNotificacione> CausantesJuiciosNotificaciones { get; set; }
         public DbSet<CausantesJuiciosContrapart> CausantesJuiciosContraparte { get; set; }
         public DbSet<CausantesPresentismo> CausantesPresentismos { get; set; }
+        public DbSet<CausantesEstado> CausantesEstados { get; set; }
+        public DbSet<CausantesZonasZona> CausantesZonasZonas { get; set; }
+        public DbSet<CausantesActividade> CausantesActividades { get; set; }
+        
         public DbSet<Parametro> Parametros { get; set; }
 
 

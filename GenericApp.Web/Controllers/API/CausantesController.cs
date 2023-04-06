@@ -156,7 +156,7 @@ namespace GenericApp.Web.Controllers.API
         [Route("GetCausantesEstados")]
         public IActionResult GetCausantesEstados()
         {
-            return Ok(_dataContext2.CausantesEstados
+            return Ok(_dataContext.CausantesEstados
                 .Where(o => o.SoloAPP == 1)
                 .OrderBy(o => o.NOMENCLADORESTADO)
                 );
@@ -166,9 +166,19 @@ namespace GenericApp.Web.Controllers.API
         [Route("GetCausantesZonas")]
         public IActionResult GetCausantesZonas()
         {
-            return Ok(_dataContext2.CausantesZonasZonas
+            return Ok(_dataContext.CausantesZonasZonas
                 
                 .OrderBy(o => o.NOMBREZONA)
+                );
+        }
+
+        [HttpPost]
+        [Route("GetCausantesActividades")]
+        public IActionResult GetCausantesActividades()
+        {
+            return Ok(_dataContext.CausantesActividades
+
+                .OrderBy(o => o.NOMBREACTIVIDAD)
                 );
         }
 

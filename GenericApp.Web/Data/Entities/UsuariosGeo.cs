@@ -17,5 +17,6 @@ namespace GenericApp.Web.Data.Entities
         public int Bateria { get; set; }
         public DateTime Fecha { get; set; }
         public string Modulo { get; set; }
+        public int Origen { get; set; }
     }
 }
