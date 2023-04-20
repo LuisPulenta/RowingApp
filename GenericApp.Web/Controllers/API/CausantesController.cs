@@ -65,7 +65,8 @@ namespace GenericApp.Web.Controllers.API
                 CodigoSupervisorObras=user.CodigoSupervisorObras,
                 ZonaTrabajo=user.ZonaTrabajo,
                 NombreActividad=user.NombreActividad,
-                notas=user.notas
+                notas=user.notas,
+                PerteneceCuadrilla=user.PerteneceCuadrilla
             };
 
             return Ok(response);
