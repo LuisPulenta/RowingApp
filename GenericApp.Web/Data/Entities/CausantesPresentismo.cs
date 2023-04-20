@@ -17,5 +17,6 @@ namespace GenericApp.Web.Data.Entities
         public string ACTIVIDAD { get; set; }
         public string CECO { get; set; }
         public string OBSERVACIONES { get; set; }
+        public string PerteneceCuadrilla { get; set; }
     }
 }
