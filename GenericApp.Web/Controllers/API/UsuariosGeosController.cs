@@ -2,6 +2,7 @@
 using GenericApp.Web.Data.Entities;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace GenericApp.Web.Controllers.API
@@ -41,6 +42,40 @@ namespace GenericApp.Web.Controllers.API
 
             var parametro = await _dataContext.Parametros.FirstOrDefaultAsync(o => o.ID == 1);
             return Ok(parametro);
+        }
+
+        [HttpPost]
+        [Route("GetUsuarios/{year}/{month}/{day}")]
+        public async Task<IActionResult> GetUsuarios(int year,int month,int day)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest();
+            }
+
+            var usuarios = await _dataContext.UsuariosGeos
+
+           .Where(o => (o.Fecha.Year == year) && (o.Fecha.Month == month) && (o.Fecha.Day == day))
+           .OrderBy(o => o.IdUsuario)
+           .GroupBy(r => new
+           {
+               r.IdUsuario,
+               r.UsuarioStr
+           })
+           .Select(g => new
+           {
+               IdUsuario = g.Key.IdUsuario,
+               UsuarioStr = g.Key.UsuarioStr,
+
+           }).ToListAsync();
+
+
+            if (usuarios == null)
+            {
+                return BadRequest("No hay REgistros para este Usuario.");
+            }
+
+            return Ok(usuarios);
         }
     }
 }
