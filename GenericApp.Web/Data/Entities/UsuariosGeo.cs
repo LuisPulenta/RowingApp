@@ -13,8 +13,8 @@ namespace GenericApp.Web.Data.Entities
         public string LONGITUD { get; set; }
         public string PIN { get; set; }
         public string PosicionCalle { get; set; }
-        public double Velocidad { get; set; }
-        public int Bateria { get; set; }
+        public decimal Velocidad { get; set; }
+        public decimal Bateria { get; set; }
         public DateTime Fecha { get; set; }
         public string Modulo { get; set; }
         public int Origen { get; set; }

@@ -77,5 +77,28 @@ namespace GenericApp.Web.Controllers.API
 
             return Ok(usuarios);
         }
+
+        [HttpPost]
+        [Route("GetPuntos/{usuarioId}/{year}/{month}/{day}")]
+        public async Task<IActionResult> GetPuntos(int usuarioId,int year, int month, int day)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest();
+            }
+
+            var puntos = await _dataContext.UsuariosGeos
+
+            .Where(o => (o.IdUsuario == usuarioId) && (o.Fecha.Year == year) && (o.Fecha.Month == month) && (o.Fecha.Day == day))
+            .OrderBy(o => o.Fecha)
+            .ToListAsync();
+
+
+            if (puntos == null)
+            {
+                return BadRequest("No hay Puntos.");
+            }
+            return Ok(puntos);
+        }
     }
 }
