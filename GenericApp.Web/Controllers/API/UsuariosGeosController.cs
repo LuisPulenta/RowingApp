@@ -93,7 +93,6 @@ namespace GenericApp.Web.Controllers.API
             .OrderBy(o => o.Fecha)
             .ToListAsync();
 
-
             if (puntos == null)
             {
                 return BadRequest("No hay Puntos.");
