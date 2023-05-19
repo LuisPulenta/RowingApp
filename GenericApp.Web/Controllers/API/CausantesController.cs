@@ -1,4 +1,5 @@
 ﻿using GenericApp.Common.Requests;
+using GenericApp.Common.Requests;
 using GenericApp.Common.Responses;
 using GenericApp.Web.Data;
 using GenericApp.Web.Data.Entities;
@@ -183,30 +184,79 @@ namespace GenericApp.Web.Controllers.API
                 );
         }
 
+        //-----------------------------------------------------------------------------
+        //----------------- METODOS PARA PRESENTISMO ----------------------------------
+        //-----------------------------------------------------------------------------
+
+        //------- Trae los empleados a cargo de un SUpervisor -------------------------
+        [HttpPost]
+        [Route("GetPresentismosBySupervisorDay/{id}/{year}/{month}/{day}")]
+
+        public IActionResult GetPresentismosBySupervisorDay(int id, int year, int month, int day)
+        {
+            return Ok(_dataContext.CausantesPresentismos
+                .Where(o => (o.IDSUPERVISOR == id) && (o.FECHA.Year == year) && (o.FECHA.Month == month) && (o.FECHA.Day == day))
+                .OrderBy(o => o.CAUSANTEC)
+                );
+        }
+
+        //--------------------------- Graba los Presentismos --------------------------
         [HttpPost]
         [Route("PostPresentismos")]
         public async Task<IActionResult> PostPresentismos([FromBody] CausantesPresentismo request)
+        
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
+            //Verifica si ya existe el Presentismo
+
+            var presentismo = _dataContext.CausantesPresentismos
+                .Where(o => 
+                (o.FECHA.Year == request.FECHA.Year) 
+                && (o.FECHA.Month == request.FECHA.Month) 
+                && (o.FECHA.Day == request.FECHA.Day) 
+                && (o.CAUSANTEC == request.CAUSANTEC))
+                .OrderBy(o => o.CAUSANTEC)
+                .ToList();
+
+            if (presentismo.Count != 0)
+            {
+                //borra el presentismo existente
+                await DeletePresentismo(presentismo[0].IDPRESENTISMO);
+            }
+
+
+            //Graba Presentismo
             _dataContext.CausantesPresentismos.Add(request);
             await _dataContext.SaveChangesAsync();
             return Ok();
         }
+                
 
-        [HttpPost]
-        [Route("GetPresentismosBySupervisorDay/{id}/{year}/{month}/{day}")]
-
-        public IActionResult GetPresentismosBySupervisorDay(int id,int year, int month,int day)
+        //---------------------------- Borra un Presentismo -------------------------------
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeletePresentismo([FromRoute] int id)
         {
-            return Ok(_dataContext.CausantesPresentismos
-                .Where(o => (o.IDSUPERVISOR == id) && (o.FECHA.Year==year) && (o.FECHA.Month == month) && (o.FECHA.Day == day))
-                .OrderBy(o => o.CAUSANTEC)
-                );
+            if (!ModelState.IsValid)
+            {
+                return this.BadRequest(ModelState);
+            }
+
+            var Presentismo = await _dataContext.CausantesPresentismos
+                .FirstOrDefaultAsync(p => p.IDPRESENTISMO == id);
+            if (Presentismo == null)
+            {
+                return this.NotFound();
+            }
+
+            _dataContext.CausantesPresentismos.Remove(Presentismo);
+            await _dataContext.SaveChangesAsync();
+            return Ok("Presentismo borrado");
         }
 
+        //---------------------------- FIN DE LOS METODOS DE PRESENTISMO ------------------
 
         [HttpPost]
         [Route("GetTalleres")]
