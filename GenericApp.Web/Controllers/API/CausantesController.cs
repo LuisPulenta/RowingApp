@@ -148,7 +148,7 @@ namespace GenericApp.Web.Controllers.API
         public IActionResult GetCausantesBySupervisor(int id)
         {
             return Ok(_dataContext2.Causantes
-                .Where(o => o.CodigoSupervisorObras == id)
+                .Where(o => (o.CodigoSupervisorObras == id && o.estado == true))
                 .OrderBy(o => o.nombre)
                 );
         }
