@@ -131,6 +131,113 @@ namespace GenericApp.Web.Controllers.API
             return Ok(obraDocumento);
         }
 
+
+        [HttpPost]
+        [Route("ObrasDocumentMultimediaAudio")]
+        public async Task<IActionResult> PostObrasDocumentMultimediaAudio([FromBody] ObrasDocumentoRequest request)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            //Foto
+            var imageUrl1 = string.Empty;
+            var stream = new MemoryStream(request.ImageArray);
+            var guid = Guid.NewGuid().ToString();
+            var file = $"{guid}.wav";
+            var folder = "wwwroot\\images\\Multimedia";
+            var fullPath = $"~/images/Multimedia/{file}";
+            var response = _filesHelper.UploadPhoto(stream, folder, file);
+
+            if (response)
+            {
+                imageUrl1 = fullPath;
+            }
+
+            Obra obra = await _context.Obras
+                .FirstOrDefaultAsync(o => o.NroObra == request.Obra.NroObra);
+
+            var obraDocumento = new ObrasDocumento
+            {
+                //NROREGISTRO = request.NROREGISTRO,
+                LINK = imageUrl1,
+                FECHA = request.FECHA,
+                NROOBRA = request.NROOBRA,
+                IDObrasPostes = request.IDObrasPostes,
+                OBSERVACION = request.OBSERVACION,
+                Estante = request.Estante,
+                GeneradoPor = request.GeneradoPor,
+                MODULO = request.MODULO,
+                NroLote = request.NroLote,
+                Sector = request.Sector,
+                Latitud = request.Latitud,
+                Longitud = request.Longitud,
+                FechaHsFoto = request.FechaHsFoto,
+                TipoDeFoto = request.TipoDeFoto,
+                DireccionFoto = request.DireccionFoto
+            };
+
+            _context.ObrasDocumentos.Add(obraDocumento);
+            await _context.SaveChangesAsync();
+
+            return Ok(obraDocumento);
+        }
+
+        [HttpPost]
+        [Route("ObrasDocumentMultimediaVideo")]
+        public async Task<IActionResult> PostObrasDocumentMultimediaVideo([FromBody] ObrasDocumentoRequest request)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            //Foto
+            var imageUrl1 = string.Empty;
+            var stream = new MemoryStream(request.ImageArray);
+            var guid = Guid.NewGuid().ToString();
+            var file = $"{guid}.mp4";
+            var folder = "wwwroot\\images\\Multimedia";
+            var fullPath = $"~/images/Multimedia/{file}";
+            var response = _filesHelper.UploadPhoto(stream, folder, file);
+
+            if (response)
+            {
+                imageUrl1 = fullPath;
+            }
+
+            Obra obra = await _context.Obras
+                .FirstOrDefaultAsync(o => o.NroObra == request.Obra.NroObra);
+
+            var obraDocumento = new ObrasDocumento
+            {
+                //NROREGISTRO = request.NROREGISTRO,
+                LINK = imageUrl1,
+                FECHA = request.FECHA,
+                NROOBRA = request.NROOBRA,
+                IDObrasPostes = request.IDObrasPostes,
+                OBSERVACION = request.OBSERVACION,
+                Estante = request.Estante,
+                GeneradoPor = request.GeneradoPor,
+                MODULO = request.MODULO,
+                NroLote = request.NroLote,
+                Sector = request.Sector,
+                Latitud = request.Latitud,
+                Longitud = request.Longitud,
+                FechaHsFoto = request.FechaHsFoto,
+                TipoDeFoto = request.TipoDeFoto,
+                DireccionFoto = request.DireccionFoto
+            };
+
+            _context.ObrasDocumentos.Add(obraDocumento);
+            await _context.SaveChangesAsync();
+
+            return Ok(obraDocumento);
+        }
+
+
+
         // DELETE: api/ObrasDocumentos/5
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteObrasDocumento([FromRoute] int id)
