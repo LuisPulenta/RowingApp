@@ -1,12 +1,7 @@
 ﻿using GenericApp.Common.Helpers;
 using GenericApp.Common.Requests;
 using GenericApp.Web.Data;
-using GenericApp.Web.Data.Entities;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using System;
-using System.IO;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace GenericApp.Web.Controllers.API

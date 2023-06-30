@@ -22,5 +22,6 @@ namespace GenericApp.Web.Data.Entities
         public int HabilitaReclamosAPP { get; set; }
         public int? CORRESPONDEABONADOS { get; set; }
         public DateTime? FechaCierreElectrico { get; set; }
+        public DateTime? FechaUltimoMovimiento { get; set; }
     }
 }
