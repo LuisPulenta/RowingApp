@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Linq;
 
 namespace GenericApp.Web.Data.Entities
 {
@@ -23,5 +24,8 @@ namespace GenericApp.Web.Data.Entities
         public int? CORRESPONDEABONADOS { get; set; }
         public DateTime? FechaCierreElectrico { get; set; }
         public DateTime? FechaUltimoMovimiento { get; set; }
+        public int Photos => ObrasDocumentos == null ? 0 : ObrasDocumentos.Count(e => e.TipoDeFoto < 20);
+        public int Audios => ObrasDocumentos == null ? 0 : ObrasDocumentos.Count(e => e.TipoDeFoto == 20);
+        public int Videos => ObrasDocumentos == null ? 0 : ObrasDocumentos.Count(e => e.TipoDeFoto == 30);
     }
 }
