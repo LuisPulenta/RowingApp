@@ -1,13 +1,15 @@
-﻿using GenericApp.Common.Helpers;
+﻿using System;
+using System.IO;
+using System.Net.Http;
+using System.Threading.Tasks;
+using GenericApp.Common.Helpers;
 using GenericApp.Common.Requests;
 using GenericApp.Web.Data;
 using GenericApp.Web.Data.Entities;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.IO;
 using System.Linq;
-using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 
 namespace GenericApp.Web.Controllers.API
 {
@@ -25,6 +27,7 @@ namespace GenericApp.Web.Controllers.API
             _filesHelper = filesHelper;
         }
 
+        //------------------------------------------------------------------------------------------------------------------------
         // POST: api/ObrasDocuments
 
         [HttpPost]
@@ -78,7 +81,7 @@ namespace GenericApp.Web.Controllers.API
 
             return Ok(obraDocumento);
         }
-
+        //------------------------------------------------------------------------------------------------------------------------
         [HttpPost]
         [Route("ObrasDocument2")]
         public async Task<IActionResult> PostObrasDocument2([FromBody] ObrasDocumentoRequest request)
@@ -131,28 +134,58 @@ namespace GenericApp.Web.Controllers.API
             return Ok(obraDocumento);
         }
 
+        //------------------------------------------------------------------------------------------------------------------------
+        [HttpPost]
+        [Route("UploadAudioFile")]
+        public async Task<IActionResult> UploadAudioFile(IFormFile file)
+        {
 
+            if (file == null || file.Length == 0)
+            {
+                return BadRequest("No file provided.");
+            }
+
+            var guid = Guid.NewGuid().ToString();
+            //var fileName = $"{guid}.wav";
+            var fileName = $"{file.FileName}.wav"; 
+            var filePath = Path.Combine("C:/inetpub/wwwroot/RowingAppApi/wwwroot/images/", "Multimedia/", fileName);
+            //var filePath = Path.Combine("D:/Xamarin/RowingApp/GenericApp.Web/wwwroot/images/", "Multimedia/", fileName);
+
+            using (var stream = new FileStream(filePath, FileMode.Create))
+            {
+                await file.CopyToAsync(stream);
+            }
+            return Ok(fileName);
+        }
+        //------------------------------------------------------------------------------------------------------------------------
+        [HttpPost]
+        [Route("UploadVideoFile")]
+        public async Task<IActionResult> UploadVideoFile(IFormFile file)
+        {
+
+            if (file == null || file.Length == 0)
+            {
+                return BadRequest("No file provided.");
+            }
+
+            var guid = Guid.NewGuid().ToString();
+            var fileName = $"{file.FileName}.mp4";
+            var filePath = Path.Combine("C:/inetpub/wwwroot/RowingAppApi/wwwroot/images/", "Multimedia/", fileName);
+
+            using (var stream = new FileStream(filePath, FileMode.Create))
+            {
+                await file.CopyToAsync(stream);
+            }
+            return Ok(fileName);
+        }
+        //------------------------------------------------------------------------------------------------------------------------
         [HttpPost]
         [Route("ObrasDocumentMultimediaAudio")]
-        public async Task<IActionResult> PostObrasDocumentMultimediaAudio([FromBody] ObrasDocumentoRequest request)
+        public async Task<IActionResult> PostObrasDocumentMultimediaAudio([FromBody] ObrasDocumentoRequest3 request)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
-            }
-
-            //Foto
-            var imageUrl1 = string.Empty;
-            var stream = new MemoryStream(request.ImageArray);
-            var guid = Guid.NewGuid().ToString();
-            var file = $"{guid}.wav";
-            var folder = "wwwroot\\images\\Multimedia";
-            var fullPath = $"~/images/Multimedia/{file}";
-            var response = _filesHelper.UploadPhoto(stream, folder, file);
-
-            if (response)
-            {
-                imageUrl1 = fullPath;
             }
 
             Obra obra = await _context.Obras
@@ -161,7 +194,7 @@ namespace GenericApp.Web.Controllers.API
             var obraDocumento = new ObrasDocumento
             {
                 //NROREGISTRO = request.NROREGISTRO,
-                LINK = imageUrl1,
+                LINK = request.LINK,
                 FECHA = request.FECHA,
                 NROOBRA = request.NROOBRA,
                 IDObrasPostes = request.IDObrasPostes,
@@ -183,7 +216,7 @@ namespace GenericApp.Web.Controllers.API
 
             return Ok(obraDocumento);
         }
-
+        //------------------------------------------------------------------------------------------------------------------------
         [HttpPost]
         [Route("ObrasDocumentMultimediaVideo")]
         public async Task<IActionResult> PostObrasDocumentMultimediaVideo([FromBody] ObrasDocumentoRequest request)
@@ -193,27 +226,13 @@ namespace GenericApp.Web.Controllers.API
                 return BadRequest(ModelState);
             }
 
-            //Foto
-            var imageUrl1 = string.Empty;
-            var stream = new MemoryStream(request.ImageArray);
-            var guid = Guid.NewGuid().ToString();
-            var file = $"{guid}.mp4";
-            var folder = "wwwroot\\images\\Multimedia";
-            var fullPath = $"~/images/Multimedia/{file}";
-            var response = _filesHelper.UploadPhoto(stream, folder, file);
-
-            if (response)
-            {
-                imageUrl1 = fullPath;
-            }
-
             Obra obra = await _context.Obras
                 .FirstOrDefaultAsync(o => o.NroObra == request.Obra.NroObra);
 
             var obraDocumento = new ObrasDocumento
             {
                 //NROREGISTRO = request.NROREGISTRO,
-                LINK = imageUrl1,
+                LINK = request.LINK,
                 FECHA = request.FECHA,
                 NROOBRA = request.NROOBRA,
                 IDObrasPostes = request.IDObrasPostes,
@@ -236,8 +255,7 @@ namespace GenericApp.Web.Controllers.API
             return Ok(obraDocumento);
         }
 
-
-
+        //------------------------------------------------------------------------------------------------------------------------
         // DELETE: api/ObrasDocumentos/5
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteObrasDocumento([FromRoute] int id)
@@ -258,7 +276,7 @@ namespace GenericApp.Web.Controllers.API
             await _context.SaveChangesAsync();
             return Ok("ObrasDocumento borrado");
         }
-
+        //------------------------------------------------------------------------------------------------------------------------
         [HttpPost]
         [Route("GetObrasDocumentos/{IDObrasPostes}")]
         public async Task<IActionResult> GetObrasDocumentos(int IDObrasPostes)
@@ -280,7 +298,7 @@ namespace GenericApp.Web.Controllers.API
 
             return Ok(obrasDocumentos);
         }
-
+        //------------------------------------------------------------------------------------------------------------------------
         [HttpPut("{id}")]
         public async Task<IActionResult> PutObrasDocumentos([FromRoute] int id, [FromBody] ObrasDocumentoRequest2 request)
         {
@@ -293,10 +311,6 @@ namespace GenericApp.Web.Controllers.API
             {
                 return BadRequest();
             }
-
-           
-
-
 
             var oldObraDocumento = await _context.ObrasDocumentos.FindAsync(request.NROREGISTRO);
             if (oldObraDocumento == null)
