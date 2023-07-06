@@ -254,12 +254,12 @@ namespace GenericApp.Web.Controllers.API
         {
             if (!ModelState.IsValid)
             {
-                return BadRequest(ModelState);
+               return BadRequest(ModelState);
             }
 
             if (id != request.IDPRESENTISMO)
             {
-                return BadRequest();
+               return BadRequest();
             }
 
             var oldPresentismo = await _dataContext.CausantesPresentismos.FindAsync(request.IDPRESENTISMO);
