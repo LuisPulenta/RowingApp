@@ -53,10 +53,8 @@ namespace GenericApp.Web.Data
         public DbSet<CausantesEstado> CausantesEstados { get; set; }
         public DbSet<CausantesZonasZona> CausantesZonasZonas { get; set; }
         public DbSet<CausantesActividade> CausantesActividades { get; set; }
-        
         public DbSet<Parametro> Parametros { get; set; }
-
-
+        public DbSet<TurnosNoche> VistaTurnosNoches { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);

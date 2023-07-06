@@ -188,7 +188,7 @@ namespace GenericApp.Web.Controllers.API
         //----------------- METODOS PARA PRESENTISMO ----------------------------------
         //-----------------------------------------------------------------------------
 
-        //------- Trae los empleados a cargo de un SUpervisor -------------------------
+        //------- Trae los empleados a cargo de un Supervisor -------------------------
         [HttpPost]
         [Route("GetPresentismosBySupervisorDay/{id}/{year}/{month}/{day}")]
 
@@ -197,6 +197,19 @@ namespace GenericApp.Web.Controllers.API
             return Ok(_dataContext.CausantesPresentismos
                 .Where(o => (o.IDSUPERVISOR == id) && (o.FECHA.Year == year) && (o.FECHA.Month == month) && (o.FECHA.Day == day))
                 .OrderBy(o => o.CAUSANTEC)
+                );
+        }
+
+
+        //------- Trae los presentismos guardados como Turno Noche -------------------------
+        [HttpPost]
+        [Route("GetPresentismosTurnoNoche/{id}")]
+
+        public IActionResult GetPresentismosTurnoNoche(int id)
+        {
+            return Ok(_dataContext.VistaTurnosNoches
+                 .Where(o => (o.IDSUPERVISOR == id) && (o.ESTADO == "Turno Noche"))
+                .OrderBy(o => o.FECHA).ThenBy (o=>o.CAUSANTEC)
                 );
         }
 
