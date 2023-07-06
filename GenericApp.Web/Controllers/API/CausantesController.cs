@@ -246,7 +246,35 @@ namespace GenericApp.Web.Controllers.API
             await _dataContext.SaveChangesAsync();
             return Ok();
         }
-                
+
+        //--------------------------- Put de un Presentismo --------------------------
+        [HttpPut("{id}")]
+        [Route("PutPresentismo")]
+        public async Task<IActionResult> PutPresentismo([FromRoute] int id, [FromBody] CausantesPresentismo request)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            if (id != request.IDPRESENTISMO)
+            {
+                return BadRequest();
+            }
+
+            var oldPresentismo = await _dataContext.CausantesPresentismos.FindAsync(request.IDPRESENTISMO);
+            if (oldPresentismo == null)
+            {
+                return BadRequest("El Causante no existe.");
+            }
+
+            oldPresentismo.ESTADO = request.ESTADO;
+
+            _dataContext.CausantesPresentismos.Update(oldPresentismo);
+            await _dataContext.SaveChangesAsync();
+            return Ok();
+        }
+
 
         //---------------------------- Borra un Presentismo -------------------------------
         [HttpDelete("{id}")]
