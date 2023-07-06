@@ -248,8 +248,8 @@ namespace GenericApp.Web.Controllers.API
         }
 
         //--------------------------- Put de un Presentismo --------------------------
-        [HttpPut("{id}")]
-        [Route("PutPresentismo")]
+        [HttpPut]
+        [Route("PutPresentismo/{id}")]
         public async Task<IActionResult> PutPresentismo([FromRoute] int id, [FromBody] CausantesPresentismo request)
         {
             if (!ModelState.IsValid)
