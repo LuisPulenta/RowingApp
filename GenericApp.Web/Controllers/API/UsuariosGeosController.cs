@@ -60,12 +60,14 @@ namespace GenericApp.Web.Controllers.API
            .GroupBy(r => new
            {
                r.IdUsuario,
-               r.UsuarioStr
+               r.UsuarioStr,
+               r.Modulo
            })
            .Select(g => new
            {
                IdUsuario = g.Key.IdUsuario,
                UsuarioStr = g.Key.UsuarioStr,
+               Modulo=g.Key.Modulo,
 
            }).ToListAsync();
 
