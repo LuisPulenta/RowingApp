@@ -75,8 +75,10 @@ namespace GenericApp.Web.Controllers.API
                     HabilitaVeredas=0,
                     HabilitaJuicios=0,
                     HabilitaPresentismo=0,
-                    HabilitaSeguimientoUsuarios=0
-    };
+                    HabilitaSeguimientoUsuarios=0,
+                    CONCEPTOMOVA = 0,
+                    LimitarGrupo=0
+                };
 
                 return Ok(response2);
             }
@@ -109,6 +111,8 @@ namespace GenericApp.Web.Controllers.API
                 HabilitaJuicios = user.HabilitaJuicios,
                 HabilitaPresentismo=user.HabilitaPresentismo,
                 HabilitaSeguimientoUsuarios=user.HabilitaSeguimientoUsuarios,
+                CONCEPTOMOVA = user.CONCEPTOMOVA,
+                LimitarGrupo = user.LimitarGrupo,
                 FirmaUsuario =user.FirmaUsuario,
             };
 
@@ -160,6 +164,8 @@ namespace GenericApp.Web.Controllers.API
                 HabilitaJuicios=user.HabilitaJuicios,
                 HabilitaPresentismo=user.HabilitaPresentismo,
                 HabilitaSeguimientoUsuarios=user.HabilitaSeguimientoUsuarios,
+                CONCEPTOMOVA = user.CONCEPTOMOVA,
+                LimitarGrupo = user.LimitarGrupo,
             };
             return Ok(response);
         }
