@@ -24,6 +24,16 @@ namespace GenericApp.Web.Data.Entities
         public int? CORRESPONDEABONADOS { get; set; }
         public DateTime? FechaCierreElectrico { get; set; }
         public DateTime? FechaUltimoMovimiento { get; set; }
+        public string POSX { get; set; }
+        public string POSY { get; set; }
+        public string TextoLocalizacion { get; set; }
+        public string TextoClase { get; set; }
+        public string TextoTipo { get; set; }
+        public string TextoComponente { get; set; }
+        public string CodigoDiametro { get; set; }
+        public string Motivo { get; set; }
+        public string Planos { get; set; }
+
         public int Photos => ObrasDocumentos == null ? 0 : ObrasDocumentos.Count(e => e.TipoDeFoto < 20);
         public int Audios => ObrasDocumentos == null ? 0 : ObrasDocumentos.Count(e => e.TipoDeFoto == 20);
         public int Videos => ObrasDocumentos == null ? 0 : ObrasDocumentos.Count(e => e.TipoDeFoto == 30);
