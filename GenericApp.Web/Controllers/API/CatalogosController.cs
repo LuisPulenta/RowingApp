@@ -20,6 +20,27 @@ namespace GenericApp.Web.Controllers.API
         }
 
         [HttpGet]
+        [Route("GetCatalogosAysa")]
+        public async Task<IActionResult> GetCatalogosAysa()
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest();
+            }
+
+            System.Collections.Generic.List<Catalogo> catalogos = await _context.Catalogos
+           .Where(o => (o.VerEnReclamosApp == 1)
+           && (o.Modulo == "Aysa") &&(o.catDeshabilitado==0))
+           .OrderBy(o => o.catCatalogo)
+           .ToListAsync();
+            if (catalogos == null)
+            {
+                return BadRequest("No hay Catálogos.");
+            }
+            return Ok(catalogos);
+        }
+
+        [HttpGet]
         [Route("GetCatalogosEnergia")]
         public async Task<IActionResult> GetCatalogosEnergia()
         {
