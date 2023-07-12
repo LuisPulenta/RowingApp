@@ -29,7 +29,7 @@ namespace GenericApp.Web.Controllers.API
             }
 
             System.Collections.Generic.List<Catalogo> catalogos = await _context.Catalogos
-           .Where(o => (o.VerEnReclamosApp == 1)
+           .Where(o => (o.VerRequerimientosAPP == 1)
            && (o.Modulo == "Aysa") &&(o.catDeshabilitado==0))
            .OrderBy(o => o.catCatalogo)
            .ToListAsync();
