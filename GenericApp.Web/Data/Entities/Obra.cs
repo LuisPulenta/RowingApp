@@ -26,6 +26,7 @@ namespace GenericApp.Web.Data.Entities
         public DateTime? FechaUltimoMovimiento { get; set; }
         public string POSX { get; set; }
         public string POSY { get; set; }
+        public string Direccion { get; set; }
         public string TextoLocalizacion { get; set; }
         public string TextoClase { get; set; }
         public string TextoTipo { get; set; }
