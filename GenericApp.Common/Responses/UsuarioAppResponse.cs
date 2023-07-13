@@ -31,6 +31,7 @@
         public int? HabilitaSeguimientoUsuarios { get; set; }
         public byte? CONCEPTOMOVA { get; set; }
         public int? LimitarGrupo { get; set; }
+        public byte? RUBRO { get; set; }
         public string FirmaUsuario { get; set; }
         public string FirmaUsuarioImageFullPath => string.IsNullOrEmpty(FirmaUsuario)
       ? $"http://190.111.249.225/RowingAppApi/images/ObrasSuministros/noimage.png"

@@ -77,7 +77,8 @@ namespace GenericApp.Web.Controllers.API
                     HabilitaPresentismo=0,
                     HabilitaSeguimientoUsuarios=0,
                     CONCEPTOMOVA = 0,
-                    LimitarGrupo=0
+                    LimitarGrupo=0,
+                    RUBRO=0
                 };
 
                 return Ok(response2);
@@ -114,6 +115,7 @@ namespace GenericApp.Web.Controllers.API
                 CONCEPTOMOVA = user.CONCEPTOMOVA,
                 LimitarGrupo = user.LimitarGrupo,
                 FirmaUsuario =user.FirmaUsuario,
+                RUBRO=user.RUBRO,
             };
 
             return Ok(response);
@@ -166,6 +168,7 @@ namespace GenericApp.Web.Controllers.API
                 HabilitaSeguimientoUsuarios=user.HabilitaSeguimientoUsuarios,
                 CONCEPTOMOVA = user.CONCEPTOMOVA,
                 LimitarGrupo = user.LimitarGrupo,
+                RUBRO=user.RUBRO,
             };
             return Ok(response);
         }
