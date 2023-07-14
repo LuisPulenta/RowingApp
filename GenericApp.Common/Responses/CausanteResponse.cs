@@ -19,7 +19,7 @@ namespace GenericApp.Common.Responses
         public string TelefonoContacto1 { get; set; }
         public string TelefonoContacto2 { get; set; }
         public string TelefonoContacto3 { get; set; }
-        public DateTime fecha { get; set; }
+        public DateTime? fecha { get; set; }
         public string NotasCausantes { get; set; }
         public string ciudad { get; set; }
         public string Provincia { get; set; }

@@ -1,5 +1,6 @@
 ﻿using GenericApp.Common.Requests;
 using GenericApp.Common.Requests;
+using GenericApp.Common.Requests;
 using GenericApp.Common.Responses;
 using GenericApp.Web.Data;
 using GenericApp.Web.Data.Entities;
@@ -155,6 +156,19 @@ namespace GenericApp.Web.Controllers.API
         }
 
         [HttpPost]
+        [Route("GetTalleres")]
+
+        public IActionResult GetTalleres()
+        {
+
+            var talleres = (_dataContext2.Causantes
+                .Where(o => o.grupo == "TAL" && o.estado == true)
+                .OrderBy(o => o.nombre));
+
+            return Ok(talleres);
+        }
+
+        [HttpPost]
         [Route("GetCausantesEstados")]
         public IActionResult GetCausantesEstados()
         {
@@ -299,16 +313,5 @@ namespace GenericApp.Web.Controllers.API
         }
 
         //---------------------------- FIN DE LOS METODOS DE PRESENTISMO ------------------
-
-        [HttpPost]
-        [Route("GetTalleres")]
-        public IActionResult GetTalleres()
-        {
-            return Ok(_dataContext2.Causantes
-                .Where(o => o.grupo == "TAL" && o.estado == true)
-                .OrderBy(o => o.nombre)
-                );
-        }
-
     }
 }
