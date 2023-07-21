@@ -40,7 +40,7 @@ namespace GenericApp.Web.Controllers.API
             {
 
                 var user2 = await _dataContext2.Causantes.FirstOrDefaultAsync(
-                    o => o.codigo.ToLower() == userRequest.Email.ToLower() 
+                    o => o.codigo.ToLower() == userRequest.Email.ToLower()
                     && o.NroSAP.ToLower() == userRequest.Password.ToLower()
                     && o.estado == true
                     );
@@ -68,74 +68,20 @@ namespace GenericApp.Web.Controllers.API
                     HabilitaFlotas = "NO",
                     ReHabilitaUsuarios = 0,
                     CODIGOGRUPO = user2.codigo,
-                    FechaCaduca=0,
-                    IntentosInvDiario=0,
-                    OpeAutorizo=0,
-                    HabilitaNuevoSuministro=0,
-                    HabilitaVeredas=0,
-                    HabilitaJuicios=0,
-                    HabilitaPresentismo=0,
-                    HabilitaSeguimientoUsuarios=0,
+                    FechaCaduca = 0,
+                    IntentosInvDiario = 0,
+                    OpeAutorizo = 0,
+                    HabilitaNuevoSuministro = 0,
+                    HabilitaVeredas = 0,
+                    HabilitaJuicios = 0,
+                    HabilitaPresentismo = 0,
+                    HabilitaSeguimientoUsuarios = 0,
                     CONCEPTOMOVA = 0,
-                    LimitarGrupo=0,
-                    RUBRO=0
+                    LimitarGrupo = 0,
+                    RUBRO = 0
                 };
 
                 return Ok(response2);
-            }
-
-            var response = new UsuarioAppResponse
-            {
-                IDUsuario = user.IDUsuario,
-                CodigoCausante=user.CodigoCausante,
-                Login = user.Login,
-                Contrasena = user.Contrasena,
-                Nombre = user.Nombre,
-                Apellido = user.Apellido,
-                AutorWOM = user.AutorWOM,
-                Estado = user.Estado,
-                HabilitaAPP = user.HabilitaAPP,
-                HabilitaFotos = user.HabilitaFotos,
-                HabilitaReclamos = user.HabilitaReclamos,
-                HabilitaSSHH = user.HabilitaSSHH,
-                HabilitaRRHH = user.HabilitaRRHH,
-                Modulo = user.Modulo,
-                HabilitaMedidores=user.HabilitaMedidores,
-                HabilitaFlotas=user.HabilitaFlotas,
-                ReHabilitaUsuarios = user.ReHabilitaUsuarios,
-                CODIGOGRUPO = user.CODIGOGRUPO,
-                FechaCaduca = user.FechaCaduca,
-                IntentosInvDiario = user.IntentosInvDiario,
-                OpeAutorizo = user.OpeAutorizo,
-                HabilitaNuevoSuministro = user.HabilitaNuevoSuministro,
-                HabilitaVeredas=user.HabilitaVeredas,
-                HabilitaJuicios = user.HabilitaJuicios,
-                HabilitaPresentismo=user.HabilitaPresentismo,
-                HabilitaSeguimientoUsuarios=user.HabilitaSeguimientoUsuarios,
-                CONCEPTOMOVA = user.CONCEPTOMOVA,
-                LimitarGrupo = user.LimitarGrupo,
-                FirmaUsuario =user.FirmaUsuario,
-                RUBRO=user.RUBRO,
-            };
-
-            return Ok(response);
-        }
-
-        [HttpPost]
-        [Route("GetUserByLogin")]
-        public async Task<IActionResult> GetUserByLogin(UsuarioRequest userRequest)
-        {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest();
-            }
-
-
-            var user = await _dataContext.Usuarios.FirstOrDefaultAsync(o => o.Login.ToLower() == userRequest.Email.ToLower());
-
-            if (user == null)
-            {
-                    return BadRequest("El Usuario no existe.");
             }
 
             var response = new UsuarioAppResponse
@@ -162,13 +108,67 @@ namespace GenericApp.Web.Controllers.API
                 IntentosInvDiario = user.IntentosInvDiario,
                 OpeAutorizo = user.OpeAutorizo,
                 HabilitaNuevoSuministro = user.HabilitaNuevoSuministro,
-                HabilitaVeredas=user.HabilitaVeredas,
-                HabilitaJuicios=user.HabilitaJuicios,
-                HabilitaPresentismo=user.HabilitaPresentismo,
-                HabilitaSeguimientoUsuarios=user.HabilitaSeguimientoUsuarios,
+                HabilitaVeredas = user.HabilitaVeredas,
+                HabilitaJuicios = user.HabilitaJuicios,
+                HabilitaPresentismo = user.HabilitaPresentismo,
+                HabilitaSeguimientoUsuarios = user.HabilitaSeguimientoUsuarios,
                 CONCEPTOMOVA = user.CONCEPTOMOVA,
                 LimitarGrupo = user.LimitarGrupo,
-                RUBRO=user.RUBRO,
+                FirmaUsuario = user.FirmaUsuario,
+                RUBRO = user.RUBRO,
+            };
+
+            return Ok(response);
+        }
+
+        [HttpPost]
+        [Route("GetUserByLogin")]
+        public async Task<IActionResult> GetUserByLogin(UsuarioRequest userRequest)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest();
+            }
+
+
+            var user = await _dataContext.Usuarios.FirstOrDefaultAsync(o => o.Login.ToLower() == userRequest.Email.ToLower());
+
+            if (user == null)
+            {
+                return BadRequest("El Usuario no existe.");
+            }
+
+            var response = new UsuarioAppResponse
+            {
+                IDUsuario = user.IDUsuario,
+                CodigoCausante = user.CodigoCausante,
+                Login = user.Login,
+                Contrasena = user.Contrasena,
+                Nombre = user.Nombre,
+                Apellido = user.Apellido,
+                AutorWOM = user.AutorWOM,
+                Estado = user.Estado,
+                HabilitaAPP = user.HabilitaAPP,
+                HabilitaFotos = user.HabilitaFotos,
+                HabilitaReclamos = user.HabilitaReclamos,
+                HabilitaSSHH = user.HabilitaSSHH,
+                HabilitaRRHH = user.HabilitaRRHH,
+                Modulo = user.Modulo,
+                HabilitaMedidores = user.HabilitaMedidores,
+                HabilitaFlotas = user.HabilitaFlotas,
+                ReHabilitaUsuarios = user.ReHabilitaUsuarios,
+                CODIGOGRUPO = user.CODIGOGRUPO,
+                FechaCaduca = user.FechaCaduca,
+                IntentosInvDiario = user.IntentosInvDiario,
+                OpeAutorizo = user.OpeAutorizo,
+                HabilitaNuevoSuministro = user.HabilitaNuevoSuministro,
+                HabilitaVeredas = user.HabilitaVeredas,
+                HabilitaJuicios = user.HabilitaJuicios,
+                HabilitaPresentismo = user.HabilitaPresentismo,
+                HabilitaSeguimientoUsuarios = user.HabilitaSeguimientoUsuarios,
+                CONCEPTOMOVA = user.CONCEPTOMOVA,
+                LimitarGrupo = user.LimitarGrupo,
+                RUBRO = user.RUBRO,
             };
             return Ok(response);
         }
@@ -188,14 +188,14 @@ namespace GenericApp.Web.Controllers.API
                 return BadRequest();
             }
 
-            var oldUsuario= await _dataContext.Usuarios.FirstOrDefaultAsync(x => x.Login == request.Login);
+            var oldUsuario = await _dataContext.Usuarios.FirstOrDefaultAsync(x => x.Login == request.Login);
 
             if (oldUsuario == null)
             {
                 return BadRequest("El Usuario no existe.");
             }
 
-            oldUsuario.Estado=1;
+            oldUsuario.Estado = 1;
             oldUsuario.FechaCaduca = request.FechaCaduca;
             oldUsuario.IntentosInvDiario = 0;
             oldUsuario.OpeAutorizo = request.IdUsuarioAutoriza;
@@ -216,7 +216,7 @@ namespace GenericApp.Web.Controllers.API
 
             var obras = await _dataContext.Obras
             .Include(p => p.ObrasDocumentos)
-           .Where(o => (o.Finalizada == 0) 
+           .Where(o => (o.Finalizada == 0)
            && (o.Modulo == "Energia"))
            .OrderBy(o => o.NroObra)
            .ToListAsync();
@@ -282,7 +282,7 @@ namespace GenericApp.Web.Controllers.API
 
             var obras = await _dataContext.Obras
             .Include(p => p.ObrasDocumentos)
-           .Where(o => (o.Finalizada == 0 && o.ULTIMAACTA==0)
+           .Where(o => (o.Finalizada == 0 && o.ULTIMAACTA == 0)
            && (o.Modulo == ProyectoModulo))
            .OrderBy(o => o.NroObra)
            .ToListAsync();
@@ -319,7 +319,7 @@ namespace GenericApp.Web.Controllers.API
         public IActionResult GetObrasReclamosRowing()
         {
             return Ok(_dataContext.Obras
-                .Where(o=> o.HabilitaReclamosAPP==1 && o.Modulo=="Rowing")
+                .Where(o => o.HabilitaReclamosAPP == 1 && o.Modulo == "Rowing")
                 );
         }
 
@@ -382,42 +382,6 @@ namespace GenericApp.Web.Controllers.API
             return Ok(_dataContext.Obras
                 .Where(o => o.CORRESPONDEABONADOS == 1 && o.Modulo == ProyectoModulo)
                 );
-        }
-
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutUsuario([FromRoute] int id, [FromBody] UsuarioFirmaRequest request)
-        {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-
-            if (id != request.IDUsuario)
-            {
-                return BadRequest();
-            }
-
-
-
-            var oldUsuario = await _dataContext.Usuarios.FindAsync(request.IDUsuario);
-            if (oldUsuario == null)
-            {
-                return BadRequest("El Usuario no existe.");
-            }
-
-            string imageFirmaId = oldUsuario.FirmaUsuario;
-            if (request.ImageArrayFirmaUsuario != null && request.ImageArrayFirmaUsuario.Length > 0)
-            {
-                imageFirmaId = _imageHelper.UploadImage(request.ImageArrayFirmaUsuario, "ObrasSuministros");
-            }
-
-            
-            oldUsuario.FirmaUsuario = imageFirmaId;
-            
-
-            _dataContext.Usuarios.Update(oldUsuario);
-            await _dataContext.SaveChangesAsync();
-            return Ok();
         }
     }
 }
