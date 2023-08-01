@@ -76,6 +76,7 @@ namespace GenericApp.Web.Controllers.API
                     HabilitaJuicios = 0,
                     HabilitaPresentismo = 0,
                     HabilitaSeguimientoUsuarios = 0,
+                    HabilitaVerObrasCerradas = 0,
                     CONCEPTOMOVA = 0,
                     LimitarGrupo = 0,
                     RUBRO = 0
@@ -112,6 +113,7 @@ namespace GenericApp.Web.Controllers.API
                 HabilitaJuicios = user.HabilitaJuicios,
                 HabilitaPresentismo = user.HabilitaPresentismo,
                 HabilitaSeguimientoUsuarios = user.HabilitaSeguimientoUsuarios,
+                HabilitaVerObrasCerradas=user.HabilitaVerObrasCerradas,
                 CONCEPTOMOVA = user.CONCEPTOMOVA,
                 LimitarGrupo = user.LimitarGrupo,
                 FirmaUsuario = user.FirmaUsuario,
@@ -166,6 +168,7 @@ namespace GenericApp.Web.Controllers.API
                 HabilitaJuicios = user.HabilitaJuicios,
                 HabilitaPresentismo = user.HabilitaPresentismo,
                 HabilitaSeguimientoUsuarios = user.HabilitaSeguimientoUsuarios,
+                HabilitaVerObrasCerradas=user.HabilitaVerObrasCerradas,
                 CONCEPTOMOVA = user.CONCEPTOMOVA,
                 LimitarGrupo = user.LimitarGrupo,
                 RUBRO = user.RUBRO,
@@ -284,6 +287,27 @@ namespace GenericApp.Web.Controllers.API
             .Include(p => p.ObrasDocumentos)
            .Where(o => (o.Finalizada == 0 && o.ULTIMAACTA == 0)
            && (o.Modulo == ProyectoModulo))
+           .OrderBy(o => o.NroObra)
+           .ToListAsync();
+            if (obras == null)
+            {
+                return BadRequest("No hay Obras.");
+            }
+            return Ok(obras);
+        }
+
+        [HttpPost]
+        [Route("GetObrasTodas/{ProyectoModulo}")]
+        public async Task<IActionResult> GetObrasTodas(string ProyectoModulo)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest();
+            }
+
+            var obras = await _dataContext.Obras
+            .Include(p => p.ObrasDocumentos)
+           .Where(o => (o.Modulo == ProyectoModulo))
            .OrderBy(o => o.NroObra)
            .ToListAsync();
             if (obras == null)
