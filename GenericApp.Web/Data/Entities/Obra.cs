@@ -13,6 +13,7 @@ namespace GenericApp.Web.Data.Entities
         public string ELEMPEP { get; set; }
         public string OBSERVACIONES { get; set; }
         public int Finalizada { get; set; }
+        public DateTime? FECHAFINALIZADA { get; set; }
         public int ULTIMAACTA { get; set; }
         public string SUPERVISORE { get; set; }
         public string CodigoEstado { get; set; }

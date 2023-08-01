@@ -5,6 +5,7 @@ using GenericApp.Web.Data.Entities;
 using GenericApp.Web.Helpers;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -307,7 +308,14 @@ namespace GenericApp.Web.Controllers.API
 
             var obras = await _dataContext.Obras
             .Include(p => p.ObrasDocumentos)
-           .Where(o => (o.Modulo == ProyectoModulo))
+             .Where(o => (o.Modulo == ProyectoModulo)
+             &&
+             (
+             (o.Finalizada == 0 && o.ULTIMAACTA == 0)
+             ||
+             (o.Finalizada == 1 && o.FECHAFINALIZADA> DateTime.Now.AddDays(-180.0))
+             )
+           )
            .OrderBy(o => o.NroObra)
            .ToListAsync();
             if (obras == null)
