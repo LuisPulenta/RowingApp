@@ -313,7 +313,9 @@ namespace GenericApp.Web.Controllers.API
              (
              (o.Finalizada == 0 && o.ULTIMAACTA == 0)
              ||
-             (o.Finalizada == 1 && o.FECHAFINALIZADA> DateTime.Now.AddDays(-180.0))
+             (o.Finalizada == 1
+             //&& o.FECHAFINALIZADA> DateTime.Now.AddDays(-180.0)
+             )
              )
            )
            .OrderBy(o => o.NroObra)
