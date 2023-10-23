@@ -31,5 +31,6 @@ namespace GenericApp.Common.Requests
         public string DETALLEDANOSPROPIO { get; set; }
         public string NUMCHATERCERO { get; set; }
         public DateTime FECHACARGAAPP { get; set; }
+        public string Modulo { get; set; }
     }
 }

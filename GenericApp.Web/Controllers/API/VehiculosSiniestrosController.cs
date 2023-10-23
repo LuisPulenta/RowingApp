@@ -86,6 +86,7 @@ namespace GenericApp.Web.Controllers.API
                 DETALLEDANOSPROPIO = request.DETALLEDANOSPROPIO,
                 NUMCHATERCERO = request.NUMCHATERCERO,
                 FECHACARGAAPP = request.FECHACARGAAPP,
+                Modulo=request.Modulo,
             };
             _dataContext.VehiculosSiniestros.Add(vehiculoSiniestro);
             await _dataContext.SaveChangesAsync();
@@ -140,6 +141,7 @@ namespace GenericApp.Web.Controllers.API
             oldSiniestro.PROVINCIA = request.PROVINCIA;            
             oldSiniestro.RELATOSINIESTRO = request.RELATOSINIESTRO;
             oldSiniestro.TELEFONOCONTACTOTERCERO = request.TELEFONOCONTACTOTERCERO;
+            oldSiniestro.Modulo = request.Modulo;
 
             _dataContext.VehiculosSiniestros.Update(oldSiniestro);
             await _dataContext.SaveChangesAsync();

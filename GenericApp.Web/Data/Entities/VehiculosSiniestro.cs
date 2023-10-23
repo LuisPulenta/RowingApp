@@ -34,6 +34,7 @@ namespace GenericApp.Web.Data.Entities
         public string DETALLEDANOSPROPIO { get; set; }
         public string NUMCHATERCERO { get; set; }
         public DateTime FECHACARGAAPP { get; set; }
+        public string Modulo { get; set; }
 
         //public ICollection<VehiculosSiniestrosFoto> Fotos { get; set; }
     }
