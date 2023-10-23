@@ -40,7 +40,7 @@ namespace GenericApp.Web.Controllers.API
             if (user == null)
             {
 
-                var user2 = await _dataContext2.Causantes.FirstOrDefaultAsync(
+                var user2 = await _dataContext2.VistaCausantesApp.FirstOrDefaultAsync(
                     o => o.codigo.ToLower() == userRequest.Email.ToLower()
                     && o.NroSAP.ToLower() == userRequest.Password.ToLower()
                     && o.estado == true
