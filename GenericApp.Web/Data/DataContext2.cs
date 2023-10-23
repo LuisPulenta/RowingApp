@@ -9,7 +9,7 @@ namespace GenericApp.Web.Data
         public DataContext2(DbContextOptions<DataContext2> options) : base(options)
         {
         }
-        public DbSet<Causante> Causantes { get; set; }
+        public DbSet<Causante> VistaCausantesApp { get; set; }
         public DbSet<Entrega> ProductosStock { get; set; }
         public DbSet<Vehiculo> Vehiculos { get; set; }
         public DbSet<VehiculosKilometraje> VehiculosKilometrajes { get; set; }

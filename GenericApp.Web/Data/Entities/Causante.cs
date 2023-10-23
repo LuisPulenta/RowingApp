@@ -30,8 +30,6 @@ namespace GenericApp.Web.Data.Entities
         public string NombreActividad { get; set; }
         public string notas { get; set; }
         public string PerteneceCuadrilla { get; set; }
-
-
         public string ImageFullPath => string.IsNullOrEmpty(LinkFoto)
         ? $"http://190.111.249.225/RowingAppApi/images/Causantes/nouser.png"
         : $"http://190.111.249.225/RowingAppApi{LinkFoto.Substring(1)}";

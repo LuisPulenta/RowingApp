@@ -1,6 +1,4 @@
 ﻿using GenericApp.Common.Requests;
-using GenericApp.Common.Requests;
-using GenericApp.Common.Requests;
 using GenericApp.Common.Responses;
 using GenericApp.Web.Data;
 using GenericApp.Web.Data.Entities;
@@ -36,8 +34,8 @@ namespace GenericApp.Web.Controllers.API
                 return BadRequest();
             }
 
-            Data.Entities.Causante user = await _dataContext2.Causantes.FirstOrDefaultAsync
-                (o => (o.codigo.ToLower() == codigo.Codigo.ToLower() || o.NroSAP.ToLower() == codigo.Codigo.ToLower()) && (o.grupo == "PPR" || o.grupo == "PPC"));
+            Data.Entities.Causante user = await _dataContext2.VistaCausantesApp.FirstOrDefaultAsync
+                (o => (o.codigo.ToLower() == codigo.Codigo.ToLower() || o.NroSAP.ToLower() == codigo.Codigo.ToLower()));
 
             if (user == null)
             {
@@ -78,11 +76,9 @@ namespace GenericApp.Web.Controllers.API
         [HttpGet("GetCausanteByCodigo2/{codigo}")]
         public async Task<ActionResult<Data.Entities.Causante>> GetCausante2(string codigo)
         {
-            Data.Entities.Causante causante = await _dataContext2.Causantes
+            Data.Entities.Causante causante = await _dataContext2.VistaCausantesApp
                 .FirstOrDefaultAsync(o => 
                     (o.codigo.ToLower() == codigo.ToLower() || o.NroSAP.ToLower() == codigo.ToLower()) 
-                    && 
-                    (o.grupo == "PPR" || o.grupo == "PPC" || o.grupo == "EXT" || o.grupo == "PPL")
                     &&
                     (o.estado == true)
                     );
@@ -109,7 +105,7 @@ namespace GenericApp.Web.Controllers.API
 
             
 
-            var oldCausante = await _dataContext2.Causantes.FindAsync(request.Id);
+            var oldCausante = await _dataContext2.VistaCausantesApp.FindAsync(request.Id);
             if (oldCausante == null)
             {
                 return BadRequest("El Causante no existe.");
@@ -135,7 +131,7 @@ namespace GenericApp.Web.Controllers.API
             oldCausante.ZonaTrabajo = request.ZonaTrabajo;
             oldCausante.NombreActividad = request.ZonaTrabajo;
 
-            _dataContext2.Causantes.Update(oldCausante);
+            _dataContext2.VistaCausantesApp.Update(oldCausante);
             await _dataContext2.SaveChangesAsync();
             return Ok();
         }
@@ -145,7 +141,7 @@ namespace GenericApp.Web.Controllers.API
         [Route("GetCausantesByGrupo/{Grupo}")]
         public IActionResult GetCausantesByProyectoModulo(string Grupo)
         {
-            return Ok(_dataContext2.Causantes
+            return Ok(_dataContext2.VistaCausantesApp
                 .Where(o => o.grupo == Grupo && o.estado==true)
                 .OrderBy(o => o.nombre)
                 );
@@ -155,8 +151,8 @@ namespace GenericApp.Web.Controllers.API
         [Route("GetCausantesBySupervisor/{id}")]
         public IActionResult GetCausantesBySupervisor(int id)
         {
-            return Ok(_dataContext2.Causantes
-                .Where(o => (o.CodigoSupervisorObras == id && o.estado == true && (o.grupo=="PPR" || o.grupo == "PPC")))
+            return Ok(_dataContext2.VistaCausantesApp
+                .Where(o => (o.CodigoSupervisorObras == id && o.estado == true))
                 .OrderBy(o => o.nombre)
                 );
         }
@@ -167,7 +163,7 @@ namespace GenericApp.Web.Controllers.API
         public IActionResult GetTalleres()
         {
 
-            var talleres = (_dataContext2.Causantes
+            var talleres = (_dataContext2.VistaCausantesApp
                 .Where(o => o.grupo == "TAL" && o.estado == true)
                 .OrderBy(o => o.nombre));
 
