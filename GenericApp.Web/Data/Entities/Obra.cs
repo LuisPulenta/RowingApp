@@ -17,6 +17,7 @@ namespace GenericApp.Web.Data.Entities
         public int ULTIMAACTA { get; set; }
         public string SUPERVISORE { get; set; }
         public string CodigoEstado { get; set; }
+        public string CodigoSubEstado { get; set; }
         public string Modulo { get; set; }
         public string GrupoAlmacen { get; set; }
         public string GrupoCausante { get; set; }

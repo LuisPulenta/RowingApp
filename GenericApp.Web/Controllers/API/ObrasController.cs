@@ -2,6 +2,8 @@
 using GenericApp.Common.Requests;
 using GenericApp.Web.Data;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace GenericApp.Web.Controllers.API
@@ -79,6 +81,44 @@ namespace GenericApp.Web.Controllers.API
             _dataContext.Obras.Update(oldObra);
             await _dataContext.SaveChangesAsync();
             return Ok();
+        }
+
+        [HttpGet]
+        [Route("GetObrasEstados")]
+        public async Task<IActionResult> GetObrasEstados()
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest();
+            }
+
+            var estados = await _dataContext.EstadosPEP
+           .OrderBy(o => o.CODIGO)
+           .ToListAsync();
+            if (estados == null)
+            {
+                return BadRequest("No hay Estados de Obras.");
+            }
+            return Ok(estados);
+        }
+
+        [HttpGet]
+        [Route("GetObrasSubEstados")]
+        public async Task<IActionResult> GetObrasSubEstados()
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest();
+            }
+
+            var subestados = await _dataContext.EstadosPEPSub
+           .OrderBy(o => o.CODIGOESTADO)
+           .ToListAsync();
+            if (subestados == null)
+            {
+                return BadRequest("No hay SubEstados de Obras.");
+            }
+            return Ok(subestados);
         }
     }
 }

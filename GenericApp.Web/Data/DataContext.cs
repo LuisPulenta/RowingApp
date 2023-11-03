@@ -55,6 +55,8 @@ namespace GenericApp.Web.Data
         public DbSet<CausantesActividade> CausantesActividades { get; set; }
         public DbSet<Parametro> Parametros { get; set; }
         public DbSet<TurnosNoche> VistaTurnosNoches { get; set; }
+        public DbSet<ObraEstado> EstadosPEP { get; set; }
+        public DbSet<ObraSubEstado> EstadosPEPSub { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
