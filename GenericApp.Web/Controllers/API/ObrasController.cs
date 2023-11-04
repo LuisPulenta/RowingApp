@@ -83,8 +83,8 @@ namespace GenericApp.Web.Controllers.API
             return Ok();
         }
 
-        [HttpPut("{id}")]
-        [Route("PutEstadoSubestado")]
+        [HttpPut]
+        [Route("PutEstadoSubestado/{id}")]
         public async Task<IActionResult> PutEstadoSubestado([FromRoute] int id, [FromBody] ObraEstadoSubestadoRequest request)
         {
             if (!ModelState.IsValid)
