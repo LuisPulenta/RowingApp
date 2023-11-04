@@ -83,6 +83,34 @@ namespace GenericApp.Web.Controllers.API
             return Ok();
         }
 
+        [HttpPut("{id}")]
+        [Route("PutEstadoSubestado")]
+        public async Task<IActionResult> PutEstadoSubestado([FromRoute] int id, [FromBody] ObraEstadoSubestadoRequest request)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            if (id != request.NroObra)
+            {
+                return BadRequest();
+            }
+
+            var oldObra = await _dataContext.Obras.FindAsync(request.NroObra);
+            if (oldObra == null)
+            {
+                return BadRequest("La Obra no existe.");
+            }
+
+            oldObra.CodigoEstado = request.CodigoEstado;
+            oldObra.CodigoSubEstado = request.CodigoSubEstado;
+
+            _dataContext.Obras.Update(oldObra);
+            await _dataContext.SaveChangesAsync();
+            return Ok();
+        }
+
         [HttpGet]
         [Route("GetObrasEstados")]
         public async Task<IActionResult> GetObrasEstados()
