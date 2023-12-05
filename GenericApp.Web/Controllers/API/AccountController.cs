@@ -78,6 +78,7 @@ namespace GenericApp.Web.Controllers.API
                     HabilitaPresentismo = 0,
                     HabilitaSeguimientoUsuarios = 0,
                     HabilitaVerObrasCerradas = 0,
+                    HabilitaElementosCalle=0,
                     CONCEPTOMOVA = 0,
                     LimitarGrupo = 0,
                     RUBRO = 0
@@ -115,6 +116,7 @@ namespace GenericApp.Web.Controllers.API
                 HabilitaPresentismo = user.HabilitaPresentismo,
                 HabilitaSeguimientoUsuarios = user.HabilitaSeguimientoUsuarios,
                 HabilitaVerObrasCerradas=user.HabilitaVerObrasCerradas,
+                HabilitaElementosCalle=user.HabilitaElementosCalle,
                 CONCEPTOMOVA = user.CONCEPTOMOVA,
                 LimitarGrupo = user.LimitarGrupo,
                 FirmaUsuario = user.FirmaUsuario,
@@ -170,6 +172,7 @@ namespace GenericApp.Web.Controllers.API
                 HabilitaPresentismo = user.HabilitaPresentismo,
                 HabilitaSeguimientoUsuarios = user.HabilitaSeguimientoUsuarios,
                 HabilitaVerObrasCerradas=user.HabilitaVerObrasCerradas,
+                HabilitaElementosCalle=user.HabilitaElementosCalle,
                 CONCEPTOMOVA = user.CONCEPTOMOVA,
                 LimitarGrupo = user.LimitarGrupo,
                 RUBRO = user.RUBRO,

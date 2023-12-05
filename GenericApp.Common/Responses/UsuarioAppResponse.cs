@@ -30,6 +30,7 @@
         public int? HabilitaPresentismo { get; set; }
         public int? HabilitaSeguimientoUsuarios { get; set; }
         public int? HabilitaVerObrasCerradas { get; set; }
+        public int? HabilitaElementosCalle { get; set; }
         public byte? CONCEPTOMOVA { get; set; }
         public int? LimitarGrupo { get; set; }
         public byte? RUBRO { get; set; }

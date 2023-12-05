@@ -13,6 +13,7 @@ namespace GenericApp.Web.Data.Entities
         public int? VerRequerimientosAPP { get; set; }
         public int? VerRequerimientosEPP { get; set; }
         public int? VerEnSuministros { get; set; }
+        public int? VerEnCalle { get; set; }
         public int? catDeshabilitado { get; set; }
         public string Modulo { get; set; }
     }
