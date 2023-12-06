@@ -57,6 +57,8 @@ namespace GenericApp.Web.Data
         public DbSet<TurnosNoche> VistaTurnosNoches { get; set; }
         public DbSet<ObraEstado> EstadosPEP { get; set; }
         public DbSet<ObraSubEstado> EstadosPEPSub { get; set; }
+        public DbSet<ElementosEnCalleCab> ElementosEnCalle { get; set; }
+        public DbSet<ElementosEnCalleDet> ElementosEnCalleD { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
