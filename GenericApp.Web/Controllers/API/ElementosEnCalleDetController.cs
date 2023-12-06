@@ -23,9 +23,9 @@ namespace GenericApp.Web.Controllers.API
         }
 
          [HttpGet("{id}")]
-        [Route("GetObrasNuevoSuministrosDet/{idElementosEnCalleCab}")]
+        [Route("GetElementosEnCalleDet/{idElementoCab}")]
 
-        public async Task<IActionResult> GetObrasNuevoSuministrosDet(int idElementosEnCalleCab)
+        public async Task<IActionResult> GetElementosEnCalleDet(int idElementoCab)
         {
             if (!ModelState.IsValid)
             {
@@ -33,7 +33,7 @@ namespace GenericApp.Web.Controllers.API
             }
 
             var elementosEnCalleDet = await _context.ElementosEnCalleD
-           .Where(o => (o.IDELEMENTOCAB == idElementosEnCalleCab))
+           .Where(o => (o.IDELEMENTOCAB == idElementoCab))
            .OrderBy(o => o.ID)
            .ToListAsync();
             if (elementosEnCalleDet == null)
@@ -45,8 +45,8 @@ namespace GenericApp.Web.Controllers.API
 
 
         [HttpPost]
-        [Route("PostObrasNuevoSuministrosDet")]
-        public async Task<IActionResult> PostObrasNuevoSuministrosDet([FromBody] ElementosEnCalleDet request)
+        [Route("PostElementosEnCalleDet")]
+        public async Task<IActionResult> PostElementosEnCalleDet([FromBody] ElementosEnCalleDet request)
         {
             if (!ModelState.IsValid)
             {
