@@ -59,6 +59,7 @@ namespace GenericApp.Web.Data
         public DbSet<ObraSubEstado> EstadosPEPSub { get; set; }
         public DbSet<ElementosEnCalleCab> ElementosEnCalle { get; set; }
         public DbSet<ElementosEnCalleDet> ElementosEnCalleD { get; set; }
+        public DbSet<ElemenEnCalleVist> ElemenEnCalleVista { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);

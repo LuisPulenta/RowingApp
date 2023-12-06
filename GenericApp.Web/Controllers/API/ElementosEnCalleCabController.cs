@@ -33,7 +33,8 @@ namespace GenericApp.Web.Controllers.API
                 return BadRequest();
             }
 
-            var elementosEnCalleCab = await _dataContext.ElementosEnCalle
+            var elementosEnCalleCab = await _dataContext.ElemenEnCalleVista
+                     .Where(o => o.ESTADO == "PENDIENTE")
                      .OrderBy(o => o.ID)
            .ToListAsync();
             if (elementosEnCalleCab == null)
