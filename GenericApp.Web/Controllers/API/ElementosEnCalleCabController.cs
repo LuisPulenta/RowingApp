@@ -36,6 +36,37 @@ namespace GenericApp.Web.Controllers.API
             var elementosEnCalleCab = await _dataContext.ElemenEnCalleVista
                      .Where(o => o.ESTADO == "PENDIENTE")
                      .OrderBy(o => o.ID)
+                        .GroupBy(r => new
+                        {
+                            r.IDELEMENTOCAB,
+                            r.IDUSERCARGA,
+                            r.NombreCarga,
+                            r.ApellidoCarga,
+                            r.NROOBRA,
+                            r.NombreObra,
+                            r.OBSERVACION,
+                            r.GRXX,
+                            r.GRYY,
+                            r.DOMICILIO,
+                            r.LINKFOTO,
+                            r.ESTADO
+                        })
+                         .Select(g => new
+                         {
+                             IDELEMENTOCAB = g.Key.IDELEMENTOCAB,
+                             IDUSERCARGA = g.Key.IDUSERCARGA,
+                             NombreCarga = g.Key.NombreCarga,
+                             ApellidoCarga = g.Key.ApellidoCarga,
+                             NROOBRA = g.Key.NROOBRA,
+                             NombreObra = g.Key.NombreObra,
+                             OBSERVACION = g.Key.OBSERVACION,
+                             GRXX = g.Key.GRXX,
+                             GRYY = g.Key.GRYY,
+                             DOMICILIO = g.Key.DOMICILIO,
+                             LINKFOTO = g.Key.LINKFOTO,
+                             ESTADO = g.Key.ESTADO,
+                             CantItems = g.Count(),
+                         })
            .ToListAsync();
             if (elementosEnCalleCab == null)
             {
