@@ -18,8 +18,5 @@ namespace GenericApp.Web.Data.Entities
         public string ESTADO { get; set; }
         public int? IDUSERRECUPERA { get; set; }
         public DateTime? FECHARECUPERO { get; set; }
-        public string ImageFullPath => string.IsNullOrEmpty(LINKFOTO)
-       ? $"http://190.111.249.225/RowingAppApi/images/ElemEnCalle/noimage.png"
-       : $"http://190.111.249.225/RowingAppApi{LINKFOTO.Substring(1)}";
     }
 }

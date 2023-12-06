@@ -30,5 +30,8 @@ namespace GenericApp.Web.Data.Entities
         public decimal CANTDEJADA { get; set; }
         public decimal CANTRECUPERADA { get; set; }
         public decimal CantPend { get; set; }
+        public string ImageFullPath => string.IsNullOrEmpty(LINKFOTO)
+       ? $"http://190.111.249.225/RowingAppApi/images/ElemEnCalle/noimage.png"
+       : $"http://190.111.249.225/RowingAppApi{LINKFOTO.Substring(1)}";
     }
 }
