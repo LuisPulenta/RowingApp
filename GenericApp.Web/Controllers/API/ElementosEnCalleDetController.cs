@@ -56,5 +56,26 @@ namespace GenericApp.Web.Controllers.API
             await _context.SaveChangesAsync();
             return Ok();
         }
+
+
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteElementosEnCalleDet([FromRoute] int id)
+        {
+            if (!ModelState.IsValid)
+            {
+                return this.BadRequest(ModelState);
+            }
+
+            var elementosEnCalleDet = await _context.ElementosEnCalleD
+                .FirstOrDefaultAsync(p => p.ID == id);
+            if (elementosEnCalleDet == null)
+            {
+                return this.NotFound();
+            }
+
+            _context.ElementosEnCalleD.Remove(elementosEnCalleDet);
+            await _context.SaveChangesAsync();
+            return Ok("Borrado");
+        }
     }
 }

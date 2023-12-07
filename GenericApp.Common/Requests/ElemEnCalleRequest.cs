@@ -4,6 +4,7 @@ namespace GenericApp.Common.Requests
 {
     public class ElemEnCalleRequest
     {
+        public int ID { get; set; }
         public int NROOBRA { get; set; }
         public int IDUSERCARGA { get; set; }
         public DateTime FECHA { get; set; }

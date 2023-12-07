@@ -128,5 +128,59 @@ namespace GenericApp.Web.Controllers.API
 
             return Ok(query);
         }
+
+
+        [HttpPut]
+        [Route("PutElementosEnCalleCab/{id}")]
+        public async Task<IActionResult> PutElementosEnCalleCab([FromRoute] int id, [FromBody] ElemEnCalleRequest request)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            if (id != request.ID)
+            {
+                return BadRequest();
+            }
+            var oldElemEnCalleCab = await _dataContext.ElementosEnCalle.FindAsync(request.ID);
+            if (oldElemEnCalleCab == null)
+            {
+                return BadRequest("El registro no existe.");
+            }
+
+            //Foto
+            string imageUrl = oldElemEnCalleCab.LINKFOTO;
+            if (request.ImageArray != null && request.ImageArray.Length > 0)
+            {
+                var stream = new MemoryStream(request.ImageArray);
+                var guid = Guid.NewGuid().ToString();
+                var file = $"{guid}.jpg";
+                var folder = "wwwroot\\images\\ElemEnCalle";
+                var fullPath = $"~/images/ElemEnCalle/{file}";
+                var response = _filesHelper.UploadPhoto(stream, folder, file);
+
+                if (response)
+                {
+                    imageUrl = fullPath;
+                }
+            }
+
+            oldElemEnCalleCab.GRXX = request.GRXX;
+            oldElemEnCalleCab.GRYY = request.GRYY;
+            oldElemEnCalleCab.NROOBRA = request.NROOBRA;
+            oldElemEnCalleCab.DOMICILIO = request.DOMICILIO;
+            oldElemEnCalleCab.OBSERVACION = request.OBSERVACION;
+            oldElemEnCalleCab.LINKFOTO = imageUrl;
+            oldElemEnCalleCab.ESTADO = request.ESTADO;
+            oldElemEnCalleCab.FECHA = request.FECHA;
+            oldElemEnCalleCab.FECHARECUPERO = request.FECHARECUPERO;
+            oldElemEnCalleCab.IDUSERCARGA = request.IDUSERCARGA;
+            oldElemEnCalleCab.IDUSERRECUPERA = request.IDUSERRECUPERA;
+
+            _dataContext.ElementosEnCalle.Update(oldElemEnCalleCab);
+            await _dataContext.SaveChangesAsync();
+            return Ok();
+        }
     }
 }
