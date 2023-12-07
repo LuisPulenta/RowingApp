@@ -202,5 +202,39 @@ namespace GenericApp.Web.Controllers.API
             await _dataContext.SaveChangesAsync();
             return Ok("Borrado");
         }
+
+        [HttpGet]
+        [Route("GetTotalesPorElemento")]
+        public async Task<IActionResult> GetTotalesPorElemento()
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest();
+            }
+
+            var totalesPorElemento = await _dataContext.ElemenEnCalleVista
+                     .Where(o => o.ESTADO == "PENDIENTE")
+                     .OrderBy(o => o.ID)
+                        .GroupBy(r => new
+                        {
+                            r.CATSIAG,
+                            r.CATSAP,
+                            r.Elemento
+                        })
+                         .Select(g => new
+                         {
+                             CATSIAG = g.Key.CATSIAG,
+                             CATSAP = g.Key.CATSAP,
+                             Elemento = g.Key.Elemento,
+                             CANTDEJADA = g.Sum(s => s.CANTDEJADA),
+                             
+                         })
+           .ToListAsync();
+            if (totalesPorElemento == null)
+            {
+                return BadRequest("No hay Elementos En Calle.");
+            }
+            return Ok(totalesPorElemento);
+        }
     }
 }
