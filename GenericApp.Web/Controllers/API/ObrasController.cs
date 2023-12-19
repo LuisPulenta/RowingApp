@@ -1,8 +1,10 @@
 ﻿using GenericApp.Common.Helpers;
 using GenericApp.Common.Requests;
 using GenericApp.Web.Data;
+using GenericApp.Web.Data.Entities;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -147,6 +149,55 @@ namespace GenericApp.Web.Controllers.API
                 return BadRequest("No hay SubEstados de Obras.");
             }
             return Ok(subestados);
+        }
+
+        [HttpPost]
+        [Route("GetObrasAsignacion/{ProyectoModulo}/{UserId}")]
+        public async Task<IActionResult> GetObrasAsignacion(string ProyectoModulo,int UserId)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest();
+            }
+
+            var obras = await _dataContext.VistaObrasAsignacionSubC
+           .Where(o => (
+           o.Modulo == ProyectoModulo 
+           && o.IDUSR == UserId
+           && (o.FechaCierre==null || o.FechaCierre > DateTime.Now.AddDays(-30)
+           )
+
+           ))
+           .OrderBy(o => o.NROOBRA)
+           .ToListAsync();
+            if (obras == null)
+            {
+                return BadRequest("No hay Obras.");
+            }
+            return Ok(obras);
+        }
+
+        [HttpPut]
+        [Route("PutObrasAsignacion/{id}")]
+        public async Task<IActionResult> PutObrasAsignacion([FromRoute] int id, [FromBody] ObrasAsignacionSub request)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            var oldObra = await _dataContext.ObrasAsignacionSubC.FindAsync(request.NROREGISTRO);
+            if (oldObra == null)
+            {
+                return BadRequest("La Obra no existe.");
+            }
+
+            oldObra.OBSERVACION = request.OBSERVACION;
+            oldObra.FechaCierre = request.FechaCierre;
+
+            _dataContext.ObrasAsignacionSubC.Update(oldObra);
+            await _dataContext.SaveChangesAsync();
+            return Ok();
         }
     }
 }
