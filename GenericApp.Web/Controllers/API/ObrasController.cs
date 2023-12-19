@@ -152,8 +152,8 @@ namespace GenericApp.Web.Controllers.API
         }
 
         [HttpPost]
-        [Route("GetObrasAsignacion/{ProyectoModulo}/{UserId}")]
-        public async Task<IActionResult> GetObrasAsignacion(string ProyectoModulo,int UserId)
+        [Route("GetObrasAsignacion/{ProyectoModulo}/{Causante}")]
+        public async Task<IActionResult> GetObrasAsignacion(string ProyectoModulo, string Causante)
         {
             if (!ModelState.IsValid)
             {
@@ -163,7 +163,7 @@ namespace GenericApp.Web.Controllers.API
             var obras = await _dataContext.VistaObrasAsignacionSubC
            .Where(o => (
            o.Modulo == ProyectoModulo 
-           && o.IDUSR == UserId
+           && o.CAUSANTE == Causante
            && (o.FechaCierre==null || o.FechaCierre > DateTime.Now.AddDays(-30)
            )
 
