@@ -278,6 +278,28 @@ namespace GenericApp.Web.Controllers.API
             return Ok(obras);
         }
 
+        [HttpGet]
+        [Route("GetObras2/{ProyectoModulo}")]
+        public async Task<IActionResult> GetObras2(string ProyectoModulo)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest();
+            }
+
+            var obras = await _dataContext.Obras
+            .Include(p => p.ObrasDocumentos)
+           .Where(o => (o.Finalizada == 0 && o.ULTIMAACTA == 0)
+           && (o.Modulo == ProyectoModulo))
+           .OrderBy(o => o.NroObra)
+           .ToListAsync();
+            if (obras == null)
+            {
+                return BadRequest("No hay Obras.");
+            }
+            return Ok(obras);
+        }
+
         [HttpPost]
         [Route("GetObras/{ProyectoModulo}")]
         public async Task<IActionResult> GetObras(string ProyectoModulo)
