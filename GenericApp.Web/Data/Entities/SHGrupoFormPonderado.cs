@@ -10,6 +10,6 @@ namespace GenericApp.Web.Data.Entities
         public string DESCRIPCION { get; set; }
         public int PONDERACIONPUNTOS { get; set; }
         public string CUMPLE { get; set; }
-
+        public int SoloTexto { get; set; }
     }
 }

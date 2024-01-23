@@ -3,6 +3,7 @@ using GenericApp.Common.Responses;
 using GenericApp.Web.Data;
 using GenericApp.Web.Data.Entities;
 using GenericApp.Web.Helpers;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System;

@@ -15,6 +15,7 @@ namespace GenericApp.Web.Data.Entities
         public int PonderacionPuntos { get; set; }
         public string Cumple { get; set; }
         public string LinkFoto { get; set; }
+        public string ObsAPP { get; set; }
 
         public string ImageFullPath => string.IsNullOrEmpty(LinkFoto)
         ? $"http://190.111.249.225/RowingAppApi/images/Inspecciones/noimage.png"
