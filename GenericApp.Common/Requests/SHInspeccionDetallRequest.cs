@@ -16,5 +16,6 @@ namespace GenericApp.Common.Requests
         public string Cumple { get; set; }
         public string LinkFoto { get; set; }
         public byte[] ImageArray { get; set; }
+        public string ObsApp { get; set; }
     }
 }

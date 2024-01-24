@@ -159,6 +159,7 @@ namespace GenericApp.Web.Controllers.API
                 InspeccionCab = request.InspeccionCab,
                 LinkFoto=imageUrl1,
                 PonderacionPuntos = request.PonderacionPuntos,
+                ObsAPP=request.ObsApp,
             };
 
             _dataContext.SHInspeccionDetalle.Add(inspeccionDetalle);
