@@ -190,6 +190,8 @@ namespace GenericApp.Web.Controllers.API
                 InspeccionCab = request.InspeccionCab,
                 LinkFoto = request.LinkFoto,
                 PonderacionPuntos = request.PonderacionPuntos,
+                ObsAPP = request.ObsApp,
+                SoloTexto = request.SoloTexto,
             };
 
             _dataContext.SHInspeccionDetalle.Add(inspeccionDetalle);
