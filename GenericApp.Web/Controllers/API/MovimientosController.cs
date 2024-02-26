@@ -1,6 +1,7 @@
 ﻿using GenericApp.Web.Data;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -28,7 +29,11 @@ namespace GenericApp.Web.Controllers.API
             }
 
             var movimientos = await _dataContext.Movimientos
-           .Where(o => o.UsrAlta == user)
+           .Where(o => 
+           o.UsrAlta == user && 
+           o.Recibido==1 && 
+           (o.CodigoConcepto=="101" || o.CodigoConcepto == "502") && 
+           o.FechaCarga.AddDays(10) >= DateTime.Now)
 
            .OrderBy(o => o.NroMovimiento)
            .ToListAsync();
