@@ -31,7 +31,7 @@ namespace GenericApp.Web.Controllers.API
             var movimientos = await _dataContext.Movimientos
            .Where(o => 
            o.UsrAlta == user && 
-           o.Recibido==1 && 
+           o.Recibido && 
            (o.CodigoConcepto=="101" || o.CodigoConcepto == "502") && 
            o.FechaCarga.AddDays(10) >= DateTime.Now)
 

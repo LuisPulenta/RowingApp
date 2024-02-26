@@ -18,6 +18,6 @@ namespace GenericApp.Web.Data.Entities
         public int? NroLote { get; set; }
         public int UsrAlta { get; set; }
         public string LinkRemito { get; set; }
-        public int Recibido { get; set; }
+        public bool Recibido { get; set; }
     }
 }
