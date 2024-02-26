@@ -15,7 +15,7 @@ namespace GenericApp.Web.Data.Entities
         public string CodigoCausanteRec { get; set; }
         public int NroRemitoR { get; set; }
         public string DocSAP { get; set; }
-        public int NroLote { get; set; }
+        public int? NroLote { get; set; }
         public int UsrAlta { get; set; }
         public string LinkRemito { get; set; }
     }
