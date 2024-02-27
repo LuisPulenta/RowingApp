@@ -27,6 +27,7 @@ namespace GenericApp.Web.Controllers.API
             _imageHelper = imageHelper;
         }
 
+        //-----------------------------------------------------------------------------------
         [HttpPost]
         [Route("GetUserByEmail")]
         public async Task<IActionResult> GetUser(UsuarioRequest userRequest)
@@ -129,6 +130,7 @@ namespace GenericApp.Web.Controllers.API
             return Ok(response);
         }
 
+        //-----------------------------------------------------------------------------------
         [HttpPost]
         [Route("GetUserByLogin")]
         public async Task<IActionResult> GetUserByLogin(UsuarioRequest userRequest)
@@ -184,7 +186,7 @@ namespace GenericApp.Web.Controllers.API
             return Ok(response);
         }
 
-
+        //-----------------------------------------------------------------------------------
         [HttpPut("{login}")]
         [Route("ReactivaUsuario")]
         public async Task<IActionResult> ReactivaUsuario([FromRoute] string login, [FromBody] UsuarioAutorizaRequest request)
@@ -216,6 +218,7 @@ namespace GenericApp.Web.Controllers.API
             return Ok();
         }
 
+        //-----------------------------------------------------------------------------------
         [HttpGet]
         [Route("GetObrasEnergia")]
         public async Task<IActionResult> GetObrasEnergia()
@@ -238,6 +241,7 @@ namespace GenericApp.Web.Controllers.API
             return Ok(obras);
         }
 
+        //-----------------------------------------------------------------------------------
         [HttpGet]
         [Route("GetObrasObrasTasa")]
         public async Task<IActionResult> GetObrasObrasTasa()
@@ -260,6 +264,7 @@ namespace GenericApp.Web.Controllers.API
             return Ok(obras);
         }
 
+        //-----------------------------------------------------------------------------------
         [HttpGet]
         [Route("GetObrasRowing")]
         public async Task<IActionResult> GetObrasRowing()
@@ -282,6 +287,7 @@ namespace GenericApp.Web.Controllers.API
             return Ok(obras);
         }
 
+        //-----------------------------------------------------------------------------------
         [HttpGet]
         [Route("GetObras2/{ProyectoModulo}")]
         public async Task<IActionResult> GetObras2(string ProyectoModulo)
@@ -304,6 +310,7 @@ namespace GenericApp.Web.Controllers.API
             return Ok(obras);
         }
 
+        //-----------------------------------------------------------------------------------
         [HttpPost]
         [Route("GetObras/{ProyectoModulo}")]
         public async Task<IActionResult> GetObras(string ProyectoModulo)
@@ -326,6 +333,7 @@ namespace GenericApp.Web.Controllers.API
             return Ok(obras);
         }
 
+        //-----------------------------------------------------------------------------------
         [HttpPost]
         [Route("GetObrasTodas/{ProyectoModulo}")]
         public async Task<IActionResult> GetObrasTodas(string ProyectoModulo)
@@ -356,6 +364,7 @@ namespace GenericApp.Web.Controllers.API
             return Ok(obras);
         }
 
+        //-----------------------------------------------------------------------------------
         [HttpPost]
         [Route("GetObrasTodas")]
         public async Task<IActionResult> GetObrasTodas()
@@ -377,6 +386,7 @@ namespace GenericApp.Web.Controllers.API
             return Ok(obras);
         }
 
+        //-----------------------------------------------------------------------------------
         [HttpGet]
         [Route("GetObrasReclamosRowing")]
         public IActionResult GetObrasReclamosRowing()
@@ -386,6 +396,7 @@ namespace GenericApp.Web.Controllers.API
                 );
         }
 
+        //-----------------------------------------------------------------------------------
         [HttpGet]
         [Route("GetObrasReclamosEnergia")]
         public IActionResult GetObrasReclamosEnergia()
@@ -395,6 +406,7 @@ namespace GenericApp.Web.Controllers.API
                 );
         }
 
+        //-----------------------------------------------------------------------------------
         [HttpGet]
         [Route("GetObrasReclamosObrasTasa")]
         public IActionResult GetObrasReclamosObrasTasa()
@@ -404,6 +416,7 @@ namespace GenericApp.Web.Controllers.API
                 );
         }
 
+        //-----------------------------------------------------------------------------------
         [HttpPost]
         [Route("GetObrasReclamos/{ProyectoModulo}")]
         public IActionResult GetObrasReclamos(string ProyectoModulo)
@@ -413,6 +426,7 @@ namespace GenericApp.Web.Controllers.API
                 );
         }
 
+        //-----------------------------------------------------------------------------------
         [HttpPost]
         [Route("GetObrasReclamosTodas")]
         public IActionResult GetObrasReclamosTodas()
@@ -422,8 +436,7 @@ namespace GenericApp.Web.Controllers.API
                 );
         }
 
-
-
+        //-----------------------------------------------------------------------------------
         [HttpGet("{id}")]
         [Route("GetObra/{id}")]
         public async Task<ActionResult<Obra>> GetObra(int id)
@@ -438,6 +451,7 @@ namespace GenericApp.Web.Controllers.API
             return obra;
         }
 
+        //-----------------------------------------------------------------------------------
         [HttpPost]
         [Route("GetObrasEPP/{ProyectoModulo}")]
         public IActionResult GetObrasEPP(string ProyectoModulo)

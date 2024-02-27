@@ -92,5 +92,19 @@ namespace GenericApp.Web.Controllers.API
             await _dataContext.SaveChangesAsync();
             return Ok();
         }
+
+        //-----------------------------------------------------------------------------------
+        [HttpGet("{id}")]
+        [Route("GetMovimiento/{id}")]
+        public async Task<ActionResult<Movimiento>> GetMovimiento(int id)
+        {
+            Movimiento movimiento = await _dataContext.Movimientos
+                .FirstOrDefaultAsync(x => x.NroMovimiento == id);
+            if (movimiento == null)
+            {
+                return NotFound();
+            }
+            return movimiento;
+        }
     }
 }
