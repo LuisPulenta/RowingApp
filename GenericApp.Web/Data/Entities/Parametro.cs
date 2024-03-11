@@ -10,5 +10,6 @@ namespace GenericApp.Web.Data.Entities
         public string IPServ { get; set; }
         public int Metros { get; set; }
         public int Tiempo { get; set; }
+        public int APPBloqueada { get; set; }        
     }        
 }
