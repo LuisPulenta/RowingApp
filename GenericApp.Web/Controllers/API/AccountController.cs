@@ -208,39 +208,15 @@ namespace GenericApp.Web.Controllers.API
                 return BadRequest("El Usuario no existe.");
             }
 
-            oldUsuario.Estado = 1;
-            oldUsuario.FechaCaduca = request.FechaCaduca;
-            oldUsuario.IntentosInvDiario = 0;
-            oldUsuario.OpeAutorizo = request.IdUsuarioAutoriza;
-
-            _dataContext.Usuarios.Update(oldUsuario);
-            await _dataContext.SaveChangesAsync();
-            return Ok();
-        }
-
-        //-----------------------------------------------------------------------------------
-        [HttpPut("{login}")]
-        [Route("DesactivaUsuario")]
-        public async Task<IActionResult> DesactivaUsuario([FromRoute] string login, [FromBody] UsuarioAutorizaRequest request)
-        {
-            if (!ModelState.IsValid)
+            if (oldUsuario.Estado == 0)
             {
-                return BadRequest(ModelState);
+                oldUsuario.Estado = 1;
+            }
+            else
+            {
+                oldUsuario.Estado = 0;
             }
 
-            if (login != request.Login)
-            {
-                return BadRequest();
-            }
-
-            var oldUsuario = await _dataContext.Usuarios.FirstOrDefaultAsync(x => x.Login == request.Login);
-
-            if (oldUsuario == null)
-            {
-                return BadRequest("El Usuario no existe.");
-            }
-
-            oldUsuario.Estado = 0;
             oldUsuario.FechaCaduca = request.FechaCaduca;
             oldUsuario.IntentosInvDiario = 0;
             oldUsuario.OpeAutorizo = request.IdUsuarioAutoriza;
