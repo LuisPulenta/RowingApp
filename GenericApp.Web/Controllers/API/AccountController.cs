@@ -219,6 +219,38 @@ namespace GenericApp.Web.Controllers.API
         }
 
         //-----------------------------------------------------------------------------------
+        [HttpPut("{login}")]
+        [Route("DesactivaUsuario")]
+        public async Task<IActionResult> DesactivaUsuario([FromRoute] string login, [FromBody] UsuarioAutorizaRequest request)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            if (login != request.Login)
+            {
+                return BadRequest();
+            }
+
+            var oldUsuario = await _dataContext.Usuarios.FirstOrDefaultAsync(x => x.Login == request.Login);
+
+            if (oldUsuario == null)
+            {
+                return BadRequest("El Usuario no existe.");
+            }
+
+            oldUsuario.Estado = 0;
+            oldUsuario.FechaCaduca = request.FechaCaduca;
+            oldUsuario.IntentosInvDiario = 0;
+            oldUsuario.OpeAutorizo = request.IdUsuarioAutoriza;
+
+            _dataContext.Usuarios.Update(oldUsuario);
+            await _dataContext.SaveChangesAsync();
+            return Ok();
+        }
+
+        //-----------------------------------------------------------------------------------
         [HttpGet]
         [Route("GetObrasEnergia")]
         public async Task<IActionResult> GetObrasEnergia()
