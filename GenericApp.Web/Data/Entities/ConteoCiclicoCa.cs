@@ -21,5 +21,6 @@ namespace GenericApp.Web.Data.Entities
         public int IdMov902 { get; set; }
         public decimal Monto902 { get; set; }
         public int ProcesadoGaos { get; set; }
+        public string nombre { get; set; }
     }
 }

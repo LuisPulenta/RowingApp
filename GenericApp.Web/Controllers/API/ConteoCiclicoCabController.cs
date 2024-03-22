@@ -28,7 +28,7 @@ namespace GenericApp.Web.Controllers.API
                 return BadRequest();
             }
 
-            var conteos = await _dataContext.ConteoCiclicoCab
+            var conteos = await _dataContext.VistaConteoCiclicoCab
            .Where(o => ((o.IdUserAsignado == iDUser) && (o.ProcesadoGaos == 0))
            )
 
