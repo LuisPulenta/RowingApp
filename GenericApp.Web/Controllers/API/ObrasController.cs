@@ -164,7 +164,7 @@ namespace GenericApp.Web.Controllers.API
            .Where(o => (
            o.Modulo == ProyectoModulo 
            && o.CAUSANTE == Causante
-           && (o.FechaCierre==null || o.FechaCierre > DateTime.Now.AddDays(-30)
+           && (o.FechaCierre==null || o.FechaCierre > DateTime.Now.AddDays(-1)
            )
 
            ))
