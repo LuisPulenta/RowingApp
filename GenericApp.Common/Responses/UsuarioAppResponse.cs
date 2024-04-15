@@ -36,6 +36,7 @@
         public byte? RUBRO { get; set; }
         public string FirmaUsuario { get; set; }
         public byte? CONCEPTOMOV { get; set; }
+        public string AppIMEI { get; set; }
         public string FirmaUsuarioImageFullPath => string.IsNullOrEmpty(FirmaUsuario)
       ? $"http://190.111.249.225/RowingAppApi/images/ObrasSuministros/noimage.png"
       : $"http://190.111.249.225/RowingAppApi{FirmaUsuario.Substring(1)}";

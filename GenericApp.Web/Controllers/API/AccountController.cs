@@ -84,7 +84,7 @@ namespace GenericApp.Web.Controllers.API
                     CONCEPTOMOVA = 0,
                     LimitarGrupo = 0,
                     RUBRO = 0,
-                    CONCEPTOMOV=0
+                    CONCEPTOMOV=0,
                 };
 
                 return Ok(response2);
@@ -125,6 +125,7 @@ namespace GenericApp.Web.Controllers.API
                 FirmaUsuario = user.FirmaUsuario,
                 RUBRO = user.RUBRO,
                 CONCEPTOMOV=user.CONCEPTOMOV,
+                AppIMEI=user.AppIMEI,
             };
 
             return Ok(response);
@@ -182,6 +183,7 @@ namespace GenericApp.Web.Controllers.API
                 LimitarGrupo = user.LimitarGrupo,
                 RUBRO = user.RUBRO,
                 CONCEPTOMOV=user.CONCEPTOMOV,
+                AppIMEI=user.AppIMEI,
             };
             return Ok(response);
         }
