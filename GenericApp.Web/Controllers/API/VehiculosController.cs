@@ -25,7 +25,7 @@ namespace GenericApp.Web.Controllers.API
         public async Task<ActionResult<Data.Entities.Causante>> GetVehiculoByChapa(string chapa)
         {
             Data.Entities.Vehiculo vehiculo = await _dataContext.Vehiculos
-                .FirstOrDefaultAsync(o => o.NUMCHA.ToLower() == chapa.ToLower() && o.Habilitado==1);
+                .FirstOrDefaultAsync(o => o.NUMCHA.ToLower() == chapa.ToLower());
 
             if (vehiculo == null)
             {
@@ -53,6 +53,7 @@ namespace GenericApp.Web.Controllers.API
                 PropiedadDe = vehiculo.PropiedadDe,
                 Telepase = vehiculo.Telepase,
                 UsaHoras = vehiculo.UsaHoras,
+                HabilitaChecklist=vehiculo.HabilitaChecklist,
             };
             return Ok(response); 
 
