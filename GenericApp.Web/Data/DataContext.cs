@@ -63,8 +63,9 @@ namespace GenericApp.Web.Data
         public DbSet<ObrasAsignacionSub> ObrasAsignacionSubC { get; set; }
         public DbSet<VistaObrasAsignacionSub> VistaObrasAsignacionSubC { get; set; }
         public DbSet<CabeceraCertificacio> CabeceraCertificacion { get; set; }
-
-
+        public DbSet<CabeceraCertificacionObjeto> CabeceraCertificacionObjetos { get; set; }
+        public DbSet<CodigosProduccio> CodigosProduccion { get; set; }
+        
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
