@@ -10,6 +10,9 @@ namespace GenericApp.Web.Data.Entities
         [Key]
         public int NroObra { get; set; }
         public string NombreObra { get; set; }
+        public string NroOE { get; set; }
+        public string DefProy { get; set; }
+        public string Central { get; set; }
         public string ELEMPEP { get; set; }
         public string OBSERVACIONES { get; set; }
         public int Finalizada { get; set; }
