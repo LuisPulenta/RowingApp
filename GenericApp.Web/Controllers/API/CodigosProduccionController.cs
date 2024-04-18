@@ -1,4 +1,5 @@
-﻿using GenericApp.Web.Data;
+﻿using GenericApp.Common.Requests;
+using GenericApp.Web.Data;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Linq;
@@ -19,13 +20,13 @@ namespace GenericApp.Web.Controllers.API
         [HttpPost]
         [Route("GetCodigos")]
 
-        public IActionResult GetCodigos()
+        public IActionResult GetCodigos(DateRequest request)
         {
-            var talleres = (_dataContext.CodigosProduccion
-                .Where(o => o.FECHAMINIMA.AddDays(30) > DateTime.Now && o.FECHAMAXIMA.AddDays(-15) < DateTime.Now)
-                .OrderBy(o => o.CODIGO));
 
-            return Ok(talleres);
+            var codigos = (_dataContext.CodigosProduccion
+                .Where(o => o.FECHAMINIMA.AddDays(30) > request.Fecha && o.FECHAMAXIMA.AddDays(-15) < request.Fecha)
+                .OrderBy(o => o.CODIGO));
+            return Ok(codigos);
         }
     }
 }
