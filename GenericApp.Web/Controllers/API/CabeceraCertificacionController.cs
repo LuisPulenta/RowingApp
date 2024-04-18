@@ -96,5 +96,26 @@ namespace GenericApp.Web.Controllers.API
             await _dataContext.SaveChangesAsync();
             return Ok();
         }
+
+        //---------------------------------------------------------------------------------------------------
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteCabeceraCertificacion([FromRoute] int id)
+        {
+            if (!ModelState.IsValid)
+            {
+                return this.BadRequest(ModelState);
+            }
+
+            var cabeceraCertificacion = await _dataContext.CabeceraCertificacion
+                .FirstOrDefaultAsync(p => p.ID == id);
+            if (cabeceraCertificacion == null)
+            {
+                return this.NotFound();
+            }
+
+            _dataContext.CabeceraCertificacion.Remove(cabeceraCertificacion);
+            await _dataContext.SaveChangesAsync();
+            return Ok("Cabecera Certificación borrada");
+        }
     }
 }
