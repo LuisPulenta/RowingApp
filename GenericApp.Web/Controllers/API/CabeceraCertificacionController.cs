@@ -1,5 +1,4 @@
-﻿using GenericApp.Common.Helpers;
-using GenericApp.Web.Data;
+﻿using GenericApp.Web.Data;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -10,15 +9,13 @@ namespace GenericApp.Web.Controllers.API
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class CabeceraCertificacion : ControllerBase
+    public class CabeceraCertificacionController : ControllerBase
     {
         private readonly DataContext _dataContext;
-        private readonly IFilesHelper _filesHelper;
 
-        public CabeceraCertificacion(DataContext dataContext,IFilesHelper filesHelper)
+        public CabeceraCertificacionController(DataContext dataContext)
         {
             _dataContext = dataContext;
-            _filesHelper = filesHelper;
         }
 
         //---------------------------------------------------------------------------------------------------

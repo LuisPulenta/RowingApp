@@ -65,7 +65,8 @@ namespace GenericApp.Web.Data
         public DbSet<CabeceraCertificacio> CabeceraCertificacion { get; set; }
         public DbSet<CabeceraCertificacionObjeto> CabeceraCertificacionObjetos { get; set; }
         public DbSet<CodigosProduccio> CodigosProduccion { get; set; }
-        
+        public DbSet<CausantesObra> CausantesObras { get; set; }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
