@@ -1,4 +1,5 @@
 ﻿using GenericApp.Web.Data;
+using GenericApp.Web.Data.Entities;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -19,9 +20,7 @@ namespace GenericApp.Web.Controllers.API
         }
 
         //---------------------------------------------------------------------------------------------------
-        [HttpPut]
-        [Route("PutDatosObra/{id}")]
-
+       
         [HttpPost]
         [Route("GetCabeceraCertificacion/{ProyectoModulo}/{UserId}")]
         public async Task<IActionResult> GetCabeceraCertificacion(string ProyectoModulo, int UserId)
@@ -60,38 +59,42 @@ namespace GenericApp.Web.Controllers.API
 
         //---------------------------------------------------------------------------------------------------
 
-        //public async Task<IActionResult> PutDatosObra([FromRoute] int id, [FromBody] ObraDatosRequest request)
-        //{
-        //    if (!ModelState.IsValid)
-        //    {
-        //        return BadRequest(ModelState);
-        //    }
+        [HttpPost]
+        [Route("PostCabeceraCertificacion")]
+        public async Task<IActionResult> PostCabeceraCertificacion([FromBody] CabeceraCertificacio request)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
 
-        //    if (id != request.NroObra)
-        //    {
-        //        return BadRequest();
-        //    }
+            _dataContext.CabeceraCertificacion.Add(request);
+            await _dataContext.SaveChangesAsync();
+            return Ok();
+        }
 
-        //    var oldObra = await _dataContext.Obras.FindAsync(request.NroObra);
-        //    if (oldObra == null)
-        //    {
-        //        return BadRequest("La Obra no existe.");
-        //    }
+        //---------------------------------------------------------------------------------------------------
+        public async Task<IActionResult> PutCabeceraCertificacion([FromRoute] int id, [FromBody] CabeceraCertificacio request)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
 
-        //    oldObra.POSX = request.POSX;
-        //    oldObra.POSY = request.POSY;
-        //    oldObra.Direccion = request.Direccion;
-        //    oldObra.TextoLocalizacion = request.TextoLocalizacion;
-        //    oldObra.TextoClase = request.TextoClase;
-        //    oldObra.TextoTipo = request.TextoTipo;
-        //    oldObra.TextoComponente = request.TextoComponente;
-        //    oldObra.CodigoDiametro = request.CodigoDiametro;
-        //    oldObra.Motivo = request.Motivo;
-        //    oldObra.Planos = request.Planos;
+            if (id != request.ID)
+            {
+                return BadRequest();
+            }
 
-        //    _dataContext.Obras.Update(oldObra);
-        //    await _dataContext.SaveChangesAsync();
-        //    return Ok();
-        //}
+            var oldCabeceraCertificacio = await _dataContext.CabeceraCertificacion.FindAsync(request.ID);
+            if (oldCabeceraCertificacio == null)
+            {
+                return BadRequest("La CabeceraCertificacion no existe.");
+            }
+
+            _dataContext.CabeceraCertificacion.Update(request);
+            await _dataContext.SaveChangesAsync();
+            return Ok();
+        }
     }
 }
