@@ -16,11 +16,12 @@ namespace GenericApp.Web.Controllers.API
         }
 
         [HttpPost]
-        [Route("GetObjetos")]
+        [Route("GetObjetos/{Modulo}")]
 
-        public IActionResult GetObjetos()
+        public IActionResult GetObjetos(string Modulo)
         {
             var talleres = (_dataContext.CabeceraCertificacionObjetos
+                .Where(o => o.Modulo == Modulo)
                 .OrderBy(o => o.OBJETOS));
 
             return Ok(talleres);

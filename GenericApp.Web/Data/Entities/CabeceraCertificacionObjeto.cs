@@ -6,5 +6,6 @@ namespace GenericApp.Web.Data.Entities
     {
         [Key]
         public string OBJETOS { get; set; }
+        public string Modulo { get; set; }
     }
 }
