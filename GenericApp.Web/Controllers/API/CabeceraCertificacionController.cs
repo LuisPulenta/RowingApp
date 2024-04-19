@@ -74,6 +74,7 @@ namespace GenericApp.Web.Controllers.API
         }
 
         //---------------------------------------------------------------------------------------------------
+        [HttpPut("{id}")]
         public async Task<IActionResult> PutCabeceraCertificacion([FromRoute] int id, [FromBody] CabeceraCertificacio request)
         {
             if (!ModelState.IsValid)
@@ -92,7 +93,28 @@ namespace GenericApp.Web.Controllers.API
                 return BadRequest("La CabeceraCertificacion no existe.");
             }
 
-            _dataContext.CabeceraCertificacion.Update(request);
+            oldCabeceraCertificacio.NROOBRA = request.NROOBRA;
+            oldCabeceraCertificacio.DefProy = request.DefProy;
+            oldCabeceraCertificacio.NombreObra = request.NombreObra;
+            oldCabeceraCertificacio.NroOE = request.NroOE;
+            oldCabeceraCertificacio.subCodigo = request.subCodigo;
+            oldCabeceraCertificacio.CENTRAL = request.CENTRAL;
+            oldCabeceraCertificacio.OBSERVACION = request.OBSERVACION;
+            oldCabeceraCertificacio.FECHACORRESPONDENCIA = request.FECHACORRESPONDENCIA;
+            oldCabeceraCertificacio.CODIGOPRODUCCION = request.CODIGOPRODUCCION;
+            oldCabeceraCertificacio.VALORTOTALC = request.VALORTOTALC;
+            oldCabeceraCertificacio.VALORTOTALT = request.VALORTOTALT;
+            oldCabeceraCertificacio.CodCausanteC = request.CodCausanteC;
+            oldCabeceraCertificacio.MesImputacion = request.MesImputacion;
+            oldCabeceraCertificacio.Objeto = request.Objeto;
+            oldCabeceraCertificacio.PorcActa = request.PorcActa;
+            oldCabeceraCertificacio.CENTRAL = request.CENTRAL;
+
+            oldCabeceraCertificacio.VALOR90 = request.VALORTOTALC;
+            oldCabeceraCertificacio.VALORTOTAL = request.VALORTOTALC;
+            oldCabeceraCertificacio.PRECIO90 = request.VALORTOTALC;
+
+            _dataContext.CabeceraCertificacion.Update(oldCabeceraCertificacio);
             await _dataContext.SaveChangesAsync();
             return Ok();
         }
