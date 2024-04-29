@@ -86,6 +86,7 @@ namespace GenericApp.Web.Controllers.API
                     LimitarGrupo = 0,
                     RUBRO = 0,
                     CONCEPTOMOV=0,
+                    HabilitaInstalacionesAPP=user2.HabilitaInstalacionesAPP
                 };
 
                 return Ok(response2);
@@ -128,6 +129,7 @@ namespace GenericApp.Web.Controllers.API
                 RUBRO = user.RUBRO,
                 CONCEPTOMOV=user.CONCEPTOMOV,
                 AppIMEI=user.AppIMEI,
+                HabilitaInstalacionesAPP=0
             };
 
             return Ok(response);
@@ -187,6 +189,7 @@ namespace GenericApp.Web.Controllers.API
                 RUBRO = user.RUBRO,
                 CONCEPTOMOV=user.CONCEPTOMOV,
                 AppIMEI=user.AppIMEI,
+                HabilitaInstalacionesAPP=0
             };
             return Ok(response);
         }
