@@ -86,7 +86,8 @@ namespace GenericApp.Web.Controllers.API
                     LimitarGrupo = 0,
                     RUBRO = 0,
                     CONCEPTOMOV=0,
-                    HabilitaInstalacionesAPP=user2.HabilitaInstalacionesAPP
+                    HabilitaInstalacionesAPP=user2.HabilitaInstalacionesAPP,
+                    grupo=user2.grupo
                 };
 
                 return Ok(response2);
