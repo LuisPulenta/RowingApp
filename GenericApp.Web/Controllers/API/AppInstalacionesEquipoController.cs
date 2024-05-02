@@ -38,7 +38,7 @@ namespace GenericApp.Web.Controllers.API
             var instalaciones = await _dataContext.AppInstalacionesEquipos
            .Where(o => (
            o.IdUsuario == UserId
-           && (o.Fecha > DateTime.Now.AddDays(-1)
+           && (o.Fecha > DateTime.Now.AddDays(-2)
            )
 
            ))
