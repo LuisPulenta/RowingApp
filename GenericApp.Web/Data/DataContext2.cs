@@ -25,5 +25,6 @@ namespace GenericApp.Web.Data
         public DbSet<ConteoCiclicoDe> ConteoCiclicoDet { get; set; }
         public DbSet<VehiculosPartesTurno> VehiculosPartesTurnos { get; set; }
         public DbSet<Movimiento> Movimientos { get; set; }
+        public DbSet<AppInstalacionesEquipo> AppInstalacionesEquipos { get; set; }
     }
 }
