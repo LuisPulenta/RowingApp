@@ -38,7 +38,7 @@ namespace GenericApp.Web.Controllers.API
             var instalaciones = await _dataContext.AppInstalacionesEquipos
            .Where(o => (
            o.IdUsuario == UserId
-           && (o.Fecha > DateTime.Now.AddDays(-5)
+           && (o.Fecha > DateTime.Now.AddDays(-1)
            )
 
            ))
@@ -109,53 +109,69 @@ namespace GenericApp.Web.Controllers.API
         }
 
         //---------------------------------------------------------------------------------------------------
-        //[HttpPut("{id}")]
-        //public async Task<IActionResult> PutCabeceraCertificacion([FromRoute] int id, [FromBody] CabeceraCertificacio request)
-        //{
-        //    if (!ModelState.IsValid)
-        //    {
-        //        return BadRequest(ModelState);
-        //    }
+        [HttpPut("{id}")]
+        public async Task<IActionResult> PutAppInstalacionesEquipo([FromRoute] int id, [FromBody] AppInstalacionesEquipoRequest request)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
 
-        //    if (id != request.ID)
-        //    {
-        //        return BadRequest();
-        //    }
+            if (id != request.IDRegistro)
+            {
+                return BadRequest();
+            }
 
-        //    var oldCabeceraCertificacio = await _dataContext.CabeceraCertificacion.FindAsync(request.ID);
-        //    if (oldCabeceraCertificacio == null)
-        //    {
-        //        return BadRequest("La CabeceraCertificacion no existe.");
-        //    }
+            var oldInstalacion = await _dataContext.AppInstalacionesEquipos.FindAsync(request.IDRegistro);
+            if (oldInstalacion == null)
+            {
+                return BadRequest("La Instalación no existe.");
+            }
 
-        //    oldCabeceraCertificacio.NROOBRA = request.NROOBRA;
-        //    oldCabeceraCertificacio.DefProy = request.DefProy;
-        //    oldCabeceraCertificacio.NombreObra = request.NombreObra;
-        //    oldCabeceraCertificacio.NroOE = request.NroOE;
-        //    oldCabeceraCertificacio.subCodigo = request.subCodigo;
-        //    oldCabeceraCertificacio.CENTRAL = request.CENTRAL;
-        //    oldCabeceraCertificacio.OBSERVACION = request.OBSERVACION;
-        //    oldCabeceraCertificacio.FECHACORRESPONDENCIA = request.FECHACORRESPONDENCIA;
-        //    oldCabeceraCertificacio.CODIGOPRODUCCION = request.CODIGOPRODUCCION;
-        //    oldCabeceraCertificacio.VALORTOTALC = request.VALORTOTALC;
-        //    oldCabeceraCertificacio.VALORTOTALT = request.VALORTOTALT;
-        //    oldCabeceraCertificacio.CodCausanteC = request.CodCausanteC;
-        //    oldCabeceraCertificacio.MesImputacion = request.MesImputacion;
-        //    oldCabeceraCertificacio.Objeto = request.Objeto;
-        //    oldCabeceraCertificacio.PorcActa = request.PorcActa;
-        //    oldCabeceraCertificacio.CENTRAL = request.CENTRAL;
+            string imageFirmaCliente = oldInstalacion.Firmacliente;
 
-        //    oldCabeceraCertificacio.VALOR90 = request.VALORTOTALC;
-        //    oldCabeceraCertificacio.VALORTOTAL = request.VALORTOTALC;
-        //    oldCabeceraCertificacio.PRECIO90 = request.VALORTOTALC;
+            if (request.ImageArrayFIRMACLIENTE != null && request.ImageArrayFIRMACLIENTE.Length > 0)
+            {
 
-        //    _dataContext.CabeceraCertificacion.Update(oldCabeceraCertificacio);
-        //    await _dataContext.SaveChangesAsync();
-        //    return Ok();
-        //}
+                var stream = new MemoryStream(request.ImageArrayFIRMACLIENTE);
+                var guid = Guid.NewGuid().ToString();
+                var file = $"{guid}.jpg";
+                var folder = "wwwroot\\images\\Instalaciones";
+                var fullPath = $"~/images/Instalaciones/{file}";
+                var response = _filesHelper.UploadPhoto(stream, folder, file);
 
-    //---------------------------------------------------------------------------------------------------
-    [HttpDelete("{id}")]
+                if (response)
+                {
+                    imageFirmaCliente = fullPath;
+                }                
+            }
+
+            oldInstalacion.ApellidoCliente = request.ApellidoCliente;
+            oldInstalacion.Causante = request.Causante;
+            oldInstalacion.Documento = request.Documento;
+            oldInstalacion.DomicilioInstalacion = request.DomicilioInstalacion;
+            oldInstalacion.EntreCalles = request.EntreCalles;
+            oldInstalacion.EsAveria = request.EsAveria;
+            oldInstalacion.Fecha = request.Fecha;
+            oldInstalacion.FechaInstalacion = request.FechaInstalacion;
+            oldInstalacion.Firmacliente = imageFirmaCliente;
+            oldInstalacion.Grupo = request.Grupo;
+            oldInstalacion.Imei = request.Imei;
+            oldInstalacion.Latitud = request.Latitud;
+            oldInstalacion.Longitud = request.Longitud;
+            oldInstalacion.NombreApellidoFirmante = request.NombreApellidoFirmante;
+            oldInstalacion.NombreCliente = request.NombreCliente;
+            oldInstalacion.NroObra = request.NroObra;
+            oldInstalacion.Pedido = request.Pedido;
+            oldInstalacion.TipoInstalacion = request.TipoInstalacion;
+            
+            _dataContext.AppInstalacionesEquipos.Update(oldInstalacion);
+            await _dataContext.SaveChangesAsync();
+            return Ok();
+        }
+
+        //---------------------------------------------------------------------------------------------------
+        [HttpDelete("{id}")]
     public async Task<IActionResult> DeleteAppInstalacionesEquipo([FromRoute] int id)
     {
         if (!ModelState.IsValid)

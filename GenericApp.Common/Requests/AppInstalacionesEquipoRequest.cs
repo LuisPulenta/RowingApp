@@ -6,6 +6,7 @@ namespace GenericApp.Common.Requests
 {
     public class AppInstalacionesEquipoRequest
     {
+        public int IDRegistro { get; set; }
         public int NroObra { get; set; }
         public int IdUsuario { get; set; }
         public string Imei { get; set; }
