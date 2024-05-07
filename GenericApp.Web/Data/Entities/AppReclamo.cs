@@ -20,7 +20,6 @@ namespace GenericApp.Web.Data.Entities
         public string CodPostal { get; set; }
         public string Nis { get; set; }
         public string NroCuenta { get; set; }
-        public string Contacto { get; set; }
         public string CoincideDireccion { get; set; }
         public string DireccionContacto { get; set; }
         public string LocalidadContacto { get; set; }
