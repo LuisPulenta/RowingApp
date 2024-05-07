@@ -90,7 +90,7 @@ namespace GenericApp.Web.Controllers.API
             {
                 var stream4 = new MemoryStream(request.ArrayPdf1);
                 var guid4 = Guid.NewGuid().ToString();
-                var file4 = $"{guid4}.jpg";
+                var file4 = $"{guid4}.pdf";
                 var folder4 = "wwwroot\\images\\AppReclamos";
                 var fullPath4 = $"~/images/AppReclamos/{file4}";
                 var response4 = _filesHelper.UploadPhoto(stream4, folder4, file4);
@@ -107,7 +107,7 @@ namespace GenericApp.Web.Controllers.API
             {
                 var stream5 = new MemoryStream(request.ArrayPdf2);
                 var guid5 = Guid.NewGuid().ToString();
-                var file5 = $"{guid5}.jpg";
+                var file5 = $"{guid5}.pdf";
                 var folder5 = "wwwroot\\images\\AppReclamos";
                 var fullPath5 = $"~/images/AppReclamos/{file5}";
                 var response5 = _filesHelper.UploadPhoto(stream5, folder5, file5);
@@ -124,7 +124,7 @@ namespace GenericApp.Web.Controllers.API
             {
                 var stream6 = new MemoryStream(request.ArrayPdf3);
                 var guid6 = Guid.NewGuid().ToString();
-                var file6 = $"{guid6}.jpg";
+                var file6 = $"{guid6}.pdf";
                 var folder6 = "wwwroot\\images\\AppReclamos";
                 var fullPath6 = $"~/images/AppReclamos/{file6}";
                 var response6 = _filesHelper.UploadPhoto(stream6, folder6, file6);
