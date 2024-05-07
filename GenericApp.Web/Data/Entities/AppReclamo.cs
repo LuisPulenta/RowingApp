@@ -27,8 +27,20 @@ namespace GenericApp.Web.Data.Entities
         public string CodPostalContacto { get; set; }
         public string Telefono { get; set; }
         public string Correo { get; set; }
-        public string TipoReclamo { get; set; }
+        public int? ErroresEnFacturacion { get; set; }
+        public int? ResarcimientoPorDanios { get; set; }
+        public int? SuspensionDeSuministro { get; set; }
+        public int? MalaAtencionComercial { get; set; }
+        public int? NegativaDeConexion { get; set; }
+        public int? InconvenienteDeTension { get; set; }
+        public int? FacturaFueraDeTerminoNoRecibidas { get; set; }
         public string Reclamo { get; set; }
-        public string Foto { get; set; }
+        public string Foto1 { get; set; }
+        public string Foto2 { get; set; }
+        public string Foto3 { get; set; }
+        public string Pdf1 { get; set; }
+        public string Pdf2 { get; set; }
+        public string Pdf3 { get; set; }
     }
 }
+

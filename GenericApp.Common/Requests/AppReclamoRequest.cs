@@ -25,8 +25,19 @@ namespace GenericApp.Common.Requests
         public string CodPostalContacto { get; set; }
         public string Telefono { get; set; }
         public string Correo { get; set; }
-        public string TipoReclamo { get; set; }
+        public int? ErroresEnFacturacion { get; set; }
+        public int? ResarcimientoPorDanios { get; set; }
+        public int? SuspensionDeSuministro { get; set; }
+        public int? MalaAtencionComercial { get; set; }
+        public int? NegativaDeConexion { get; set; }
+        public int? InconvenienteDeTension { get; set; }
+        public int? FacturaFueraDeTerminoNoRecibidas { get; set; }
         public string Reclamo { get; set; }
-        public byte[] ArrayFoto { get; set; }
+        public byte[] ArrayFoto1 { get; set; }
+        public byte[] ArrayFoto2 { get; set; }
+        public byte[] ArrayFoto3 { get; set; }
+        public byte[] ArrayPdf1 { get; set; }
+        public byte[] ArrayPdf2 { get; set; }
+        public byte[] ArrayPdf3 { get; set; }
     }
 }
