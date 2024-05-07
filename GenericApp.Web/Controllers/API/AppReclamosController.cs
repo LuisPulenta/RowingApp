@@ -142,7 +142,6 @@ namespace GenericApp.Web.Controllers.API
                 CodPostal = request.CodPostal,
                 CodPostalContacto = request.CodPostalContacto,
                 CoincideDireccion = request.CoincideDireccion,
-                Contacto = request.Contacto,
                 Correo = request.Correo,
                 Direccion = request.Direccion,
                 DireccionContacto = request.DireccionContacto,
