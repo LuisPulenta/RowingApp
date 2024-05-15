@@ -16,6 +16,8 @@ namespace GenericApp.Common.Responses
         public int Finalizada { get; set; }
         public DateTime? FECHAFINALIZADA { get; set; }
         public string Modulo { get; set; }
+        public string GrupoAlmacen { get; set; }
+        public string GrupoCausante { get; set; }
         public int HabilitaReclamosAPP { get; set; }
         public int? CORRESPONDEABONADOS { get; set; }
         public DateTime? FechaCierreElectrico { get; set; }
