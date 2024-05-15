@@ -21,5 +21,7 @@ namespace GenericApp.Common.Requests
         public int? COBRADO602 { get; set; }
         public int? NROOP { get; set; }
         public decimal? VALORIZACION { get; set; }
+        public string CODGRUPOC { get; set; }
+        public string CODCAUSANTEC { get; set; }
     }
 }

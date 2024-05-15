@@ -31,8 +31,7 @@ namespace GenericApp.Web.Controllers.API
                 return BadRequest(ModelState);
             }
 
-
-            var wRemitosCab = new WRemitosCab
+        var wRemitosCab = new WRemitosCab
             {
                 NROOBRA = request.NROOBRA,
                 FECHACARGA = request.FECHACARGA,
@@ -45,12 +44,15 @@ namespace GenericApp.Web.Controllers.API
                 FALTAMATERIAL = request.FALTAMATERIAL,
                 DESPACHADO = request.DESPACHADO,
                 PORDIFERENCIA = request.PORDIFERENCIA,
-                ENTREGADOCONTRATISTA = request.ENTREGADOCONTRATISTA,
+                ENTREGADOCONTRATISTA = "No",
                 MODULO = request.MODULO,
                 COBRADO602 = request.COBRADO602,
                 NROOP = request.NROOP,
                 VALORIZACION = request.VALORIZACION,
-            };
+                TIPO="N",
+                CODGRUPOC= request.CODGRUPOC,
+                CODCAUSANTEC = request.CODCAUSANTEC,
+        };
 
             _context.WRemitosCab.Add(wRemitosCab);
             await _context.SaveChangesAsync();
