@@ -138,6 +138,67 @@ namespace GenericApp.Web.Controllers.API
 
         //-----------------------------------------------------------------------------------
         [HttpPost]
+        [Route("GetUserByEmail2")]
+        public async Task<IActionResult> GetUserByEmail2(UsuarioRequest userRequest)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest();
+            }
+                var user2 = await _dataContext2.VistaCausantesApp.FirstOrDefaultAsync(
+                    o => o.codigo.ToLower() == userRequest.Email.ToLower()
+                    && o.NroSAP.ToLower() == userRequest.Password.ToLower()
+                    && o.estado == true
+                    && o.grupo.Substring(0,2)=="RW"
+                    );
+                if (user2 == null)
+                {
+                    return BadRequest("El Usuario no existe.");
+                }
+                var response2 = new UsuarioAppResponse
+                {
+                    IDUsuario = user2.NroCausante,
+                    CodigoCausante = user2.codigo,
+                    Login = user2.codigo,
+                    Contrasena = user2.NroSAP,
+                    Nombre = user2.nombre,
+                    Apellido = user2.nombre,
+                    AutorWOM = 0,
+                    Estado = 1,
+                    HabilitaAPP = 1,
+                    HabilitaFotos = 0,
+                    HabilitaReclamos = 0,
+                    HabilitaSSHH = 0,
+                    HabilitaRRHH = 0,
+                    Modulo = user2.RazonSocial,
+                    HabilitaMedidores = 0,
+                    HabilitaFlotas = "NO",
+                    ReHabilitaUsuarios = 0,
+                    CODIGOGRUPO = user2.codigo,
+                    FechaCaduca = 0,
+                    IntentosInvDiario = 0,
+                    OpeAutorizo = 0,
+                    HabilitaNuevoSuministro = 0,
+                    HabilitaVeredas = 0,
+                    HabilitaJuicios = 0,
+                    HabilitaPresentismo = 0,
+                    HabilitaSeguimientoUsuarios = 0,
+                    HabilitaVerObrasCerradas = 0,
+                    HabilitaElementosCalle = 0,
+                    HabilitaCertificacion = 0,
+                    CONCEPTOMOVA = 0,
+                    LimitarGrupo = 0,
+                    RUBRO = 0,
+                    CONCEPTOMOV = 0,
+                    HabilitaInstalacionesAPP = user2.HabilitaInstalacionesAPP,
+                    grupo = user2.grupo
+                };
+
+                return Ok(response2);
+        }
+
+        //-----------------------------------------------------------------------------------
+        [HttpPost]
         [Route("GetUserByLogin")]
         public async Task<IActionResult> GetUserByLogin(UsuarioRequest userRequest)
         {
