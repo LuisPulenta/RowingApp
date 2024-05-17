@@ -105,6 +105,22 @@ namespace GenericApp.Web.Controllers.API
 
             _dataContext.AppInstalacionesEquipos.Add(appInstalacionesEquipo);
             await _dataContext.SaveChangesAsync();
+            return Ok(appInstalacionesEquipo);
+        }
+
+        //---------------------------------------------------------------------------------------------------
+
+        [HttpPost]
+        [Route("PostAppInstalacionesEquiposDetalle")]
+        public async Task<IActionResult> PostAppInstalacionesEquiposDetalle([FromBody] AppInstalacionesEquiposDetalle request)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            _dataContext.AppInstalacionesEquiposDetalles.Add(request);
+            await _dataContext.SaveChangesAsync();
             return Ok();
         }
 
