@@ -11,13 +11,11 @@ namespace GenericApp.Web.Controllers.API
     public class Account2Controller : ControllerBase
     {
         private readonly DataContext _dataContext;
-        private readonly DataContext2 _dataContext2;
         private readonly IImageHelper _imageHelper;
 
-        public Account2Controller(DataContext dataContext, DataContext2 dataContext2, IImageHelper imageHelper)
+        public Account2Controller(DataContext dataContext, IImageHelper imageHelper)
         {
             _dataContext = dataContext;
-            _dataContext2 = dataContext2;
             _imageHelper = imageHelper;
         }
 
