@@ -19,7 +19,7 @@ namespace GenericApp.Web.Controllers.API
 
         [HttpPost]
         [Route("GetEquipo/{grupo}/{causante}/{serie}")]
-        public async Task<IActionResult> GetSiniestros(string Grupo, string Causante, string Serie)
+        public async Task<IActionResult> GetEquipo(string Grupo, string Causante, string Serie)
         {
             if (!ModelState.IsValid)
             {
