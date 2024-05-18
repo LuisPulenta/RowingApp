@@ -15,7 +15,7 @@ namespace GenericApp.Web.Data.Entities
         public int TAG { get; set; }
         public int MARCACOINCIDE { get; set; }
         public int SerieUsada { get; set; }
-        public DateTime FechaUsada { get; set; }
-        public int IDInstalacionesEquipos { get; set; }
+        public DateTime? FechaUsada { get; set; }
+        public int? IDInstalacionesEquipos { get; set; }
     }
 }
