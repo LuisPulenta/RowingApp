@@ -125,7 +125,37 @@ namespace GenericApp.Web.Controllers.API
         }
 
         //---------------------------------------------------------------------------------------------------
-        [HttpPut("{id}")]
+        [HttpPut]
+        [Route("PutLoteDetalle")]
+        public async Task<IActionResult> PutLoteDetalle([FromRoute] int id, [FromBody] LotesDetalleRequest request)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            if (id != request.NROREGISTRO)
+            {
+                return BadRequest();
+            }
+
+            var oldLoteDetalle = await _dataContext.LotesDetalle.FindAsync(request.NROREGISTRO);
+            if (oldLoteDetalle == null)
+            {
+                return BadRequest("El Lote Detalle no existe.");
+            }
+
+            oldLoteDetalle.IDInstalacionesEquipos = request.IDInstalacionesEquipos;
+            oldLoteDetalle.FechaUsada = DateTime.Now;
+            oldLoteDetalle.SerieUsada = 1;
+
+            _dataContext.LotesDetalle.Update(oldLoteDetalle);
+            await _dataContext.SaveChangesAsync();
+            return Ok();
+        }
+
+            //---------------------------------------------------------------------------------------------------
+            [HttpPut("{id}")]
         public async Task<IActionResult> PutAppInstalacionesEquipo([FromRoute] int id, [FromBody] AppInstalacionesEquipoRequest request)
         {
             if (!ModelState.IsValid)
