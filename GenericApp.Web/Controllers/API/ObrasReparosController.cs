@@ -33,7 +33,7 @@ namespace GenericApp.Web.Controllers.API
 
             return Ok(query);
         }
-
+        
         [HttpPost]
         [Route("GetObrasReparos/{nroobra}")]
         public async Task<IActionResult> GetObrasReparos(int nroobra)
@@ -44,7 +44,8 @@ namespace GenericApp.Web.Controllers.API
             }
 
             var obrasReparos = await _dataContext.ObrasReparos
-           .Where(o => (o.NROOBRA == nroobra) && (o.FECHACUMPLIMENTO == null)
+           .Where(o => (o.NROOBRA == nroobra)
+           //&& (o.FECHACUMPLIMENTO == null)
           
            )
            .OrderBy(o => o.NROREGISTRO)
@@ -68,7 +69,7 @@ namespace GenericApp.Web.Controllers.API
             }
 
             var obrasReparos = await _dataContext.ObrasReparos
-           .Where(o => (o.CODCAUSANTE == codigocausante) && (o.FotoFin == null || o.FotoFin=="" ) && (o.FechaCierreElectrico!=null)
+           .Where(o => (o.CODCAUSANTE == codigocausante) && (o.FotoFin == null || o.FotoFin=="" ) && (o.FECHACUMPLIMENTO==null)
 
            )
            .OrderBy(o => o.NROREGISTRO)
@@ -209,8 +210,8 @@ namespace GenericApp.Web.Controllers.API
             await _dataContext.SaveChangesAsync();
             return Ok();
         }
-
-        [HttpPut("{id}")]
+                
+        [HttpPut("{id}")]        
         public async Task<IActionResult> PutObrasReparo([FromRoute] int id, [FromBody] ObraReparoRequest request)
         {
             if (!ModelState.IsValid)
@@ -280,7 +281,7 @@ namespace GenericApp.Web.Controllers.API
             }
 
 
-            oldObraReparo.FECHACUMPLIMENTO = fec;
+            oldObraReparo.FECHACUMPLIMENTO = request.FECHACUMPLIMENTO;
             oldObraReparo.FotoInicio = imageUrlInicio;
             oldObraReparo.FotoFin = imageUrlFin;
             oldObraReparo.ObservacionesFotoInicio = obsInicio;
