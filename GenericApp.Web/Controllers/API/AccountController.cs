@@ -145,7 +145,7 @@ namespace GenericApp.Web.Controllers.API
             {
                 return BadRequest();
             }
-            var user2 = await _dataContext2.VistaCausantesApp.FirstOrDefaultAsync(
+            var user2 = await _dataContext2.VistaCausantesAppInstalaciones.FirstOrDefaultAsync(
                 o => o.codigo.ToLower() == userRequest.Email.ToLower()
                 && o.NroSAP.ToLower() == userRequest.Password.ToLower()
                 && o.estado == true
@@ -197,6 +197,7 @@ namespace GenericApp.Web.Controllers.API
 
             return Ok(response2);
         }
+
         //-----------------------------------------------------------------------------------
         [HttpPost]
         [Route("GetUserByLogin")]
