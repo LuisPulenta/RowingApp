@@ -54,6 +54,30 @@ namespace GenericApp.Web.Controllers.API
         //---------------------------------------------------------------------------------------------------
 
         [HttpPost]
+        [Route("GetAppInstalacionesEquiposDetalles/{IdInstalacionEquipo}")]
+        public async Task<IActionResult> GetAppInstalacionesEquiposDetalles(int IdInstalacionEquipo)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest();
+            }
+
+            var instalacionesDetalles = await _dataContext.AppInstalacionesEquiposDetalles
+           .Where(o => (
+           o.IDINSTALACIONEQUIPO == IdInstalacionEquipo
+           ))
+           .OrderBy(o => o.IDDETALLE)
+           .ToListAsync();
+            if (instalacionesDetalles == null)
+            {
+                return BadRequest("No hay InstalacionesDetalles.");
+            }
+            return Ok(instalacionesDetalles);
+        }
+
+        //---------------------------------------------------------------------------------------------------
+
+        [HttpPost]
         [Route("PostAppInstalacionesEquipo")]
         public async Task<IActionResult> PostAppInstalacionesEquipo([FromBody] AppInstalacionesEquipoRequest request)
         {
