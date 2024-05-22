@@ -38,8 +38,16 @@ namespace GenericApp.Web.Controllers.API
             }
 
             oldLoteDetalle.IDInstalacionesEquipos = request.IDInstalacionesEquipos;
-            oldLoteDetalle.FechaUsada = DateTime.Now;
-            oldLoteDetalle.SerieUsada = 1;
+            if (request.MARCAR == 1)
+            {
+                oldLoteDetalle.FechaUsada = DateTime.Now;
+                oldLoteDetalle.SerieUsada = 1;
+            }
+            else
+            {
+                oldLoteDetalle.FechaUsada = null;
+                oldLoteDetalle.SerieUsada = 0;
+            }
 
             _dataContext.LotesDetalle.Update(oldLoteDetalle);
             await _dataContext.SaveChangesAsync();
