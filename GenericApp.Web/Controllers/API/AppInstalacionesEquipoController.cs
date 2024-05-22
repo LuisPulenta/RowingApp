@@ -124,7 +124,7 @@ namespace GenericApp.Web.Controllers.API
                 NombreCliente = request.NombreCliente,
                 NroObra = request.NroObra,
                 Pedido = request.Pedido,
-                TipoInstalacion = request.TipoInstalacion
+                TipoInstalacion = request.TipoInstalacion,
             };
 
             _dataContext.AppInstalacionesEquipos.Add(appInstalacionesEquipo);
