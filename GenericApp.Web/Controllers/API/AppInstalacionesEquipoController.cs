@@ -226,7 +226,17 @@ namespace GenericApp.Web.Controllers.API
             return this.NotFound();
         }
 
-        _dataContext.AppInstalacionesEquipos.Remove(instalacion);
+            var instalacionesDetalles = await _dataContext.AppInstalacionesEquiposDetalles
+             .Where(o => o.IDINSTALACIONEQUIPO == id)
+             .ToListAsync();
+
+            foreach(AppInstalacionesEquiposDetalle instalacionDetalle in instalacionesDetalles)
+            {
+                _dataContext.AppInstalacionesEquiposDetalles.Remove(instalacionDetalle);
+                await _dataContext.SaveChangesAsync();
+            }
+
+            _dataContext.AppInstalacionesEquipos.Remove(instalacion);
         await _dataContext.SaveChangesAsync();
         return Ok("Instalación borrada");
         }
