@@ -141,6 +141,10 @@ namespace GenericApp.Web.Controllers.API
         [Route("GetCausantesByGrupo/{Grupo}")]
         public IActionResult GetCausantesByProyectoModulo(string Grupo)
         {
+            var a = 1;
+            var b = 2;
+
+
             return Ok(_dataContext2.VistaCausantesApp
                 .Where(o => o.grupo == Grupo && o.estado==true)
                 .OrderBy(o => o.nombre)

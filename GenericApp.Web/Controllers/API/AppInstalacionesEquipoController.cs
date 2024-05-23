@@ -143,6 +143,22 @@ namespace GenericApp.Web.Controllers.API
                 return BadRequest(ModelState);
             }
 
+            if (request.LinkFoto != null && request.LinkFoto.Length > 0)
+            {
+
+                byte[] newBytes = Convert.FromBase64String(request.LinkFoto);
+                var stream = new MemoryStream(newBytes);
+                var guid = Guid.NewGuid().ToString();
+                var file = $"{guid}.jpg";
+                var folder = "wwwroot\\images\\Instalaciones";
+                var fullPath = $"~/images/Instalaciones/{file}";
+                var response = _filesHelper.UploadPhoto(stream, folder, file);
+                if (response)
+                {
+                    request.LinkFoto = fullPath;
+                }
+            }
+
             _dataContext.AppInstalacionesEquiposDetalles.Add(request);
             await _dataContext.SaveChangesAsync();
             return Ok();
