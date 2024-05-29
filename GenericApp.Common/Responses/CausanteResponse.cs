@@ -29,6 +29,7 @@ namespace GenericApp.Common.Responses
         public string notas { get; set; }
         public string PerteneceCuadrilla { get; set; }
         public int? HabilitaInstalacionesAPP { get; set; }
+        public int? VisualizaSPR { get; set; }
 
         public string ImageFullPath => string.IsNullOrEmpty(LinkFoto)
         ? $"http://190.111.249.225/RowingAppApi/images/Causantes/nouser.png"

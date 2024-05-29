@@ -66,7 +66,7 @@ namespace GenericApp.Web.Controllers.API
                 ZonaTrabajo=user.ZonaTrabajo,
                 NombreActividad=user.NombreActividad,
                 notas=user.notas,
-                PerteneceCuadrilla=user.PerteneceCuadrilla
+                PerteneceCuadrilla=user.PerteneceCuadrilla,
             };
 
             return Ok(response);
@@ -146,7 +146,7 @@ namespace GenericApp.Web.Controllers.API
 
 
             return Ok(_dataContext2.VistaCausantesApp
-                .Where(o => o.grupo == Grupo && o.estado==true)
+                .Where(o => o.grupo == Grupo && o.estado==true && o.VisualizaSPR==1)
                 .OrderBy(o => o.nombre)
                 );
         }
