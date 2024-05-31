@@ -28,5 +28,8 @@ namespace GenericApp.Common.Requests
         public string EsAveria { get; set; }
         public int? Auditado { get; set; }
         public byte[] ImageArrayFIRMACLIENTE { get; set; }
+        public string DocumentoFirmante { get; set; }
+        public int? MismoFirmante { get; set; }
+        public string TipoPedido { get; set; }
     }
 }

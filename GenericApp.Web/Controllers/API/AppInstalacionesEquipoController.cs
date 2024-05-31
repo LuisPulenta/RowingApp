@@ -125,6 +125,9 @@ namespace GenericApp.Web.Controllers.API
                 NroObra = request.NroObra,
                 Pedido = request.Pedido,
                 TipoInstalacion = request.TipoInstalacion,
+                DocumentoFirmante = request.DocumentoFirmante,
+                MismoFirmante=request.MismoFirmante,
+                TipoPedido=request.TipoPedido,                
             };
 
             _dataContext.AppInstalacionesEquipos.Add(appInstalacionesEquipo);
@@ -220,6 +223,9 @@ namespace GenericApp.Web.Controllers.API
             oldInstalacion.NroObra = request.NroObra;
             oldInstalacion.Pedido = request.Pedido;
             oldInstalacion.TipoInstalacion = request.TipoInstalacion;
+            oldInstalacion.DocumentoFirmante = request.DocumentoFirmante;
+            oldInstalacion.MismoFirmante = request.MismoFirmante;
+            oldInstalacion.TipoPedido = request.TipoPedido;
 
             _dataContext.AppInstalacionesEquipos.Update(oldInstalacion);
             await _dataContext.SaveChangesAsync();
