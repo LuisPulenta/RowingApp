@@ -30,5 +30,7 @@ namespace GenericApp.Web.Data
         public DbSet<VistaSeriesSinUsarLotesDetalle> VistaSeriesSinUsarLotesDetalles { get; set; }
         public DbSet<AppInstalacionesEquiposDetalle> AppInstalacionesEquiposDetalles { get; set; }
         public DbSet<LotesDetall> LotesDetalle { get; set; }
+        public DbSet<AppInstalacionesMateriale> AppInstalacionesMateriales { get; set; }
+        public DbSet<Producto> Productos { get; set; }
     }
 }

@@ -168,6 +168,22 @@ namespace GenericApp.Web.Controllers.API
         }
 
         //---------------------------------------------------------------------------------------------------
+
+        [HttpPost]
+        [Route("PostAppInstalacionesMateriales")]
+        public async Task<IActionResult> PostAppInstalacionesMateriales([FromBody] AppInstalacionesMateriale request)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            _dataContext.AppInstalacionesMateriales.Add(request);
+            await _dataContext.SaveChangesAsync();
+            return Ok();
+        }
+
+        //---------------------------------------------------------------------------------------------------
         [HttpPut("{id}")]
         public async Task<IActionResult> PutAppInstalacionesEquipo([FromRoute] int id, [FromBody] AppInstalacionesEquipoRequest request)
         {
@@ -233,34 +249,51 @@ namespace GenericApp.Web.Controllers.API
         }
 
         //---------------------------------------------------------------------------------------------------
-        [HttpDelete("{id}")]
-    public async Task<IActionResult> DeleteAppInstalacionesEquipo([FromRoute] int id)
-    {
-        if (!ModelState.IsValid)
+        [HttpPost]
+        [Route("GetProductos")]
+        public async Task<IActionResult> GetProductos()
         {
-            return this.BadRequest(ModelState);
-        }
 
-        var instalacion = await _dataContext.AppInstalacionesEquipos
-            .FirstOrDefaultAsync(p => p.IDRegistro == id);
-        if (instalacion == null)
-        {
-            return this.NotFound();
-        }
-
-            var instalacionesDetalles = await _dataContext.AppInstalacionesEquiposDetalles
-             .Where(o => o.IDINSTALACIONEQUIPO == id)
-             .ToListAsync();
-
-            foreach(AppInstalacionesEquiposDetalle instalacionDetalle in instalacionesDetalles)
+            System.Collections.Generic.List<Producto> productos = await _dataContext.Productos
+           .Where(o => (o.Dep2 == 1))
+           .OrderBy(o => o.CodProducto)
+           .ToListAsync();
+            if (productos == null)
             {
-                _dataContext.AppInstalacionesEquiposDetalles.Remove(instalacionDetalle);
-                await _dataContext.SaveChangesAsync();
+                return BadRequest("No hay Productos.");
+            }
+            return Ok(productos);
+        }
+
+        //---------------------------------------------------------------------------------------------------
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteAppInstalacionesEquipo([FromRoute] int id)
+        {
+            if (!ModelState.IsValid)
+            {
+                return this.BadRequest(ModelState);
             }
 
-            _dataContext.AppInstalacionesEquipos.Remove(instalacion);
-        await _dataContext.SaveChangesAsync();
-        return Ok("Instalación borrada");
+            var instalacion = await _dataContext.AppInstalacionesEquipos
+                .FirstOrDefaultAsync(p => p.IDRegistro == id);
+            if (instalacion == null)
+            {
+                return this.NotFound();
+            }
+
+                var instalacionesDetalles = await _dataContext.AppInstalacionesEquiposDetalles
+                 .Where(o => o.IDINSTALACIONEQUIPO == id)
+                 .ToListAsync();
+
+                foreach(AppInstalacionesEquiposDetalle instalacionDetalle in instalacionesDetalles)
+                {
+                    _dataContext.AppInstalacionesEquiposDetalles.Remove(instalacionDetalle);
+                    await _dataContext.SaveChangesAsync();
+                }
+
+                _dataContext.AppInstalacionesEquipos.Remove(instalacion);
+            await _dataContext.SaveChangesAsync();
+            return Ok("Instalación borrada");
+            }
         }
-    }
 }
