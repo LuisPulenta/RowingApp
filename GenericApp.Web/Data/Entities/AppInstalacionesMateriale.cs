@@ -10,6 +10,6 @@ namespace GenericApp.Web.Data.Entities
         public string CodigoSIAG { get; set; }
         public string CodigoSAP { get; set; }
         public string Descripcion { get; set; }
-        public float Cantidad { get; set; }        
+        public decimal Cantidad { get; set; }        
     }
 }
