@@ -11,6 +11,7 @@ namespace GenericApp.Common.Requests
         public string telefono { get; set; }
 
         public byte[] Image { get; set; }
+        public byte[] Firma { get; set; }
         public string direccion { get; set; }
         public int Numero { get; set; }
         public string TelefonoContacto1 { get; set; }

@@ -256,7 +256,7 @@ namespace GenericApp.Prism.ViewModels
                 return;
             }
 
-            if (UsuarioLogueado.CODIGOCAUSANTE.Length < 1)
+            if (UsuarioLogueado.CodigoCausante.Length < 1)
             {
                 await App.Current.MainPage.DisplayAlert("Error", "Su Usuario no tiene cargado el campo CODIGOCAUSANTE", "Aceptar");
                 return;
@@ -308,7 +308,7 @@ namespace GenericApp.Prism.ViewModels
                 NUMERACION = Numero,
                 DIRECCION = Direccion,
                 Subcontratista = UsuarioLogueado.CODIGOGRUPO,
-                CausanteC = UsuarioLogueado.CODIGOCAUSANTE,
+                CausanteC = UsuarioLogueado.CodigoCausante,
                 TERMINAL = Descripcion,
                 ZONA = Zona,
                 TipoImput = "Reclamos",

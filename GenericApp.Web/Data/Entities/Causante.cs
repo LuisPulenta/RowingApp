@@ -32,9 +32,15 @@ namespace GenericApp.Web.Data.Entities
         public string PerteneceCuadrilla { get; set; }
         public int? HabilitaInstalacionesAPP { get; set; }
         public int? VisualizaSPR { get; set; }
+        public string FirmaDigitalAPP { get; set; }
+        
 
         public string ImageFullPath => string.IsNullOrEmpty(LinkFoto)
         ? $"http://190.111.249.225/RowingAppApi/images/Causantes/nouser.png"
         : $"http://190.111.249.225/RowingAppApi{LinkFoto.Substring(1)}";
+
+        public string FirmaFullPath => string.IsNullOrEmpty(FirmaDigitalAPP)
+        ? $"http://190.111.249.225/RowingAppApi/images/Recibos/noimage.png"
+        : $"http://190.111.249.225/RowingAppApi{FirmaDigitalAPP.Substring(1)}";
     }
 }

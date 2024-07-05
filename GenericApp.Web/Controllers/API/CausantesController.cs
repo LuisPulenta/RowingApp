@@ -67,6 +67,7 @@ namespace GenericApp.Web.Controllers.API
                 NombreActividad=user.NombreActividad,
                 notas=user.notas,
                 PerteneceCuadrilla=user.PerteneceCuadrilla,
+                FirmaDigitalAPP=user.FirmaDigitalAPP
             };
 
             return Ok(response);
@@ -117,6 +118,12 @@ namespace GenericApp.Web.Controllers.API
                 imageId = _imageHelper.UploadImage(request.Image, "Causantes");
             }
 
+            string firmaId = oldCausante.FirmaDigitalAPP;
+            if (request.Firma != null && request.Firma.Length > 0)
+            {
+                firmaId = _imageHelper.UploadImage(request.Image, "Recibos");
+            }
+
             oldCausante.telefono = request.telefono;
             oldCausante.LinkFoto = imageId;
             oldCausante.direccion = request.direccion;
@@ -130,6 +137,7 @@ namespace GenericApp.Web.Controllers.API
             oldCausante.Provincia = request.Provincia;
             oldCausante.ZonaTrabajo = request.ZonaTrabajo;
             oldCausante.NombreActividad = request.ZonaTrabajo;
+            oldCausante.FirmaDigitalAPP = firmaId;
 
             _dataContext2.VistaCausantesApp.Update(oldCausante);
             await _dataContext2.SaveChangesAsync();
