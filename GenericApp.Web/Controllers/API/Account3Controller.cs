@@ -52,7 +52,7 @@ namespace GenericApp.Web.Controllers.API
 
             _dataContext2.Causantes.Update(oldUsuario);
             await _dataContext2.SaveChangesAsync();
-            return Ok();
+            return Ok(imageFirmaId);
         }
     }
 }
