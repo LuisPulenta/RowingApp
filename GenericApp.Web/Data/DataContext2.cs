@@ -10,6 +10,7 @@ namespace GenericApp.Web.Data
         {
         }
         public DbSet<Causante> VistaCausantesApp { get; set; }
+        public DbSet<Causante2> Causantes { get; set; }
         public DbSet<CausanteInstalacione> VistaCausantesAppInstalaciones { get; set; }
         public DbSet<Entrega> ProductosStock { get; set; }
         public DbSet<Vehiculo> Vehiculos { get; set; }

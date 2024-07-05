@@ -87,7 +87,8 @@ namespace GenericApp.Web.Controllers.API
                     RUBRO = 0,
                     CONCEPTOMOV=0,
                     HabilitaInstalacionesAPP=user2.HabilitaInstalacionesAPP,
-                    grupo=user2.grupo
+                    grupo=user2.grupo,
+                    FirmaUsuario=user2.FirmaDigitalAPP,
                 };
 
                 return Ok(response2);

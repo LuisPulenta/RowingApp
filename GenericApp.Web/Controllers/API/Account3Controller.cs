@@ -34,7 +34,7 @@ namespace GenericApp.Web.Controllers.API
 
 
 
-            var oldUsuario = await _dataContext2.VistaCausantesApp.FindAsync(request.NroCausante);
+            var oldUsuario = await _dataContext2.Causantes.FindAsync(request.NroCausante);
             if (oldUsuario == null)
             {
                 return BadRequest("El Causante no existe.");
@@ -50,7 +50,7 @@ namespace GenericApp.Web.Controllers.API
             oldUsuario.FirmaDigitalAPP = imageFirmaId;
 
 
-            _dataContext2.VistaCausantesApp.Update(oldUsuario);
+            _dataContext2.Causantes.Update(oldUsuario);
             await _dataContext2.SaveChangesAsync();
             return Ok();
         }

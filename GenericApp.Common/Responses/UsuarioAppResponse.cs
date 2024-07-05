@@ -43,5 +43,6 @@
         public string FirmaUsuarioImageFullPath => string.IsNullOrEmpty(FirmaUsuario)
       ? $"http://190.111.249.225/RowingAppApi/images/ObrasSuministros/noimage.png"
       : $"http://190.111.249.225/RowingAppApi{FirmaUsuario.Substring(1)}";
+       
     }
 }
