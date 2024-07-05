@@ -34,6 +34,7 @@ namespace GenericApp.Web.Controllers.API
                 return BadRequest();
             }
 
+
             Data.Entities.Causante user = await _dataContext2.VistaCausantesApp.FirstOrDefaultAsync
                 (o => (o.codigo.ToLower() == codigo.Codigo.ToLower() || o.NroSAP.ToLower() == codigo.Codigo.ToLower()));
 
