@@ -3,11 +3,19 @@ using GenericApp.Common.Responses;
 using GenericApp.Web.Data;
 using GenericApp.Web.Data.Entities;
 using GenericApp.Web.Helpers;
+using GenericApp.Web.Models;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
+using Microsoft.IdentityModel.Tokens;
 using System;
+using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
+using System.Security.Claims;
+using System.Text;
 using System.Threading.Tasks;
 
 namespace GenericApp.Web.Controllers.API
@@ -19,12 +27,17 @@ namespace GenericApp.Web.Controllers.API
         private readonly DataContext _dataContext;
         private readonly DataContext2 _dataContext2;
         private readonly IImageHelper _imageHelper;
+        private readonly IUserHelper _userHelper;
+        private readonly IConfiguration _configuration;
 
-        public AccountController(DataContext dataContext, DataContext2 dataContext2, IImageHelper imageHelper)
+        public AccountController(DataContext dataContext, DataContext2 dataContext2, IImageHelper imageHelper,IUserHelper userHelper,
+            IConfiguration configuration)
         {
             _dataContext = dataContext;
             _dataContext2 = dataContext2;
             _imageHelper = imageHelper;
+            _userHelper = userHelper;
+            _configuration = configuration;
         }
 
         //-----------------------------------------------------------------------------------
@@ -137,66 +150,64 @@ namespace GenericApp.Web.Controllers.API
             return Ok(response);
         }
 
+        [HttpPost]
+        [Route("CreateToken")]
+        public async Task<IActionResult> CreateToken([FromBody] LoginViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var user = await _userHelper.GetUserAsync(model.Username);
+                if (user != null)
+                {
+                    var result = await _userHelper.ValidatePasswordAsync(user, model.Password);
+
+                    if (result.Succeeded)
+                    {
+                        var claims = new[]
+                        {
+                    new Claim(JwtRegisteredClaimNames.Sub, user.Email),
+                    new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
+                };
+
+                        var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["Tokens:Key"]));
+                        var credentials = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
+                        var token = new JwtSecurityToken(
+                            _configuration["Tokens:Issuer"],
+                            _configuration["Tokens:Audience"],
+                            claims,
+                            expires: DateTime.UtcNow.AddDays(15),
+                            signingCredentials: credentials);
+                        var results = new
+                        {
+                            token = new JwtSecurityTokenHandler().WriteToken(token),
+                            expiration = token.ValidTo
+                        };
+
+                        return Created(string.Empty, results);
+                    }
+                }
+            }
+
+            return BadRequest();
+        }
+
         //-----------------------------------------------------------------------------------
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         [HttpPost]
         [Route("GetUserByEmail2")]
-        public async Task<IActionResult> GetUserByEmail2(UsuarioRequest userRequest)
+        public async Task<IActionResult> GetUserByEmail2([FromBody] EmailRequest request)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest();
             }
-            var user2 = await _dataContext2.VistaCausantesAppInstalaciones.FirstOrDefaultAsync(
-                o => o.codigo.ToLower() == userRequest.Email.ToLower()
-                && o.NroSAP.ToLower() == userRequest.Password.ToLower()
-                && o.estado == true
-                && o.grupo.Substring(0, 2) == "RW"
-
-                );
-            if (user2 == null)
+            User userEntity = await _userHelper.GetUserAsync(request.Email);
+            if (userEntity == null)
             {
-                return BadRequest("El Usuario no existe.");
+                return NotFound("Este Usuario no existe.");
             }
-            var response2 = new UsuarioAppResponse
-            {
-                IDUsuario = user2.NroCausante,
-                CodigoCausante = user2.codigo,
-                Login = user2.codigo,
-                Contrasena = user2.NroSAP,
-                Nombre = user2.nombre,
-                Apellido = user2.nombre,
-                AutorWOM = 0,
-                Estado = 1,
-                HabilitaAPP = 1,
-                HabilitaFotos = 0,
-                HabilitaReclamos = 0,
-                HabilitaSSHH = 0,
-                HabilitaRRHH = 0,
-                Modulo = user2.RazonSocial,
-                HabilitaMedidores = 0,
-                HabilitaFlotas = "NO",
-                ReHabilitaUsuarios = 0,
-                CODIGOGRUPO = user2.codigo,
-                FechaCaduca = 0,
-                IntentosInvDiario = 0,
-                OpeAutorizo = 0,
-                HabilitaNuevoSuministro = 0,
-                HabilitaVeredas = 0,
-                HabilitaJuicios = 0,
-                HabilitaPresentismo = 0,
-                HabilitaSeguimientoUsuarios = 0,
-                HabilitaVerObrasCerradas = 0,
-                HabilitaElementosCalle = 0,
-                HabilitaCertificacion = 0,
-                CONCEPTOMOVA = 0,
-                LimitarGrupo = 0,
-                RUBRO = 0,
-                CONCEPTOMOV = 0,
-                HabilitaInstalacionesAPP = user2.HabilitaInstalacionesAPP,
-                grupo = user2.grupo
-            };
 
-            return Ok(response2);
+            return Ok(userEntity);
         }
 
         //-----------------------------------------------------------------------------------

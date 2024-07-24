@@ -21,26 +21,13 @@ namespace GenericApp.Web.Data.Entities
         [Required(ErrorMessage = "El campo {0} es requerido")]
         public string LastName { get; set; }
 
-        [Display(Name = "Dirección")]
-        [MaxLength(100, ErrorMessage = "El campo {0} debe contener menos de {1} caracteres")]
-        public string Address { get; set; }
-
-        [Display(Name = "Foto")]
-        public string PicturePath { get; set; }
-
-        [Display(Name = "Foto")]
-        public string PictureFullPath => string.IsNullOrEmpty(PicturePath)
-          ? $"http://keypress.serveftp.net:88/GenericAppApi/images/Users/nouser.png"
-          : $"http://keypress.serveftp.net:88/GenericAppApi{PicturePath.Substring(1)}";
-
         [Display(Name = "Tipo de Usuario")]
         public UserType UserType { get; set; }
 
-        [Display(Name = "Ciudad")]
-        public CityEntity City { get; set; }
-
-        [Display(Name = "Hincha de")]
-        public TeamEntity FavoriteTeam { get; set; }
+        [MaxLength(6, ErrorMessage = "El campo {0} debe contener menos de {1} caracteres")]
+        public string codigo { get; set; }
+        [MaxLength(3, ErrorMessage = "El campo {0} debe contener menos de {1} caracteres")]
+        public string grupo { get; set; }
 
         [Display(Name = "Usuario")]
         public string FullName => $"{FirstName} {LastName}";

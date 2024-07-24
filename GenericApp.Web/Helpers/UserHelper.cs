@@ -14,13 +14,13 @@ namespace GenericApp.Web.Helpers
         private readonly UserManager<User> _userManager;
         private readonly RoleManager<IdentityRole> _roleManager;
         private readonly SignInManager<User> _signInManager;
-        private readonly DataContext _context;
+        private readonly DataContext2 _context;
 
         public UserHelper(
             UserManager<User> userManager,
             RoleManager<IdentityRole> roleManager,
             SignInManager<User> signInManager,
-            DataContext context)
+            DataContext2 context)
         {
             _userManager = userManager;
             _roleManager = roleManager;
@@ -37,16 +37,12 @@ namespace GenericApp.Web.Helpers
         {
             User user = new User
             {
-                Address = model.Address,
                 Document = model.Document,
                 Email = model.Username,
                 FirstName = model.FirstName,
                 LastName = model.LastName,
-                PicturePath= path,
                 PhoneNumber = model.PhoneNumber,
                 UserName = model.Username,
-                City = await _context.Cities.FindAsync(model.CityId),
-                FavoriteTeam = await _context.Teams.FindAsync(model.TeamId),
                 UserType=userType,
 
             };
@@ -82,22 +78,12 @@ namespace GenericApp.Web.Helpers
         public async Task<User> GetUserAsync(string email)
         {
             return await _context.Users
-                .Include(u => u.FavoriteTeam)
-                .ThenInclude(l => l.Country)
-                .Include(c => c.City)
-                .ThenInclude(d => d.Department)
-                .ThenInclude(p => p.Country)
                 .FirstOrDefaultAsync(u => u.Email == email);
         }
 
         public async Task<User> GetUserAsync(Guid userId)
         {
             return await _context.Users
-                .Include(u => u.FavoriteTeam)
-                .ThenInclude(l => l.Country)
-                .Include(c => c.City)
-                .ThenInclude(d => d.Department)
-                .ThenInclude(p => p.Country)
                 .FirstOrDefaultAsync(u => u.Id == userId.ToString());
         }
 

@@ -44,7 +44,7 @@ namespace GenericApp.Web.Data
         public DbSet<ObrasNuevoSuministro> ObrasNuevoSuministros { get; set; }
         public DbSet<ObrasNuevoSuministroDe> ObrasNuevoSuministrosDet { get; set; }
         public DbSet<ObrasReparo> ObrasReparos { get; set; }
-        public DbSet<StandardReparo> StandardReparos{ get; set; }
+        public DbSet<StandardReparo> StandardReparos { get; set; }
         public DbSet<CausantesJuicio> CausantesJuicios { get; set; }
         public DbSet<CausantesJuiciosMediacione> CausantesJuiciosMediaciones { get; set; }
         public DbSet<CausantesJuiciosNotificacione> CausantesJuiciosNotificaciones { get; set; }
@@ -67,7 +67,7 @@ namespace GenericApp.Web.Data
         public DbSet<CodigosProduccio> CodigosProduccion { get; set; }
         public DbSet<CausantesObra> CausantesObras { get; set; }
         public DbSet<AppReclamo> AppReclamos { get; set; }
-        
+
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

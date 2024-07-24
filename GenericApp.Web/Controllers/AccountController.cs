@@ -11,39 +11,53 @@ using GenericApp.Web.Models;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Security.Claims;
+using System.IdentityModel.Tokens.Jwt;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
+using Microsoft.Extensions.Configuration;
 
 namespace GenericApp.Web.Controllers
 {
     public class AccountController : Controller
     {
         private readonly DataContext _context;
+        private readonly DataContext2 _context2;
         private readonly IUserHelper _userHelper;
         private readonly ICombosHelper _combosHelper;
         private readonly IImageHelper _imageHelper;
         private readonly IMailHelper _mailHelper;
+        private readonly IConfiguration _configuration;
 
         public AccountController(
             DataContext context,
+            DataContext2 context2,
             IUserHelper userHelper,
             ICombosHelper combosHelper,
             IImageHelper imageHelper,
-            IMailHelper mailHelper)
+            IMailHelper mailHelper,
+            IConfiguration configuration)
         {
             _context = context;
+            _context2 = context2;
             _userHelper = userHelper;
             _combosHelper = combosHelper;
             _imageHelper = imageHelper;
             _mailHelper = mailHelper;
+            _configuration = configuration;
         }
 
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Index()
         {
             return View(await _context.Users
-                .Include(u => u.City)
-                .Include(t => t.FavoriteTeam)
                 .ToListAsync());
         }
+
+        
+
+
+
 
         [Authorize(Roles = "Admin")]
         [HttpGet]
@@ -51,10 +65,6 @@ namespace GenericApp.Web.Controllers
         {
             AddUserViewModel model = new AddUserViewModel
             {
-                Countries = _combosHelper.GetComboCountries(),
-                Departments = _combosHelper.GetComboDepartments(0),
-                Cities = _combosHelper.GetComboCities(0),
-                Teams = _combosHelper.GetComboTeams(0),
             };
 
             return View(model);
@@ -258,46 +268,11 @@ namespace GenericApp.Web.Controllers
                 return NotFound();
             }
 
-            DepartmentEntity department = await _context.Departments.FirstOrDefaultAsync(d => d.Cities.FirstOrDefault(c => c.Id == user.City.Id) != null);
-            if (department == null)
-            {
-                department = await _context.Departments.FirstOrDefaultAsync();
-            }
-
-            TeamEntity team = await _context.Teams.FirstOrDefaultAsync(c => c.Id == user.FavoriteTeam.Id);
-            if (team == null)
-            {
-                team = await _context.Teams.FirstOrDefaultAsync();
-            }
-
-            CountryEntity country = await _context.Countries.FirstOrDefaultAsync(c => c.Departments.FirstOrDefault(d => d.Id == department.Id) != null);
-            if (country == null)
-            {
-                country = await _context.Countries.FirstOrDefaultAsync();
-            }
-
-            CountryEntity country2 = await _context.Countries.FirstOrDefaultAsync(c => c.Teams.FirstOrDefault(d => d.Id == team.Id) != null);
-            if (country2 == null)
-            {
-                country2 = await _context.Countries.FirstOrDefaultAsync();
-            }
-
             EditUserViewModel model = new EditUserViewModel
             {
-                Address = user.Address,
                 FirstName = user.FirstName,
                 LastName = user.LastName,
                 PhoneNumber = user.PhoneNumber,
-                PicturePath = user.PicturePath,
-                Cities = _combosHelper.GetComboCities(department.Id),
-                CityId = user.City.Id,
-                Countries = _combosHelper.GetComboCountries(),
-                CountryId = country.Id,
-                CountryTeamId= country2.Id,
-                DepartmentId = department.Id,
-                Departments = _combosHelper.GetComboDepartments(country.Id),
-                Teams = _combosHelper.GetComboTeams(country2.Id),
-                TeamId = team.Id,
                 Id = user.Id,
                 Document = user.Document,
                 UserTypes=_combosHelper.GetComboUserTypes(),
@@ -323,11 +298,7 @@ namespace GenericApp.Web.Controllers
 
                 user.FirstName = model.FirstName;
                 user.LastName = model.LastName;
-                user.Address = model.Address;
                 user.PhoneNumber = model.PhoneNumber;
-                user.PicturePath = imagePath;
-                user.City = await _context.Cities.FindAsync(model.CityId);
-                user.FavoriteTeam = await _context.Teams.FindAsync(model.TeamId);
                 user.Document = model.Document;
                 await _userHelper.UpdateUserAsync(user);
                 return RedirectToAction("Index", "Home");
