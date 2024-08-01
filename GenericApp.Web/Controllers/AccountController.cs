@@ -47,18 +47,7 @@ namespace GenericApp.Web.Controllers
             _configuration = configuration;
         }
 
-        [Authorize(Roles = "Admin")]
-        public async Task<IActionResult> Index()
-        {
-            return View(await _context.Users
-                .ToListAsync());
-        }
-
-        
-
-
-
-
+       
         [Authorize(Roles = "Admin")]
         [HttpGet]
         public IActionResult Create()

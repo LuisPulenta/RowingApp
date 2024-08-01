@@ -51,7 +51,7 @@ namespace GenericApp.Web
                 cfg.Password.RequireUppercase = false;
             })
                 .AddDefaultTokenProviders()
-                .AddEntityFrameworkStores<DataContext>();
+                .AddEntityFrameworkStores<DataContext2>();
 
             services.AddAuthentication()
                 .AddCookie()

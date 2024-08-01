@@ -1,11 +1,17 @@
 ﻿using GenericApp.Common.Enums;
 using Microsoft.AspNetCore.Identity;
+using System;
 using System.ComponentModel.DataAnnotations;
 
 namespace GenericApp.Web.Data.Entities
 {
     public class User : IdentityUser
     {
+        public int NroCausante { get; set; }
+
+        public DateTime? LastLogin { get; set; }
+        public DateTime? ChangePassword { get; set; }
+
         [MaxLength(20, ErrorMessage = "El campo {0} debe contener menos de {1} caracteres")]
         [Required(ErrorMessage = "El campo {0} es requerido")]
         [Display(Name = "Documento")]
