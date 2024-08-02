@@ -661,6 +661,7 @@ namespace GenericApp.Web.Controllers.API
         }
 
         //-----------------------------------------------------------------------------------
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         [HttpPost]
         [Route("GetCausantesRecibos")]
         public async Task<IActionResult> GetCausantesRecibos()
@@ -753,6 +754,20 @@ namespace GenericApp.Web.Controllers.API
             }
 
             return user;
+        }
+
+        //-----------------------------------------------------------------------------------
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+        [HttpPost]
+        [Route("ResetPassword")]
+        public async Task<IActionResult> ResetPassword([FromBody] string email)
+        {
+            User user = await _userHelper.GetUserAsync(email);
+            var causante = await _dataContext2.VistaCausantesAppRecibos.FirstOrDefaultAsync(o => o.NroCausante == user.NroCausante);
+            await _userHelper.DeleteUserAsync(email);
+            await CheckUserAsync(causante.NroCausante, causante.NroSAP, causante.nombre, causante.nombre, causante.email, causante.telefono, causante.codigo, causante.grupo, UserType.User);
+
+            return Ok();
         }
     }
 }
