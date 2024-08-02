@@ -13,6 +13,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using System;
+using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Security.Claims;
@@ -151,6 +152,7 @@ namespace GenericApp.Web.Controllers.API
             return Ok(response);
         }
 
+        //-----------------------------------------------------------------------------------
         [HttpPost]
         [Route("CreateToken")]
         public async Task<IActionResult> CreateToken([FromBody] LoginViewModel model)
@@ -220,7 +222,6 @@ namespace GenericApp.Web.Controllers.API
             {
                 return BadRequest();
             }
-
 
             var user = await _dataContext.Usuarios.FirstOrDefaultAsync(o => o.Login.ToLower() == userRequest.Email.ToLower());
 
@@ -595,6 +596,67 @@ namespace GenericApp.Web.Controllers.API
                 IsSuccess = true,
                 Message = "El password fue cambiado con éxito."
             });
+        }
+
+        //-----------------------------------------------------------------------------------
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+        [HttpPut]
+        [Route("UpdateLoginDate")]
+        public async Task<IActionResult> UpdateLoginDate([FromBody] string email)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+            
+            User userEntity = await _userHelper.GetUserAsync(email);
+            if (userEntity == null)
+            {
+                return BadRequest("Este Usuario no existe.");
+            }
+            userEntity.LastLogin = DateTime.Now;
+            
+            IdentityResult respose = await _userHelper.UpdateUserAsync(userEntity);
+            if (!respose.Succeeded)
+            {
+                return BadRequest(respose.Errors.FirstOrDefault().Description);
+            }
+            return NoContent();
+        }
+
+        //-----------------------------------------------------------------------------------
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+        [HttpPut]
+        [Route("UpdateChangePasswordDate")]
+        public async Task<IActionResult> UpdateChangePasswordDate([FromBody] string email)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            User userEntity = await _userHelper.GetUserAsync(email);
+            if (userEntity == null)
+            {
+                return BadRequest("Este Usuario no existe.");
+            }
+            userEntity.ChangePassword = DateTime.Now;
+
+            IdentityResult respose = await _userHelper.UpdateUserAsync(userEntity);
+            if (!respose.Succeeded)
+            {
+                return BadRequest(respose.Errors.FirstOrDefault().Description);
+            }
+            return NoContent();
+        }
+
+        //-----------------------------------------------------------------------------------
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+        [HttpGet]
+        [Route("GetUsers")]
+        public async Task<IActionResult> GetUsers()
+        {
+            return Ok(_dataContext2.Users);
         }
     }
 }
