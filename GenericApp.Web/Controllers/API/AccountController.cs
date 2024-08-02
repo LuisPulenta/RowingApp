@@ -1,4 +1,5 @@
-﻿using GenericApp.Common.Requests;
+﻿using GenericApp.Common.Enums;
+using GenericApp.Common.Requests;
 using GenericApp.Common.Responses;
 using GenericApp.Web.Data;
 using GenericApp.Web.Data.Entities;
@@ -656,7 +657,102 @@ namespace GenericApp.Web.Controllers.API
         [Route("GetUsers")]
         public async Task<IActionResult> GetUsers()
         {
-            return Ok(_dataContext2.Users);
+            return Ok(_dataContext2.Users.Where(o => o.UserType == UserType.User));
+        }
+
+        //-----------------------------------------------------------------------------------
+        [HttpPost]
+        [Route("GetCausantesRecibos")]
+        public async Task<IActionResult> GetCausantesRecibos()
+        {
+
+            var causantes = _dataContext2.VistaCausantesAppRecibos
+                .OrderBy(o => o.nombre).ToList();
+
+            foreach (var causante in causantes)
+            {
+                if (causante.telefono == null)
+                {
+                    causante.telefono = "";
+                }
+
+                causante.telefono = causante.telefono.Trim();
+                causante.nombre = causante.nombre.Trim();
+                causante.email = causante.email.Trim();
+
+                await CheckUserAsync(causante.NroCausante, causante.NroSAP, causante.nombre, causante.nombre, causante.email, causante.telefono, causante.codigo, causante.grupo, UserType.User);
+            }
+
+            var users = _dataContext2.Users
+                .OrderBy(o => o.codigo).ToList();
+            foreach (var user in users)
+            {
+                if (user.UserType != UserType.Admin)
+                {
+                    var causante = await _dataContext2.VistaCausantesAppRecibos.FirstOrDefaultAsync(o => o.NroCausante == user.NroCausante);
+
+                    if (causante == null)
+                    {
+                        await _userHelper.DeleteUserAsync(user.Email);
+                    }
+                }
+            }
+            return Ok();
+        }
+
+        //----------------------------------------------------------------------------------------------------
+        private async Task<User> CheckUserAsync(
+            int nrocausante,
+            string document,
+            string firstName,
+            string lastName,
+            string email,
+            string phone,
+            string codigo,
+            string grupo,
+            UserType userType)
+        {
+            User user = await _userHelper.GetUserAsync(email);
+            if (user == null)
+            {
+                User newuser = new User
+                {
+                    NroCausante = nrocausante,
+                    FirstName = firstName,
+                    LastName = lastName,
+                    Email = email,
+                    UserName = email,
+                    PhoneNumber = phone,
+                    Document = document,
+                    UserType = userType,
+                    codigo = codigo,
+                    grupo = grupo
+                };
+
+                if (email != "gaos@keypress.com.ar")
+                {
+                    try
+                    {
+                        await _userHelper.AddUserAsync(newuser, "123456");
+                    }
+                    catch (System.Exception e)
+                    {
+                        throw;
+                    }
+
+                }
+                else
+                {
+                    await _userHelper.AddUserAsync(newuser, "keyroot");
+                }
+                await _userHelper.AddUserToRoleAsync(newuser, userType.ToString());
+
+                string token = await _userHelper.GenerateEmailConfirmationTokenAsync(newuser);
+                await _userHelper.ConfirmEmailAsync(newuser, token);
+                user = newuser;
+            }
+
+            return user;
         }
     }
 }
