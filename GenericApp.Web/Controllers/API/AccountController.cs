@@ -774,6 +774,14 @@ namespace GenericApp.Web.Controllers.API
 
             User user = await _userHelper.GetUserAsync(email.Email);
             var causante = await _dataContext2.VistaCausantesAppRecibos.FirstOrDefaultAsync(o => o.NroCausante == user.NroCausante);
+            if (causante.telefono == null)
+            {
+                causante.telefono = "";
+            }
+
+            causante.telefono = causante.telefono.Trim();
+            causante.nombre = causante.nombre.Trim();
+            causante.email = causante.email.Trim();
             await _userHelper.DeleteUserAsync(email.Email);
             await CheckUserAsync(causante.NroCausante, causante.NroSAP, causante.nombre, causante.nombre, causante.email, causante.telefono, causante.codigo, causante.grupo, UserType.User);
 
