@@ -760,11 +760,21 @@ namespace GenericApp.Web.Controllers.API
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         [HttpPost]
         [Route("ResetPassword")]
-        public async Task<IActionResult> ResetPassword([FromBody] string email)
+        public async Task<IActionResult> ResetPassword([FromBody] EmailRequest email)
         {
-            User user = await _userHelper.GetUserAsync(email);
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(new Response
+                {
+                    IsSuccess = false,
+                    Message = "Bad request",
+                    Result = ModelState
+                });
+            }
+
+            User user = await _userHelper.GetUserAsync(email.Email);
             var causante = await _dataContext2.VistaCausantesAppRecibos.FirstOrDefaultAsync(o => o.NroCausante == user.NroCausante);
-            await _userHelper.DeleteUserAsync(email);
+            await _userHelper.DeleteUserAsync(email.Email);
             await CheckUserAsync(causante.NroCausante, causante.NroSAP, causante.nombre, causante.nombre, causante.email, causante.telefono, causante.codigo, causante.grupo, UserType.User);
 
             return Ok();
