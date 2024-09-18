@@ -35,6 +35,7 @@ namespace GenericApp.Web.Data.Entities
         public string NUMCHATERCERO { get; set; }
         public DateTime FECHACARGAAPP { get; set; }
         public string Modulo { get; set; }
+        public string TipoDeSiniestro { get; set; }
 
         //public ICollection<VehiculosSiniestrosFoto> Fotos { get; set; }
     }

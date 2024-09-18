@@ -32,5 +32,6 @@ namespace GenericApp.Common.Responses
         public string DETALLEDANOSPROPIO { get; set; }
         public string NUMCHATERCERO { get; set; }
         public DateTime FECHACARGAAPP { get; set; }
+        public string TipoDeSiniestro { get; set; }
     }
 }
