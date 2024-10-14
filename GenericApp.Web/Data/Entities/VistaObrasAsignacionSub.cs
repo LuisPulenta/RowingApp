@@ -18,5 +18,6 @@ namespace GenericApp.Web.Data.Entities
         public DateTime? FechaCierre { get; set; }
         public string NombreObra { get; set; }
         public string Modulo { get; set; }
+        public string ELEMPEP { get; set; }
     }
 }
