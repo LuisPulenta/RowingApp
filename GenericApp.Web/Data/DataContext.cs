@@ -66,7 +66,7 @@ namespace GenericApp.Web.Data
         public DbSet<CodigosProduccio> CodigosProduccion { get; set; }
         public DbSet<CausantesObra> CausantesObras { get; set; }
         public DbSet<AppReclamo> AppReclamos { get; set; }
-        public DbSet<InfVentasTem> InfVentasTemp { get; set; }        
+          
 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
