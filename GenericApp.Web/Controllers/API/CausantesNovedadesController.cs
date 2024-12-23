@@ -166,5 +166,22 @@ namespace GenericApp.Web.Controllers.API
             await _dataContext.SaveChangesAsync();
             return Ok();
         }
+
+        [HttpDelete()]
+        [Route("DeleteVentas")]
+        public async Task<IActionResult> DeleteVentas()
+        {
+            var rows = await _dataContext.InfVentasTemp
+                .FirstOrDefaultAsync(p => p.IDINF != 999);
+
+            if (rows == null)
+            {
+                return this.NotFound();
+            }
+
+            _dataContext.InfVentasTemp.Remove(rows);
+            await _dataContext.SaveChangesAsync();
+            return Ok("Borrado");
+        }
     }
 }
