@@ -196,7 +196,7 @@ namespace GenericApp.Web.Controllers.API
         }
 
         //-----------------------------------------------------------------------------------
-        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+        //[Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         [HttpPost]
         [Route("GetUserByEmail2")]
         public async Task<IActionResult> GetUserByEmail2([FromBody] EmailRequest request)
