@@ -37,10 +37,14 @@ namespace GenericApp.Web.Controllers.API
             using (SqlConnection connection = new SqlConnection(_connectionString))
             {
                 // Crear el comando para ejecutar el procedimiento almacenado
-                using (SqlCommand command = new SqlCommand("LimpiaHombreConCasco", connection))
-                {
-                    command.CommandType = CommandType.StoredProcedure;
+                               
 
+                //using (SqlCommand command = new SqlCommand("LimpiaHombreConCasco", connection))
+                using (SqlCommand command = new SqlCommand("exec [dbo].[LimpiaHombreConCasco]", connection))
+                {
+                    //command.CommandType = CommandType.StoredProcedure;
+                    command.CommandType = CommandType.Text;
+                    
                     // Abrir la conexión y ejecutar el comando
                     connection.Open();
                     using (SqlDataReader reader = command.ExecuteReader())
