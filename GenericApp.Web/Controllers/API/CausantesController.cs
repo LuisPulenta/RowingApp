@@ -329,6 +329,57 @@ namespace GenericApp.Web.Controllers.API
 
         //---------------------------- FIN DE LOS METODOS DE PRESENTISMO ------------------
 
+        //------------------------------------------------------------------------------------
+        [HttpPost]
+        [Route("GetCausanteByGrupoAndByCodigo2")]
+        public async Task<IActionResult> GetCausantePPRByCodigo2(CausanteRequest3 request)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest();
+            }
+
+
+            Causante causante = await _dataContext2.VistaCausantesApp.FirstOrDefaultAsync
+                (o => o.codigo.ToLower() == request.Codigo.ToLower() && o.grupo == request.Grupo.ToLower() && o.estado == true);
+
+            if (causante == null)
+            {
+                return BadRequest("El Empleado no existe.");
+            }
+
+            CausanteResponse response = new CausanteResponse
+            {
+                codigo = causante.codigo,
+                nombre = causante.nombre,
+                encargado = causante.encargado,
+                NroCausante = causante.NroCausante,
+                telefono = causante.telefono,
+                NroSAP = causante.NroSAP,
+                grupo = causante.grupo,
+                estado = causante.estado,
+                LinkFoto = causante.LinkFoto,
+                direccion = causante.direccion,
+                Numero = causante.Numero,
+                TelefonoContacto1 = causante.TelefonoContacto1,
+                TelefonoContacto2 = causante.TelefonoContacto2,
+                TelefonoContacto3 = causante.TelefonoContacto3,
+                fecha = causante.fecha,
+                NotasCausantes = causante.NotasCausantes,
+                ciudad = causante.ciudad,
+                Provincia = causante.Provincia,
+                CodigoSupervisorObras = causante.CodigoSupervisorObras,
+                ZonaTrabajo = causante.ZonaTrabajo,
+                NombreActividad = causante.NombreActividad,
+                notas = causante.notas,
+                PerteneceCuadrilla = causante.PerteneceCuadrilla,
+                FirmaDigitalAPP = causante.FirmaDigitalAPP
+            };
+
+            return Ok(response);
+        }
+
+        //------------------------------------------------------------------------------------
         [HttpPost]
         [Route("GetCausanteByGrupoAndByCodigo")]
         public async Task<IActionResult> GetCausantePPRByCodigo(CausanteRequest3 request)
@@ -379,7 +430,6 @@ namespace GenericApp.Web.Controllers.API
         }
 
         //------------------------------------------------------------------------------------
-
 
         [HttpPut]
         [Route("ReactivarLegajo/{id}")]
