@@ -339,43 +339,74 @@ namespace GenericApp.Web.Controllers.API
             }
 
 
-            Causante user = await _dataContext2.VistaCausantesApp.FirstOrDefaultAsync
+            Causante causante = await _dataContext2.VistaCausantesApp.FirstOrDefaultAsync
                 (o => o.codigo.ToLower() == codigo.Codigo.ToLower() && o.grupo=="PPR" && o.estado==false);
 
-            if (user == null)
+            if (causante == null)
             {
                 return BadRequest("El Empleado no existe.");
             }
 
             CausanteResponse response = new CausanteResponse
             {
-                codigo = user.codigo,
-                nombre = user.nombre,
-                encargado = user.encargado,
-                NroCausante = user.NroCausante,
-                telefono = user.telefono,
-                NroSAP = user.NroSAP,
-                grupo = user.grupo,
-                estado = user.estado,
-                LinkFoto = user.LinkFoto,
-                direccion = user.direccion,
-                Numero = user.Numero,
-                TelefonoContacto1 = user.TelefonoContacto1,
-                TelefonoContacto2 = user.TelefonoContacto2,
-                TelefonoContacto3 = user.TelefonoContacto3,
-                fecha = user.fecha,
-                NotasCausantes = user.NotasCausantes,
-                ciudad = user.ciudad,
-                Provincia = user.Provincia,
-                CodigoSupervisorObras = user.CodigoSupervisorObras,
-                ZonaTrabajo = user.ZonaTrabajo,
-                NombreActividad = user.NombreActividad,
-                notas = user.notas,
-                PerteneceCuadrilla = user.PerteneceCuadrilla,
-                FirmaDigitalAPP = user.FirmaDigitalAPP
+                codigo = causante.codigo,
+                nombre = causante.nombre,
+                encargado = causante.encargado,
+                NroCausante = causante.NroCausante,
+                telefono = causante.telefono,
+                NroSAP = causante.NroSAP,
+                grupo = causante.grupo,
+                estado = causante.estado,
+                LinkFoto = causante.LinkFoto,
+                direccion = causante.direccion,
+                Numero = causante.Numero,
+                TelefonoContacto1 = causante.TelefonoContacto1,
+                TelefonoContacto2 = causante.TelefonoContacto2,
+                TelefonoContacto3 = causante.TelefonoContacto3,
+                fecha = causante.fecha,
+                NotasCausantes = causante.NotasCausantes,
+                ciudad = causante.ciudad,
+                Provincia = causante.Provincia,
+                CodigoSupervisorObras = causante.CodigoSupervisorObras,
+                ZonaTrabajo = causante.ZonaTrabajo,
+                NombreActividad = causante.NombreActividad,
+                notas = causante.notas,
+                PerteneceCuadrilla = causante.PerteneceCuadrilla,
+                FirmaDigitalAPP = causante.FirmaDigitalAPP
             };
 
             return Ok(response);
+        }
+
+        //------------------------------------------------------------------------------------
+
+
+        [HttpPut]
+        [Route("ReactivarLegajo/{id}")]
+        public async Task<IActionResult> ReactivarLegajo([FromRoute] int id, [FromBody] CausanteRequest request)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            if (id.ToString() != request.Codigo)
+            {
+                return BadRequest();
+            }
+
+            Causante2 oldCausante = await _dataContext2.Causantes.FirstOrDefaultAsync
+                (o => o.codigo.ToLower() == request.Codigo.ToLower() && o.grupo == "PPR" && o.estado == false);
+
+
+            if (oldCausante == null)
+            {
+                return BadRequest("El Causante no existe.");
+            }
+            oldCausante.estado = true;
+            _dataContext2.Causantes.Update(oldCausante);
+            await _dataContext2.SaveChangesAsync();
+            return Ok();
         }
     }
 }
