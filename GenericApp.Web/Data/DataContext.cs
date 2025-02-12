@@ -66,7 +66,9 @@ namespace GenericApp.Web.Data
         public DbSet<CodigosProduccio> CodigosProduccion { get; set; }
         public DbSet<CausantesObra> CausantesObras { get; set; }
         public DbSet<AppReclamo> AppReclamos { get; set; }
-          
+        public DbSet<VistaStocksMaximo> VistaStocksMaximos { get; set; }
+        public DbSet<StockMaximosSubcon> StockMaximosSubcons { get; set; }
+
 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -110,9 +112,8 @@ namespace GenericApp.Web.Data
             modelBuilder.Entity<SHGrupoFormPonderado>()
                .HasKey(c => new { c.IDCLIENTE, c.IDGRUPOFORMULARIO, c.DETALLEF });
 
-
-
-
+            modelBuilder.Entity<StockMaximosSubcon>()
+               .HasKey(c => new { c.GRUPOC, c.CAUSANTE, c.CODIGOSIAG });
         }
 
     }
