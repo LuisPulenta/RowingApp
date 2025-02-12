@@ -330,8 +330,8 @@ namespace GenericApp.Web.Controllers.API
         //---------------------------- FIN DE LOS METODOS DE PRESENTISMO ------------------
 
         [HttpPost]
-        [Route("GetCausantePPRByCodigo")]
-        public async Task<IActionResult> GetCausantePPRByCodigo(CausanteRequest codigo)
+        [Route("GetCausanteByGrupoAndByCodigo")]
+        public async Task<IActionResult> GetCausantePPRByCodigo(CausanteRequest3 request)
         {
             if (!ModelState.IsValid)
             {
@@ -340,7 +340,7 @@ namespace GenericApp.Web.Controllers.API
 
 
             Causante causante = await _dataContext2.VistaCausantesApp.FirstOrDefaultAsync
-                (o => o.codigo.ToLower() == codigo.Codigo.ToLower() && o.grupo=="PPR" && o.estado==false);
+                (o => o.codigo.ToLower() == request.Codigo.ToLower() && o.grupo== request.Grupo.ToLower() && o.estado==false);
 
             if (causante == null)
             {
@@ -383,7 +383,7 @@ namespace GenericApp.Web.Controllers.API
 
         [HttpPut]
         [Route("ReactivarLegajo/{id}")]
-        public async Task<IActionResult> ReactivarLegajo([FromRoute] int id, [FromBody] CausanteRequest request)
+        public async Task<IActionResult> ReactivarLegajo([FromRoute] int id, [FromBody] CausanteRequest3 request)
         {
             if (!ModelState.IsValid)
             {
@@ -396,7 +396,7 @@ namespace GenericApp.Web.Controllers.API
             }
 
             Causante2 oldCausante = await _dataContext2.Causantes.FirstOrDefaultAsync
-                (o => o.codigo.ToLower() == request.Codigo.ToLower() && o.grupo == "PPR" && o.estado == false);
+                (o => o.codigo.ToLower() == request.Codigo.ToLower() && o.grupo.ToLower() == request.Grupo.ToLower() && o.estado == false);
 
 
             if (oldCausante == null)
