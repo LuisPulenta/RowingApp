@@ -328,5 +328,54 @@ namespace GenericApp.Web.Controllers.API
         }
 
         //---------------------------- FIN DE LOS METODOS DE PRESENTISMO ------------------
+
+        [HttpPost]
+        [Route("GetCausantePPRByCodigo")]
+        public async Task<IActionResult> GetCausantePPRByCodigo(CausanteRequest codigo)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest();
+            }
+
+
+            Causante user = await _dataContext2.VistaCausantesApp.FirstOrDefaultAsync
+                (o => o.codigo.ToLower() == codigo.Codigo.ToLower() && o.grupo=="PPR" && o.estado==false);
+
+            if (user == null)
+            {
+                return BadRequest("El Empleado no existe.");
+            }
+
+            CausanteResponse response = new CausanteResponse
+            {
+                codigo = user.codigo,
+                nombre = user.nombre,
+                encargado = user.encargado,
+                NroCausante = user.NroCausante,
+                telefono = user.telefono,
+                NroSAP = user.NroSAP,
+                grupo = user.grupo,
+                estado = user.estado,
+                LinkFoto = user.LinkFoto,
+                direccion = user.direccion,
+                Numero = user.Numero,
+                TelefonoContacto1 = user.TelefonoContacto1,
+                TelefonoContacto2 = user.TelefonoContacto2,
+                TelefonoContacto3 = user.TelefonoContacto3,
+                fecha = user.fecha,
+                NotasCausantes = user.NotasCausantes,
+                ciudad = user.ciudad,
+                Provincia = user.Provincia,
+                CodigoSupervisorObras = user.CodigoSupervisorObras,
+                ZonaTrabajo = user.ZonaTrabajo,
+                NombreActividad = user.NombreActividad,
+                notas = user.notas,
+                PerteneceCuadrilla = user.PerteneceCuadrilla,
+                FirmaDigitalAPP = user.FirmaDigitalAPP
+            };
+
+            return Ok(response);
+        }
     }
 }
