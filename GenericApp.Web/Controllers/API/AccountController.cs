@@ -86,7 +86,7 @@ namespace GenericApp.Web.Controllers.API
                     HabilitaMedidores = 0,
                     HabilitaFlotas = "NO",
                     ReHabilitaUsuarios = 0,
-                    CODIGOGRUPO = user2.codigo,
+                    CODIGOGRUPO = user2.grupo,
                     FechaCaduca = 0,
                     IntentosInvDiario = 0,
                     OpeAutorizo = 0,
