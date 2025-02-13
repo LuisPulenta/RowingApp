@@ -1,7 +1,9 @@
 ﻿using GenericApp.Common.Requests;
 using GenericApp.Web.Data;
+using GenericApp.Web.Data.Entities;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -37,6 +39,49 @@ namespace GenericApp.Web.Controllers.API
                 return BadRequest("No hay Recibos");
             }
             return Ok(recibos);
+        }
+
+        //-----------------------------------------------------------------------------------
+        [HttpPut]
+        [Route("FirmarRecibo/{id}")]
+        public async Task<IActionResult> FirmarRecibo([FromRoute] int id, [FromBody] ReciboRequest request)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            if (request.IdRecibo!=id)
+            {
+                return BadRequest(ModelState);
+            }
+
+            CausanteRecibo oldCausanteRecibo = await _dataContext2.CausantesRec.FindAsync(request.IdRecibo);
+
+            if (oldCausanteRecibo == null)
+            {
+                return BadRequest("El Recibo no existe.");
+            }
+
+            if (oldCausanteRecibo.FIRMADO == 1)
+            {
+                return BadRequest("El Recibo ya fue firmado.");
+            }
+
+            var horaActual = DateTime.Now.Hour * 3600 + DateTime.Now.Minute * 60;
+
+            oldCausanteRecibo.FIRMADO = 1;
+            oldCausanteRecibo.EstadoRecibo = "Firmado";
+            oldCausanteRecibo.FECHAESTADO = DateTime.Now;
+            oldCausanteRecibo.HSESTADO = horaActual;
+            oldCausanteRecibo.FECHAFIRMAELECTRONICA = DateTime.Now;
+            oldCausanteRecibo.HSFIRMAELECTRONICA = horaActual;
+            oldCausanteRecibo.LATFIRMAELECTRONICA = request.Latitud;
+            oldCausanteRecibo.LONGFIRMAELECTRONICA = request.Longitud;
+
+            _dataContext2.CausantesRec.Update(oldCausanteRecibo);
+            await _dataContext2.SaveChangesAsync();
+            return Ok();
         }
     }
 }
