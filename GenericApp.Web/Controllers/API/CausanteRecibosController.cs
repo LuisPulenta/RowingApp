@@ -68,7 +68,7 @@ namespace GenericApp.Web.Controllers.API
             string imageUrl = string.Empty;
             var file = "";
             var stream = new MemoryStream(request.ImageArray);
-            file = $"{request.FileName}.pdf";
+            file = $"{request.FileName}";
             var folder = "wwwroot\\images\\Recibos";
             var fullPath = $"~/images/Recibos/{file}";
             var response = _filesHelper.UploadPhoto(stream, folder, file);
