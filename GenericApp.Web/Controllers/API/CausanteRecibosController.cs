@@ -1,4 +1,5 @@
-﻿using GenericApp.Common.Requests;
+﻿using GenericApp.Common.Helpers;
+using GenericApp.Common.Requests;
 using GenericApp.Web.Data;
 using GenericApp.Web.Data.Entities;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -6,6 +7,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -17,10 +19,12 @@ namespace GenericApp.Web.Controllers.API
     public class CausanteRecibosController : ControllerBase
     {
         private readonly DataContext2 _dataContext2;
+        private readonly IFilesHelper _filesHelper;
 
-        public CausanteRecibosController(DataContext2 dataContext2)
+        public CausanteRecibosController(DataContext2 dataContext2, IFilesHelper filesHelper)
         {
             _dataContext2 = dataContext2;
+            _filesHelper = filesHelper;
         }
 
         //------------------------------------------------------------------------------
@@ -58,6 +62,16 @@ namespace GenericApp.Web.Controllers.API
             {
                 return BadRequest(ModelState);
             }
+
+
+            //Foto
+            string imageUrl = string.Empty;
+            var file = "";
+            var stream = new MemoryStream(request.ImageArray);
+            file = $"{request.FileName}.pdf";
+            var folder = "wwwroot\\images\\Recibos";
+            var fullPath = $"~/images/Recibos/{file}";
+            var response = _filesHelper.UploadPhoto(stream, folder, file);
 
             CausanteRecibo oldCausanteRecibo = await _dataContext2.CausantesRec.FindAsync(request.IdRecibo);
 

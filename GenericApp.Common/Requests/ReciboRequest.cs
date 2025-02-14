@@ -8,5 +8,7 @@ namespace GenericApp.Common.Requests
         public int IdRecibo { get; set; }
         public string Latitud { get; set; }
         public string Longitud { get; set; }
+        public string FileName { get; set; }
+        public byte[] ImageArray { get; set; }
     }
 }
