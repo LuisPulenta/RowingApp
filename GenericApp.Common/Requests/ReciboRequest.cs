@@ -10,5 +10,6 @@ namespace GenericApp.Common.Requests
         public string Longitud { get; set; }
         public string FileName { get; set; }
         public byte[] ImageArray { get; set; }
+        public string Imei { get; set; }
     }
 }

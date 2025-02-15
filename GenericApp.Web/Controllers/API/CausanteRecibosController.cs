@@ -95,6 +95,7 @@ namespace GenericApp.Web.Controllers.API
             oldCausanteRecibo.HSFIRMAELECTRONICA = horaActual;
             oldCausanteRecibo.LATFIRMAELECTRONICA = request.Latitud;
             oldCausanteRecibo.LONGFIRMAELECTRONICA = request.Longitud;
+            oldCausanteRecibo.IMEI = request.Imei;
 
             _dataContext2.CausantesRec.Update(oldCausanteRecibo);
             await _dataContext2.SaveChangesAsync();
