@@ -27,6 +27,27 @@ namespace GenericApp.Web.Controllers.API
         //---------------------------------------------------------------------------------------------------
 
         [HttpPost]
+        [Route("GetInstalaciones")]
+        public async Task<IActionResult> GetInstalaciones()
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest();
+            }
+
+            var instalaciones = await _dataContext.AppInstalacionesEquipos
+           .OrderBy(o => o.IDRegistro)
+           .ToListAsync();
+            if (instalaciones == null)
+            {
+                return BadRequest("No hay Instalaciones.");
+            }
+            return Ok(instalaciones);
+        }
+
+        //---------------------------------------------------------------------------------------------------
+
+        [HttpPost]
         [Route("GetAppInstalacionesEquipo/{UserId}")]
         public async Task<IActionResult> GetAppInstalacionesEquipo(int UserId)
         {
