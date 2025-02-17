@@ -48,6 +48,29 @@ namespace GenericApp.Web.Controllers.API
         //---------------------------------------------------------------------------------------------------
 
         [HttpPost]
+        [Route("GetInstalacion/{Id}")]
+        public async Task<IActionResult> GetInstalacion(int id)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest();
+            }
+
+
+            AppInstalacionesEquipo instalacion = await _dataContext.AppInstalacionesEquipos.FirstOrDefaultAsync
+               (o => o.IDRegistro == id);
+
+            if (instalacion == null)
+            {
+                return BadRequest("La instalación no existe.");
+            }
+
+            return Ok(instalacion);
+        }
+
+        //---------------------------------------------------------------------------------------------------
+
+        [HttpPost]
         [Route("GetAppInstalacionesEquipo/{UserId}")]
         public async Task<IActionResult> GetAppInstalacionesEquipo(int UserId)
         {
