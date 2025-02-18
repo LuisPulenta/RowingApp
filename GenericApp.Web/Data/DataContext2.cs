@@ -36,5 +36,6 @@ namespace GenericApp.Web.Data
         public DbSet<Causante3> VistaCausantesAppRecibos { get; set; }
         public DbSet<Grupo> Grupos { get; set; }
         public DbSet<CausanteRecibo> CausantesRec { get; set; }
+        public DbSet<VistaAppInstalacionesEquipo> VistaAppInstalacionesEquipos { get; set; }
     }
 }

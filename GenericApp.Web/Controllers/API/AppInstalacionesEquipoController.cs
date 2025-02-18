@@ -35,7 +35,7 @@ namespace GenericApp.Web.Controllers.API
                 return BadRequest();
             }
 
-            var instalaciones = await _dataContext.AppInstalacionesEquipos
+            var instalaciones = await _dataContext.VistaAppInstalacionesEquipos
            .OrderBy(o => o.IDRegistro)
            .ToListAsync();
             if (instalaciones == null)
@@ -56,17 +56,19 @@ namespace GenericApp.Web.Controllers.API
                 return BadRequest();
             }
 
+            var instalacion = await _dataContext.VistaAppInstalacionesEquipos
+            .Where(o => ((o.IDRegistro == id))
+           )
+           .ToListAsync();
 
-            AppInstalacionesEquipo instalacion = await _dataContext.AppInstalacionesEquipos.FirstOrDefaultAsync
-               (o => o.IDRegistro == id);
 
             if (instalacion == null)
             {
-                return BadRequest("La instalación no existe.");
+                return BadRequest("La instalacion no existe.");
             }
-
             return Ok(instalacion);
         }
+
 
         //---------------------------------------------------------------------------------------------------
 
