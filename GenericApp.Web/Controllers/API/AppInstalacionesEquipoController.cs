@@ -162,7 +162,7 @@ namespace GenericApp.Web.Controllers.API
             {
                 var stream = new MemoryStream(request.ImageArrayFIRMACLIENTE);
                 var guid = Guid.NewGuid().ToString();
-                var file = $"{guid}.jpg";
+                var file = $"{guid}.png";
                 var folder = "wwwroot\\images\\Instalaciones";
                 var fullPath = $"~/images/Instalaciones/{file}";
                 var response = _filesHelper.UploadPhoto(stream, folder, file);
