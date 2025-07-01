@@ -666,8 +666,6 @@ namespace GenericApp.Web.Controllers.API
         [Route("GetCausantesRecibos")]
         public async Task<IActionResult> GetCausantesRecibos()
         {
-            var a = 1;
-            var b = 2;
             var causantes = _dataContext2.VistaCausantesAppRecibos
                 .OrderBy(o => o.nombre).ToList();
 

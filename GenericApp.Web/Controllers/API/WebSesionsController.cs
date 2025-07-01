@@ -21,6 +21,7 @@ namespace GenericApp.Web.Controllers.API
             _dataContext = dataContext;
         }
 
+        //---------------------------------------------------------------------------------------
         [HttpPost]
         public async Task<IActionResult> PostWebSesion([FromBody] WebSesio request)
         {
@@ -56,7 +57,7 @@ namespace GenericApp.Web.Controllers.API
             return Ok(response);
         }
 
-              
+        //---------------------------------------------------------------------------------------      
         [HttpPut("{id}")]
         [Route("PutWebSesion")]
         public async Task<IActionResult> PutWebSesion(int id)
@@ -76,7 +77,5 @@ namespace GenericApp.Web.Controllers.API
             await _dataContext.SaveChangesAsync();
             return Ok(true);
         }
-
-
     }
 }
