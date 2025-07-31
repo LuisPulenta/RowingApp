@@ -2,6 +2,7 @@
 using GenericApp.Common.Requests;
 using GenericApp.Web.Data;
 using GenericApp.Web.Data.Entities;
+using GenericApp.Web.Helpers;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -20,11 +21,13 @@ namespace GenericApp.Web.Controllers.API
     {
         private readonly DataContext2 _dataContext2;
         private readonly IFilesHelper _filesHelper;
+        private readonly IMailHelper _mailHelper;
 
-        public CausanteRecibosController(DataContext2 dataContext2, IFilesHelper filesHelper)
+        public CausanteRecibosController(DataContext2 dataContext2, IFilesHelper filesHelper, IMailHelper mailHelper)
         {
             _dataContext2 = dataContext2;
             _filesHelper = filesHelper;
+            _mailHelper = mailHelper;
         }
 
         //------------------------------------------------------------------------------
@@ -100,6 +103,14 @@ namespace GenericApp.Web.Controllers.API
             _dataContext2.CausantesRec.Update(oldCausanteRecibo);
             await _dataContext2.SaveChangesAsync();
             return Ok();
+        }
+
+        //-------------------------------------------------------------------------------------------------
+        [HttpPost]
+        [Route("SendEmail")]
+        public void SendEmail(SendEmailRequest request)
+        {
+            _mailHelper.SendMail(request.to, request.subject, request.body);
         }
     }
 }

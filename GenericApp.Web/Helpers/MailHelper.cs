@@ -3,6 +3,8 @@ using Microsoft.Extensions.Configuration;
 using MimeKit;
 using GenericApp.Common.Responses;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace GenericApp.Web.Helpers
 {
@@ -24,19 +26,27 @@ namespace GenericApp.Web.Helpers
                 string port = _configuration["Mail:Port"];
                 string password = _configuration["Mail:Password"];
 
+                List<string> listaTO = to.Split(',').ToList();
+
                 MimeMessage message = new MimeMessage();
                 message.From.Add(new MailboxAddress(from));
-                message.To.Add(new MailboxAddress(to));
+                foreach (var email in listaTO)
+                {
+                    message.To.Add(new MailboxAddress(email));
+                }
+
                 message.Subject = subject;
+
                 BodyBuilder bodyBuilder = new BodyBuilder
                 {
                     HtmlBody = body
+
                 };
                 message.Body = bodyBuilder.ToMessageBody();
 
                 using (SmtpClient client = new SmtpClient())
                 {
-                    client.Connect(smtp, int.Parse(port), false);
+                    client.Connect(smtp, int.Parse(port), true);
                     client.Authenticate(from, password);
                     client.Send(message);
                     client.Disconnect(true);
