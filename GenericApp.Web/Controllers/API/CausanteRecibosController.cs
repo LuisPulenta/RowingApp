@@ -110,7 +110,7 @@ namespace GenericApp.Web.Controllers.API
         [Route("SendMailWithPdf")]
         public void SendMailWithPdf(SendEmailRequest request)
         {
-            _mailHelper.SendMailWithPdf(request.to, request.subject, request.body,request.fileUrl);
+            _mailHelper.SendMailWithPdf(request.to, request.subject, request.body,request.fileUrl,request.fileName);
         }
     }
 }

@@ -7,6 +7,6 @@ namespace GenericApp.Web.Helpers
     {
         Response SendMail(string to, string subject, string body);
 
-        Task<Response> SendMailWithPdf(string to, string subject, string body, string fileUrl);
+        Task<Response> SendMailWithPdf(string to, string subject, string body, string fileUrl, string fileName);
     }
 }

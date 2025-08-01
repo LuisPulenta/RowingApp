@@ -69,7 +69,7 @@ namespace GenericApp.Web.Helpers
             }
         }
 
-        public async Task<Response> SendMailWithPdf (string to, string subject, string body, string fileUrl)
+        public async Task<Response> SendMailWithPdf (string to, string subject, string body, string fileUrl, string fileName)
         {
             try
             {
@@ -100,7 +100,7 @@ namespace GenericApp.Web.Helpers
                     using (HttpClient client = new HttpClient())
                     {
                         var fileBytes = await client.GetByteArrayAsync(fileUrl);
-                        var fileName = Path.GetFileName(fileUrl);
+                        //var fileName = Path.GetFileName(fileUrl);
 
                         // Crear un ContentType para el archivo PDF
                         var contentType = new MimeKit.ContentType("application", "pdf");
