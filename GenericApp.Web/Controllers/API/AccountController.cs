@@ -273,7 +273,7 @@ namespace GenericApp.Web.Controllers.API
         }
 
         //-----------------------------------------------------------------------------------
-        [HttpPut("{login}")]
+        [HttpPost("{login}")]
         [Route("ReactivaUsuario")]
         public async Task<IActionResult> ReactivaUsuario([FromRoute] string login, [FromBody] UsuarioAutorizaRequest request)
         {
