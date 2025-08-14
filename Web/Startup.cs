@@ -13,6 +13,7 @@ using RowingApp.Web.Data.Entities;
 using Web.Data;
 using RowingApp.Web.Helpers;
 using RowingApp.Web.Data;
+using System.Text.Json.Serialization;
 
 namespace Web
 {
@@ -27,8 +28,10 @@ namespace Web
 
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddControllers().AddJsonOptions(x => x.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles);
 
-           services.Configure<CookiePolicyOptions>(options =>
+
+            services.Configure<CookiePolicyOptions>(options =>
             {
                 options.CheckConsentNeeded = context => true;
                 options.MinimumSameSitePolicy = SameSiteMode.None;
@@ -117,7 +120,7 @@ namespace Web
             app.UseCookiePolicy();
 
 
-           
+
 
 
             app.UseMvc(routes =>

@@ -418,6 +418,7 @@ namespace RowingApp.Web.Controllers.API
            && (o.Modulo == ProyectoModulo))
            .OrderBy(o => o.NroObra)
            .ToListAsync();
+
             if (obras == null)
             {
                 return BadRequest("No hay Obras.");

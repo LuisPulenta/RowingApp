@@ -11,6 +11,7 @@ namespace RowingApp.Web.Data.Entities
         public int? IDObrasPostes { get; set; }
         public string OBSERVACION { get; set; }
         public string LINK { get; set; }
+        public Obra Obra { get; set; }
         public DateTime? FECHA { get; set; }
         public string MODULO { get; set; }
         public string NroLote { get; set; }

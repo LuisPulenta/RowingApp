@@ -78,6 +78,10 @@ namespace Web.Data
         {
             base.OnModelCreating(modelBuilder);
 
+            modelBuilder.Entity<Obra>()
+       .HasMany(o => o.ObrasDocumentos);  // Obra tiene muchos ObrasDocumento;
+
+
             modelBuilder.Entity<CategoryEntity>()
                 .HasIndex(t => t.Name)
                 .IsUnique();
@@ -117,6 +121,12 @@ namespace Web.Data
 
             modelBuilder.Entity<StockMaximosSubcon>()
                .HasKey(c => new { c.GRUPOC, c.CAUSANTE, c.CODIGOSIAG });
+
+            modelBuilder.Entity<ObrasDocumento>()
+    .HasOne(od => od.Obra)
+    .WithMany(o => o.ObrasDocumentos)
+    .HasForeignKey(od => od.NROOBRA)
+    .HasPrincipalKey(o => o.NroObra); // <- clave principal personalizada
 
         }
     }
