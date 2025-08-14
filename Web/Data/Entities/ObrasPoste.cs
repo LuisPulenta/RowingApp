@@ -41,8 +41,5 @@ namespace RowingApp.Web.Data.Entities
         public DateTime? FechaActualizada { get; set; }
         public int? IDUsrAcualiza { get; set; }
         public string ProvieneAct { get; set; }
-
-
-        //public ICollection<ObrasDocumento> ObrasDocumentos { get; set; }
     }
 }
