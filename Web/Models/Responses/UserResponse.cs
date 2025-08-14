@@ -27,9 +27,6 @@ namespace RowingApp.Common.Responses
 
         public UserType UserType { get; set; }
 
-        public CityResponse City { get; set; }
-
-        public TeamResponse FavoriteTeam { get; set; }
 
         public string FullName => $"{FirstName} {LastName}";
 

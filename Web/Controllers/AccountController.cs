@@ -58,53 +58,7 @@ namespace RowingApp.Web.Controllers
             return View(model);
         }
 
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(AddUserViewModel model)
-        {
-            if (ModelState.IsValid)
-            {
-                var imagePath = string.Empty;
-
-                if (model.ImageFile != null)
-                {
-                    imagePath = await _imageHelper.UploadImageAsync(model.ImageFile, "users");
-                }
-
-                User user = await _userHelper.AddUserAsync(model, imagePath, UserType.Admin);
-                if (user == null)
-                {
-                    ModelState.AddModelError(string.Empty, "Este mail ya está en uso.");
-                    model.Countries = _combosHelper.GetComboCountries();
-                    model.Departments = _combosHelper.GetComboDepartments(model.CountryId);
-                    model.Cities = _combosHelper.GetComboCities(model.DepartmentId);
-                    return View(model);
-                }
-
-                string myToken = await _userHelper.GenerateEmailConfirmationTokenAsync(user);
-                string tokenLink = Url.Action("ConfirmEmail", "Account", new
-                {
-                    userid = user.Id,
-                    token = myToken
-                }, protocol: HttpContext.Request.Scheme);
-
-                var response = _mailHelper.SendMail(model.Username, "Confirmación de Email", $"<h1>Confirmación de Email</h1>" +
-                    $"Para habilitar el usuario, " +
-                    $"por favor haga clic en este link: </br></br><a href = \"{tokenLink}\">Confirmación de Email</a>");
-                if (response.IsSuccess)
-                {
-                    ViewBag.Message = "Las instrucciones para habilitar su usuario han sido enviadas a su email.";
-                    return View(model);
-                }
-
-                ModelState.AddModelError(string.Empty, response.Message);
-            }
-
-            model.Countries = _combosHelper.GetComboCountries();
-            model.Departments = _combosHelper.GetComboDepartments(model.CountryId);
-            model.Cities = _combosHelper.GetComboCities(model.DepartmentId);
-            return View(model);
-        }
+       
 
 
         public IActionResult Login()
@@ -150,104 +104,12 @@ namespace RowingApp.Web.Controllers
             return View();
         }
 
-        public IActionResult Register()
-        {
-            AddUserViewModel model = new AddUserViewModel
-            {
-                Countries = _combosHelper.GetComboCountries(),
-                Departments = _combosHelper.GetComboDepartments(0),
-                Cities = _combosHelper.GetComboCities(0),
-                Teams = _combosHelper.GetComboTeams(0),
-            };
+     
 
-            return View(model);
-        }
-
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Register(AddUserViewModel model)
-        {
-            if (ModelState.IsValid)
-            {
-                var imagePath = string.Empty;
-                if (model.ImageFile != null)
-                {
-                    imagePath = await _imageHelper.UploadImageAsync(model.ImageFile, "Users");
-                }
-
-                User user = await _userHelper.AddUserAsync(model, imagePath, UserType.User);
-                if (user == null)
-                {
-                    ModelState.AddModelError(string.Empty, "Este mail ya está en uso.");
-                    model.Countries = _combosHelper.GetComboCountries();
-                    model.Departments = _combosHelper.GetComboDepartments(model.CountryId);
-                    model.Cities = _combosHelper.GetComboCities(model.DepartmentId);
-                    return View(model);
-                }
-
-                string myToken = await _userHelper.GenerateEmailConfirmationTokenAsync(user);
-                string tokenLink = Url.Action("ConfirmEmail", "Account", new
-                {
-                    userid = user.Id,
-                    token = myToken
-                }, protocol: HttpContext.Request.Scheme);
-
-                _mailHelper.SendMail(model.Username, "Confirmación de Email", $"<h1>Confirmación de Email</h1>" +
-                    $"Para habilitar el usuario, " +
-                    $"por favor haga clic en este link: </br></br><a href = \"{tokenLink}\">Confirmación de Email</a>");
+      
 
 
-                ViewBag.Message = "Las instrucciones para habilitar su usuario han sido enviadas a su email.";
-                return View(model);
-
-            }
-
-            model.Countries = _combosHelper.GetComboCountries();
-            model.Departments = _combosHelper.GetComboDepartments(model.CountryId);
-            model.Cities = _combosHelper.GetComboCities(model.DepartmentId);
-            return View(model);
-        }
-
-
-        public JsonResult GetDepartments(int countryId)
-        {
-            CountryEntity country = _context.Countries
-                .Include(c => c.Departments)
-                .FirstOrDefault(c => c.Id == countryId);
-            if (country == null)
-            {
-                return null;
-            }
-
-            return Json(country.Departments.OrderBy(d => d.Name));
-        }
-
-        public JsonResult GetTeams(int countryId)
-        {
-            CountryEntity country = _context.Countries
-                .Include(c => c.Teams)
-                .FirstOrDefault(c => c.Id == countryId);
-            if (country == null)
-            {
-                return null;
-            }
-
-            return Json(country.Teams.OrderBy(d => d.Name));
-        }
-
-        public JsonResult GetCities(int departmentId)
-        {
-            DepartmentEntity department = _context.Departments
-                .Include(d => d.Cities)
-                .FirstOrDefault(d => d.Id == departmentId);
-            if (department == null)
-            {
-                return null;
-            }
-
-            return Json(department.Cities.OrderBy(c => c.Name));
-        }
-
+       
         public async Task<IActionResult> ChangeUser()
         {
             User user = await _userHelper.GetUserAsync(User.Identity.Name);
@@ -270,34 +132,7 @@ namespace RowingApp.Web.Controllers
             return View(model);
         }
 
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> ChangeUser(EditUserViewModel model)
-        {
-            if (ModelState.IsValid)
-            {
-                var imagePath = model.PicturePath;
-                if (model.ImageFile != null)
-                {
-                    imagePath = await _imageHelper.UploadImageAsync(model.ImageFile, "Users");
-                }
-
-                User user = await _userHelper.GetUserAsync(User.Identity.Name);
-
-                user.FirstName = model.FirstName;
-                user.LastName = model.LastName;
-                user.PhoneNumber = model.PhoneNumber;
-                user.Document = model.Document;
-                await _userHelper.UpdateUserAsync(user);
-                return RedirectToAction("Index", "Home");
-            }
-
-            model.Cities = _combosHelper.GetComboCities(model.DepartmentId);
-            model.Countries = _combosHelper.GetComboCountries();
-            model.Departments = _combosHelper.GetComboDepartments(model.CityId);
-            model.Teams = _combosHelper.GetComboTeams(model.CountryId);
-            return View(model);
-        }
+     
         public IActionResult ChangePasswordMVC()
         {
             return View();
