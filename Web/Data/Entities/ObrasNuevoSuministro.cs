@@ -53,31 +53,31 @@ namespace RowingApp.Web.Data.Entities
         public string PosY { get; set; }
         public int? IDUserCarga { get; set; }
         public string ANTESFOTO1ImageFullPath => string.IsNullOrEmpty(ANTESFOTO1)
-       ? $"http://190.111.249.225/RowingAppApi/images/ObrasSuministros/noimage.png"
-       : $"http://190.111.249.225/RowingAppApi{ANTESFOTO1.Substring(1)}";
+       ? $"https://gaos2.keypress.com.ar/RowingAppApi/images/ObrasSuministros/noimage.png"
+       : $"https://gaos2.keypress.com.ar/RowingAppApi{ANTESFOTO1.Substring(1)}";
 
         public string ANTESFOTO2ImageFullPath => string.IsNullOrEmpty(ANTESFOTO2)
-       ? $"http://190.111.249.225/RowingAppApi/images/ObrasSuministros/noimage.png"
-       : $"http://190.111.249.225/RowingAppApi{ANTESFOTO2.Substring(1)}";
+       ? $"https://gaos2.keypress.com.ar/RowingAppApi/images/ObrasSuministros/noimage.png"
+       : $"https://gaos2.keypress.com.ar/RowingAppApi{ANTESFOTO2.Substring(1)}";
 
         public string DESPUESFOTO1ImageFullPath => string.IsNullOrEmpty(DESPUESFOTO1)
-       ? $"http://190.111.249.225/RowingAppApi/images/ObrasSuministros/noimage.png"
-       : $"http://190.111.249.225/RowingAppApi{DESPUESFOTO1.Substring(1)}";
+       ? $"https://gaos2.keypress.com.ar/RowingAppApi/images/ObrasSuministros/noimage.png"
+       : $"https://gaos2.keypress.com.ar/RowingAppApi{DESPUESFOTO1.Substring(1)}";
 
         public string DESPUESFOTO2ImageFullPath => string.IsNullOrEmpty(DESPUESFOTO2)
-       ? $"http://190.111.249.225/RowingAppApi/images/ObrasSuministros/noimage.png"
-       : $"http://190.111.249.225/RowingAppApi{DESPUESFOTO2.Substring(1)}";
+       ? $"https://gaos2.keypress.com.ar/RowingAppApi/images/ObrasSuministros/noimage.png"
+       : $"https://gaos2.keypress.com.ar/RowingAppApi{DESPUESFOTO2.Substring(1)}";
 
         public string FOTODNIFRENTEImageFullPath => string.IsNullOrEmpty(FOTODNIFRENTE)
-       ? $"http://190.111.249.225/RowingAppApi/images/ObrasSuministros/noimage.png"
-       : $"http://190.111.249.225/RowingAppApi{FOTODNIFRENTE.Substring(1)}";
+       ? $"https://gaos2.keypress.com.ar/RowingAppApi/images/ObrasSuministros/noimage.png"
+       : $"https://gaos2.keypress.com.ar/RowingAppApi{FOTODNIFRENTE.Substring(1)}";
 
         public string FOTODNIREVERSOImageFullPath => string.IsNullOrEmpty(FOTODNIREVERSO)
-       ? $"http://190.111.249.225/RowingAppApi/images/ObrasSuministros/noimage.png"
-       : $"http://190.111.249.225/RowingAppApi{FOTODNIREVERSO.Substring(1)}";
+       ? $"https://gaos2.keypress.com.ar/RowingAppApi/images/ObrasSuministros/noimage.png"
+       : $"https://gaos2.keypress.com.ar/RowingAppApi{FOTODNIREVERSO.Substring(1)}";
 
         public string FIRMACLIENTEImageFullPath => string.IsNullOrEmpty(FIRMACLIENTE)
-      ? $"http://190.111.249.225/RowingAppApi/images/ObrasSuministros/noimage.png"
-      : $"http://190.111.249.225/RowingAppApi{FIRMACLIENTE.Substring(1)}";
+      ? $"https://gaos2.keypress.com.ar/RowingAppApi/images/ObrasSuministros/noimage.png"
+      : $"https://gaos2.keypress.com.ar/RowingAppApi{FIRMACLIENTE.Substring(1)}";
     }
 }

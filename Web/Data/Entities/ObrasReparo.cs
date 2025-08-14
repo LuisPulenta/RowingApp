@@ -42,15 +42,15 @@ namespace RowingApp.Web.Data.Entities
         public int? Largo2 { get; set; }
         public int? Ancho2 { get; set; }
         public string ImageFullPath => string.IsNullOrEmpty(Foto1)
-        ? $"http://190.111.249.225/RowingAppApi/images/ObrasReparos/noimage.png"
-        : $"http://190.111.249.225/RowingAppApi{Foto1.Substring(1)}";
+        ? $"https://gaos2.keypress.com.ar/RowingAppApi/images/ObrasReparos/noimage.png"
+        : $"https://gaos2.keypress.com.ar/RowingAppApi{Foto1.Substring(1)}";
 
         public string FotoInicioFullPath => string.IsNullOrEmpty(FotoInicio)
-       ? $"http://190.111.249.225/RowingAppApi/images/ObrasReparos/noimage.png"
-       : $"http://190.111.249.225/RowingAppApi{FotoInicio.Substring(1)}";
+       ? $"https://gaos2.keypress.com.ar/RowingAppApi/images/ObrasReparos/noimage.png"
+       : $"https://gaos2.keypress.com.ar/RowingAppApi{FotoInicio.Substring(1)}";
 
         public string FotoFinFullPath => string.IsNullOrEmpty(FotoFin)
-       ? $"http://190.111.249.225/RowingAppApi/images/ObrasReparos/noimage.png"
-       : $"http://190.111.249.225/RowingAppApi{FotoFin.Substring(1)}";
+       ? $"https://gaos2.keypress.com.ar/RowingAppApi/images/ObrasReparos/noimage.png"
+       : $"https://gaos2.keypress.com.ar/RowingAppApi{FotoFin.Substring(1)}";
     }
 }

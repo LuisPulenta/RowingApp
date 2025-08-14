@@ -41,8 +41,8 @@
         public int? HabilitaInstalacionesAPP { get; set; }
         public string grupo { get; set; }
         public string FirmaUsuarioImageFullPath => string.IsNullOrEmpty(FirmaUsuario)
-      ? $"http://190.111.249.225/RowingAppApi/images/ObrasSuministros/noimage.png"
-      : $"http://190.111.249.225/RowingAppApi{FirmaUsuario.Substring(1)}";
+      ? $"https://gaos2.keypress.com.ar/RowingAppApi/images/ObrasSuministros/noimage.png"
+      : $"https://gaos2.keypress.com.ar/RowingAppApi{FirmaUsuario.Substring(1)}";
        
     }
 }

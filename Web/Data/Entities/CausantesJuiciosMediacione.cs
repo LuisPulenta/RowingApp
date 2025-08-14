@@ -21,7 +21,7 @@ namespace RowingApp.Web.Data.Entities
         public string ACEPTACIONCONTRAOFERTA { get; set; }
         public string LINKARCHIVOMEDIACION { get; set; }
         public string LINKARCHIVOMEDIACIONFullPath => string.IsNullOrEmpty(LINKARCHIVOMEDIACION)
-       ? $"http://190.111.249.225/RowingAppApi/images/Legales/noimage.png"
-       : $"http://190.111.249.225/RowingAppApi{LINKARCHIVOMEDIACION.Substring(1)}";
+       ? $"https://gaos2.keypress.com.ar/RowingAppApi/images/Legales/noimage.png"
+       : $"https://gaos2.keypress.com.ar/RowingAppApi{LINKARCHIVOMEDIACION.Substring(1)}";
     }
 }

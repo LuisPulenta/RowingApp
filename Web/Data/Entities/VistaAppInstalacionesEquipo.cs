@@ -66,8 +66,8 @@ namespace RowingApp.Web.Data.Entities
         public string NombreCausante { get; set; }
 
         public string FirmaclienteImageFullPath => string.IsNullOrEmpty(Firmacliente)
-     ? $"http://190.111.249.225/RowingAppApi/images/Instalaciones/noimage.png"
-     : $"http://190.111.249.225/RowingAppApi{Firmacliente.Substring(1)}";
+     ? $"https://gaos2.keypress.com.ar/RowingAppApi/images/Instalaciones/noimage.png"
+     : $"https://gaos2.keypress.com.ar/RowingAppApi{Firmacliente.Substring(1)}";
 
         public string NombreCompleto => $"{ApellidoCliente} {NombreCliente}";
         public string PedidoCompleto => $"{TipoPedido}{Pedido}";

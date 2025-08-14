@@ -22,7 +22,7 @@ namespace RowingApp.Web.Data.Entities
         public DateTime? FECHAVENCIMIENTO { get; set; }
         public string LINKARCHIVO { get; set; }
         public string LINKARCHIVOFullPath => string.IsNullOrEmpty(LINKARCHIVO)
-       ? $"http://190.111.249.225/RowingAppApi/images/Legales/noimage.png"
-       : $"http://190.111.249.225/RowingAppApi{LINKARCHIVO.Substring(1)}";
+       ? $"https://gaos2.keypress.com.ar/RowingAppApi/images/Legales/noimage.png"
+       : $"https://gaos2.keypress.com.ar/RowingAppApi{LINKARCHIVO.Substring(1)}";
     }
 }

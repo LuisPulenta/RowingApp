@@ -23,7 +23,7 @@ namespace RowingApp.Web.Data.Entities
         public int? TipoDeFoto { get; set; }
         public string DireccionFoto { get; set; }
         public string ImageFullPath => string.IsNullOrEmpty(LINK)
-        ? $"http://190.111.249.225/RowingAppApi/images/Obras/noimage.png"
-        : $"http://190.111.249.225/RowingAppApi{LINK.Substring(1)}";
+        ? $"https://gaos2.keypress.com.ar/RowingAppApi/images/Obras/noimage.png"
+        : $"https://gaos2.keypress.com.ar/RowingAppApi{LINK.Substring(1)}";
     }
 }

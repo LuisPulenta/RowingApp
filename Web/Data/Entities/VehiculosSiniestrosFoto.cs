@@ -11,7 +11,7 @@ namespace RowingApp.Web.Data.Entities
         public string LINKFOTO { get; set; }
         public string CORRESPONDEA { get; set; }
         public string ImageFullPath => string.IsNullOrEmpty(LINKFOTO)
-        ? $"http://190.111.249.225/RowingAppApi/images/Siniestros/noimage.png"
-        : $"http://190.111.249.225/RowingAppApi{LINKFOTO.Substring(1)}";
+        ? $"https://gaos2.keypress.com.ar/RowingAppApi/images/Siniestros/noimage.png"
+        : $"https://gaos2.keypress.com.ar/RowingAppApi{LINKFOTO.Substring(1)}";
     }
 }

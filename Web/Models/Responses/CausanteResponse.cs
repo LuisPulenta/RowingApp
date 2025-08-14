@@ -33,12 +33,12 @@ namespace RowingApp.Common.Responses
         public string FirmaDigitalAPP { get; set; }
 
         public string ImageFullPath => string.IsNullOrEmpty(LinkFoto)
-        ? $"http://190.111.249.225/RowingAppApi/images/Causantes/nouser.png"
-        : $"http://190.111.249.225/RowingAppApi{LinkFoto.Substring(1)}";
+        ? $"https://gaos2.keypress.com.ar/RowingAppApi/images/Causantes/nouser.png"
+        : $"https://gaos2.keypress.com.ar/RowingAppApi{LinkFoto.Substring(1)}";
 
         public string FirmaFullPath => string.IsNullOrEmpty(FirmaDigitalAPP)
-       ? $"http://190.111.249.225/RowingAppApi/images/Recibos/noimage.png"
-       : $"http://190.111.249.225/RowingAppApi{FirmaDigitalAPP.Substring(1)}";
+       ? $"https://gaos2.keypress.com.ar/RowingAppApi/images/Recibos/noimage.png"
+       : $"https://gaos2.keypress.com.ar/RowingAppApi{FirmaDigitalAPP.Substring(1)}";
 
     }
 }
