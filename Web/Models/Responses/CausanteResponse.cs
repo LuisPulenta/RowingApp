@@ -23,7 +23,7 @@ namespace RowingApp.Common.Responses
         public string NotasCausantes { get; set; }
         public string ciudad { get; set; }
         public string Provincia { get; set; }
-        public int CodigoSupervisorObras { get; set; }
+        public int? CodigoSupervisorObras { get; set; }
         public string ZonaTrabajo { get; set; }
         public string NombreActividad { get; set; }
         public string notas { get; set; }
