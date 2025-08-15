@@ -60,7 +60,7 @@ namespace RowingApp.Web.Controllers.API
             {
                 //NROREGISTRO = request.NROREGISTRO,
                 LINK = imageUrl1,
-                FECHA = request.FECHA,
+                FECHA = DateTime.Now,
                 NROOBRA = request.NROOBRA,
                 IDObrasPostes = request.IDObrasPostes,
                 OBSERVACION = request.OBSERVACION,
@@ -71,7 +71,7 @@ namespace RowingApp.Web.Controllers.API
                 Sector = request.Sector,
                 Latitud = request.Latitud,
                 Longitud = request.Longitud,
-                FechaHsFoto = request.FechaHsFoto,
+                FechaHsFoto = DateTime.Now,
                 TipoDeFoto = request.TipoDeFoto,
                 DireccionFoto = request.DireccionFoto
             };
