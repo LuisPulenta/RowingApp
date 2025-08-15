@@ -110,7 +110,7 @@ namespace RowingApp.Web.Controllers.API
             
             {
                 ESTADO = request.ESTADO,
-                FECHARECUPERO = request.FECHARECUPERO,
+                FECHARECUPERO = DateTime.Now,
                 IDUSERCARGA = request.IDUSERCARGA,
                 IDUSERRECUPERA = request.IDUSERRECUPERA,
                 LINKFOTO=imageUrl,
