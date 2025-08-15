@@ -170,7 +170,7 @@ namespace RowingApp.Web.Controllers.API
             {
                 IDNOTIFICACION = request.IDNOTIFICACION,
                 IDJUICIO = request.IDJUICIO,
-                FECHACARGA = request.FECHACARGA,
+                FECHACARGA = DateTime.Now,
                 TIPO = request.TIPO,
                 TITULO = request.TITULO,
                 OBSERVACIONES = request.OBSERVACIONES,
@@ -231,7 +231,7 @@ namespace RowingApp.Web.Controllers.API
                 IDMEDIACION = request.IDMEDIACION,
                 IDCAUSANTEJUICIO = request.IDCAUSANTEJUICIO,
                 MEDIADORES = request.MEDIADORES,
-                FECHA = request.FECHA,
+                FECHA = DateTime.Now,
                 ABOGADO = request.ABOGADO,
                 IDCONTRAPARTE = request.IDCONTRAPARTE,
                 MONEDA = request.MONEDA,

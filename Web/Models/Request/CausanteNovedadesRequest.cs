@@ -7,8 +7,6 @@ namespace RowingApp.Common.Requests
         public int IDNOVEDAD { get; set; }
         public string GRUPO { get; set; }
         public string CAUSANTE { get; set; }
-        public DateTime FECHACARGA { get; set; }
-        public DateTime FECHANOVEDAD { get; set; }
         public string EMPRESA { get; set; }
         public DateTime FECHAINICIO { get; set; }
         public DateTime FECHAFIN { get; set; }

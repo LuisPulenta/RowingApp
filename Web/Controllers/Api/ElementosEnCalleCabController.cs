@@ -115,7 +115,7 @@ namespace RowingApp.Web.Controllers.API
                 IDUSERRECUPERA = request.IDUSERRECUPERA,
                 LINKFOTO=imageUrl,
                 DOMICILIO = request.DOMICILIO,
-                FECHA = request.FECHA,
+                FECHA = DateTime.Now,
                 NROOBRA = request.NROOBRA,
                 OBSERVACION = request.OBSERVACION,
                 GRXX=request.GRXX,
@@ -173,8 +173,8 @@ namespace RowingApp.Web.Controllers.API
             oldElemEnCalleCab.OBSERVACION = request.OBSERVACION;
             oldElemEnCalleCab.LINKFOTO = imageUrl;
             oldElemEnCalleCab.ESTADO = request.ESTADO;
-            oldElemEnCalleCab.FECHA = request.FECHA;
-            oldElemEnCalleCab.FECHARECUPERO = request.FECHARECUPERO;
+            oldElemEnCalleCab.FECHA = DateTime.Now;
+            oldElemEnCalleCab.FECHARECUPERO = DateTime.Now;
             oldElemEnCalleCab.IDUSERCARGA = request.IDUSERCARGA;
             oldElemEnCalleCab.IDUSERRECUPERA = request.IDUSERRECUPERA;
 

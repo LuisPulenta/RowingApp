@@ -7,7 +7,6 @@ namespace RowingApp.Common.Requests
         public int IDMEDIACION { get; set; }
         public int IDCAUSANTEJUICIO { get; set; }
         public string MEDIADORES { get; set; }
-        public DateTime? FECHA { get; set; }
         public string ABOGADO { get; set; }
         public int? IDCONTRAPARTE { get; set; }
         public string MONEDA { get; set; }

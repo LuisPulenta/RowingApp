@@ -5,6 +5,7 @@ using RowingApp.Web.Data.Entities;
 using Microsoft.AspNetCore.Mvc;
 using System.Linq;
 using System.Threading.Tasks;
+using System;
 
 namespace RowingApp.Web.Controllers.API
 {
@@ -34,7 +35,7 @@ namespace RowingApp.Web.Controllers.API
         var wRemitosCab = new WRemitosCab
             {
                 NROOBRA = request.NROOBRA,
-                FECHACARGA = request.FECHACARGA,
+                FECHACARGA = DateTime.Now,
                 CONTRATISTA = request.CONTRATISTA,
                 IDUSUARIO = request.IDUSUARIO,
                 CODGRUPOREC = request.CODGRUPOREC,

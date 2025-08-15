@@ -5,7 +5,6 @@ namespace RowingApp.Common.Requests
     public class VehiculosKilometrajeRequest
     {
         public int Orden { get; set; }
-        public DateTime Fecha { get; set; }
         public string Equipo { get; set; }
         public int? KILINI { get; set; }
         public int? KILFIN { get; set; }
@@ -17,6 +16,5 @@ namespace RowingApp.Common.Requests
         public byte? PROCESADO { get; set; }
         public DateTime? KMFECHAANTERIOR { get; set; }
         public int? NOPROMEDIAR { get; set; }
-        public DateTime FECHAALTA { get; set; }
     }
 }

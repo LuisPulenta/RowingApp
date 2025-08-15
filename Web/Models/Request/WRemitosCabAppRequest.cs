@@ -6,7 +6,6 @@ namespace RowingApp.Common.Requests
     {
         //public int NROREGISTRO { get; set; }
         public int NROOBRA { get; set; }
-        public DateTime FECHACARGA { get; set; }
         public string CONTRATISTA { get; set; }
         public int IDUSUARIO { get; set; }
         public string CODGRUPOREC { get; set; }

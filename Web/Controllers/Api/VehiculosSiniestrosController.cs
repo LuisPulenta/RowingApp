@@ -85,7 +85,7 @@ namespace RowingApp.Web.Controllers.API
                 DETALLEDANOSTERCERO = request.DETALLEDANOSTERCERO,
                 DETALLEDANOSPROPIO = request.DETALLEDANOSPROPIO,
                 NUMCHATERCERO = request.NUMCHATERCERO,
-                FECHACARGAAPP = request.FECHACARGAAPP,
+                FECHACARGAAPP = DateTime.Now,
                 Modulo = request.Modulo,
                 TipoDeSiniestro=request.TipoDeSiniestro,    
             };
@@ -126,7 +126,7 @@ namespace RowingApp.Web.Controllers.API
             oldSiniestro.DETALLEDANOSTERCERO = request.DETALLEDANOSTERCERO;
             oldSiniestro.EMAILTERCERO = request.EMAILTERCERO;
             oldSiniestro.FECHACARGA = request.FECHACARGA;
-            oldSiniestro.FECHACARGAAPP = request.FECHACARGAAPP;
+            oldSiniestro.FECHACARGAAPP = DateTime.Now;
             oldSiniestro.GRUPO = request.GRUPO;
             oldSiniestro.HORASINIESTRO = request.HORASINIESTRO;
             oldSiniestro.IDUSUARIOCARGA = request.IDUSUARIOCARGA;

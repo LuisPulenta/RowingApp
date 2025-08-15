@@ -6,7 +6,6 @@ namespace RowingApp.Common.Requests
     {
         public int IDNOTIFICACION { get; set; }
         public int IDJUICIO { get; set; }
-        public DateTime? FECHACARGA { get; set; }
         public string TIPO { get; set; }
         public string TITULO { get; set; }
         public string OBSERVACIONES { get; set; }

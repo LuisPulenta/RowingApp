@@ -4,6 +4,7 @@ using RowingApp.Web.Data.Entities;
 using Microsoft.AspNetCore.Mvc;
 using System.Linq;
 using System.Threading.Tasks;
+using System;
 
 namespace RowingApp.Web.Controllers.API
 {
@@ -28,14 +29,14 @@ namespace RowingApp.Web.Controllers.API
             VehiculosKilometraje kilometraje = new VehiculosKilometraje
             {
                 CAMBIO = request.CAMBIO,
-                FECHAALTA = request.FECHAALTA,
+                FECHAALTA = DateTime.Now,
                 HORSAL = request.HORSAL,
                 KMFECHAANTERIOR = request.KMFECHAANTERIOR,
                 NOPROMEDIAR = request.NOPROMEDIAR,
                 PROCESADO = request.PROCESADO,
                 CODSUC = request.CODSUC,
                 Equipo = request.Equipo,
-                Fecha = request.Fecha,
+                Fecha = DateTime.Now,
                 HORLLE = request.HORLLE,
                 KILFIN = request.KILFIN,
                 KILINI = request.KILINI,

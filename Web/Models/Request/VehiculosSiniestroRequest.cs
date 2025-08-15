@@ -30,7 +30,6 @@ namespace RowingApp.Common.Requests
         public string DETALLEDANOSTERCERO { get; set; }
         public string DETALLEDANOSPROPIO { get; set; }
         public string NUMCHATERCERO { get; set; }
-        public DateTime FECHACARGAAPP { get; set; }
         public string Modulo { get; set; }
         public string TipoDeSiniestro { get; set; }
     }

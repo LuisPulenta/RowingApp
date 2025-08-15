@@ -247,7 +247,7 @@ namespace RowingApp.Web.Controllers.API
             if (request.FotoFinArray != null && request.FotoFinArray.Length > 0)
             {
 
-                fec = request.FECHACUMPLIMENTO;
+                fec = DateTime.Now;
                 var stream3 = new MemoryStream(request.FotoFinArray);
                 var guid3 = Guid.NewGuid().ToString();
                 var file3 = $"{guid3}.jpg";
