@@ -149,7 +149,7 @@ namespace RowingApp.Web.Controllers.API
             var guid = Guid.NewGuid().ToString();
             //var fileName = $"{guid}.wav";
             var fileName = $"{file.FileName}.wav"; 
-            var filePath = Path.Combine("C:/inetpub/wwwroot/RowingAppApi/wwwroot/images/", "Multimedia/", fileName);
+            var filePath = Path.Combine("D:/DInetPub/wwwroot/RowingAppApi/wwwroot/images/", "Multimedia/", fileName);
             //var filePath = Path.Combine("D:/Xamarin/RowingApp/RowingApp.Web/wwwroot/images/", "Multimedia/", fileName);
 
             using (var stream = new FileStream(filePath, FileMode.Create))
