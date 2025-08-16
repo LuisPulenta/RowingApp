@@ -126,7 +126,8 @@ namespace RowingApp.Web.Controllers.API
                 Longitud = request.Longitud,
                 FechaHsFoto = DateTime.Now,
                 TipoDeFoto = request.TipoDeFoto,
-                DireccionFoto = request.DireccionFoto
+                DireccionFoto = request.DireccionFoto,
+                Obra=obra
             };
 
             _context.ObrasDocumentos.Add(obraDocumento);
