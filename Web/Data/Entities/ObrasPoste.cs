@@ -33,7 +33,7 @@ namespace RowingApp.Web.Data.Entities
 
         public string GRXX { get; set; }
         public string GRYY { get; set; }
-        public int IDUsrIn { get; set; }
+        public int? IDUsrIn { get; set; }
         public string ObservacionAdicional { get; set; }
         public DateTime FechaCarga { get; set; }
         public string RiesgoElectrico { get; set; }
