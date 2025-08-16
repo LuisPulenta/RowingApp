@@ -20,6 +20,5 @@ namespace RowingApp.Common.Requests
         public double? Longitud { get; set; }
         public int? TipoDeFoto { get; set; }
         public string DireccionFoto { get; set; }
-        public ObraResponse Obra { get; set; }
     }
 }

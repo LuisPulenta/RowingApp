@@ -54,9 +54,6 @@ namespace RowingApp.Web.Controllers.API
                 imageUrl1 = fullPath;
             }
 
-            Obra obra = await _context.Obras
-                .FirstOrDefaultAsync(o => o.NroObra == request.Obra.NroObra);
-
             var obraDocumento = new ObrasDocumento
             {
                 //NROREGISTRO = request.NROREGISTRO,
@@ -87,6 +84,7 @@ namespace RowingApp.Web.Controllers.API
         [Route("ObrasDocument2")]
         public async Task<IActionResult> PostObrasDocument2([FromBody] ObrasDocumentoRequest request)
         {
+
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
@@ -101,13 +99,12 @@ namespace RowingApp.Web.Controllers.API
             var fullPath = $"~/images/Medidores/{file}";
             var response = _filesHelper.UploadPhoto(stream, folder, file);
 
-            if (response)
+                if (response)
             {
                 imageUrl1 = fullPath;
             }
 
-            Obra obra = await _context.Obras
-                .FirstOrDefaultAsync(o => o.NroObra == request.Obra.NroObra);
+           
 
             var obraDocumento = new ObrasDocumento
             {
@@ -127,7 +124,6 @@ namespace RowingApp.Web.Controllers.API
                 FechaHsFoto = DateTime.Now,
                 TipoDeFoto = request.TipoDeFoto,
                 DireccionFoto = request.DireccionFoto,
-                Obra=obra
             };
 
             _context.ObrasDocumentos.Add(obraDocumento);
@@ -230,7 +226,7 @@ namespace RowingApp.Web.Controllers.API
             }
 
             Obra obra = await _context.Obras
-                .FirstOrDefaultAsync(o => o.NroObra == request.Obra.NroObra);
+                .FirstOrDefaultAsync(o => o.NroObra == request.NROOBRA);
 
             var obraDocumento = new ObrasDocumento
             {
