@@ -84,7 +84,7 @@ namespace RowingApp.Web.Controllers.API
 
         [HttpGet]
         [Route("GetNroRegistroMax")]
-        public async Task<IActionResult> GetNroRegistroMax()
+        public IActionResult GetNroRegistroMax()
         {
             var query = _context.ObrasPostes.Max(c => c.NROREGISTRO);
 

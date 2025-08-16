@@ -94,7 +94,7 @@ namespace RowingApp.Web.Controllers.API
 
         [HttpGet]
         [Route("GetNroRemitoMax")]
-        public async Task<IActionResult> GetNroRemitoMax()
+        public IActionResult GetNroRemitoMax()
         {
             int query = _context.WRemitosCab.Max(c => c.NROREMITO);
 

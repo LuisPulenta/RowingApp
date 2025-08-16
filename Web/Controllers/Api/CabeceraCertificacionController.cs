@@ -50,7 +50,7 @@ namespace RowingApp.Web.Controllers.API
         //---------------------------------------------------------------------------------------------------
         [HttpGet]
         [Route("GetNroRegistroMaxCertificaciones")]
-        public async Task<IActionResult> GetNroRegistroMaxCertificaciones()
+        public IActionResult GetNroRegistroMaxCertificaciones()
         {
             int query = _dataContext.CabeceraCertificacion.Max(c => c.ID);
 

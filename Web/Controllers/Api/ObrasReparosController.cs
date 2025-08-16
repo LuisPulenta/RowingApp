@@ -27,13 +27,13 @@ namespace RowingApp.Web.Controllers.API
 
         [HttpGet]
         [Route("GetNroRegistroMax")]
-        public async Task<IActionResult> GetNroRegistroMax()
+        public IActionResult GetNroRegistroMax()
         {
             int query = _dataContext.ObrasReparos.Max(c => c.NROREGISTRO);
 
             return Ok(query);
         }
-        
+
         [HttpPost]
         [Route("GetObrasReparos/{nroobra}")]
         public async Task<IActionResult> GetObrasReparos(int nroobra)
@@ -281,7 +281,7 @@ namespace RowingApp.Web.Controllers.API
             }
 
 
-            oldObraReparo.FECHACUMPLIMENTO = request.FECHACUMPLIMENTO;
+            oldObraReparo.FECHACUMPLIMENTO = DateTime.Now;
             oldObraReparo.FotoInicio = imageUrlInicio;
             oldObraReparo.FotoFin = imageUrlFin;
             oldObraReparo.ObservacionesFotoInicio = obsInicio;

@@ -654,7 +654,7 @@ namespace RowingApp.Web.Controllers.API
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         [HttpGet]
         [Route("GetUsers")]
-        public async Task<IActionResult> GetUsers()
+        public IActionResult GetUsers()
         {
             return Ok(_dataContext2.Users.Where(o => o.UserType == UserType.User));
         }
@@ -734,7 +734,7 @@ namespace RowingApp.Web.Controllers.API
                     {
                         await _userHelper.AddUserAsync(newuser, "123456");
                     }
-                    catch (System.Exception e)
+                    catch 
                     {
                         throw;
                     }

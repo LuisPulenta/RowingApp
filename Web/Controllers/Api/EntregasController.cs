@@ -61,7 +61,7 @@ namespace RowingApp.Web.Controllers.API
             }
 
             var entregas = await _dataContext.ProductosStock
-           .Where(o => (o.causante == Codigo) && (o.grupo == "PPR" || o.grupo == "PPC" || o.grupo == "EXT" || o.grupo == "CTC" || o.grupo == "PPL") && (o.stock_act > 0) && (o.fecha != null))
+           .Where(o => (o.causante == Codigo) && (o.grupo == "PPR" || o.grupo == "PPC" || o.grupo == "EXT" || o.grupo == "CTC" || o.grupo == "PPL") && (o.stock_act > 0) )
 
            .OrderBy(o => o.fecha)
            .ToListAsync();
@@ -84,7 +84,7 @@ namespace RowingApp.Web.Controllers.API
             }
 
             var entregaDetalles = await _dataContext.ProductosStock
-           .Where(o => (o.fecha == entregaDetallesRequest.fecha) && (o.causante == entregaDetallesRequest.causante) && (o.grupo == "PPR" || o.grupo == "PPC" || o.grupo == "EXT" || o.grupo == "CTC" || o.grupo == "PPL") && (o.stock_act >0) && (o.fecha != null))
+           .Where(o => (o.fecha == entregaDetallesRequest.fecha) && (o.causante == entregaDetallesRequest.causante) && (o.grupo == "PPR" || o.grupo == "PPC" || o.grupo == "EXT" || o.grupo == "CTC" || o.grupo == "PPL") && (o.stock_act >0) )
            .OrderBy(o => o.Denominacion)
            .ToListAsync();
 

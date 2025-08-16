@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
 using Microsoft.AspNetCore.Http;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace RowingApp.Web.Controllers.API
 {
@@ -170,7 +171,8 @@ namespace RowingApp.Web.Controllers.API
 
             var guid = Guid.NewGuid().ToString();
             var fileName = $"{file.FileName}.mp4";
-            var filePath = Path.Combine("C:/inetpub/wwwroot/RowingAppApi/wwwroot/images/", "Multimedia/", fileName);
+            var filePath = Path.Combine("D:/DInetPub/wwwroot/RowingAppApi/wwwroot/images/", "Multimedia/", fileName);
+
 
             using (var stream = new FileStream(filePath, FileMode.Create))
             {

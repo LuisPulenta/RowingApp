@@ -24,7 +24,7 @@ namespace RowingApp.Web.Controllers.API
 
         [HttpDelete()]
         [Route("DeleteVentas")]
-        public async Task<IActionResult> DeleteVentas()
+        public IActionResult DeleteVentas()
         {
             BorrarTabla();
             return Ok("Borrado");

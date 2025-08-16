@@ -122,7 +122,7 @@ namespace RowingApp.Web.Controllers.API
 
         [HttpGet]
         [Route("GetNroRegistroMaxNotificaciones")]
-        public async Task<IActionResult> GetNroRegistroMaxNotificaciones()
+        public IActionResult GetNroRegistroMaxNotificaciones()
         {
             int query = _dataContext.CausantesJuiciosNotificaciones.Max(c => c.IDNOTIFICACION);
 
@@ -131,7 +131,7 @@ namespace RowingApp.Web.Controllers.API
 
         [HttpGet]
         [Route("GetNroRegistroMaxMediaciones")]
-        public async Task<IActionResult> GetNroRegistroMaxMediaciones()
+        public IActionResult GetNroRegistroMaxMediaciones()
         {
             int query = _dataContext.CausantesJuiciosMediaciones.Max(c => c.IDMEDIACION);
 
