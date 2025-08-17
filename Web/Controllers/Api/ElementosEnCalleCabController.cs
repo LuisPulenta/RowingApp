@@ -50,7 +50,7 @@ namespace RowingApp.Web.Controllers.API
                             r.GRYY,
                             r.DOMICILIO,
                             r.LINKFOTO,
-                            r.ImageFullPath,
+                            //r.ImageFullPath,
                             r.ESTADO
                         })
                          .Select(g => new
@@ -67,7 +67,7 @@ namespace RowingApp.Web.Controllers.API
                              GRYY = g.Key.GRYY,
                              DOMICILIO = g.Key.DOMICILIO,
                              LINKFOTO = g.Key.LINKFOTO,
-                             ImageFullPath = g.Key.ImageFullPath,
+                             //ImageFullPath = g.Key.ImageFullPath,
                              ESTADO = g.Key.ESTADO,
                              CantItems = g.Count(),
                          })
