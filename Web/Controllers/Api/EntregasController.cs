@@ -61,7 +61,7 @@ namespace RowingApp.Web.Controllers.API
             }
 
             var entregas = await _dataContext.ProductosStock
-           .Where(o => (o.causante == Codigo) && (o.grupo == "PPR" || o.grupo == "PPC" || o.grupo == "EXT" || o.grupo == "CTC" || o.grupo == "PPL") && (o.stock_act > 0) )
+           .Where(o => (o.causante == Codigo) && (o.grupo == "PPR" || o.grupo == "PPC" || o.grupo == "EXT" || o.grupo == "CTC" || o.grupo == "PPL") && (o.stock_act > 0) && (o.fecha!=null)) 
 
            .OrderBy(o => o.fecha)
            .ToListAsync();
