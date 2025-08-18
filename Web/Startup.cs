@@ -27,7 +27,17 @@ namespace Web
         public IConfiguration Configuration { get; }
 
         public void ConfigureServices(IServiceCollection services)
+
+
         {
+
+            services.AddCors(options =>
+            {
+                options.AddPolicy("AllowAll",
+                    builder => builder.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
+            });
+
+
             services.AddControllers().AddJsonOptions(x => x.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles);
 
 
@@ -35,6 +45,7 @@ namespace Web
             {
                 options.CheckConsentNeeded = context => true;
                 options.MinimumSameSitePolicy = SameSiteMode.None;
+
             });
 
             services.ConfigureApplicationCookie(options =>
@@ -118,9 +129,7 @@ namespace Web
             app.UseAuthentication();
             app.UseCookiePolicy();
 
-
-
-
+            app.UseCors("AllowAll");
 
             app.UseMvc(routes =>
             {
