@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
+using Web.Models.Request;
 
 namespace RowingApp.Web.Controllers.API
 {
@@ -61,14 +62,77 @@ namespace RowingApp.Web.Controllers.API
 
         [HttpPost]
         [Route("PostCabeceraCertificacion")]
-        public async Task<IActionResult> PostCabeceraCertificacion([FromBody] CabeceraCertificacio request)
+        public async Task<IActionResult> PostCabeceraCertificacion([FromBody] CabeceraCertificacioRequest request)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            _dataContext.CabeceraCertificacion.Add(request);
+            CabeceraCertificacio newCertificado = new CabeceraCertificacio
+            {
+                ID = request.ID,
+                NROOBRA = request.NROOBRA,
+                DefProy = request.DefProy,
+                FECHACARGA = request.FECHACARGA,
+                FECHADESPACHO = request.FECHADESPACHO,
+                FECHAEJECUCION = request.FECHAEJECUCION,
+                NombreObra = request.NombreObra,
+                NroOE = request.NroOE,
+                FINALIZADA = 1,
+                MATERIALESDESCONTADOS = 1,
+                subCodigo = request.subCodigo,
+                CENTRAL = request.CENTRAL,
+                PREADICIONAL = 0,
+                NroPre = request.NroPre,
+                SIPA = "1",
+                OBSERVACION = request.OBSERVACION,
+                TIPIFICACION = "Normal",
+                FECHACORRESPONDENCIA = request.FECHACORRESPONDENCIA,
+                MARCADEVENTA = 0,
+                NRO103 = "",
+                NRO105 = "",
+                IDUSUARIOP = 1,
+                FECHALIBERACION = request.FECHALIBERACION,
+                IDUSUARIOL = 1,
+                NROORDENPAGO = 0,
+                VALORTOTAL = request.VALORTOTAL,
+                PAGAR90 = "N",
+                VALOR90 = request.VALOR90,
+                PRECIO90 = request.PRECIO90,
+                MONTO90 = request.MONTO90,
+                PAGAR10 = "N",
+                VALOR10 = 0,
+                PRECIO10 = 0,
+                MONTO10 = 0,
+                IDUSUARIOFR =0,
+                FECHAFONDOREPARO = null,
+                NROPAGOFR = 0,
+                CODIGOPRODUCCION = request.CODIGOPRODUCCION,
+                ObservacionO = "App",
+                Clase = "Puntos",
+                VALORTOTALC = request.VALORTOTALC,
+                VALORTOTALT = request.VALORTOTALT,
+                PorcAplicado = 100,
+                PAGARX = "N",
+                VALORX = 0,
+                PRECIO10X = 0,
+                MONTOX = 0,
+                CodCausanteC = request.CodCausanteC,
+                Cobrar = 1,
+                Presentado = "No",
+                Estado = "PEN",
+                Modulo = request.Modulo,
+                IdUsuario = request.IdUsuario,
+                Terminal = request.Terminal,
+                Fecha103 = null,
+                Fecha105 = null,
+                MesImputacion = request.MesImputacion,
+                Objeto = request.Objeto,
+                PorcActa = request.PorcActa
+            };
+
+            _dataContext.CabeceraCertificacion.Add(newCertificado);
             await _dataContext.SaveChangesAsync();
             return Ok();
         }
