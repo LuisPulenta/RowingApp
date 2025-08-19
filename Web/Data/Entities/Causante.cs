@@ -32,7 +32,7 @@ namespace RowingApp.Web.Data.Entities
         public string PerteneceCuadrilla { get; set; }
         public int? HabilitaInstalacionesAPP { get; set; }
         public int? VisualizaSPR { get; set; }
-        public string FirmaDigitalAPP { get; set; }
+        public string? FirmaDigitalAPP { get; set; }
         
 
         public string ImageFullPath => string.IsNullOrEmpty(LinkFoto)

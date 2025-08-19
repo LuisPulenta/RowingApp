@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
 using System.Threading.Tasks;
+using GenericApp.Common.Requests;
 
 namespace RowingApp.Web.Controllers.API
 {
@@ -107,7 +108,7 @@ namespace RowingApp.Web.Controllers.API
 
             
 
-            var oldCausante = await _dataContext2.VistaCausantesApp.FindAsync(request.Id);
+            var oldCausante = await _dataContext2.Causantes.FindAsync(request.Id);
             if (oldCausante == null)
             {
                 return BadRequest("El Causante no existe.");
@@ -140,7 +141,7 @@ namespace RowingApp.Web.Controllers.API
             oldCausante.NombreActividad = request.ZonaTrabajo;
             oldCausante.FirmaDigitalAPP = firmaId;
 
-            _dataContext2.VistaCausantesApp.Update(oldCausante);
+            _dataContext2.Causantes.Update(oldCausante);
             await _dataContext2.SaveChangesAsync();
             return Ok();
         }
