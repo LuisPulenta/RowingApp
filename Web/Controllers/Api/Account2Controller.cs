@@ -10,7 +10,9 @@ namespace RowingApp.Web.Controllers.API
     [ApiController]
     public class Account2Controller : ControllerBase
     {
+        //--
         private readonly DataContext _dataContext;
+
         private readonly IImageHelper _imageHelper;
 
         public Account2Controller(DataContext dataContext, IImageHelper imageHelper)
@@ -32,8 +34,6 @@ namespace RowingApp.Web.Controllers.API
                 return BadRequest();
             }
 
-
-
             var oldUsuario = await _dataContext.Usuarios.FindAsync(request.IDUsuario);
             if (oldUsuario == null)
             {
@@ -46,9 +46,7 @@ namespace RowingApp.Web.Controllers.API
                 imageFirmaId = _imageHelper.UploadImage(request.ImageArrayFirmaUsuario, "ObrasSuministros");
             }
 
-
             oldUsuario.FirmaUsuario = imageFirmaId;
-
 
             _dataContext.Usuarios.Update(oldUsuario);
             await _dataContext.SaveChangesAsync();

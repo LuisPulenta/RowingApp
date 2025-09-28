@@ -4,7 +4,6 @@ using Microsoft.Extensions.DependencyInjection;
 using RowingApp.Web.Data;
 using Web;
 
-
 namespace RowingApp.Web
 {
     public class Program
