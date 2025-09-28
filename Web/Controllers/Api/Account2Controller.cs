@@ -10,7 +10,6 @@ namespace RowingApp.Web.Controllers.API
     [ApiController]
     public class Account2Controller : ControllerBase
     {
-        //--
         private readonly DataContext _dataContext;
 
         private readonly IImageHelper _imageHelper;
