@@ -28,24 +28,19 @@ namespace Web
 
         public void ConfigureServices(IServiceCollection services)
 
-
         {
-
             services.AddCors(options =>
             {
                 options.AddPolicy("AllowAll",
                     builder => builder.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
             });
 
-
             services.AddControllers().AddJsonOptions(x => x.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles);
-
 
             services.Configure<CookiePolicyOptions>(options =>
             {
                 options.CheckConsentNeeded = context => true;
                 options.MinimumSameSitePolicy = SameSiteMode.None;
-
             });
 
             services.ConfigureApplicationCookie(options =>
@@ -53,7 +48,6 @@ namespace Web
                 options.LoginPath = "/Account/NotAuthorized";
                 options.AccessDeniedPath = "/Account/NotAuthorized";
             });
-
 
             services.AddIdentity<User, IdentityRole>(cfg =>
             {
@@ -81,9 +75,6 @@ namespace Web
                     };
                 });
 
-
-
-
             services.AddDbContext<DataContext>(cfg =>
             {
                 cfg.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"));
@@ -92,7 +83,8 @@ namespace Web
             services.AddDbContext<DataContext2>(cfg =>
             {
                 //cfg.UseSqlServer("Server=190.111.249.225;Database=Gsp8Ezn;User Id=gaos;password=ezn2018$bs4s;Trusted_Connection=False;MultipleActiveResultSets=true");
-                cfg.UseSqlServer("Server=190.111.249.225;Database=Gsp8Ezn;User Id=obrasot;password=arg$23$row;Trusted_Connection=False;Encrypt=False;MultipleActiveResultSets=true");
+                //cfg.UseSqlServer("Server=190.111.249.225;Database=Gsp8Ezn;User Id=obrasot;password=arg$23$row;Trusted_Connection=False;Encrypt=False;MultipleActiveResultSets=true");
+                cfg.UseSqlServer("Server=www.cloud.keypress.com.ar;Database=Gsp8Ezn;User Id=AppUserGaos;password=Char8$BD;Trusted_Connection=False;Encrypt=False;MultipleActiveResultSets=true");
             });
 
             services.AddTransient<SeedDb>();
