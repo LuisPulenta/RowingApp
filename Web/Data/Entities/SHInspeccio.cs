@@ -7,6 +7,7 @@ namespace RowingApp.Web.Data.Entities
     {
         [Key]
         public int IDInspeccion { get; set; }
+
         public int IDCliente { get; set; }
         public DateTime Fecha { get; set; }
         public int UsuarioAlta { get; set; }
@@ -32,5 +33,6 @@ namespace RowingApp.Web.Data.Entities
         public string DniSR { get; set; }
         public string NombreSR { get; set; }
         public int IDTipoTrabajo { get; set; }
+        public string LugarInspeccion { get; set; }
     }
 }
