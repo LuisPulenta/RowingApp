@@ -20,7 +20,7 @@ namespace RowingApp.Web.Controllers.API
             _dataContext = dataContext;
         }
 
-
+        //---------------------------------------------------------------------------------------------------
         [HttpPost("GetVehiculoByChapa/{chapa}")]
         public async Task<ActionResult<Data.Entities.Causante>> GetVehiculoByChapa(string chapa)
         {
@@ -53,12 +53,12 @@ namespace RowingApp.Web.Controllers.API
                 PropiedadDe = vehiculo.PropiedadDe,
                 Telepase = vehiculo.Telepase,
                 UsaHoras = vehiculo.UsaHoras,
-                HabilitaChecklist=vehiculo.HabilitaChecklist,
+                HabilitaChecklist = vehiculo.HabilitaChecklist,
             };
-            return Ok(response); 
-
+            return Ok(response);
         }
 
+        //---------------------------------------------------------------------------------------------------
         [HttpPost]
         [Route("GetKilometrajes/{codigo}")]
         public async Task<IActionResult> GetKilometrajes(string Codigo)
@@ -74,7 +74,6 @@ namespace RowingApp.Web.Controllers.API
            .OrderBy(o => o.Fecha)
            .ToListAsync();
 
-
             if (kilometrajes == null)
             {
                 return BadRequest("No hay Kilometrajes.");
@@ -82,6 +81,7 @@ namespace RowingApp.Web.Controllers.API
             return Ok(kilometrajes);
         }
 
+        //---------------------------------------------------------------------------------------------------
         [HttpPut("{id}")]
         public async Task<IActionResult> PutVehiculo([FromRoute] int id, [FromBody] Vehiculo2Request request)
         {
@@ -108,6 +108,7 @@ namespace RowingApp.Web.Controllers.API
             return Ok();
         }
 
+        //---------------------------------------------------------------------------------------------------
         [HttpPost]
         [Route("GetProgramasPrev/{codigo}")]
         public async Task<IActionResult> GetProgramasPrev(string Codigo)
@@ -123,7 +124,6 @@ namespace RowingApp.Web.Controllers.API
            .OrderBy(o => o.CodigoDeTarea)
            .ToListAsync();
 
-
             if (kilometrajes == null)
             {
                 return BadRequest("No hay Programas Preventivos.");
@@ -131,6 +131,7 @@ namespace RowingApp.Web.Controllers.API
             return Ok(kilometrajes);
         }
 
+        //---------------------------------------------------------------------------------------------------
         [HttpGet("GetUsuarioChapa/{codigo}")]
         public async Task<ActionResult<Data.Entities.VFlotaApp>> GetUsuarioChapa(string codigo)
         {
@@ -144,6 +145,7 @@ namespace RowingApp.Web.Controllers.API
             return vFlotaApp;
         }
 
+        //---------------------------------------------------------------------------------------------------
         [HttpPost]
         [Route("GetPreventivos/{codigo}")]
         public async Task<IActionResult> GetPreventivos(string Codigo)
@@ -159,14 +161,14 @@ namespace RowingApp.Web.Controllers.API
            .OrderBy(o => o.NUMCHA)
            .ToListAsync();
 
-
-                if (preventivos == null)
+            if (preventivos == null)
             {
                 return BadRequest("No hay Preventivos.");
             }
             return Ok(preventivos);
         }
 
+        //---------------------------------------------------------------------------------------------------
         [HttpPost]
         [Route("PostTurno")]
         public async Task<IActionResult> PostTurno([FromBody] VehiculosPartesTurno request)
@@ -180,6 +182,7 @@ namespace RowingApp.Web.Controllers.API
             return Ok();
         }
 
+        //---------------------------------------------------------------------------------------------------
         [HttpPost]
         [Route("GetTurnos/{id}")]
         public async Task<IActionResult> GetTurnos(int id)
@@ -190,11 +193,10 @@ namespace RowingApp.Web.Controllers.API
             }
 
             var turnos = await _dataContext.VehiculosPartesTurnos
-           .Where(o => o.IdUser == id && o.VehiculoRetirado==0)
+           .Where(o => o.IdUser == id && o.VehiculoRetirado == 0)
 
            .OrderBy(o => o.IDTurno)
            .ToListAsync();
-
 
             if (turnos == null)
             {

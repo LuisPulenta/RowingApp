@@ -19,13 +19,14 @@ namespace RowingApp.Web.Controllers.API
         private readonly DataContext2 _dataContext2;
         private readonly IImageHelper _imageHelper;
 
-        public CausantesController(DataContext dataContext,DataContext2 dataContext2,IImageHelper imageHelper)
+        public CausantesController(DataContext dataContext, DataContext2 dataContext2, IImageHelper imageHelper)
         {
             _dataContext = dataContext;
             _dataContext2 = dataContext2;
             _imageHelper = imageHelper;
         }
 
+        //---------------------------------------------------------------------------------------------------
         [HttpPost]
         [Route("GetCausanteByCodigo")]
         public async Task<IActionResult> GetCausante(CausanteRequest codigo)
@@ -34,7 +35,6 @@ namespace RowingApp.Web.Controllers.API
             {
                 return BadRequest();
             }
-
 
             Data.Entities.Causante user = await _dataContext2.VistaCausantesApp.FirstOrDefaultAsync
                 (o => (o.codigo.ToLower() == codigo.Codigo.ToLower() || o.NroSAP.ToLower() == codigo.Codigo.ToLower()));
@@ -51,10 +51,10 @@ namespace RowingApp.Web.Controllers.API
                 encargado = user.encargado,
                 NroCausante = user.NroCausante,
                 telefono = user.telefono,
-                NroSAP=user.NroSAP,
-                grupo=user.grupo,
-                estado=user.estado,
-                LinkFoto=user.LinkFoto,
+                NroSAP = user.NroSAP,
+                grupo = user.grupo,
+                estado = user.estado,
+                LinkFoto = user.LinkFoto,
                 direccion = user.direccion,
                 Numero = user.Numero,
                 TelefonoContacto1 = user.TelefonoContacto1,
@@ -62,26 +62,26 @@ namespace RowingApp.Web.Controllers.API
                 TelefonoContacto3 = user.TelefonoContacto3,
                 fecha = user.fecha,
                 NotasCausantes = user.NotasCausantes,
-                ciudad=user.ciudad,
+                ciudad = user.ciudad,
                 Provincia = user.Provincia,
-                CodigoSupervisorObras=user.CodigoSupervisorObras,
-                ZonaTrabajo=user.ZonaTrabajo,
-                NombreActividad=user.NombreActividad,
-                notas=user.notas,
-                PerteneceCuadrilla=user.PerteneceCuadrilla,
-                FirmaDigitalAPP=user.FirmaDigitalAPP
+                CodigoSupervisorObras = user.CodigoSupervisorObras,
+                ZonaTrabajo = user.ZonaTrabajo,
+                NombreActividad = user.NombreActividad,
+                notas = user.notas,
+                PerteneceCuadrilla = user.PerteneceCuadrilla,
+                FirmaDigitalAPP = user.FirmaDigitalAPP
             };
 
             return Ok(response);
         }
 
-        // GET: api/Users/5
+        //---------------------------------------------------------------------------------------------------
         [HttpGet("GetCausanteByCodigo2/{codigo}")]
         public async Task<ActionResult<Data.Entities.Causante>> GetCausante2(string codigo)
         {
             Data.Entities.Causante causante = await _dataContext2.VistaCausantesApp
-                .FirstOrDefaultAsync(o => 
-                    (o.codigo.ToLower() == codigo.ToLower() || o.NroSAP.ToLower() == codigo.ToLower()) 
+                .FirstOrDefaultAsync(o =>
+                    (o.codigo.ToLower() == codigo.ToLower() || o.NroSAP.ToLower() == codigo.ToLower())
                     &&
                     (o.estado == true)
                     );
@@ -93,6 +93,7 @@ namespace RowingApp.Web.Controllers.API
             return causante;
         }
 
+        //---------------------------------------------------------------------------------------------------
         [HttpPut("{id}")]
         public async Task<IActionResult> PutCausante([FromRoute] int id, [FromBody] CausanteRequest2 request)
         {
@@ -105,8 +106,6 @@ namespace RowingApp.Web.Controllers.API
             {
                 return BadRequest();
             }
-
-            
 
             var oldCausante = await _dataContext2.Causantes.FindAsync(request.Id);
             if (oldCausante == null)
@@ -146,17 +145,18 @@ namespace RowingApp.Web.Controllers.API
             return Ok();
         }
 
-
+        //---------------------------------------------------------------------------------------------------
         [HttpPost]
         [Route("GetCausantesByGrupo/{Grupo}")]
         public IActionResult GetCausantesByProyectoModulo(string Grupo)
         {
             return Ok(_dataContext2.VistaCausantesApp
-                .Where(o => o.grupo == Grupo && o.estado==true && o.VisualizaSPR==1)
+                .Where(o => o.grupo == Grupo && o.estado == true && o.VisualizaSPR == 1)
                 .OrderBy(o => o.nombre)
                 );
         }
 
+        //---------------------------------------------------------------------------------------------------
         [HttpPost]
         [Route("GetCausantesBySupervisor/{id}")]
         public IActionResult GetCausantesBySupervisor(int id)
@@ -167,12 +167,11 @@ namespace RowingApp.Web.Controllers.API
                 );
         }
 
+        //---------------------------------------------------------------------------------------------------
         [HttpPost]
         [Route("GetTalleres")]
-
         public IActionResult GetTalleres()
         {
-
             var talleres = (_dataContext2.VistaCausantesApp
                 .Where(o => o.grupo == "TAL" && o.estado == true)
                 .OrderBy(o => o.nombre));
@@ -180,6 +179,7 @@ namespace RowingApp.Web.Controllers.API
             return Ok(talleres);
         }
 
+        //---------------------------------------------------------------------------------------------------
         [HttpPost]
         [Route("GetCausantesEstados")]
         public IActionResult GetCausantesEstados()
@@ -190,16 +190,18 @@ namespace RowingApp.Web.Controllers.API
                 );
         }
 
+        //---------------------------------------------------------------------------------------------------
         [HttpPost]
         [Route("GetCausantesZonas")]
         public IActionResult GetCausantesZonas()
         {
             return Ok(_dataContext.CausantesZonasZonas
-                
+
                 .OrderBy(o => o.NOMBREZONA)
                 );
         }
 
+        //---------------------------------------------------------------------------------------------------
         [HttpPost]
         [Route("GetCausantesActividades")]
         public IActionResult GetCausantesActividades()
@@ -217,7 +219,6 @@ namespace RowingApp.Web.Controllers.API
         //------- Trae los empleados a cargo de un Supervisor -------------------------
         [HttpPost]
         [Route("GetPresentismosBySupervisorDay/{id}/{year}/{month}/{day}")]
-
         public IActionResult GetPresentismosBySupervisorDay(int id, int year, int month, int day)
         {
             return Ok(_dataContext.CausantesPresentismos
@@ -226,16 +227,14 @@ namespace RowingApp.Web.Controllers.API
                 );
         }
 
-
         //------- Trae los presentismos guardados como Turno Noche -------------------------
         [HttpPost]
         [Route("GetPresentismosTurnoNoche/{id}")]
-
         public IActionResult GetPresentismosTurnoNoche(int id)
         {
             return Ok(_dataContext.VistaTurnosNoches
                  .Where(o => (o.IDSUPERVISOR == id) && (o.ESTADO == "Turno Noche"))
-                .OrderBy(o => o.FECHA).ThenBy (o=>o.CAUSANTEC)
+                .OrderBy(o => o.FECHA).ThenBy(o => o.CAUSANTEC)
                 );
         }
 
@@ -243,7 +242,7 @@ namespace RowingApp.Web.Controllers.API
         [HttpPost]
         [Route("PostPresentismos")]
         public async Task<IActionResult> PostPresentismos([FromBody] CausantesPresentismo request)
-        
+
         {
             if (!ModelState.IsValid)
             {
@@ -252,10 +251,10 @@ namespace RowingApp.Web.Controllers.API
             //Verifica si ya existe el Presentismo
 
             var presentismo = _dataContext.CausantesPresentismos
-                .Where(o => 
-                (o.FECHA.Year == request.FECHA.Year) 
-                && (o.FECHA.Month == request.FECHA.Month) 
-                && (o.FECHA.Day == request.FECHA.Day) 
+                .Where(o =>
+                (o.FECHA.Year == request.FECHA.Year)
+                && (o.FECHA.Month == request.FECHA.Month)
+                && (o.FECHA.Day == request.FECHA.Day)
                 && (o.CAUSANTEC == request.CAUSANTEC))
                 .OrderBy(o => o.CAUSANTEC)
                 .ToList();
@@ -266,13 +265,11 @@ namespace RowingApp.Web.Controllers.API
                 await DeletePresentismo(presentismo[0].IDPRESENTISMO);
             }
 
-
             //Graba Presentismo
             _dataContext.CausantesPresentismos.Add(request);
             await _dataContext.SaveChangesAsync();
             return Ok();
         }
-
 
         //--------------------------- Put de un Presentismo --------------------------
         [HttpPut]
@@ -281,12 +278,12 @@ namespace RowingApp.Web.Controllers.API
         {
             if (!ModelState.IsValid)
             {
-               return BadRequest(ModelState);
+                return BadRequest(ModelState);
             }
 
             if (id != request.IDPRESENTISMO)
             {
-               return BadRequest();
+                return BadRequest();
             }
 
             var oldPresentismo = await _dataContext.CausantesPresentismos.FindAsync(request.IDPRESENTISMO);
@@ -301,7 +298,6 @@ namespace RowingApp.Web.Controllers.API
             await _dataContext.SaveChangesAsync();
             return Ok();
         }
-
 
         //---------------------------- Borra un Presentismo -------------------------------
         [HttpDelete("{id}")]
@@ -335,7 +331,6 @@ namespace RowingApp.Web.Controllers.API
             {
                 return BadRequest();
             }
-
 
             Causante causante = await _dataContext2.VistaCausantesApp.FirstOrDefaultAsync
                 (o => o.codigo.ToLower() == request.Codigo.ToLower() && o.grupo == request.Grupo.ToLower() && o.estado == true);
@@ -386,9 +381,8 @@ namespace RowingApp.Web.Controllers.API
                 return BadRequest();
             }
 
-
             Causante causante = await _dataContext2.VistaCausantesApp.FirstOrDefaultAsync
-                (o => o.codigo.ToLower() == request.Codigo.ToLower() && o.grupo== request.Grupo.ToLower() && o.estado==false);
+                (o => o.codigo.ToLower() == request.Codigo.ToLower() && o.grupo == request.Grupo.ToLower() && o.estado == false);
 
             if (causante == null)
             {
@@ -427,7 +421,6 @@ namespace RowingApp.Web.Controllers.API
         }
 
         //------------------------------------------------------------------------------------
-
         [HttpPut]
         [Route("ReactivarLegajo/{id}")]
         public async Task<IActionResult> ReactivarLegajo([FromRoute] int id, [FromBody] CausanteRequest3 request)
@@ -444,7 +437,6 @@ namespace RowingApp.Web.Controllers.API
 
             Causante2 oldCausante = await _dataContext2.Causantes.FirstOrDefaultAsync
                 (o => o.codigo.ToLower() == request.Codigo.ToLower() && o.grupo.ToLower() == request.Grupo.ToLower() && o.estado == false);
-
 
             if (oldCausante == null)
             {
