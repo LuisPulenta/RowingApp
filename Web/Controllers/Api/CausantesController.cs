@@ -447,5 +447,33 @@ namespace RowingApp.Web.Controllers.API
             await _dataContext2.SaveChangesAsync();
             return Ok();
         }
+
+        //------------------------------------------------------------------------------------
+        [HttpPut]
+        [Route("DesactivarLegajo/{id}")]
+        public async Task<IActionResult> DesactivarLegajo([FromRoute] int id, [FromBody] CausanteRequest3 request)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            if (id.ToString() != request.Codigo)
+            {
+                return BadRequest();
+            }
+
+            Causante2 oldCausante = await _dataContext2.Causantes.FirstOrDefaultAsync
+                (o => o.codigo.ToLower() == request.Codigo.ToLower() && o.grupo.ToLower() == request.Grupo.ToLower() && o.estado == false);
+
+            if (oldCausante == null)
+            {
+                return BadRequest("El Causante no existe.");
+            }
+            oldCausante.estado = false;
+            _dataContext2.Causantes.Update(oldCausante);
+            await _dataContext2.SaveChangesAsync();
+            return Ok();
+        }
     }
 }
