@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
 using System.Threading.Tasks;
+using System;
 
 namespace RowingApp.Web.Controllers.API
 {
@@ -18,6 +19,7 @@ namespace RowingApp.Web.Controllers.API
             _dataContext = dataContext;
         }
 
+        //--------------------------------------------------------------------------------
         [HttpPost]
         public async Task<IActionResult> Post([FromBody] UsuariosGeo request)
         {
@@ -26,11 +28,14 @@ namespace RowingApp.Web.Controllers.API
                 return BadRequest(ModelState);
             }
 
+            request.Fecha = DateTime.Now;
+
             _dataContext.UsuariosGeos.Add(request);
             await _dataContext.SaveChangesAsync();
             return Ok();
         }
 
+        //--------------------------------------------------------------------------------
         [HttpPost]
         [Route("GetParametro")]
         public async Task<IActionResult> GetParametro()
@@ -44,9 +49,10 @@ namespace RowingApp.Web.Controllers.API
             return Ok(parametro);
         }
 
+        //--------------------------------------------------------------------------------
         [HttpPost]
         [Route("GetUsuarios/{year}/{month}/{day}")]
-        public async Task<IActionResult> GetUsuarios(int year,int month,int day)
+        public async Task<IActionResult> GetUsuarios(int year, int month, int day)
         {
             if (!ModelState.IsValid)
             {
@@ -67,22 +73,21 @@ namespace RowingApp.Web.Controllers.API
            {
                IdUsuario = g.Key.IdUsuario,
                UsuarioStr = g.Key.UsuarioStr,
-               Modulo=g.Key.Modulo,
-
+               Modulo = g.Key.Modulo,
            }).ToListAsync();
-
 
             if (usuarios == null)
             {
-                return BadRequest("No hay REgistros para este Usuario.");
+                return BadRequest("No hay Registros para este Usuario.");
             }
 
             return Ok(usuarios);
         }
 
+        //--------------------------------------------------------------------------------
         [HttpPost]
         [Route("GetPuntos/{usuarioId}/{year}/{month}/{day}")]
-        public async Task<IActionResult> GetPuntos(int usuarioId,int year, int month, int day)
+        public async Task<IActionResult> GetPuntos(int usuarioId, int year, int month, int day)
         {
             if (!ModelState.IsValid)
             {
