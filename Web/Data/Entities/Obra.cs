@@ -1,14 +1,48 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.IO;
 using System.Linq;
 
 namespace RowingApp.Web.Data.Entities
 {
     public class Obra
     {
+        private bool EsImagen(string link)
+        {
+            var ext = ObtenerExtension(link);
+            return ext == ".jpg" || ext == ".jpeg" || ext == ".png" || ext == ".gif";
+        }
+
+        private bool EsAudio(string link)
+        {
+            var ext = ObtenerExtension(link);
+            return ext == ".mp3" || ext == ".wav" || ext == ".aac";
+        }
+
+        private bool EsVideo(string link)
+        {
+            var ext = ObtenerExtension(link);
+            return ext == ".mp4" || ext == ".avi" || ext == ".mov";
+        }
+
+        private bool EsPdf(string link)
+        {
+            var ext = ObtenerExtension(link);
+            return ext == ".pdf";
+        }
+
+        private string ObtenerExtension(string link)
+        {
+            if (string.IsNullOrEmpty(link))
+                return string.Empty;
+
+            return Path.GetExtension(link).ToLower();
+        }
+
         [Key]
         public int NroObra { get; set; }
+
         public string NombreObra { get; set; }
         public string NroOE { get; set; }
         public string DefProy { get; set; }
@@ -40,8 +74,12 @@ namespace RowingApp.Web.Data.Entities
         public string Motivo { get; set; }
         public string Planos { get; set; }
 
-        public int Photos => ObrasDocumentos == null ? 0 : ObrasDocumentos.Count(e => e.TipoDeFoto < 20);
-        public int Audios => ObrasDocumentos == null ? 0 : ObrasDocumentos.Count(e => e.TipoDeFoto == 20);
-        public int Videos => ObrasDocumentos == null ? 0 : ObrasDocumentos.Count(e => e.TipoDeFoto == 30);
+        public int Photos => ObrasDocumentos == null ? 0 : ObrasDocumentos.Count(e => EsImagen(e.LINK));
+
+        public int Audios => ObrasDocumentos == null ? 0 : ObrasDocumentos.Count(e => EsAudio(e.LINK));
+
+        public int Videos => ObrasDocumentos == null ? 0 : ObrasDocumentos.Count(e => EsVideo(e.LINK));
+
+        public int Pdfs => ObrasDocumentos == null ? 0 : ObrasDocumentos.Count(e => EsPdf(e.LINK));
     }
 }
